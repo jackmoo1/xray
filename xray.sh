@@ -33,12 +33,12 @@ http://www.tjwl.com/
 CONFIG_FILE="/usr/local/etc/xray/config.json"
 OS=`hostnamectl | grep -i system | cut -d: -f2`
 
-V6_PROXY=""
-IP=`curl -sL -4 ip.sb`
-if [[ "$?" != "0" ]]; then
-    IP=`curl -sL -4 ip.sb`
-    V6_PROXY="https://candyvc.com/"
-fi
+#V6_PROXY=""
+#IP=`curl -sL -4 ip.sb`
+#if [[ "$?" != "0" ]]; then
+    #IP=`curl -sL -4 ip.sb`
+    #V6_PROXY="https://candyvc.com/"
+#fi
 
 BT="false"
 NGINX_CONF_PATH="/etc/nginx/conf.d/"
@@ -179,7 +179,7 @@ getVersion() {
     VER=`/usr/local/bin/xray version|head -n1 | awk '{print $2}'`
     RETVAL=$?
     CUR_VER="$(normalizeVersion "$(echo "$VER" | head -n 1 | cut -d " " -f2)")"
-    TAG_URL="${V6_PROXY}https://api.github.com/repos/XTLS/Xray-core/releases/latest"
+    TAG_URL="$https://api.github.com/repos/XTLS/Xray-core/releases/latest"
     NEW_VER="$(normalizeVersion "$(curl -s "${TAG_URL}" --connect-timeout 10| grep 'tag_name' | cut -d\" -f4)")"
 
     if [[ $? -ne 0 ]] || [[ $NEW_VER == "" ]]; then
@@ -836,7 +836,7 @@ installBBR() {
 installXray() {
     rm -rf /tmp/xray
     mkdir -p /tmp/xray
-    DOWNLOAD_LINK="${V6_PROXY}https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
+    DOWNLOAD_LINK="$https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
     colorEcho $BLUE " 下载Xray: ${DOWNLOAD_LINK}"
     curl -L -H "Cache-Control: no-cache" -o /tmp/xray/xray.zip ${DOWNLOAD_LINK}
     if [ $? != 0 ];then
