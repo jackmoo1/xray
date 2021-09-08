@@ -2,6 +2,20 @@
 
 网络跳跃大佬退网了，后期可能无法使用，所以简单改动了一下，脚本简单易用。
 
+## 脚本集合内容：
+
+-    安装Xray-VMESS
+-    安装Xray-VMESS+mKCP
+-    安装Xray-VMESS+TCP+TLS
+-    安装Xray-VMESS+WS+TLS
+-    安装Xray-VLESS+mKCP
+-    安装Xray-VLESS+TCP+TLS
+-    安装Xray-VLESS+WS+TLS(可过cdn)
+-    安装Xray-VLESS+TCP+XTLS
+-    安装trojan
+-    安装trojan+XTLS
+
+
 
 ## 一键脚本
 
@@ -9,8 +23,7 @@
 
 `bash <(curl -sL https://raw.githubusercontent.com/a31663835/jackmoo-xray-/main/xray.sh)`
 
-### 测试（误用某些代码不正确）
-`bash <(curl -sL https://raw.githubusercontent.com/a31663835/jackmoo-xray-/main/xraysh.sh)`
+
 
 
 
