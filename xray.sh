@@ -1,6 +1,6 @@
 #!/bin/bash
 # xray一键安装脚本
-# Author: hijk<https://hijk.art>
+# Original Author: hijk<https://hijk.art>
 
 
 RED="\033[31m"      # Error message
@@ -1784,8 +1784,8 @@ menu() {
     clear
     echo "#############################################################"
     echo -e "#                     ${RED}Xray一键安装脚本${PLAIN}                      #"
-    echo -e "# ${GREEN}作者${PLAIN}: 网络跳越(hijk)                                      #"
-    echo -e "# ${GREEN}TG群${PLAIN}: https://t.me/hijkclub                               #"
+    echo -e "# ${GREEN}原作者${PLAIN}: 网络跳越(hijk)                                      #"
+    echo -e "# ${GREEN}改动${PLAIN}: 1.修复无法域名解析 2.修复xray无法更新                               #"
     echo "#############################################################"
     echo -e "  ${GREEN}1.${PLAIN}   安装Xray-VMESS"
     echo -e "  ${GREEN}2.${PLAIN}   安装Xray-${BLUE}VMESS+mKCP${PLAIN}"
