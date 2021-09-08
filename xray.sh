@@ -33,12 +33,12 @@ http://www.tjwl.com/
 CONFIG_FILE="/usr/local/etc/xray/config.json"
 OS=`hostnamectl | grep -i system | cut -d: -f2`
 
-#V6_PROXY=""
-#IP=`curl -sL -4 ip.sb`
-#if [[ "$?" != "0" ]]; then
-    #IP=`curl -sL -4 ip.sb`
-    #V6_PROXY="https://candyvc.com/"
-#fi
+V4_PROXY=""
+IP=`curl -sL -4 ip.sb`
+if [[ "$?" != "0" ]]; then
+    IP=`curl -sL -4 ip.sb`
+    V4_PROXY="https://candyvc.com/"
+fi
 
 BT="false"
 NGINX_CONF_PATH="/etc/nginx/conf.d/"
@@ -836,7 +836,7 @@ installBBR() {
 installXray() {
     rm -rf /tmp/xray
     mkdir -p /tmp/xray
-    DOWNLOAD_LINK="$https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
+    DOWNLOAD_LINK="${V4_PROXY}https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
     colorEcho $BLUE " 下载Xray: ${DOWNLOAD_LINK}"
     curl -L -H "Cache-Control: no-cache" -o /tmp/xray/xray.zip ${DOWNLOAD_LINK}
     if [ $? != 0 ];then
