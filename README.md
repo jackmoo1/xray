@@ -21,7 +21,7 @@
 
 1.修复无法域名解析 2.修复xray无法更新 
 
-`bash <(curl -sL https://raw.githubusercontent.com/a31663835/jackmoo-xray-/main/xray.sh)`
+`bash <(curl -sL https://raw.githubusercontent.com/jackmoo1/jackmoo-xray-/main/xray.sh)`
 
 
 
