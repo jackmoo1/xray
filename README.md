@@ -7,7 +7,8 @@
 
 `bash <(curl -sL https://raw.githubusercontent.com/a31663835/jackmoo-xray-/main/xray.sh)`
 
-
+### 测试
+`bash <(curl -sL https://raw.githubusercontent.com/a31663835/jackmoo-xray-/main/xraysh.sh)`
 
 
 
