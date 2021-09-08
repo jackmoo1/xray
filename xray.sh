@@ -282,7 +282,7 @@ getData() {
             KEY_FILE="/usr/local/etc/xray/${DOMAIN}.key"
         else
 	    real_ip=`ping ${DOMAIN} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}'`
-	    local_addr=`curl ipv4.icanhazip.com`
+	    local_ip=`curl ipv4.icanhazip.com`
 	    #local_ip=`curl https://ipinfo.io/ip`
 	    #local_ip=`curl https://api.ip.sb/ip`
 	    #local_ip=`curl https://api.ipify.org`
