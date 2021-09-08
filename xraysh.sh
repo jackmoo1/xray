@@ -284,7 +284,7 @@ getData() {
             real_addr=`ping ${DOMAIN} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}'`
             local_addr=`curl v4.ident.me`
             if [[ $real_addr == $local_addr]]; then
-                colorEcho ${BLUE}  "${DOMAIN} 解析结果：${resolve}"
+                colorEcho ${BLUE}  "${DOMAIN} 解析结果：${real_addr}"
 	    else	
                 colorEcho ${RED}  " 域名未解析到当前服务器IP(${IP})!"
                 exit 1
