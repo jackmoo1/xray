@@ -908,7 +908,12 @@ trojanConfig() {
     "protocol": "blackhole",
     "settings": {},
     "tag": "blocked"
-  }]
+  },
+    "mux": {
+        "enabled": false,
+        "concurrency": 8
+    }
+  ]
 }
 EOF
 }
@@ -959,12 +964,7 @@ trojanXTLSConfig() {
     "protocol": "blackhole",
     "settings": {},
     "tag": "blocked"
-  },
-    "mux": {
-        "enabled": false,
-        "concurrency": 8
-    }
-  ]
+  }]
 }
 EOF
 }
@@ -1227,12 +1227,7 @@ vlessXTLSConfig() {
     "protocol": "blackhole",
     "settings": {},
     "tag": "blocked"
-  }，
-      "mux": {
-        "enabled": false,
-        "concurrency": 8
-    }
-  ]
+  }]
 }
 EOF
 }
