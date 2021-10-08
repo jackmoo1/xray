@@ -929,17 +929,17 @@ trojanXTLSConfig() {
         "type": "field",
         "ip": [
           "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
-          "geoip:cn"
+          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
         ],
-        "outboundTag": "direct" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
-      // 3.2 国内域名直连
+      // 3.2 国内域名屏蔽
       {
         "type": "field",
         "domain": [
           "geosite:cn"
         ],
-        "outboundTag": "direct"
+        "outboundTag": "block"
       },
       // 3.3 屏蔽广告
       {
@@ -1220,9 +1220,9 @@ vlessXTLSConfig() {
         "type": "field",
         "ip": [
           "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
-          "geoip:cn"
+          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
         ],
-        "outboundTag": "direct" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
       // 3.2 国内域名直连
       {
@@ -1230,7 +1230,7 @@ vlessXTLSConfig() {
         "domain": [
           "geosite:cn"
         ],
-        "outboundTag": "direct"
+        "outboundTag": "block"
       },
       // 3.3 屏蔽广告
       {
