@@ -1224,7 +1224,7 @@ vlessXTLSConfig() {
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
-      // 3.2 国内域名直连
+      // 3.2 国内域名屏蔽
       {
         "type": "field",
         "domain": [
