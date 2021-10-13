@@ -933,13 +933,20 @@ trojanXTLSConfig() {
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+        ],
+        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+      },
       // 3.2 国内域名屏蔽
       {
         "type": "field",
         "domain": [
-          "geosite:cn"
+          "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
         ],
-        "outboundTag": "block"
+        "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
       // 3.3 屏蔽广告
       {
@@ -1219,18 +1226,25 @@ vlessXTLSConfig() {
       {
         "type": "field",
         "ip": [
-          "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
-          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
+          "geoip:private", // 分流条件：geoip 文件内，名为"private"的规则（本地）
+          "geoip:cn" // 分流条件：geoip 文件内，名为"cn"的规则（国内）
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:apple@cn" // 分流条件：geoip 文件内，名为"apple"的域名
+        ],
+        "outboundTag": "direct" // 分流策略：交给出站"direct"处理（直连）
       },
       // 3.2 国内域名屏蔽
       {
         "type": "field",
         "domain": [
-          "geosite:cn"
+          "geosite:cn" // 分流条件：geosite 文件内，名为"cn"的规则（国内）
         ],
-        "outboundTag": "block"
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
       // 3.3 屏蔽广告
       {
