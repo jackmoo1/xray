@@ -1176,6 +1176,57 @@ vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
     cat > $CONFIG_FILE<<-EOF
 {
+  // 1\_日志设置
+  "log": {
+    "loglevel": "warning", // 内容从少到多: "none", "error", "warning", "info", "debug"
+    "access": "/var/log/nginx/access.log", // 访问记录
+    "error": "/var/log/nginx/error.log" // 错误记录
+  },
+  // 2_DNS 设置
+  "dns": {
+    "servers": [
+      "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+      "localhost"
+    ] 
+  },
+  // 3*分流设置
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      // 3.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
+          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
+        ],
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+        ],
+        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+      },
+      // 3.2 国内域名屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
+        ],
+        "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      // 3.3 屏蔽广告
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
+        ],
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      }
+    ]
+  },
   "inbounds": [{
     "port": $PORT,
     "protocol": "vless",
@@ -1217,10 +1268,11 @@ vlessXTLSConfig() {
   "outbounds": [{
     "protocol": "freedom",
     "settings": {}
+    "tag": "direct"
   },{
     "protocol": "blackhole",
     "settings": {},
-    "tag": "blocked"
+    "tag": "block"
   }]
 }
 EOF
