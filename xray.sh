@@ -921,6 +921,20 @@ EOF
 trojanXTLSConfig() {
     cat > $CONFIG_FILE<<-EOF
 {
+  // 1\_日志设置
+  "log": {
+    "loglevel": "warning", // 内容从少到多: "none", "error", "warning", "info", "debug"
+    "access": "/var/log/nginx/access.log", // 访问记录
+    "error": "/var/log/nginx/error.log" // 错误记录
+  },
+  // 2_DNS 设置
+  "dns": {
+    "servers": [
+      "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+      "localhost"
+    ]
+  },
+  // 3*分流设置
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
@@ -1219,6 +1233,20 @@ vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
     cat > $CONFIG_FILE<<-EOF
 {
+  // 1\_日志设置
+  "log": {
+    "loglevel": "warning", // 内容从少到多: "none", "error", "warning", "info", "debug"
+    "access": "/var/log/nginx/access.log", // 访问记录
+    "error": "/var/log/nginx/error.log" // 错误记录
+  },
+  // 2_DNS 设置
+  "dns": {
+    "servers": [
+      "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+      "localhost"
+    ]
+  },
+  // 3*分流设置
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
