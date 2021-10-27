@@ -953,16 +953,9 @@ trojanXTLSConfig() {
         "type": "field",
         "domain": [
           "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
+	  "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）	  
         ],
         "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
-      },
-      // 3.3 屏蔽广告
-      {
-        "type": "field",
-        "domain": [
-          "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
-        ],
-        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       }
     ]
   },
@@ -1259,14 +1252,7 @@ vlessXTLSConfig() {
         "type": "field",
         "domain": [
           "geosite:cn" // 分流条件：geosite 文件内，名为"cn"的规则（国内）
-        ],
-        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
-      },
-      // 3.3 屏蔽广告
-      {
-        "type": "field",
-        "domain": [
-          "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
+	  "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       }
