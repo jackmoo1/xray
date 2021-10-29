@@ -55,6 +55,8 @@ WS="false"
 XTLS="false"
 KCP="false"
 
+
+# 检查系统
 checkSystem() {
     result=$(id | awk '{print $1}')
     if [[ $result != "uid=0(root)" ]]; then
