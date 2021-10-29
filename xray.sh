@@ -90,6 +90,102 @@ colorEcho() {
     echo -e "${1}${@:2}${PLAIN}"
 }
 
+# 安装工具包
+installTools() {
+	echo '安装工具'
+	echoContent skyBlue "\n进度  $1/${totalProgress} : 安装工具"
+	# 修复ubuntu个别系统问题
+	if [[ "${release}" == "ubuntu" ]]; then
+		dpkg --configure -a
+	fi
+
+	if [[ -n $(pgrep -f "apt") ]]; then
+		pgrep -f apt | xargs kill -9
+	fi
+
+	echoContent green " ---> 检查、安装更新【新机器会很慢，如长时间无反应，请手动停止后重新执行】"
+
+	${upgrade} >/etc/v2ray-agent/install.log 2>&1
+	if grep <"/etc/v2ray-agent/install.log" -q "changed"; then
+		${updateReleaseInfoChange} >/dev/null 2>&1
+	fi
+
+	if [[ "${release}" == "centos" ]]; then
+		rm -rf /var/run/yum.pid
+		${installType} epel-release >/dev/null 2>&1
+	fi
+
+	#	[[ -z `find /usr/bin /usr/sbin |grep -v grep|grep -w curl` ]]
+
+	if ! find /usr/bin /usr/sbin | grep -q -w wget; then
+		echoContent green " ---> 安装wget"
+		${installType} wget >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w curl; then
+		echoContent green " ---> 安装curl"
+		${installType} curl >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w unzip; then
+		echoContent green " ---> 安装unzip"
+		${installType} unzip >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w socat; then
+		echoContent green " ---> 安装socat"
+		${installType} socat >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w tar; then
+		echoContent green " ---> 安装tar"
+		${installType} tar >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w cron; then
+		echoContent green " ---> 安装crontabs"
+		if [[ "${release}" == "ubuntu" ]] || [[ "${release}" == "debian" ]]; then
+			${installType} cron >/dev/null 2>&1
+		else
+			${installType} crontabs >/dev/null 2>&1
+		fi
+	fi
+	if ! find /usr/bin /usr/sbin | grep -q -w jq; then
+		echoContent green " ---> 安装jq"
+		${installType} jq >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w binutils; then
+		echoContent green " ---> 安装binutils"
+		${installType} binutils >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w ping6; then
+		echoContent green " ---> 安装ping6"
+		${installType} inetutils-ping >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w qrencode; then
+		echoContent green " ---> 安装qrencode"
+		${installType} qrencode >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w sudo; then
+		echoContent green " ---> 安装sudo"
+		${installType} sudo >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w lsb-release; then
+		echoContent green " ---> 安装lsb-release"
+		${installType} lsb-release >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w lsof; then
+		echoContent green " ---> 安装lsof"
+		${installType} lsof >/dev/null 2>&1
+	fi
+}
+
 configNeedNginx() {
     local ws=`grep wsSettings $CONFIG_FILE`
     if [[ -z "$ws" ]]; then
