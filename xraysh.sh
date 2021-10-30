@@ -1,11 +1,12 @@
 #!/bin/bash
 # xray一键安装脚本
 
-
+# 字体颜色配置
 RED="\033[31m"      # Error message
 GREEN="\033[32m"    # Success message
 YELLOW="\033[33m"   # Warning message
 BLUE="\033[36m"     # Info message
+skyBlue="\033[1;36m"
 PLAIN='\033[0m'
 
 # 以下网站是随机从Google上找到的无广告小说网站，不喜欢请改成其他网址，以http或https开头
@@ -54,6 +55,7 @@ WS="false"
 XTLS="false"
 KCP="false"
 
+# 检查系统
 checkSystem() {
     result=$(id | awk '{print $1}')
     if [[ $result != "uid=0(root)" ]]; then
@@ -87,6 +89,25 @@ checkSystem() {
 
 colorEcho() {
     echo -e "${1}${@:2}${PLAIN}"
+}
+
+# 初始化全局变量
+initVar() {
+	# 安装总进度
+	totalProgress=1
+
+	# 1.xray安装
+	# 2.v2ray安装
+	# 3.x2ray[xtls] 安装
+
+    # xray配置文件的路径
+	configPath=/usr/local/etc/xray/
+
+	# 集成更新证书逻辑不再使用单独的脚本--RenewTLS
+	renewTLS=$1
+
+	# 配置文件的host
+	DOMAIN=    
 }
 
 configNeedNginx() {
@@ -821,6 +842,202 @@ installBBR() {
     fi
 }
 
+# 通用
+defaultBase64Code() {
+	local type=$1
+	local email=$2
+	local id=$3
+	local hostPort=$4
+    local path=$5	
+}
+
+# 定时任务更新tls证书
+installCronTLS() {
+	skyBlue "\n进度 $1/${totalProgress} : 添加定时维护证书"
+	crontab -l >/usr/local/etc/backup_crontab.cron
+	local historyCrontab
+	historyCrontab=$(sed '/xray/d;/acme.sh/d' /usr/local/etc/backup_crontab.cron)
+	echo "${historyCrontab}" >/usr/local/etc/backup_crontab.cron
+	echo "30 1 * * * /bin/bash /usr/local/etc/install.sh RenewTLS >> /usr/local/etc/crontab_tls.log 2>&1" >>/usr/local/etc/backup_crontab.cron
+	crontab /usr/local/etc/backup_crontab.cron
+	green "\n ---> 添加定时维护证书成功"
+}
+
+# 更新证书
+renewalTLS() {
+	if [[ -n $1 ]]; then
+		skyBlue "\n进度  $1/1 : 更新证书"
+	fi
+
+	if [[ -d "~/.acme.sh/${DOMAIN}_ecc" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]]; then
+		modifyTime=$(stat "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" | sed -n '7,6p' | awk '{print $2" "$3" "$4" "$5}')
+
+		modifyTime=$(date +%s -d "${modifyTime}")
+		currentTime=$(date +%s)
+		((stampDiff = currentTime - modifyTime))
+		((days = stampDiff / 86400))
+		((remainingDays = 90 - days))
+
+		tlsStatus=${remainingDays}
+		if [[ ${remainingDays} -le 0 ]]; then
+			tlsStatus="已过期"
+		fi
+
+		skyBlue " ---> 证书检查日期:$(date "+%F %H:%M:%S")"
+		skyBlue " ---> 证书生成日期:$(date -d @"${modifyTime}" +"%F %H:%M:%S")"
+		skyBlue " ---> 证书生成天数:${days}"
+		skyBlue " ---> 证书剩余天数:"${tlsStatus}
+		skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"
+
+		if [[ ${remainingDays} -le 1 ]]; then
+			yellow " ---> 重新生成证书"
+			handleNginx stop
+			sudo "~/.acme.sh/acme.sh" --cron --home "~/.acme.sh"
+			sudo "~/.acme.sh/acme.sh" --installcert -d "${DOMAIN}" --fullchainpath /usr/local/etc/tls/"${DOMAIN}.crt" --keypath /usr/local/etc/tls/"${DOMAIN}.key" --ecc
+			reloadCore
+		else
+			green " ---> 证书有效"
+		fi
+	else
+		red " ---> 未安装"
+	fi
+}
+# 查看TLS证书的状态
+checkTLStatus() {
+
+	if [[ -d "~/.acme.sh/${DOMAIN}_ecc" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]]; then
+		modifyTime=$(stat "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" | sed -n '7,6p' | awk '{print $2" "$3" "$4" "$5}')
+
+		modifyTime=$(date +%s -d "${modifyTime}")
+		currentTime=$(date +%s)
+		((stampDiff = currentTime - modifyTime))
+		((days = stampDiff / 86400))
+		((remainingDays = 90 - days))
+
+		tlsStatus=${remainingDays}
+		if [[ ${remainingDays} -le 0 ]]; then
+			tlsStatus="已过期"
+		fi
+
+		skyBlue " ---> 证书生成日期:$(date -d "@${modifyTime}" +"%F %H:%M:%S")"
+		skyBlue " ---> 证书生成天数:${days}"
+		skyBlue " ---> 证书剩余天数:${tlsStatus}"
+	fi
+}
+
+# 定时任务检查证书
+cronRenewTLS() {
+	if [[ "${renewTLS}" == "RenewTLS" ]]; then
+		renewalTLS
+		exit 0
+	fi
+}
+
+# 重启核心
+reloadCore() {
+	res=`status`
+    if [[ $res -lt 2 ]]; then
+        colorEcho $RED " Xray未安装，请先安装！"
+        return
+    fi
+    stopNginx
+    startNginx
+    systemctl restart xray
+    sleep 2
+    
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    res=`ss -nutlp| grep ${port} | grep -i xray`
+    if [[ "$res" = "" ]]; then
+        colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
+    else
+        colorEcho $BLUE " Xray启动成功"
+    fi
+}
+
+# DNS解锁
+dnsUnlock() {
+	echo skyBlue "\n功能 1/${totalProgress} : DNS解锁"
+	echo red "\n=============================================================="
+	echo yellow "1.添加"
+	echo yellow "2.卸载"
+	read -r -p "请选择:" selectType
+
+	case ${selectType} in
+	1)
+		setUnlockDNS
+		;;
+	2)
+		removeUnlockDNS
+		;;
+	esac
+}
+
+# 设置dns
+setUnlockDNS() {
+	read -r -p "请输入解锁的DNS:" setDNS
+	if [[ -n ${setDNS} ]]; then
+		cat <<EOF >${configPath}11_dns.json
+{
+	"dns": {
+		"servers": [
+			{
+				"address": "${setDNS}",
+				"port": 53,
+				"domains": [
+					"geosite:netflix",
+					"geosite:bahamut",
+					"geosite:hulu",
+					"geosite:hbo",
+					"geosite:disney",
+					"geosite:bbc",
+					"geosite:4chan",
+					"geosite:fox",
+					"geosite:abema",
+					"geosite:dmm",
+					"geosite:niconico",
+					"geosite:pixiv",
+					"geosite:bilibili",
+					"geosite:viu"
+				]
+			},
+		"localhost"
+		]
+	}
+}
+EOF
+		reloadCore
+
+		echo green "\n ---> DNS解锁添加成功，该设置对Trojan-Go无效"
+		echo yellow "\n ---> 如还无法观看可以尝试以下两种方案"
+		echo yellow " 1.重启vps"
+		echo yellow " 2.卸载dns解锁后，修改本地的[/etc/resolv.conf]DNS设置并重启vps\n"
+	else
+		echo red " ---> dns不可为空"
+	fi
+	exit 0
+}
+
+# 移除DNS解锁
+removeUnlockDNS() {
+	cat <<EOF >${configPath}11_dns.json
+{
+	"dns": {
+		"servers": [
+            "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+			"localhost"
+		]
+	}
+}
+EOF
+	reloadCore
+
+	echo green " ---> 卸载成功"
+
+	exit 0
+}
+
+
+
 installXray() {
     rm -rf /tmp/xray
     mkdir -p /tmp/xray
@@ -913,8 +1130,51 @@ EOF
 }
 
 trojanXTLSConfig() {
+  // 2_DNS 设置
+    cat <<EOF >/usr/local/etc/xray/11_dns.json
+{
+    "dns": {
+      "servers": [
+        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "localhost"
+      ] 
+    }
+}
+EOF
+  
     cat > $CONFIG_FILE<<-EOF
 {
+  // 3*分流设置
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      // 3.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
+          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
+        ],
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+        ],
+        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+      },
+      // 3.2 国内域名和广告屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all", // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
+          "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
+        ],
+        "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
+      }
+    ]
+  },
   "inbounds": [{
     "port": $PORT,
     "protocol": "trojan",
@@ -1174,21 +1434,20 @@ EOF
 
 vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
+  // 2_DNS 设置
+    cat <<EOF >/usr/local/etc/xray/11_dns.json
+{
+    "dns": {
+      "servers": [
+        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "localhost"
+      ] 
+    }
+}  
+EOF
+
     cat > $CONFIG_FILE<<-EOF
 {
-  // 1\_日志设置
-  "log": {
-    "loglevel": "warning", // 内容从少到多: "none", "error", "warning", "info", "debug"
-    "access": "/var/log/nginx/access.log", // 访问记录
-    "error": "/var/log/nginx/error.log" // 错误记录
-  },
-  // 2_DNS 设置
-  "dns": {
-    "servers": [
-      "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
-      "localhost"
-    ] 
-  },
   // 3*分流设置
   "routing": {
     "domainStrategy": "AsIs",
@@ -1205,25 +1464,18 @@ vlessXTLSConfig() {
       {
         "type": "field",
         "domain": [
-          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+		  "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
         ],
         "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
-      // 3.2 国内域名屏蔽
+      // 3.2 国内域名和广告屏蔽
       {
         "type": "field",
         "domain": [
+          "geosite:category-ads-all", // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
           "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
         ],
         "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
-      },
-      // 3.3 屏蔽广告
-      {
-        "type": "field",
-        "domain": [
-          "geosite:category-ads-all" // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
-        ],
-        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       }
     ]
   },
@@ -1834,9 +2086,7 @@ showLog() {
 menu() {
     clear
     echo "#############################################################"
-    echo -e "#                     ${RED}Xray一键安装脚本${PLAIN}                      #"
-    echo -e "# ${GREEN}作者${PLAIN}: 网络跳越(hijk)                                      #"
-    echo -e "# ${GREEN}TG群${PLAIN}: https://t.me/hijkclub                               #"
+    echo -e "#                     ${RED}Xray/trojan一键安装脚本${PLAIN}                 #"
     echo "#############################################################"
     echo -e "  ${GREEN}1.${PLAIN}   安装Xray-VMESS"
     echo -e "  ${GREEN}2.${PLAIN}   安装Xray-${BLUE}VMESS+mKCP${PLAIN}"
@@ -1858,6 +2108,9 @@ menu() {
     echo " -------------"
     echo -e "  ${GREEN}16.${PLAIN}  查看Xray配置"
     echo -e "  ${GREEN}17.${PLAIN}  查看Xray日志"
+    echo " -------------"
+    echo -e "  ${GREEN}18.${PLAIN}  更新证书"
+    echo -e "  ${GREEN}19.${PLAIN}  DNS解锁"
     echo " -------------"
     echo -e "  ${GREEN}0.${PLAIN}   退出"
     echo -n " 当前状态："
@@ -1939,6 +2192,12 @@ menu() {
         17)
             showLog
             ;;
+        18)
+            renewalTLS 1
+            ;;
+        19)
+            dnsUnlock 1
+            ;;                        
         *)
             colorEcho $RED " 请选择正确的操作！"
             exit 1
@@ -1959,4 +2218,3 @@ case "$action" in
         echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
         ;;
 esac
-
