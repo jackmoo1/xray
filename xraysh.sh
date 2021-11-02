@@ -134,11 +134,6 @@ installTools() {
 		${CMD_INSTALL} curl >/dev/null 2>&1
 	fi
 
-	if ! find /usr/bin /usr/sbin | grep -q -w unzip; then
-		echo -e $GREEN " ---> 安装unzip"
-		${CMD_INSTALL} unzip >/dev/null 2>&1
-	fi
-
 	if ! find /usr/bin /usr/sbin | grep -q -w socat; then
 		echo -e $GREEN " ---> 安装socat"
 		${CMD_INSTALL} socat >/dev/null 2>&1
@@ -2264,7 +2259,7 @@ menu() {
 }
 
 checkSystem
-menu
+
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
