@@ -29,9 +29,22 @@ https://www.zhetian.org/
 http://www.bequgexs.com/
 http://www.tjwl.com/
 )
+# 初始化全局变量
 
+# 安装总进度
+totalProgress=1
+
+# xray配置文件dns文件
+CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
+
+# xray/trojan预配置文件
+CONFIG_PREFILE="/usr/local/etc/xray/preconfig.json"
+
+# xray/trojan运行配置文件
 CONFIG_FILE="/usr/local/etc/xray/config.json"
-OS=`hostnamectl | grep -i system | cut -d: -f2`
+
+# 系统类型选取
+OS=`hostnamectl | grep -i system | cut -d: -f2`      
 
 V6_PROXY=""
 IP=`curl -sL -4 ip.sb`
@@ -91,24 +104,112 @@ colorEcho() {
     echo -e "${1}${@:2}${PLAIN}"
 }
 
-# 初始化全局变量
-initVar() {
-	# 安装总进度
-	totalProgress=1
+initVar "$1"
+readCMD_INSTALL
 
-	# 1.xray安装
-	# 2.v2ray安装
-	# 3.x2ray[xtls] 安装
+# 安装工具包
+installTools() {
+	echo '安装工具'
+	echo -e $skyBlue "\n进度  $1/${totalProgress} : 安装工具"
+	# 修复ubuntu个别系统问题
+	if [[ "${PTM}" == "apt" ]]; then
+		dpkg --configure -a
+	fi
 
-    # xray配置文件的路径
-	configPath=/usr/local/etc/xray/
+	if [[ -n $(pgrep -f "apt") ]]; then
+		pgrep -f apt | xargs kill -9
+	fi
 
-	# 集成更新证书逻辑不再使用单独的脚本--RenewTLS
-	renewTLS=$1
+	echo -e $GREEN " ---> 检查、安装更新【新机器会很慢，如长时间无反应，请手动停止后重新执行】"
 
-	# 配置文件的host
-	DOMAIN=    
+	#	[[ -z `find /usr/bin /usr/sbin |grep -v grep|grep -w curl` ]]
+
+	if ! find /usr/bin /usr/sbin | grep -q -w wget; then
+		echo -e $GREEN " ---> 安装wget"
+		${CMD_INSTALL} wget >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w curl; then
+		echo -e $GREEN " ---> 安装curl"
+		${CMD_INSTALL} curl >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w unzip; then
+		echo -e $GREEN " ---> 安装unzip"
+		${CMD_INSTALL} unzip >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w socat; then
+		echo -e $GREEN " ---> 安装socat"
+		${CMD_INSTALL} socat >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w tar; then
+		echo -e $GREEN " ---> 安装tar"
+		${CMD_INSTALL} tar >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w cron; then
+		echo -e $GREEN " ---> 安装crontabs"
+		if [[ "${PTM}" == "apt" ]]; then
+			${CMD_INSTALL} cron >/dev/null 2>&1
+		else
+			${CMD_INSTALL} crontabs >/dev/null 2>&1
+		fi
+	fi
+	if ! find /usr/bin /usr/sbin | grep -q -w jq; then
+		echo -e $GREEN " ---> 安装jq"
+		${CMD_INSTALL} jq >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w binutils; then
+		echo -e $GREEN " ---> 安装binutils"
+		${CMD_INSTALL} binutils >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w ping6; then
+		echo -e $GREEN " ---> 安装ping6"
+		${CMD_INSTALL} inetutils-ping >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w qrencode; then
+		echo -e $GREEN " ---> 安装qrencode"
+		${CMD_INSTALL} qrencode >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w sudo; then
+		echo -e $GREEN " ---> 安装sudo"
+		${CMD_INSTALL} sudo >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w lsb-release; then
+		echo -e $GREEN " ---> 安装lsb-release"
+		${CMD_INSTALL} lsb-release >/dev/null 2>&1
+	fi
+
+	if ! find /usr/bin /usr/sbin | grep -q -w lsof; then
+		echo -e $GREEN " ---> 安装lsof"
+		${CMD_INSTALL} lsof >/dev/null 2>&1
+	fi
+
+	if [[ "${PMT}" == "yum" ]]; then 
+        if ! find /usr/bin /usr/sbin | grep -q -w semanage; then
+		    echo -e $GREEN " ---> 安装semanage"
+		    ${CMD_INSTALL} bash-completion >/dev/null 2>&1
+			policyCoreUtils="policycoreutils-python.x86_64"
+
+		    if [[ -n "${policyCoreUtils}" ]]; then
+			${CMD_INSTALL} ${policyCoreUtils} >/dev/null 2>&1
+		    fi
+
+		    if [[ -n $(which semanage) ]]; then
+			    semanage port -a -t http_port_t -p tcp 31300
+
+		    fi
+	    fi
+    fi    
 }
+
 
 configNeedNginx() {
     local ws=`grep wsSettings $CONFIG_FILE`
@@ -127,6 +228,7 @@ needNginx() {
     echo yes
 }
 
+#状态变量
 status() {
     if [[ ! -f /usr/local/bin/xray ]]; then
         echo 0
@@ -136,7 +238,7 @@ status() {
         echo 1
         return
     fi
-    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ -z "$res" ]]; then
         echo 2
@@ -155,6 +257,7 @@ status() {
     fi
 }
 
+#运行状态文件
 statusText() {
     res=`status`
     case $res in
@@ -194,6 +297,7 @@ normalizeVersion() {
     fi
 }
 
+#检查Xray版本信息
 # 1: new Xray. 0: no. 1: yes. 2: not installed. 3: check failed.
 getVersion() {
     VER=`/usr/local/bin/xray version|head -n1 | awk '{print $2}'`
@@ -213,6 +317,7 @@ getVersion() {
     return 0
 }
 
+#检测CPU架构
 archAffix(){
     case "$(uname -m)" in
         i686|i386)
@@ -507,6 +612,8 @@ getData() {
     colorEcho $BLUE " 安装BBR：$NEED_BBR"
 }
 
+
+#安装nginx
 installNginx() {
     echo ""
     colorEcho $BLUE " 安装nginx..."
@@ -538,6 +645,7 @@ module_hotfixes=true' > /etc/yum.repos.d/nginx.repo
     fi
 }
 
+#启动nginx
 startNginx() {
     if [[ "$BT" = "false" ]]; then
         systemctl start nginx
@@ -546,6 +654,7 @@ startNginx() {
     fi
 }
 
+#停止nginx
 stopNginx() {
     if [[ "$BT" = "false" ]]; then
         systemctl stop nginx
@@ -557,6 +666,7 @@ stopNginx() {
     fi
 }
 
+#获取并安装证书
 getCert() {
     mkdir -p /usr/local/etc/xray
     if [[ -z ${CERT_FILE+x} ]]; then
@@ -598,7 +708,7 @@ getCert() {
         ~/.acme.sh/acme.sh  --install-cert -d $DOMAIN --ecc \
             --key-file       $KEY_FILE  \
             --fullchain-file $CERT_FILE \
-            --reloadcmd     "service nginx force-reload"
+            --reloadcmd     "service nginx restart"
         [[ -f $CERT_FILE && -f $KEY_FILE ]] || {
             colorEcho $RED " 获取证书失败2"
             exit 1
@@ -608,6 +718,44 @@ getCert() {
         cp ~/xray.key /usr/local/etc/xray/${DOMAIN}.key
     fi
 }
+
+# 查看TLS证书的状态
+# 更新证书
+renewalTLS() {
+	if [[ -d "/usr/local/etc/xray" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+		echo -e $GREEN " ---> 检测到证书"$PLAIN
+        BirthTime=$(openssl x509 -in /usr/local/etc/xray/csgia.date.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		BirthTime=$(date +%s -d "${BirthTime}")
+		currentTime=$(date +%s)
+		((stampDiff = currentTime - BirthTime))
+		((days = stampDiff / 86400))
+		((remainingDays = 90 - days))
+
+		tlsStatus=${remainingDays}
+		if [[ ${remainingDays} -le 0 ]]; then
+			tlsStatus="已过期"
+		fi
+
+		echo -e $skyBlue " ---> 证书检查日期:$(date "+%F %H:%M:%S")"
+		echo -e $skyBlue " ---> 证书生成日期:$(date -d @"${BirthTime}" +"%F %H:%M:%S")"
+		echo -e $skyBlue " ---> 证书生成天数:${days}"
+		echo -e $skyBlue " ---> 证书剩余天数:"${tlsStatus}
+		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
+        
+		if [[ ${remainingDays} -le 1 ]]; then
+			echo -e $YELLOW " ---> 重新生成证书"
+			handleNginx stop
+			sudo "~/.acme.sh/acme.sh" --cron --home "~/.acme.sh"
+			sudo "~/.acme.sh/acme.sh" --install-cert -d "${DOMAIN}" --fullchainpath /usr/local/etc/tls/"${DOMAIN}.crt" --keypath /usr/local/etc/tls/"${DOMAIN}.key" --ecc
+			reloadCore
+		else
+			echo -e $GREEN " ---> 证书有效无需更新！"$PLAIN
+		fi
+	else
+		echo -e $RED " ---> 未安装"$PLAIN
+	fi
+}
+
 
 configNginx() {
     mkdir -p /usr/share/nginx/html;
@@ -693,7 +841,7 @@ server {
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_ecdh_curve secp384r1;
     ssl_prefer_server_ciphers on;
-    ssl_session_cache shared:SSL:10m;
+    ssl_session_cache shaRED:SSL:10m;
     ssl_session_timeout 10m;
     ssl_session_tickets off;
     ssl_certificate $CERT_FILE;
@@ -704,7 +852,7 @@ server {
     }
     $ROBOT_CONFIG
     location ${WSPATH} {
-      proxy_redirect off;
+      proxy_REDirect off;
       proxy_pass http://127.0.0.1:${XPORT};
       proxy_http_version 1.1;
       proxy_set_header Upgrade \$http_upgrade;
@@ -842,97 +990,6 @@ installBBR() {
     fi
 }
 
-# 通用
-defaultBase64Code() {
-	local type=$1
-	local email=$2
-	local id=$3
-	local hostPort=$4
-    local path=$5	
-}
-
-# 定时任务更新tls证书
-installCronTLS() {
-	skyBlue "\n进度 $1/${totalProgress} : 添加定时维护证书"
-	crontab -l >/usr/local/etc/backup_crontab.cron
-	local historyCrontab
-	historyCrontab=$(sed '/xray/d;/acme.sh/d' /usr/local/etc/backup_crontab.cron)
-	echo "${historyCrontab}" >/usr/local/etc/backup_crontab.cron
-	echo "30 1 * * * /bin/bash /usr/local/etc/install.sh RenewTLS >> /usr/local/etc/crontab_tls.log 2>&1" >>/usr/local/etc/backup_crontab.cron
-	crontab /usr/local/etc/backup_crontab.cron
-	green "\n ---> 添加定时维护证书成功"
-}
-
-# 更新证书
-renewalTLS() {
-	if [[ -n $1 ]]; then
-		skyBlue "\n进度  $1/1 : 更新证书"
-	fi
-
-	if [[ -d "~/.acme.sh/${DOMAIN}_ecc" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]]; then
-		modifyTime=$(stat "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" | sed -n '7,6p' | awk '{print $2" "$3" "$4" "$5}')
-
-		modifyTime=$(date +%s -d "${modifyTime}")
-		currentTime=$(date +%s)
-		((stampDiff = currentTime - modifyTime))
-		((days = stampDiff / 86400))
-		((remainingDays = 90 - days))
-
-		tlsStatus=${remainingDays}
-		if [[ ${remainingDays} -le 0 ]]; then
-			tlsStatus="已过期"
-		fi
-
-		skyBlue " ---> 证书检查日期:$(date "+%F %H:%M:%S")"
-		skyBlue " ---> 证书生成日期:$(date -d @"${modifyTime}" +"%F %H:%M:%S")"
-		skyBlue " ---> 证书生成天数:${days}"
-		skyBlue " ---> 证书剩余天数:"${tlsStatus}
-		skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"
-
-		if [[ ${remainingDays} -le 1 ]]; then
-			yellow " ---> 重新生成证书"
-			handleNginx stop
-			sudo "~/.acme.sh/acme.sh" --cron --home "~/.acme.sh"
-			sudo "~/.acme.sh/acme.sh" --installcert -d "${DOMAIN}" --fullchainpath /usr/local/etc/tls/"${DOMAIN}.crt" --keypath /usr/local/etc/tls/"${DOMAIN}.key" --ecc
-			reloadCore
-		else
-			green " ---> 证书有效"
-		fi
-	else
-		red " ---> 未安装"
-	fi
-}
-# 查看TLS证书的状态
-checkTLStatus() {
-
-	if [[ -d "~/.acme.sh/${DOMAIN}_ecc" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]] && [[ -f "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]]; then
-		modifyTime=$(stat "~/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" | sed -n '7,6p' | awk '{print $2" "$3" "$4" "$5}')
-
-		modifyTime=$(date +%s -d "${modifyTime}")
-		currentTime=$(date +%s)
-		((stampDiff = currentTime - modifyTime))
-		((days = stampDiff / 86400))
-		((remainingDays = 90 - days))
-
-		tlsStatus=${remainingDays}
-		if [[ ${remainingDays} -le 0 ]]; then
-			tlsStatus="已过期"
-		fi
-
-		skyBlue " ---> 证书生成日期:$(date -d "@${modifyTime}" +"%F %H:%M:%S")"
-		skyBlue " ---> 证书生成天数:${days}"
-		skyBlue " ---> 证书剩余天数:${tlsStatus}"
-	fi
-}
-
-# 定时任务检查证书
-cronRenewTLS() {
-	if [[ "${renewTLS}" == "RenewTLS" ]]; then
-		renewalTLS
-		exit 0
-	fi
-}
-
 # 重启核心
 reloadCore() {
 	res=`status`
@@ -945,21 +1002,21 @@ reloadCore() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
     else
-        colorEcho $BLUE " Xray启动成功"
+        colorEcho $BLUE " Xray重启成功"
     fi
 }
 
 # DNS解锁
 dnsUnlock() {
-	echo skyBlue "\n功能 1/${totalProgress} : DNS解锁"
-	echo red "\n=============================================================="
-	echo yellow "1.添加"
-	echo yellow "2.卸载"
+	echo -e $skyBlue "\n流媒体解锁功能 1/2 : DNS解锁流媒体"
+	echo -e $RED "\n=============================================================="
+	echo -e $YELLOW "1.添加/更换DNS"
+	echo -e $YELLOW "2.卸载解锁的DNS"
 	read -r -p "请选择:" selectType
 
 	case ${selectType} in
@@ -974,64 +1031,66 @@ dnsUnlock() {
 
 # 设置dns
 setUnlockDNS() {
-	read -r -p "请输入解锁的DNS:" setDNS
-	if [[ -n ${setDNS} ]]; then
-		cat <<EOF >${configPath}11_dns.json
+    echo -e $skyBlue "\n流媒体解锁功能 2/2 : DNS解锁流媒体"
+    echo -e ${RED} "\n=============================================================="${PLAIN}
+    echo -e "#   ${YELLOW}更换前请确保dns可解锁Netflix,Disney,HBO,Hulu等流媒体${PLAIN}    #"
+    echo -e ${RED} "\n=============================================================="${PLAIN}
+	echo -e $YELLOW 
+    read -r -p  "请输入解锁/更换的DNS:" setDNS
+	if [[ -n "${setDNS}" ]]; then
+		cat <<EOF >$CONFIG_DNSFILE
 {
-	"dns": {
-		"servers": [
-			{
-				"address": "${setDNS}",
-				"port": 53,
-				"domains": [
-					"geosite:netflix",
-					"geosite:bahamut",
-					"geosite:hulu",
-					"geosite:hbo",
-					"geosite:disney",
-					"geosite:bbc",
-					"geosite:4chan",
-					"geosite:fox",
-					"geosite:abema",
-					"geosite:dmm",
-					"geosite:niconico",
-					"geosite:pixiv",
-					"geosite:bilibili",
-					"geosite:viu"
-				]
-			},
-		"localhost"
-		]
-	}
-}
+  // 1_DNS 设置
+  "dns": {
+    "servers": [
+        {
+          "address": "${setDNS}",     //此处为可解锁的DNS地址
+          "port": 53,
+          "domains": [
+              "geosite:netflix",
+              "geosite:bahamut",
+              "geosite:bbc",
+              "geosite:bilibili",
+              "geosite:disney",
+              "geosite:fox",
+              "geosite:hulu",
+              "geosite:hbo",
+              "geosite:viu"
+          ]
+        },
+        "localhost"
+    ]
+  },
 EOF
-		reloadCore
+        cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
+        reloadCore
 
-		echo green "\n ---> DNS解锁添加成功，该设置对Trojan-Go无效"
-		echo yellow "\n ---> 如还无法观看可以尝试以下两种方案"
-		echo yellow " 1.重启vps"
-		echo yellow " 2.卸载dns解锁后，修改本地的[/etc/resolv.conf]DNS设置并重启vps\n"
+		echo -e $GREEN "\n ---> DNS解锁添加成功，该设置对Trojan-Go无效"
+		echo -e $YELLOW "\n ---> 如还无法观看可以尝试以下两种方案"
+		echo -e $YELLOW " 1.重启vps"
+		echo -e ${YELLOW} " 2.卸载dns解锁后，修改本地的[/etc/resolv.conf]DNS设置并重启vps\n"${PLAIN}
 	else
-		echo red " ---> dns不可为空"
+		echo -e ${RED} " ---> dns不可为空"${PLAIN}
 	fi
 	exit 0
 }
 
 # 移除DNS解锁
 removeUnlockDNS() {
-	cat <<EOF >${configPath}11_dns.json
+	cat >$CONFIG_DNSFILE<<-EOF
 {
-	"dns": {
-		"servers": [
-            "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
-			"localhost"
-		]
-	}
-}
+  // 1_DNS 设置
+  "dns": {
+    "servers": [
+        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "localhost"
+    ]
+  },
 EOF
+    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
 	reloadCore
 
-	echo green " ---> 卸载成功"
+	echo -e ${GREEN} " ---> DNS卸载成功"${PLAIN}
 
 	exit 0
 }
@@ -1061,7 +1120,7 @@ installXray() {
     cat >/etc/systemd/system/xray.service<<-EOF
 [Unit]
 Description=Xray Service
-Documentation=https://github.com/xtls https://csgia.top
+Documentation=https://github.com/xtls 
 After=network.target nss-lookup.target
 [Service]
 User=root
@@ -1129,26 +1188,26 @@ trojanConfig() {
 EOF
 }
 
+#trojanXTLSDNS
+
+
 trojanXTLSConfig() {
-  // 2_DNS 设置
-    cat <<EOF >/usr/local/etc/xray/11_dns.json
+      cat > $CONFIG_DNSFILE<<EOF
 {
-    "dns": {
-      "servers": [
+  // 1_DNS 设置
+  "dns": {
+    "servers": [
         "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
-      ] 
-    }
-}
-EOF
-  
-    cat > $CONFIG_FILE<<-EOF
-{
-  // 3*分流设置
+    ]
+  },
+EOF    
+       cat > $CONFIG_PREFILE<<EOF
+// 2*分流设置
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
-      // 3.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
+      // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
         "ip": [
@@ -1164,7 +1223,7 @@ EOF
         ],
         "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
-      // 3.2 国内域名和广告屏蔽
+      // 2.2 国内域名和广告屏蔽
       {
         "type": "field",
         "domain": [
@@ -1221,6 +1280,7 @@ EOF
   }]
 }
 EOF
+    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
 }
 
 vmessConfig() {
@@ -1434,25 +1494,22 @@ EOF
 
 vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
-  // 2_DNS 设置
-    cat <<EOF >/usr/local/etc/xray/11_dns.json
+    cat > $CONFIG_DNSFILE<<EOF
 {
-    "dns": {
-      "servers": [
+  // 1_DNS 设置
+  "dns": {
+    "servers": [
         "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
-      ] 
-    }
-}  
+    ]
+  },  
 EOF
-
-    cat > $CONFIG_FILE<<-EOF
-{
-  // 3*分流设置
+    cat > $CONFIG_PREFILE<<-EOF
+// 2*分流设置
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
-      // 3.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
+      // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
         "ip": [
@@ -1468,7 +1525,7 @@ EOF
         ],
         "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
-      // 3.2 国内域名和广告屏蔽
+      // 2.2 国内域名和广告屏蔽
       {
         "type": "field",
         "domain": [
@@ -1528,6 +1585,7 @@ EOF
   }]
 }
 EOF
+    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
 }
 
 vlessWSConfig() {
@@ -1793,7 +1851,7 @@ start() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
@@ -2110,7 +2168,7 @@ menu() {
     echo -e "  ${GREEN}17.${PLAIN}  查看Xray日志"
     echo " -------------"
     echo -e "  ${GREEN}18.${PLAIN}  更新证书"
-    echo -e "  ${GREEN}19.${PLAIN}  DNS解锁"
+    echo -e "  ${GREEN}19.${PLAIN}  DNS流媒体解锁"
     echo " -------------"
     echo -e "  ${GREEN}0.${PLAIN}   退出"
     echo -n " 当前状态："
@@ -2206,11 +2264,11 @@ menu() {
 }
 
 checkSystem
-
+menu
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|dnsUnlock)
         ${action}
         ;;
     *)
@@ -2218,3 +2276,4 @@ case "$action" in
         echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
         ;;
 esac
+
