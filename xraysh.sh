@@ -38,7 +38,7 @@ totalProgress=1
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
 # xray/trojan预配置文件
-CONFIG_PREFILE="/usr/local/etc/xray/preconfig.json"
+PRECONFIG_FILE="/usr/local/etc/xray/preconfig.json"
 
 # xray/trojan运行配置文件
 CONFIG_FILE="/usr/local/etc/xray/config.json"
@@ -134,16 +134,6 @@ installTools() {
 		${CMD_INSTALL} curl >/dev/null 2>&1
 	fi
 
-	if ! find /usr/bin /usr/sbin | grep -q -w socat; then
-		echo -e $GREEN " ---> 安装socat"
-		${CMD_INSTALL} socat >/dev/null 2>&1
-	fi
-
-	if ! find /usr/bin /usr/sbin | grep -q -w tar; then
-		echo -e $GREEN " ---> 安装tar"
-		${CMD_INSTALL} tar >/dev/null 2>&1
-	fi
-
 	if ! find /usr/bin /usr/sbin | grep -q -w cron; then
 		echo -e $GREEN " ---> 安装crontabs"
 		if [[ "${PTM}" == "apt" ]]; then
@@ -233,7 +223,7 @@ status() {
         echo 1
         return
     fi
-    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ -z "$res" ]]; then
         echo 2
@@ -997,7 +987,7 @@ reloadCore() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
@@ -1057,7 +1047,7 @@ setUnlockDNS() {
     ]
   },
 EOF
-        cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
+        cat $CONFIG_DNSFILE $PRECONFIG_FILE > $CONFIG_FILE
         reloadCore
 
 		echo -e $GREEN "\n ---> DNS解锁添加成功，该设置对Trojan-Go无效"
@@ -1082,7 +1072,7 @@ removeUnlockDNS() {
     ]
   },
 EOF
-    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
+    cat $CONFIG_DNSFILE $PRECONFIG_FILE > $CONFIG_FILE
 	reloadCore
 
 	echo -e ${GREEN} " ---> DNS卸载成功"${PLAIN}
@@ -1181,13 +1171,10 @@ trojanConfig() {
   }]
 }
 EOF
-}
-
-#trojanXTLSDNS
-
+} 
 
 trojanXTLSConfig() {
-      cat > $CONFIG_DNSFILE<<EOF
+     cat > $CONFIG_DNSFILE<<EOF
 {
   // 1_DNS 设置
   "dns": {
@@ -1196,8 +1183,9 @@ trojanXTLSConfig() {
         "localhost"
     ]
   },
-EOF    
-       cat > $CONFIG_PREFILE<<EOF
+EOF
+
+       cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
   "routing": {
     "domainStrategy": "AsIs",
@@ -1275,7 +1263,7 @@ EOF
   }]
 }
 EOF
-    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
+    cat $CONFIG_DNSFILE $PRECONFIG_FILE > $CONFIG_FILE
 }
 
 vmessConfig() {
@@ -1499,9 +1487,10 @@ vlessXTLSConfig() {
     ]
   },  
 EOF
-    cat > $CONFIG_PREFILE<<-EOF
+
+      cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
-  "routing": {
+   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
@@ -1580,7 +1569,7 @@ EOF
   }]
 }
 EOF
-    cat $CONFIG_DNSFILE $CONFIG_PREFILE > $CONFIG_FILE
+    cat $CONFIG_DNSFILE $PRECONFIG_FILE > $CONFIG_FILE
 }
 
 vlessWSConfig() {
@@ -1846,7 +1835,7 @@ start() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $CONFIG_PREFILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
