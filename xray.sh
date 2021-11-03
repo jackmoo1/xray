@@ -1717,7 +1717,6 @@ install() {
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
-    installXray
     getVersion
     RETVAL="$?"
     if [[ $RETVAL == 0 ]]; then
@@ -1726,6 +1725,7 @@ install() {
         exit 1
     else
         colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+	installXray
     fi
 
     configXray
@@ -2238,7 +2238,7 @@ menu() {
 }
 
 checkSystem
-menu
+
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
