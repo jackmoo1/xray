@@ -33,7 +33,7 @@ http://www.tjwl.com/
 
 # 安装总进度
 totalProgress=1
-
+renewTLS=$1
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
@@ -134,14 +134,6 @@ installTools() {
 		${CMD_INSTALL} curl >/dev/null 2>&1
 	fi
 
-	if ! find /usr/bin /usr/sbin | grep -q -w cron; then
-		echo -e $GREEN " ---> 安装crontabs"
-		if [[ "${PTM}" == "apt" ]]; then
-			${CMD_INSTALL} cron >/dev/null 2>&1
-		else
-			${CMD_INSTALL} crontabs >/dev/null 2>&1
-		fi
-	fi
 	if ! find /usr/bin /usr/sbin | grep -q -w jq; then
 		echo -e $GREEN " ---> 安装jq"
 		${CMD_INSTALL} jq >/dev/null 2>&1
@@ -271,7 +263,7 @@ normalizeVersion() {
                 echo "$1"
             ;;
             http*)
-                echo "v1.4.2"
+                echo "v1.4.5"
             ;;
             *)
                 echo "v$1"
@@ -597,7 +589,6 @@ getData() {
     colorEcho $BLUE " 安装BBR：$NEED_BBR"
 }
 
-
 #安装nginx
 installNginx() {
     echo ""
@@ -706,25 +697,26 @@ getCert() {
 
 # 查看TLS证书的状态
 # 更新证书
-renewalTLS() {
-	if [[ -d "/usr/local/etc/xray" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+checkTLStatus() {
+    echo -e $skyBlue "---------->> : 证书状态"$PLAIN
+	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
-        BirthTime=$(openssl x509 -in /usr/local/etc/xray/csgia.date.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
-		BirthTime=$(date +%s -d "${BirthTime}")
+        modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		
+        BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
 		((days = stampDiff / 86400))
 		((remainingDays = 90 - days))
-
 		tlsStatus=${remainingDays}
 		if [[ ${remainingDays} -le 0 ]]; then
 			tlsStatus="已过期"
 		fi
 
-		echo -e $skyBlue " ---> 证书检查日期:$(date "+%F %H:%M:%S")"
-		echo -e $skyBlue " ---> 证书生成日期:$(date -d @"${BirthTime}" +"%F %H:%M:%S")"
-		echo -e $skyBlue " ---> 证书生成天数:${days}"
-		echo -e $skyBlue " ---> 证书剩余天数:"${tlsStatus}
+		echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
+		echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
+		echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
+		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
 		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
         
 		if [[ ${remainingDays} -le 1 ]]; then
@@ -734,13 +726,12 @@ renewalTLS() {
 			sudo "~/.acme.sh/acme.sh" --install-cert -d "${DOMAIN}" --fullchainpath /usr/local/etc/tls/"${DOMAIN}.crt" --keypath /usr/local/etc/tls/"${DOMAIN}.key" --ecc
 			reloadCore
 		else
-			echo -e $GREEN " ---> 证书有效无需更新！"$PLAIN
+			echo -e $GREEN " ---> 证书有效！"$PLAIN
 		fi
 	else
 		echo -e $RED " ---> 未安装"$PLAIN
 	fi
 }
-
 
 configNginx() {
     mkdir -p /usr/share/nginx/html;
@@ -1098,7 +1089,7 @@ installXray() {
     cp /tmp/xray/xray /usr/local/bin
     cp /tmp/xray/geo* /usr/local/share/xray
     chmod +x /usr/local/bin/xray || {
-        colorEcho $RED " Xray安装失败"
+        colorEcho $RED " Xray未能执行，安装失败"
         exit 1
     }
 
@@ -1728,6 +1719,7 @@ install() {
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
+    installXray
     getVersion
     RETVAL="$?"
     if [[ $RETVAL == 0 ]]; then
@@ -1736,7 +1728,6 @@ install() {
         exit 1
     else
         colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
-        installXray
     fi
 
     configXray
@@ -1841,6 +1832,7 @@ start() {
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
     else
         colorEcho $BLUE " Xray启动成功"
+        checkTLStatus
     fi
 }
 
@@ -2151,7 +2143,7 @@ menu() {
     echo -e "  ${GREEN}16.${PLAIN}  查看Xray配置"
     echo -e "  ${GREEN}17.${PLAIN}  查看Xray日志"
     echo " -------------"
-    echo -e "  ${GREEN}18.${PLAIN}  更新证书"
+    echo -e "  ${GREEN}18.${PLAIN}  查看证书状态"
     echo -e "  ${GREEN}19.${PLAIN}  DNS流媒体解锁"
     echo " -------------"
     echo -e "  ${GREEN}0.${PLAIN}   退出"
@@ -2235,7 +2227,7 @@ menu() {
             showLog
             ;;
         18)
-            renewalTLS 1
+            checkTLStatus 1
             ;;
         19)
             dnsUnlock 1
@@ -2248,11 +2240,11 @@ menu() {
 }
 
 checkSystem
-
+menu
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|dnsUnlock)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|checkTLStatus|dnsUnlock)
         ${action}
         ;;
     *)
