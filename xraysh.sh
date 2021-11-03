@@ -722,15 +722,15 @@ checkTLStatus() {
 		if [[ ${remainingDays} -le 1 ]]; then
 			echo -e $YELLOW " ---> 重新生成证书"
 			stopNginx
-            systemctl stop xray
-            mkdir -p /usr/local/etc/2xray
-            cp /usr/local/etc/xray/*.json /usr/local/etc/2xray
-            rm -rf /usr/local/etc/xray
-            getCert
-            cp /usr/local/etc/2xray/*.json /usr/local/etc/xray
+			systemctl stop xray
+			mkdir -p /usr/local/etc/2xray
+			cp /usr/local/etc/xray/*.json /usr/local/etc/2xray
+			rm -rf /usr/local/etc/xray
+			getCert
+			cp /usr/local/etc/2xray/*.json /usr/local/etc/xray
 			reloadCore
-            rm -rf /usr/local/etc/2xray
-            echo -e $GREEN " ---> 证书更新完成！如更新失败请手动更新"$PLAIN
+			rm -rf /usr/local/etc/2xray
+			echo -e $GREEN " ---> 证书更新完成！如更新失败请手动更新"$PLAIN
 		else
 			echo -e $GREEN " ---> 证书有效！"$PLAIN
 		fi
@@ -1012,8 +1012,7 @@ setUnlockDNS() {
     echo -e ${RED} "\n=============================================================="${PLAIN}
     echo -e "#   ${YELLOW}更换前请确保dns可解锁Netflix,Disney,HBO,Hulu等流媒体${PLAIN}    #"
     echo -e ${RED} "\n=============================================================="${PLAIN}
-	echo -e $YELLOW 
-    read -r -p  "请输入解锁/更换的DNS:" setDNS
+    echo -e ${YELLOW} read -r -p  "请输入解锁/更换的DNS:"${PLAIN} setDNS
 	if [[ -n "${setDNS}" ]]; then
 		cat <<EOF >$CONFIG_DNSFILE
 {
