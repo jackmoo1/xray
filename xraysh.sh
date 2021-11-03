@@ -721,10 +721,16 @@ checkTLStatus() {
         
 		if [[ ${remainingDays} -le 1 ]]; then
 			echo -e $YELLOW " ---> 重新生成证书"
-			handleNginx stop
-			sudo "~/.acme.sh/acme.sh" --cron --home "~/.acme.sh"
-			sudo "~/.acme.sh/acme.sh" --install-cert -d "${DOMAIN}" --fullchainpath /usr/local/etc/tls/"${DOMAIN}.crt" --keypath /usr/local/etc/tls/"${DOMAIN}.key" --ecc
+			stopNginx
+            systemctl stop xray
+            mkdir -p /usr/local/etc/2xray
+            cp /usr/local/etc/xray/*.json /usr/local/etc/2xray
+            rm -rf /usr/local/etc/xray
+            getCert
+            cp /usr/local/etc/2xray/*.json /usr/local/etc/xray
 			reloadCore
+            rm -rf /usr/local/etc/2xray
+            echo -e $GREEN " ---> 证书更新完成！如更新失败请手动更新"$PLAIN
 		else
 			echo -e $GREEN " ---> 证书有效！"$PLAIN
 		fi
@@ -968,11 +974,6 @@ installBBR() {
 
 # 重启核心
 reloadCore() {
-	res=`status`
-    if [[ $res -lt 2 ]]; then
-        colorEcho $RED " Xray未安装，请先安装！"
-        return
-    fi
     stopNginx
     startNginx
     systemctl restart xray
