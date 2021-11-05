@@ -2160,7 +2160,7 @@ menu() {
     echo -e "  ${GREEN}16.${PLAIN}  查看Xray配置"
     echo -e "  ${GREEN}17.${PLAIN}  查看Xray日志"
     echo " -------------"
-    echo -e "  ${GREEN}18.${PLAIN}  查看证书状态"
+    #echo -e "  ${GREEN}18.${PLAIN}  查看证书状态"
     echo -e "  ${GREEN}19.${PLAIN}  DNS流媒体解锁"
     echo " -------------"
     echo -e "  ${GREEN}0.${PLAIN}   退出"
@@ -2245,7 +2245,7 @@ menu() {
         17)
             showLog
             ;;
-        18)
+        #18)
             renewalTLS 1
             ;;
         19)
