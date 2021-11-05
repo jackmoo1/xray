@@ -2246,7 +2246,7 @@ checkSystem
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|checkTLStatus|dnsUnlock)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock)
         ${action}
         ;;
     *)
