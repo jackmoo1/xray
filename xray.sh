@@ -30,7 +30,7 @@ http://www.bequgexs.com/
 http://www.tjwl.com/
 )
 # 初始化全局变量
-
+checkTLStatus=$1
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
@@ -696,7 +696,7 @@ getCert() {
 # 更新证书
 checkTLStatus() {
     echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
         modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
 		
