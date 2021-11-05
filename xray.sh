@@ -696,10 +696,10 @@ DOMAIN=${DOMAIN}
 
 checkTLStatus() {
 		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	if [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]] && [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]]; then
+	if [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 
-		modifyTime=$(openssl x509 -in /root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
 		BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
