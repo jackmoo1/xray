@@ -698,17 +698,18 @@ checkTLStatus() {
     echo -e $skyBlue "---------->> : 证书状态"$PLAIN
 	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
-        modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
 		
-        BirthTime=$(date +%s -d "${modifyTime}")
+                modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+                BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
 		((days = stampDiff / 86400))
 		((remainingDays = 90 - days))
+		
 		tlsStatus=${remainingDays}
 		if [[ ${remainingDays} -le 0 ]]; then
 			tlsStatus="已过期"
-            regetCert
+                        regetCert
 		fi
 
 		echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
