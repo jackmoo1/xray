@@ -698,10 +698,6 @@ getCert() {
     fi
 }
 
-#证书目录
-CERT_FILE="/usr/local/etc/xray/${DOMAIN}.pem"
-KEY_FILE="/usr/local/etc/xray/${DOMAIN}.key"
-
 # 查看TLS证书的状态
 # 更新证书
 renewalTLS() {
@@ -719,10 +715,10 @@ renewalTLS() {
 
 checkTLStatus() {
 		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
+	[[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]] && [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
-		CERT_FILE="/usr/local/etc/xray/${DOMAIN}.pem"
-		modifyTime=$(openssl x509 -in ${CERT_FILE} -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+
+		modifyTime=$(openssl x509 -in /root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
 		BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
