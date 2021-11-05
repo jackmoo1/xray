@@ -717,11 +717,6 @@ checkTLStatus() {
 		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
 		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
 		echo -e $GREEN " ---> 证书有效！"$PLAIN
-		
-		if [[ ${remainingDays} -le 0 ]]; then
-			tlsStatus="已过期"
-                        regetCert
-		fi
 	else
 		echo -e $RED " ---> 证书未安装"$PLAIN
 	fi
