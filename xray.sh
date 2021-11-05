@@ -701,13 +701,13 @@ getCert() {
 renewalTLS() {
 	if [[ -n $1 ]]; then
 		echo -e $skyBlue "\n进度  $1/1 : 查看证书状态"
-        echo " "
-        read -p " 是否立即查看，确认按y：" answer
-        if [[ "${answer,,}" != "y" ]]; then
-            exit 0
-        else
-           checkTLStatus
-        fi 
+        	echo " "
+        	read -p " 是否立即查看，确认按y：" answer
+        	if [[ "${answer,,}" != "y" ]]; then
+            		exit 0
+        	else
+           		checkTLStatus
+        	fi 
 	fi
 }
 
