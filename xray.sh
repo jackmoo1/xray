@@ -2194,6 +2194,7 @@ menu() {
             TLS="true"
             XTLS="true"
             install
+	    checkTLStatus
             ;;
         9)
             TROJAN="true"
@@ -2205,6 +2206,7 @@ menu() {
             TLS="true"
             XTLS="true"
             install
+	    checkTLStatus
             ;;
         11)
             update
