@@ -699,7 +699,7 @@ checkTLStatus() {
 	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 		
-                modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+                modifyTime=$(openssl x509 -in ${CERT_FILE} -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
                 BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
