@@ -1729,7 +1729,7 @@ install() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"$PLAIN
 	installXray
     fi
 
@@ -1834,7 +1834,7 @@ start() {
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
     else
-        colorEcho $BLUE " Xray启动成功"
+        colorEcho $GREEN " Xray启动成功"
     fi
 }
 
