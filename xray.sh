@@ -698,6 +698,19 @@ getCert() {
 
 # 查看TLS证书的状态
 # 更新证书
+renewalTLS() {
+	if [[ -n $1 ]]; then
+		echoContent skyBlue "\n进度  $1/1 : 查看证书状态"
+        echo " "
+        read -p " 是否立即查看，确认按y：" answer
+        if [[ "${answer,,}" != "y" ]]; then
+            exit 0
+        else
+           checkTLStatus
+        fi 
+	fi
+}
+
 checkTLStatus() {
     echo -e $skyBlue "---------->> : 证书状态"$PLAIN
 	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
