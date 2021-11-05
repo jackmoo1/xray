@@ -30,7 +30,11 @@ http://www.bequgexs.com/
 http://www.tjwl.com/
 )
 # 初始化全局变量
-checkTLStatus=$1
+initVar() {
+    #证书更新
+    checkTLStatus=$1
+}
+initVar "$1"
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
