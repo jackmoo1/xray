@@ -712,7 +712,7 @@ renewalTLS() {
 }
 
 checkTLStatus() {
-    echo -e $skyBlue "---------->> : 证书状态"$PLAIN
+		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
 	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 		
