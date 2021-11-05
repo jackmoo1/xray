@@ -703,8 +703,8 @@ checkTLStatus() {
 	if [[ -f "${CERT_FILE}" ]] && [[ -f "${KEY_FILE}" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 		
-                modifyTime=$(openssl x509 -in ${CERT_FILE} -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
-                BirthTime=$(date +%s -d "${modifyTime}")
+		modifyTime=$(openssl x509 -in ${CERT_FILE} -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
 		((days = stampDiff / 86400))
@@ -713,7 +713,7 @@ checkTLStatus() {
 		tlsStatus=${remainingDays}
 		if [[ ${remainingDays} -le 0 ]]; then
                     tlsStatus="证书已过期"
-                else
+		else
 		    echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
 		    echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
 		    echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
