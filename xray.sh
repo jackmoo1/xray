@@ -715,7 +715,7 @@ renewalTLS() {
 
 checkTLStatus() {
 		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	[[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]] && [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]]; then
+	if [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer" ]] && [[ -f "/root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.key" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 
 		modifyTime=$(openssl x509 -in /root/.acme.sh/${DOMAIN}_ecc/${DOMAIN}.cer -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
