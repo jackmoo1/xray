@@ -30,13 +30,7 @@ http://www.bequgexs.com/
 http://www.tjwl.com/
 )
 # 初始化全局变量
-initVar() {
-    #证书更新
-    renewalTLS=$1
-}
-initVar "$1"
-
-
+DOMAIN=${DOMAIN}
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
@@ -698,20 +692,9 @@ getCert() {
     fi
 }
 
+DOMAIN=${DOMAIN}
 # 查看TLS证书的状态
 # 更新证书
-renewalTLS() {
-	if [[ -n $1 ]]; then
-		echo -e $skyBlue "\n进度  $1/1 : 查看证书状态"
-        	echo " "
-        	read -p " 是否立即查看，确认按y：" answer
-        	if [[ "${answer,,}" != "y" ]]; then
-            		exit 0
-        	else
-           		checkTLStatus
-        	fi 
-	fi
-}
 
 checkTLStatus() {
 		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
@@ -1733,6 +1716,7 @@ install() {
     if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         getCert
     fi
+    DOMAIN=${DOMAIN}
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
