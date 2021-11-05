@@ -32,7 +32,7 @@ http://www.tjwl.com/
 # 初始化全局变量
 initVar() {
     #证书更新
-    checkTLStatus=$1
+    renewalTLS=$1
 }
 initVar "$1"
 # xray配置文件dns文件
@@ -2230,7 +2230,7 @@ menu() {
             showLog
             ;;
         18)
-            checkTLStatus 1
+            renewalTLS 1
             ;;
         19)
             dnsUnlock 1
@@ -2247,7 +2247,7 @@ checkSystem
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|dnsUnlock)
         ${action}
         ;;
     *)
