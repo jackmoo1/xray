@@ -35,6 +35,10 @@ initVar() {
     renewalTLS=$1
 }
 initVar "$1"
+#证书目录
+CERT_FILE="/usr/local/etc/xray/${DOMAIN}.pem"
+KEY_FILE="/usr/local/etc/xray/${DOMAIN}.key"
+
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
