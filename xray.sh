@@ -30,7 +30,10 @@ http://www.bequgexs.com/
 http://www.tjwl.com/
 )
 # 初始化全局变量
-DOMAIN=${DOMAIN}
+function DOMAIN(){
+	DOMAIN=${DOMAIN}
+}
+
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
