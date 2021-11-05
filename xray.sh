@@ -1735,7 +1735,6 @@ install() {
     installBBR
 
     start
-    checkTLStatus
     showInfo
 
     bbrReboot
