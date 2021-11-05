@@ -708,7 +708,7 @@ checkTLStatus() {
 		
 		tlsStatus=${remainingDays}
 		if [[ ${remainingDays} -le 0 ]]; then
-                    tlsStatus="证书已过期"
+                    echo -e $RED " ---> 证书已过期"$PLAIN
 		else
 		    echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
 		    echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
