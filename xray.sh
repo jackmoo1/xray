@@ -695,7 +695,7 @@ getCert() {
 checkTLStatus() {
     echo -e $skyBlue "---------->> : 查看证书状态"$PLAIN
     echo ""
-    read -p " 证书域名为${DOMAIN}是否正确(y/n)：" answer
+    read -p " 证书域名为${tlsName}是否正确(y/n)：" answer
     if [[ "${answer,,}" != "y" ]]; then
         echo -e $RED "请检查域名后，重新查看证书状态！"
         exit 1
