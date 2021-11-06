@@ -30,9 +30,6 @@ http://www.bequgexs.com/
 http://www.tjwl.com/
 )
 # 初始化全局变量
-function DOMAIN(){
-	DOMAIN=${DOMAIN}
-}
 
 # xray配置文件dns文件
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
@@ -348,10 +345,9 @@ archAffix(){
 
 	return 0
 }
-
-getData() {
-    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
-        echo ""
+#获取预配置域名
+getDomain(){
+     echo ""
         echo " Xray一键脚本，运行之前请确认如下条件已经具备："
         colorEcho ${YELLOW} "  1. 一个伪装域名"
         colorEcho ${YELLOW} "  2. 伪装域名DNS解析指向当前服务器ip（${IP}）"
@@ -373,6 +369,7 @@ getData() {
             fi
         done
         DOMAIN=${DOMAIN,,}
+        tlsName=${DOMAIN}
         colorEcho ${BLUE}  " 伪装域名(host)：$DOMAIN"
 
         echo ""
@@ -398,8 +395,13 @@ getData() {
                 exit 1
             fi
         fi
-    fi
+}
 
+
+#获取配置数据
+getData() {
+    getDomain
+    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
         if [[ "$TLS" = "true" ]]; then
@@ -693,33 +695,32 @@ getCert() {
     fi
 }
 
+#证书目录
 DOMAIN=${DOMAIN}
 # 查看TLS证书的状态
-# 更新证书
-
 checkTLStatus() {
-		echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	if [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]]; then
+    echo -e $skyBlue "---------->> : 证书状态"$PLAIN
+    getDomain
+	if [[ -f "/usr/local/etc/xray/${tlsName}.pem" ]] && [[ -f "/usr/local/etc/xray/${tlsName}.key" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
 
-		modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
-		BirthTime=$(date +%s -d "${modifyTime}")
+        modifyTime=$(openssl x509 -in "/usr/local/etc/xray/${tlsName}.pem" -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+        BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
 		((days = stampDiff / 86400))
 		((remainingDays = 90 - days))
-		
 		tlsStatus=${remainingDays}
-		if [[ ${remainingDays} -le 0 ]]; then
-                    echo -e $RED " ---> 证书已过期"$PLAIN
-		else
-		    echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
-		    echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
-		    echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
-		    echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
-		    echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
-		    echo -e $GREEN " ---> 证书有效！"$PLAIN
-		fi    
+        if [[ ${remainingDays} -le 0 ]]; then
+            echo -e $RED " ---> 证书已过期"$PLAIN
+        else     
+        echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
+		echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
+		echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
+		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
+		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
+		echo -e $GREEN " ---> 证书有效！"$PLAIN
+        fi
 	else
 		echo -e $RED " ---> 证书未安装"$PLAIN
 	fi
@@ -1717,7 +1718,7 @@ install() {
     if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         getCert
     fi
-    DOMAIN=${DOMAIN}
+    hostname=$DOMAIN
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
