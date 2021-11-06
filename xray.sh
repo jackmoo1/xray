@@ -369,7 +369,6 @@ getData() {
             fi
         done
         DOMAIN=${DOMAIN,,}
-        tlsName=${DOMAIN}
         colorEcho ${BLUE}  " 伪装域名(host)：$DOMAIN"
 
         echo ""
@@ -693,19 +692,10 @@ getCert() {
 # 查看TLS证书的状态
 # 更新证书
 checkTLStatus() {
-    echo -e $skyBlue "---------->> : 查看证书状态"$PLAIN
-    echo ""
-    read -p " 证书域名为${tlsName}是否正确(y/n)：" answer
-    if [[ "${answer,,}" != "y" ]]; then
-        echo -e $RED "请检查域名后，重新查看证书状态！"
-        exit 1
-    fi
-
-    echo ""
-    while true
-    do
-        echo -e $GREEN "开始查看证书状态"
-	    if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+        echo -e $skyBlue "---------->> : 查看证书状态"$PLAIN
+        echo ""
+        DOMAIN=`grep serverName $CONFIG_FILE | cut -d: -f2 | tr -d \",' '`
+	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
 		    echo -e $GREEN " ---> 检测到证书"$PLAIN
             modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
 		
@@ -726,10 +716,9 @@ checkTLStatus() {
 		    echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
 		    echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
 		    echo -e $GREEN " ---> 证书有效！"$PLAIN
-	    else
+	else
 		    echo -e $RED " ---> 证书未安装"$PLAIN
-	    fi
-    done
+	fi   
 }
 
 #重新生成证书
@@ -1733,7 +1722,7 @@ install() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"
         installXray
     fi
 
@@ -1773,7 +1762,7 @@ update() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"
         installXray
         stop
         start
@@ -1838,7 +1827,7 @@ start() {
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
     else
-        colorEcho $BLUE " Xray启动成功"
+        colorEcho $GREEN " Xray启动成功"
     fi
 }
 
@@ -2255,6 +2244,6 @@ case "$action" in
         ;;
     *)
         echo " 参数错误"
-        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLogcheckTLStatus|dnsUnlock]"
+        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
         ;;
 esac
