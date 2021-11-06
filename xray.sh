@@ -2239,11 +2239,11 @@ checkSystem
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|checkTLStatus|dnsUnlock)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock)
         ${action}
         ;;
     *)
         echo " 参数错误"
-        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
+        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock]"
         ;;
 esac
