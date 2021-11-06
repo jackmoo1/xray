@@ -346,8 +346,14 @@ archAffix(){
 	return 0
 }
 #获取预配置域名
-getDomain(){
-     echo ""
+
+     
+
+
+#获取配置数据
+getData() {
+	if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
+    	echo ""
         echo " Xray一键脚本，运行之前请确认如下条件已经具备："
         colorEcho ${YELLOW} "  1. 一个伪装域名"
         colorEcho ${YELLOW} "  2. 伪装域名DNS解析指向当前服务器ip（${IP}）"
@@ -394,13 +400,8 @@ getDomain(){
                 exit 1
             fi
         fi
-}
-
-
-#获取配置数据
-getData() {
-    getDomain
-    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
+    fi	
+    
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
         if [[ "$TLS" = "true" ]]; then
