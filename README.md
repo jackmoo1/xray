@@ -46,7 +46,7 @@
 ## 更多玩法以及打算自己折腾的小伙伴
 -  ## 可参考Xray各部分配置说明[**配置说明**](https://xtls.github.io/config/)和[**使用指南**](https://xtls.github.io/document/)，配置成自己的Xray! ##
 
-【介于目前Xray/Trojan的稳定性，后期Xray/Tojan无重大更新，或者脚本无问题，更新佛系！】
+【```介于目前Xray/Trojan的稳定性，后期Xray/Tojan无重大更新，或者脚本无问题，更新佛系```！】
 
 
 
