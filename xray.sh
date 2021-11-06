@@ -102,6 +102,8 @@ colorEcho() {
 }
 
 
+readCMD_INSTALL
+
 # 安装工具包
 installTools() {
 	echo '安装工具'
@@ -345,12 +347,7 @@ archAffix(){
 
 	return 0
 }
-#获取预配置域名
-getDomain(){
-     
 
-
-#获取配置数据
 getData() {
     if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         echo ""
@@ -396,12 +393,12 @@ getData() {
 	    #local_ip=`curl myip.ipip.net | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}"`	    
             if [[ $real_ip == $local_ip ]] ; then
                 colorEcho ${BLUE}  "${DOMAIN} 解析结果：${real_ip}"
-	        else
+	    else
                 colorEcho ${RED}  " 域名未解析到当前服务器IP(${IP})!"
                 exit 1
             fi
         fi
-    fi    
+    fi
 
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
@@ -696,32 +693,31 @@ getCert() {
     fi
 }
 
-#证书目录
-DOMAIN=${DOMAIN}
 # 查看TLS证书的状态
+# 更新证书
 checkTLStatus() {
     echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-    getDomain
-	if [[ -f "/usr/local/etc/xray/${tlsName}.pem" ]] && [[ -f "/usr/local/etc/xray/${tlsName}.key" ]]; then
+	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
 		echo -e $GREEN " ---> 检测到证书"$PLAIN
-
-        modifyTime=$(openssl x509 -in "/usr/local/etc/xray/${tlsName}.pem" -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+        modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		
         BirthTime=$(date +%s -d "${modifyTime}")
 		currentTime=$(date +%s)
 		((stampDiff = currentTime - BirthTime))
 		((days = stampDiff / 86400))
 		((remainingDays = 90 - days))
 		tlsStatus=${remainingDays}
-        if [[ ${remainingDays} -le 0 ]]; then
-            echo -e $RED " ---> 证书已过期"$PLAIN
-        else     
-        echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
+		if [[ ${remainingDays} -le 0 ]]; then
+			tlsStatus="已过期"
+            regetCert
+		fi
+
+		echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
 		echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
 		echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
 		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
 		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
 		echo -e $GREEN " ---> 证书有效！"$PLAIN
-        fi
 	else
 		echo -e $RED " ---> 证书未安装"$PLAIN
 	fi
@@ -1086,7 +1082,6 @@ installXray() {
         colorEcho $RED " 下载Xray文件失败，请检查服务器网络设置"
         exit 1
     fi
-    systemctl stop xray
     mkdir -p /usr/local/etc/xray /usr/local/share/xray && \
     unzip /tmp/xray/xray.zip -d /tmp/xray
     cp /tmp/xray/xray /usr/local/bin
@@ -1719,7 +1714,6 @@ install() {
     if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         getCert
     fi
-    hostname=$DOMAIN
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
@@ -1730,8 +1724,8 @@ install() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"$PLAIN
-	installXray
+        colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        installXray
     fi
 
     configXray
@@ -1740,6 +1734,7 @@ install() {
     installBBR
 
     start
+    checkTLStatus
     showInfo
 
     bbrReboot
@@ -1835,7 +1830,7 @@ start() {
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
     else
-        colorEcho $GREEN " Xray启动成功"
+        colorEcho $BLUE " Xray启动成功"
     fi
 }
 
@@ -2042,7 +2037,6 @@ showInfo() {
     echo ""
     echo -n -e " ${BLUE}Xray运行状态：${PLAIN}"
     statusText
-    checkTLStatus
     echo -e " ${BLUE}Xray配置文件: ${PLAIN} ${RED}${CONFIG_FILE}${PLAIN}"
     colorEcho $BLUE " Xray配置信息："
 
@@ -2248,11 +2242,11 @@ checkSystem
 action=$1
 [[ -z $1 ]] && action=menu
 case "$action" in
-    menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock)
+    menu|update|uninstall|start|restart|stop|showInfo|showLog|renewalTLS|checkTLStatus|dnsUnlock)
         ${action}
         ;;
     *)
         echo " 参数错误"
-        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock]"
+        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
         ;;
 esac
