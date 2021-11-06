@@ -101,9 +101,6 @@ colorEcho() {
     echo -e "${1}${@:2}${PLAIN}"
 }
 
-
-readCMD_INSTALL
-
 # 安装工具包
 installTools() {
 	echo '安装工具'
@@ -696,31 +693,43 @@ getCert() {
 # 查看TLS证书的状态
 # 更新证书
 checkTLStatus() {
-    echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
-		echo -e $GREEN " ---> 检测到证书"$PLAIN
-        modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
-		
-        BirthTime=$(date +%s -d "${modifyTime}")
-		currentTime=$(date +%s)
-		((stampDiff = currentTime - BirthTime))
-		((days = stampDiff / 86400))
-		((remainingDays = 90 - days))
-		tlsStatus=${remainingDays}
-		if [[ ${remainingDays} -le 0 ]]; then
-			tlsStatus="已过期"
-            regetCert
-		fi
+    echo -e $skyBlue "---------->> : 查看证书状态"$PLAIN
+    echo ""
+    read -p " 证书域名为${DOMAIN}是否正确(y/n)：" answer
+    if [[ "${answer,,}" != "y" ]]; then
+        echo -e $RED "请检查域名后，重新查看证书状态！"
+        exit 1
+    fi
 
-		echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
-		echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
-		echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
-		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
-		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
-		echo -e $GREEN " ---> 证书有效！"$PLAIN
-	else
-		echo -e $RED " ---> 证书未安装"$PLAIN
-	fi
+    echo ""
+    while true
+    do
+        echo -e $GREEN "开始查看证书状态"
+	    if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+		    echo -e $GREEN " ---> 检测到证书"$PLAIN
+            modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		
+            BirthTime=$(date +%s -d "${modifyTime}")
+		    currentTime=$(date +%s)
+		    ((stampDiff = currentTime - BirthTime))
+		    ((days = stampDiff / 86400))
+		    ((remainingDays = 90 - days))
+		    tlsStatus=${remainingDays}
+		    if [[ ${remainingDays} -le 0 ]]; then
+			    tlsStatus="已过期"
+                regetCert
+		    fi
+
+		    echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
+		    echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
+		    echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
+		    echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
+		    echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
+		    echo -e $GREEN " ---> 证书有效！"$PLAIN
+	    else
+		    echo -e $RED " ---> 证书未安装"$PLAIN
+	    fi
+    done
 }
 
 #重新生成证书
@@ -1734,7 +1743,6 @@ install() {
     installBBR
 
     start
-    checkTLStatus
     showInfo
 
     bbrReboot
@@ -2247,6 +2255,6 @@ case "$action" in
         ;;
     *)
         echo " 参数错误"
-        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog]"
+        echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLogcheckTLStatus|dnsUnlock]"
         ;;
 esac
