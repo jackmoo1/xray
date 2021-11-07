@@ -1242,11 +1242,14 @@ EOF
   }],
   "outbounds": [{
     "protocol": "freedom",
-    "settings": {}
+    "settings": {
+    	"domainStrategy": "UseIPv4"
+    },
+    "tag": "direct"
   },{
     "protocol": "blackhole",
     "settings": {},
-    "tag": "blocked"
+    "tag": "block"
   }]
 }
 EOF
@@ -1547,7 +1550,9 @@ EOF
   }],
   "outbounds": [{
     "protocol": "freedom",
-    "settings": {}
+    "settings": {
+    	"domainStrategy": "UseIPv4"
+    },
     "tag": "direct"
   },{
     "protocol": "blackhole",
