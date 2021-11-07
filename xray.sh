@@ -1074,6 +1074,7 @@ EOF
 installXray() {
     rm -rf /tmp/xray
     mkdir -p /tmp/xray
+    stop
     DOWNLOAD_LINK="${V6_PROXY}https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
     colorEcho $BLUE " 下载Xray: ${DOWNLOAD_LINK}"
     curl -L -H "Cache-Control: no-cache" -o /tmp/xray/xray.zip ${DOWNLOAD_LINK}
