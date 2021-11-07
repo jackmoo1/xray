@@ -1055,7 +1055,7 @@ removeUnlockDNS() {
   // 1_DNS 设置
   "dns": {
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1166,7 +1166,7 @@ trojanXTLSConfig() {
   // 1_DNS 设置
   "dns": {
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1469,7 +1469,7 @@ vlessXTLSConfig() {
   // 1_DNS 设置
   "dns": {
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },  
@@ -1535,7 +1535,7 @@ EOF
         "security": "xtls",
         "xtlsSettings": {
             "serverName": "$DOMAIN",
-            "alpn": ["http/1.1", "h2"],
+            "alpn": ["h2", "http/1.1"],
             "certificates": [
                 {
                     "certificateFile": "$CERT_FILE",
