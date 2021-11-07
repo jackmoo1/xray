@@ -1177,8 +1177,15 @@ EOF
        cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
   "routing": {
-    "domainStrategy": "AsIs",
+    "domainStrategy": "IPIfNonMatch",
     "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+        ],
+        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+      },
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
@@ -1187,13 +1194,6 @@ EOF
           "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
-      },
-      {
-        "type": "field",
-        "domain": [
-          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
-        ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
       // 2.2 国内域名和广告屏蔽
       {
@@ -1245,7 +1245,7 @@ EOF
   "outbounds": [{
     "protocol": "freedom",
     "settings": {
-    	"domainStrategy": "UseIPv4"
+    	"domainStrategy": "UseIP"
     },
     "tag": "direct"
   },{
@@ -1483,8 +1483,15 @@ EOF
       cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
    "routing": {
-    "domainStrategy": "AsIs",
+    "domainStrategy": "IPIfNonMatch",
     "rules": [
+      {
+        "type": "field",
+        "domain": [
+		  "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+        ],
+        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+      },
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
@@ -1493,13 +1500,6 @@ EOF
           "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
-      },
-      {
-        "type": "field",
-        "domain": [
-		  "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
-        ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
       // 2.2 国内域名和广告屏蔽
       {
@@ -1553,7 +1553,7 @@ EOF
   "outbounds": [{
     "protocol": "freedom",
     "settings": {
-    	"domainStrategy": "UseIPv4"
+    	"domainStrategy": "UseIP"
     },
     "tag": "direct"
   },{
