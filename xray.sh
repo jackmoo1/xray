@@ -1182,7 +1182,7 @@ EOF
       {
         "type": "field",
         "domain": [
-          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+          "geosite:apple"// 分流条件：geoip 文件内，名为"apple"的域名直连
         ],
         "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
@@ -1488,7 +1488,7 @@ EOF
       {
         "type": "field",
         "domain": [
-		  "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+		  "geosite:apple"// 分流条件：geoip 文件内，名为"apple"的域名直连
         ],
         "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
       },
