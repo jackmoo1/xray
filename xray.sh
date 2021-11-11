@@ -1177,15 +1177,8 @@ EOF
        cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
   "routing": {
-    "domainStrategy": "IPIfNonMatch",
+    "domainStrategy": "IPIfNonMatch", // 可选AsIs , IPIfNonMatch
     "rules": [
-      {
-        "type": "field",
-        "domain": [
-          "geosite:apple"// 分流条件：geoip 文件内，名为"apple"的域名直连
-        ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
-      },
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
@@ -1245,7 +1238,7 @@ EOF
   "outbounds": [{
     "protocol": "freedom",
     "settings": {
-    	"domainStrategy": "UseIP"
+    	"domainStrategy": "UseIP" // 可选UseIP , AsIs
     },
     "tag": "direct"
   },{
@@ -1483,15 +1476,8 @@ EOF
       cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
    "routing": {
-    "domainStrategy": "IPIfNonMatch",
+    "domainStrategy": "IPIfNonMatch", // 可选AsIs , IPIfNonMatch
     "rules": [
-      {
-        "type": "field",
-        "domain": [
-		  "geosite:apple"// 分流条件：geoip 文件内，名为"apple"的域名直连
-        ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
-      },
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
         "type": "field",
@@ -1553,7 +1539,7 @@ EOF
   "outbounds": [{
     "protocol": "freedom",
     "settings": {
-    	"domainStrategy": "UseIP"
+    	"domainStrategy": "UseIP" // 可选AsIs , UseIP
     },
     "tag": "direct"
   },{
