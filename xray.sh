@@ -1014,6 +1014,9 @@ setUnlockDNS() {
 	if [[ -n "${setDNS}" ]]; then
 		cat <<EOF >$CONFIG_DNSFILE
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
     "servers": [
@@ -1053,10 +1056,25 @@ EOF
 removeUnlockDNS() {
 	cat >$CONFIG_DNSFILE<<-EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        {
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1165,10 +1183,25 @@ EOF
 trojanXTLSConfig() {
      cat > $CONFIG_DNSFILE<<EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        {
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1177,7 +1210,7 @@ EOF
        cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
   "routing": {
-    "domainStrategy": "IPIfNonMatch", // 可选AsIs , IPIfNonMatch
+    "domainStrategy": "AsIs", // 可选AsIs , IPIfNonMatch
     "rules": [
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
@@ -1463,10 +1496,25 @@ vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
     cat > $CONFIG_DNSFILE<<EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+	{
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },  
@@ -1475,7 +1523,7 @@ EOF
       cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
    "routing": {
-    "domainStrategy": "IPIfNonMatch", // 可选AsIs , IPIfNonMatch
+    "domainStrategy": "AsIs", // 可选AsIs , IPIfNonMatch
     "rules": [
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
