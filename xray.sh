@@ -1211,7 +1211,6 @@ EOF
       ],
       "fallbacks": [
         {
-              "alpn": "http/1.1",
               "dest": 80
           },
           {
@@ -1512,7 +1511,6 @@ EOF
       "decryption": "none",
       "fallbacks": [
           {
-              "alpn": "http/1.1",
               "dest": 80
           },
           {
