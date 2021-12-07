@@ -1221,6 +1221,14 @@ EOF
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
+      //  避免解锁抖音时被屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:tiktok"
+        ],
+        "outboundTag": "direct"
+      },
       // 2.2 国内域名和广告屏蔽
       {
         "type": "field",
@@ -1533,6 +1541,14 @@ EOF
           "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      //  避免解锁抖音时被屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:tiktok"
+        ],
+        "outboundTag": "direct"
       },
       // 2.2 国内域名和广告屏蔽
       {
