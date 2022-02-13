@@ -35,7 +35,7 @@ http://www.tjwl.com/
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
 # xray/trojan预配置文件
-PRECONFIG_FILE="/usr/local/etc/xray/preconfig.json"
+CONFIG_FILE="/usr/local/etc/xray/preconfig.json"
 
 # xray/trojan运行配置文件
 CONFIG_FILE="/usr/local/etc/xray/config.json"
@@ -100,7 +100,6 @@ checkSystem() {
 colorEcho() {
     echo -e "${1}${@:2}${PLAIN}"
 }
-
 
 # 安装工具包
 installTools() {
@@ -210,7 +209,7 @@ status() {
         echo 1
         return
     fi
-    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ -z "$res" ]]; then
         echo 2
@@ -275,8 +274,9 @@ getVersion() {
     VER=`/usr/local/bin/xray version|head -n1 | awk '{print $2}'`
     RETVAL=$?
     CUR_VER="$(normalizeVersion "$(echo "$VER" | head -n 1 | cut -d " " -f2)")"
-    TAG_URL="${V6_PROXY}https://api.github.com/repos/XTLS/Xray-core/releases/latest"
-    NEW_VER="$(normalizeVersion "$(curl -s "${TAG_URL}" --connect-timeout 10| grep 'tag_name' | cut -d\" -f4)")"
+    TAG_URL="${V6_PROXY}https://api.github.com/repos/XTLS/Xray-core/releases"
+    TAG_VER="$(normalizeVersion "$(curl -s "${TAG_URL}" --connect-timeout 10| grep 'tag_name' | cut -d\" -f4)")"
+    NEW_VER="$(normalizeVersion "$(echo "$TAG_VER" | head -n 1 | cut -d " " -f2)")"
 
     if [[ $? -ne 0 ]] || [[ $NEW_VER == "" ]]; then
         colorEcho $RED " 检查Xray版本信息失败，请检查网络"
@@ -345,15 +345,10 @@ archAffix(){
 
 	return 0
 }
-#获取预配置域名
 
-     
-
-
-#获取配置数据
 getData() {
-	if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
-    	echo ""
+    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
+        echo ""
         echo " Xray一键脚本，运行之前请确认如下条件已经具备："
         colorEcho ${YELLOW} "  1. 一个伪装域名"
         colorEcho ${YELLOW} "  2. 伪装域名DNS解析指向当前服务器ip（${IP}）"
@@ -400,8 +395,8 @@ getData() {
                 exit 1
             fi
         fi
-    fi	
-    
+    fi
+
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
         if [[ "$TLS" = "true" ]]; then
@@ -695,35 +690,36 @@ getCert() {
     fi
 }
 
-#证书目录
-DOMAIN=${DOMAIN}
 # 查看TLS证书的状态
+# 更新证书
 checkTLStatus() {
-    echo -e $skyBlue "---------->> : 证书状态"$PLAIN
-    getDomain
-	if [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]]; then
-		echo -e $GREEN " ---> 检测到证书"$PLAIN
+        echo -e $skyBlue "---------->> : 查看证书状态"$PLAIN
+        echo ""
+        DOMAIN=`grep serverName $CONFIG_FILE | cut -d: -f2 | tr -d \",' '`
+	if [[ -f "/usr/local/etc/xray/${DOMAIN}.key" ]] && [[ -f "/usr/local/etc/xray/${DOMAIN}.pem" ]]; then
+		    echo -e $GREEN " ---> 检测到证书"$PLAIN
+            modifyTime=$(openssl x509 -in /usr/local/etc/xray/${DOMAIN}.pem -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
+		
+            BirthTime=$(date +%s -d "${modifyTime}")
+		    currentTime=$(date +%s)
+		    ((stampDiff = currentTime - BirthTime))
+		    ((days = stampDiff / 86400))
+		    ((remainingDays = 90 - days))
+		    tlsStatus=${remainingDays}
+		    if [[ ${remainingDays} -le 0 ]]; then
+			    tlsStatus="已过期"
+                regetCert
+		    fi
 
-        modifyTime=$(openssl x509 -in "/usr/local/etc/xray/${DOMAIN}.pem" -noout -dates  | sed -n '1p' | cut -d "=" -f2-)
-        BirthTime=$(date +%s -d "${modifyTime}")
-		currentTime=$(date +%s)
-		((stampDiff = currentTime - BirthTime))
-		((days = stampDiff / 86400))
-		((remainingDays = 90 - days))
-		tlsStatus=${remainingDays}
-        if [[ ${remainingDays} -le 0 ]]; then
-            echo -e $RED " ---> 证书已过期"$PLAIN
-        else     
-        echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
-		echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
-		echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
-		echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
-		echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
-		echo -e $GREEN " ---> 证书有效！"$PLAIN
-        fi
+		    echo -e $skyBlue " ---> 证书检查日期:"${PLAIN}${YELLOW}$(date "+%F %H:%M:%S")${PLAIN}
+		    echo -e $skyBlue " ---> 证书生成日期:"${PLAIN}${YELLOW}$(date -d @"${BirthTime}" +"%F %H:%M:%S")${PLAIN}
+		    echo -e $skyBlue " ---> 证书生成天数:"${PLAIN}${YELLOW}${days}${PLAIN}
+		    echo -e $skyBlue " ---> 证书剩余天数:"${PLAIN}${YELLOW}${tlsStatus}${PLAIN}
+		    echo -e $skyBlue " ---> 证书过期前最后一天自动更新，如更新失败请手动更新"$PLAIN
+		    echo -e $GREEN " ---> 证书有效！"$PLAIN
 	else
-		echo -e $RED " ---> 证书未安装"$PLAIN
-	fi
+		    echo -e $RED " ---> 证书未安装"$PLAIN
+	fi   
 }
 
 #重新生成证书
@@ -981,7 +977,7 @@ reloadCore() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
@@ -1018,6 +1014,9 @@ setUnlockDNS() {
 	if [[ -n "${setDNS}" ]]; then
 		cat <<EOF >$CONFIG_DNSFILE
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
     "servers": [
@@ -1057,10 +1056,25 @@ EOF
 removeUnlockDNS() {
 	cat >$CONFIG_DNSFILE<<-EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        {
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1078,6 +1092,7 @@ EOF
 installXray() {
     rm -rf /tmp/xray
     mkdir -p /tmp/xray
+    stop
     DOWNLOAD_LINK="${V6_PROXY}https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-$(archAffix).zip"
     colorEcho $BLUE " 下载Xray: ${DOWNLOAD_LINK}"
     curl -L -H "Cache-Control: no-cache" -o /tmp/xray/xray.zip ${DOWNLOAD_LINK}
@@ -1085,7 +1100,6 @@ installXray() {
         colorEcho $RED " 下载Xray文件失败，请检查服务器网络设置"
         exit 1
     fi
-    systemctl stop xray
     mkdir -p /usr/local/etc/xray /usr/local/share/xray && \
     unzip /tmp/xray/xray.zip -d /tmp/xray
     cp /tmp/xray/xray /usr/local/bin
@@ -1169,10 +1183,25 @@ EOF
 trojanXTLSConfig() {
      cat > $CONFIG_DNSFILE<<EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        {
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },
@@ -1181,7 +1210,7 @@ EOF
        cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
   "routing": {
-    "domainStrategy": "AsIs",
+    "domainStrategy": "AsIs", // 可选AsIs , IPIfNonMatch
     "rules": [
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
@@ -1192,12 +1221,13 @@ EOF
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
+      //  避免解锁抖音时被屏蔽
       {
         "type": "field",
         "domain": [
-          "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+          "geosite:tiktok"
         ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+        "outboundTag": "direct"
       },
       // 2.2 国内域名和广告屏蔽
       {
@@ -1222,7 +1252,6 @@ EOF
       ],
       "fallbacks": [
         {
-              "alpn": "http/1.1",
               "dest": 80
           },
           {
@@ -1248,11 +1277,14 @@ EOF
   }],
   "outbounds": [{
     "protocol": "freedom",
-    "settings": {}
+    "settings": {
+    	"domainStrategy": "UseIP" // 可选UseIP , AsIs
+    },
+    "tag": "direct"
   },{
     "protocol": "blackhole",
     "settings": {},
-    "tag": "blocked"
+    "tag": "block"
   }]
 }
 EOF
@@ -1472,10 +1504,25 @@ vlessXTLSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
     cat > $CONFIG_DNSFILE<<EOF
 {
+  "log":{
+  	"loglevel": "debug"
+  },
   // 1_DNS 设置
   "dns": {
+    "hosts": {
+    	"dns.google": "8.8.8.8",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
+    },
     "servers": [
-        "https+local://8.8.4.4/dns-query", // 首选 8.8.4.4 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+	{
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
         "localhost"
     ]
   },  
@@ -1484,7 +1531,7 @@ EOF
       cat > $PRECONFIG_FILE<<-EOF
 // 2*分流设置
    "routing": {
-    "domainStrategy": "AsIs",
+    "domainStrategy": "AsIs", // 可选AsIs , IPIfNonMatch
     "rules": [
       // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
       {
@@ -1495,12 +1542,13 @@ EOF
         ],
         "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
       },
+      //  避免解锁抖音时被屏蔽
       {
         "type": "field",
         "domain": [
-		  "geosite:apple@cn"// 分流条件：geoip 文件内，名为"apple"的域名直连
+          "geosite:tiktok"
         ],
-        "outboundTag": "direct"// 分流策略：交给出站"direct"处理（直连）
+        "outboundTag": "direct"
       },
       // 2.2 国内域名和广告屏蔽
       {
@@ -1527,7 +1575,6 @@ EOF
       "decryption": "none",
       "fallbacks": [
           {
-              "alpn": "http/1.1",
               "dest": 80
           },
           {
@@ -1541,7 +1588,7 @@ EOF
         "security": "xtls",
         "xtlsSettings": {
             "serverName": "$DOMAIN",
-            "alpn": ["http/1.1", "h2"],
+            "alpn": ["h2", "http/1.1"],
             "certificates": [
                 {
                     "certificateFile": "$CERT_FILE",
@@ -1553,7 +1600,9 @@ EOF
   }],
   "outbounds": [{
     "protocol": "freedom",
-    "settings": {}
+    "settings": {
+    	"domainStrategy": "UseIP" // 可选AsIs , UseIP
+    },
     "tag": "direct"
   },{
     "protocol": "blackhole",
@@ -1718,7 +1767,6 @@ install() {
     if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         getCert
     fi
-    hostname=$DOMAIN
     configNginx
 
     colorEcho $BLUE " 安装Xray..."
@@ -1729,8 +1777,8 @@ install() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"$PLAIN
-	installXray
+        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        installXray
     fi
 
     configXray
@@ -1769,7 +1817,7 @@ update() {
     elif [[ $RETVAL == 3 ]]; then
         exit 1
     else
-        colorEcho $BLUE " 安装Xray ${NEW_VER} ，架构$(archAffix)"
+        colorEcho $YELLOW " 安装Xray ${NEW_VER} ，架构$(archAffix)"
         installXray
         stop
         start
@@ -1829,7 +1877,7 @@ start() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
@@ -2041,7 +2089,6 @@ showInfo() {
     echo ""
     echo -n -e " ${BLUE}Xray运行状态：${PLAIN}"
     statusText
-    checkTLStatus
     echo -e " ${BLUE}Xray配置文件: ${PLAIN} ${RED}${CONFIG_FILE}${PLAIN}"
     colorEcho $BLUE " Xray配置信息："
 
@@ -2255,4 +2302,3 @@ case "$action" in
         echo " 用法: `basename $0` [menu|update|uninstall|start|restart|stop|showInfo|showLog|checkTLStatus|dnsUnlock]"
         ;;
 esac
-
