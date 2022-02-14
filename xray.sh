@@ -35,7 +35,7 @@ http://www.tjwl.com/
 CONFIG_DNSFILE="/usr/local/etc/xray/dns.json"
 
 # xray/trojan预配置文件
-CONFIG_FILE="/usr/local/etc/xray/preconfig.json"
+PRECONFIG_FILE="/usr/local/etc/xray/preconfig.json"
 
 # xray/trojan运行配置文件
 CONFIG_FILE="/usr/local/etc/xray/config.json"
