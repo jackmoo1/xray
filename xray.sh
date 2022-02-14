@@ -977,7 +977,7 @@ reloadCore() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
@@ -1877,7 +1877,7 @@ start() {
     systemctl restart xray
     sleep 2
     
-    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ "$res" = "" ]]; then
         colorEcho $RED " Xray启动失败，请检查日志或查看端口是否被占用！"
