@@ -209,7 +209,7 @@ status() {
         echo 1
         return
     fi
-    port=`grep port $CONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
+    port=`grep port $PRECONFIG_FILE| head -n 1| cut -d: -f2| tr -d \",' '`
     res=`ss -nutlp| grep ${port} | grep -i xray`
     if [[ -z "$res" ]]; then
         echo 2
