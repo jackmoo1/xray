@@ -1624,7 +1624,7 @@ readProtocolConfig()
     blue   "   1. 不知道什么是CDN或不使用CDN，请选择TCP"
     blue   "   2. gRPC和WebSocket支持通过CDN，关于两者的区别，详见：https://github.com/kirin10000/Xray-script#关于grpc与websocket"
     blue   "   3. 只有TCP能使用XTLS，且XTLS完全兼容TLS"
-    blue   "   4. 能使用TCP传输的只有VLESS"
+    blue   "   4. 能使用TCP传输的只有VLESS/TROJAN"
     echo
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>7))
@@ -1633,6 +1633,14 @@ readProtocolConfig()
     done
     if [ $choice -eq 1 ] || [ $choice -eq 4 ] || [ $choice -eq 5 ] || [ $choice -eq 7 ]; then
         protocol_1=1
+        echo
+        yellow   " 协议类型："
+        yellow   "   1. VLESS（默认）"
+        yellow   "   2. TROJAN"
+        read -r -p "请选择:" selectType
+        yellow   "   3. 只有TCP能使用XTLS，且XTLS完全兼容TLS"
+        yellow   "   4. 能使用TCP传输的只有VLESS/TROJAN"
+        echo
     else
         protocol_1=0
     fi
@@ -2562,11 +2570,11 @@ EOF
     fi
 cat >> $xray_config <<EOF
                     {
-                        "alpn": "h2",
-                        "dest": "/dev/shm/nginx/h2.sock"
+                        "dest": "/dev/shm/nginx/default.sock"
                     },
                     {
-                        "dest": "/dev/shm/nginx/default.sock"
+                        "alpn": "h2",
+                        "dest": "/dev/shm/nginx/h2.sock"
                     }
                 ]
             },
