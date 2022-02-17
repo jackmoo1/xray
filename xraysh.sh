@@ -1638,9 +1638,17 @@ readProtocolConfig()
         yellow   "   1. VLESS（默认）"
         yellow   "   2. TROJAN"
         read -r -p "请选择:" selectType
-        yellow   "   3. 只有TCP能使用XTLS，且XTLS完全兼容TLS"
-        yellow   "   4. 能使用TCP传输的只有VLESS/TROJAN"
-        echo
+        if [[ "${selectType,,}" = "2" ]]; then
+            Type="vless"
+            echo
+            yellow   " 协议选择：${Type}"
+            echo
+        else
+            Type="trojan"
+            echo
+            yellow   " 协议选择：${Type}"
+            echo
+        fi
     else
         protocol_1=0
     fi
@@ -2539,13 +2547,64 @@ config_xray()
     local temp_domain
 cat > $xray_config <<EOF
 {
-    "log": {
-        "loglevel": "none"
+  "log":{
+  	"loglevel": "debug"
+  },
+  // 1_DNS 设置
+  "dns": {
+    "hosts": {
+    	"dns.google": "8.8.4.4",
+    	"dns.pub": "119.29.29.29",
+    	"dns.alidns.com": "223.5.5.5",
+    	"geosite:category-ads-all": "127.0.0.1"
     },
-    "inbounds": [
+    "servers": [
+        {
+      	"address": "localhost",
+      	"port": 53,
+      	"domains": ["geosite:netflix"],
+      	"skipFallback": false
+        },
+	"https+local://1.1.1.1/dns-query", // 首选 1.1.1.1 的 DoH 查询，牺牲速度但可防止 ISP 偷窥
+        "localhost"
+    ]
+  },
+  // 2*分流设置
+  "routing": {
+    "domainStrategy": "AsIs", // 可选AsIs , IPIfNonMatch
+    "rules": [
+      // 2.1 防止服务器本地流转问题：如内网被攻击或滥用、错误的本地回环等
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private",// 分流条件：geoip 文件内，名为"private"的规则（本地）
+          "geoip:cn"// 分流条件：geoip 文件内，名为"cn"的规则（本地）
+        ],
+        "outboundTag": "block" // 分流策略：交给出站"block"处理（黑洞屏蔽）
+      },
+      //  避免解锁抖音时被屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:tiktok"
+        ],
+        "outboundTag": "direct"
+      },
+      // 2.2 国内域名和广告屏蔽
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all", // 分流条件：geosite 文件内，名为"category-ads-all"的规则（各种广告域名）
+          "geosite:cn"// 分流条件：geosite 文件内，名为"cn"的规则（国内）
+        ],
+        "outboundTag": "block"// 分流策略：交给出站"block"处理（黑洞屏蔽）
+      }
+    ]
+  },
+  "inbounds": [
         {
             "port": 443,
-            "protocol": "vless",
+            "protocol": "${Type}",
             "settings": {
 EOF
     if [ $protocol_1 -eq 1 ]; then
@@ -2603,7 +2662,7 @@ EOF
 cat >> $xray_config <<EOF
                     ]
                 }
-            }
+            },
 EOF
     if [ $protocol_2 -ne 0 ]; then
         echo '        },' >> $xray_config
@@ -2666,11 +2725,27 @@ cat >> $xray_config <<EOF
 EOF
     fi
 cat >> $xray_config <<EOF
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            }
         }
     ],
     "outbounds": [
         {
             "protocol": "freedom"
+            "settings": {
+    	        "domainStrategy": "UseIP" // 可选UseIP , AsIs
+            },
+            "tag": "direct" 
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "block"    
         }
     ]
 }
