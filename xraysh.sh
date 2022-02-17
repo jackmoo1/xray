@@ -1638,13 +1638,13 @@ readProtocolConfig()
         yellow   "   1. VLESS（默认）"
         yellow   "   2. TROJAN"
         read -r -p "请选择:" selectType
-        if [[ "${selectType,,}" = "2" ]]; then
-            Type="vless"
+        if [[ "${selectType,,}" != "1" ]]; then
+            Type="trojan"
             echo
             yellow   " 协议选择：${Type}"
             echo
         else
-            Type="trojan"
+            Type="vless"
             echo
             yellow   " 协议选择：${Type}"
             echo
