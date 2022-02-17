@@ -33,9 +33,9 @@
 -  #### 2.添加DNS解锁 ####
 -  XTLS协议增加DNS解锁配置，安装xray后，再次重启脚本，设置可解锁DNS地址（需配合`geosite.dat`文件注意及时更新，与添加解锁`netflix`，`hbo`，`hulu`，`disney`，`fox`，`bbc`，`bilibili`等网站，需解锁其他网站自行在配置文件里修改）
 ## 2.安装方式
-`wget --no-check-certificate "https://github.com//jackmoo1/xray/raw/main/xray.sh" && chmod +x xray.sh && ./xray.sh`
+`wget --no-check-certificate "https://github.com//jackmoo1/xray/raw/main/xraysh.sh" && chmod +x xraysh.sh && ./xraysh.sh`
 
-快捷启动`./xray.sh`
+快捷启动`./xraysh.sh`
 
 在[**kirin10000**](https://github.com/kirin10000/Xray-script)大佬的方案里增加了trojan选择
 
