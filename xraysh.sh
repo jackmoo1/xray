@@ -3048,7 +3048,7 @@ print_config_info()
         echo
         if [ $protocol_3 -eq 1 ]; then
             tyblue "------------- VLESS-WebSocket-TLS (有CDN则走CDN，否则直连) -------------"
-            tyblue " protocol(传输协议)    ：\\033[33mvless"
+            tyblue " protocol(传输协议)    ：\\033[33m${Type}"
             purple "  (V2RayN选择\"添加[VLESS]服务器\";V2RayNG选择\"手动输入[VLESS]\")"
         else
             tyblue "------------- VMess-WebSocket-TLS (有CDN则走CDN，否则直连) -------------"
