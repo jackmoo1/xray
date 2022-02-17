@@ -1642,6 +1642,9 @@ readProtocolConfig()
             Type="trojan"
             echo
             yellow   " 协议选择：${Type}"
+	    read -p " 请设置trojan密码（不输则随机生成）:" PASSWORD
+	    [[ -z "$PASSWORD" ]] && PASSWORD=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
+	    yellow   " trojan密码：$PASSWORD"
             echo
         else
             Type="vless"
