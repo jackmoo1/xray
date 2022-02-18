@@ -1640,6 +1640,7 @@ readProtocolConfig()
         read -r -p "请选择:" selectType
         if [[ "${selectType,,}" != "1" ]]; then
             Type="trojan"
+	    protocol_4=1
             echo
             yellow   " 协议选择：${Type}"
 	    read -p " 请设置trojan密码（不输则随机生成）:" PASSWORD
@@ -1648,6 +1649,7 @@ readProtocolConfig()
             echo
         else
             Type="vless"
+	    protocol_4=0
             echo
             yellow   " 协议选择：${Type}"
             echo
@@ -2611,10 +2613,16 @@ cat > $xray_config <<EOF
             "settings": {
 EOF
     if [ $protocol_1 -eq 1 ]; then
+    	if [ $protocol_4 -eq 1 ]; then
+		idtype="password"
+		xidtype="$PASSWORD"
+	elif [ $protocol_4 -eq 0 ]; then
+		idtype="id"
+		xidtype="$xid_1"
 cat >> $xray_config <<EOF
                 "clients": [
                     {
-                        "id": "$xid_1",
+                        "${idtype}": "${xidtype}",
                         "flow": "xtls-rprx-direct"
                     }
                 ],
@@ -2911,23 +2919,23 @@ print_share_link()
                 tyblue "vless://${xid_1}@${ip}:443?security=tls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1"
             fi
         done
-        green  "============ VLESS-TCP-XTLS\\033[35m(不走CDN)\\033[32m ============"
+        green  "============ ${Type}-TCP-XTLS\\033[35m(不走CDN)\\033[32m ============"
         yellow "Linux/安卓/路由器："
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-splice"
+                tyblue "${Type}://${xidtype}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-splice"
             else
-                tyblue "vless://${xid_1}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-splice"
+                tyblue "${Type}://${xidtype}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-splice"
             fi
         done
         yellow "其他："
         for i in "${!domain_list[@]}"
         do
             if [ "${pretend_list[$i]}" == "1" ] || [ "${pretend_list[$i]}" == "2" ]; then
-                tyblue "vless://${xid_1}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-direct"
+                tyblue "${Type}://${xidtype}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=http%2F1.1&flow=xtls-rprx-direct"
             else
-                tyblue "vless://${xid_1}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-direct"
+                tyblue "${Type}://${xidtype}@${ip}:443?security=xtls&sni=${domain_list[$i]}&alpn=h2,http%2F1.1&flow=xtls-rprx-direct"
             fi
         done
     fi
@@ -2962,13 +2970,13 @@ print_config_info()
 {
     echo -e "\\n\\n\\n"
     if [ $protocol_1 -ne 0 ]; then
-        tyblue "--------------------- VLESS-TCP-XTLS/TLS (不走CDN) ---------------------"
-        tyblue " protocol(传输协议)    ：\\033[33mvless"
-        purple "  (V2RayN选择\"添加[VLESS]服务器\";V2RayNG选择\"手动输入[VLESS]\")"
+        tyblue "--------------------- ${Type}-TCP-XTLS/TLS (不走CDN) ---------------------"
+        tyblue " protocol(传输协议)    ：\\033[33m${Type}"
+        purple "  (V2RayN选择\"添加[${Type}]服务器\";V2RayNG选择\"手动输入[${Type}]\")"
         tyblue " address(地址)         ：\\033[33m服务器ip"
         purple "  (Qv2ray:主机)"
         tyblue " port(端口)            ：\\033[33m443"
-        tyblue " id(用户ID/UUID)       ：\\033[33m${xid_1}"
+        tyblue " ${idtype}(用户ID/UUID)       ：\\033[33m${xidtype}"
         tyblue " flow(流控)            ："
         tyblue "                         使用XTLS ："
         tyblue "                                    Linux/安卓/路由器：\\033[33mxtls-rprx-splice\\033[32m(推荐)\\033[36m或\\033[33mxtls-rprx-direct"
