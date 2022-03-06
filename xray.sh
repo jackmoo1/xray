@@ -1270,7 +1270,14 @@ EOF
                 }
             ]
         }
-    }
+    },
+    "sniffing": {
+	"enabled": true,
+	"destOverride": [
+		"http",
+		"tls"
+	]
+     }
   }],
   "outbounds": [{
     "protocol": "freedom",
