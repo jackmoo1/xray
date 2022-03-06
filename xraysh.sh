@@ -2761,7 +2761,6 @@ cat >> $xray_config <<EOF
     ]
 }
 EOF
-}
 
 init_web()
 {
