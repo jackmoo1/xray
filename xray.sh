@@ -1273,11 +1273,8 @@ EOF
     },
     "sniffing": {
 	"enabled": true,
-	"destOverride": [
-		"http",
-		"tls"
-	]
-     }
+	"destOverride": ["http", "tls"]
+    }
   }],
   "outbounds": [{
     "protocol": "freedom",
@@ -1600,6 +1597,10 @@ EOF
                 }
             ]
         }
+    },
+    "sniffing": {
+	"enabled": true,
+	"destOverride": ["http", "tls"]
     }
   }],
   "outbounds": [{
