@@ -19,24 +19,24 @@ unset timezone
 unset ssh_service
 
 #安装配置信息
-nginx_version="nginx-1.23.3"
-openssl_version="openssl-openssl-3.0.7"
+nginx_version="nginx-1.24.0"
+openssl_version="openssl-openssl-3.1.0"
 nginx_prefix="/usr/local/nginx"
 nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.1.13"
+php_version="php-8.2.25"
 php_prefix="/usr/local/php"
 php_service="/etc/systemd/system/php-fpm.service"
 unset php_is_installed
 
-cloudreve_version="3.6.2"
+cloudreve_version="3.8.3"
 cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-25.0.2.zip"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.4.zip"
 
 xray_config="/usr/local/etc/xray/config.json"
 unset xray_is_installed
