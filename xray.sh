@@ -3,8 +3,8 @@
 
 # GOTO: 1969  //由于原作者过于混乱的参数管理，不得已把域名的检查前置
 if [[ -n $1 ]]; then
-    predomain="$1"
-    if [ "$(echo -n "$myname.com" | wc -c)" -gt 46 ]; then
+    predomain="myname.com"
+    if [ "$(echo -n "$predomain" | wc -c)" -gt 46 ]; then
         echo -e "\033[5;41;34m域名过长！请更换域名后重新运行脚本！\033[0m"
         exit 1
     fi                    
