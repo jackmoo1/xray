@@ -1,5 +1,23 @@
 #!/bin/bash
 
+
+# GOTO: 1969  //由于原作者过于混乱的参数管理，不得已把域名的检查前置
+if [[ -n $1 ]]; then
+    predomain="$1"
+    if [ "$(echo -n "$predomain" | wc -c)" -gt 46 ]; then
+        echo -e "\033[5;41;34m域名过长！请更换域名后重新运行脚本！\033[0m"
+        exit 1
+    fi                    
+else
+    echo -e "\033[5;41;34m此脚本需要一个解析到本服务器的域名\n请补充域名后重新运行脚本！形如hostname.your.domain\033[0m"
+    exit 1
+fi
+
+# GOTO: 1912
+if [[ -n $2 ]]; then
+    preFake="$2"
+fi
+
 #系统信息
 # 指令集
 unset machine
@@ -26,17 +44,17 @@ nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
 
-php_version="php-8.2.25"
+php_version="php-8.2.5"
 php_prefix="/usr/local/php"
 php_service="/etc/systemd/system/php-fpm.service"
 unset php_is_installed
 
-cloudreve_version="3.8.3"
+cloudreve_version="3.7.1"
 cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.1.4.zip"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.1.tar.bz2"
 
 xray_config="/usr/local/etc/xray/config.json"
 unset xray_is_installed
@@ -142,12 +160,12 @@ version_ge()
 #检查脚本更新
 check_script_update()
 {
-    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/jackmoo1/xray/raw/main/xray.sh") | awk '{print $1}')" ] && return 1 || return 0
+    [ "$(md5sum "${BASH_SOURCE[0]}" | awk '{print $1}')" == "$(md5sum <(wget -O - "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh") | awk '{print $1}')" ] && return 1 || return 0
 }
 #更新脚本
 update_script()
 {
-    if wget -O "${BASH_SOURCE[0]}" "https://github.com/jackmoo1/xray/raw/main/xray.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/jackmoo1/xray/raw/main/xray.sh"; then
+    if wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh" || wget -O "${BASH_SOURCE[0]}" "https://github.com/kirin10000/Xray-script/raw/main/Xray-TLS+Web-setup.sh"; then
         green "脚本更新完成，请重新运行脚本！"
         exit 0
     else
@@ -835,10 +853,10 @@ else
     red "不支持的系统"
     exit 1
 fi
-if [[ -z "${BASH_SOURCE[0]}" ]]; then
-    red "请以文件的形式运行脚本，或不支持的bash版本"
-    exit 1
-fi
+# if [[ -z "${BASH_SOURCE[0]}" ]]; then
+#     red "请以文件的形式运行脚本，或不支持的bash版本"
+#     exit 1
+# fi
 if [ "$EUID" != "0" ]; then
     red "请用root用户运行此脚本！！"
     exit 1
@@ -868,8 +886,14 @@ case "$(uname -m)" in
     'amd64' | 'x86_64')
         machine='amd64'
         ;;
-    'armv5tel' | 'armv6l' | 'armv7' | 'armv7l')
-        machine='arm'
+    'armv5tel')
+        machine='armv5'
+        ;;
+    'armv6l')
+        machine='armv6'
+        ;;
+    'armv7' | 'armv7l')
+        machine='armv7'
         ;;
     'armv8' | 'aarch64')
         machine='arm64'
@@ -1213,7 +1237,9 @@ doupdate()
         choice=""
         while [ "$choice" != "1" ] && [ "$choice" != "2" ] && [ "$choice" != "3" ]
         do
-            read -p "您的选择是：" choice
+            # read -p "您的选择是：" choice
+            choice=3
+            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
         done
         if [ $release == "ubuntu" ] || [ $choice -ne 1 ]; then
             break
@@ -1542,7 +1568,13 @@ install_bbr()
         local choice=""
         while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>10))
         do
-            read -p "您的选择是：" choice
+            # read -p "您的选择是：" choice
+            if [[ $tcp_congestion_control == "bbr" ]] || (! version_ge $your_kernel_version 4.9); then
+                choice=0
+            else
+                choice=5
+            fi
+            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
         done
         if (( 1<=choice&&choice<=4 )); then
             if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]) && ! dpkg-deb --help | grep -qw "zstd"; then
@@ -1722,7 +1754,9 @@ readProtocolConfig()
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>7))
     do
-        read -p "您的选择是：" choice
+        # read -p "您的选择是：" choice
+        choice=5
+        echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
     done
     if [ $choice -eq 1 ] || [ $choice -eq 4 ] || [ $choice -eq 5 ] || [ $choice -eq 7 ]; then
         protocol_1=1
@@ -1748,7 +1782,9 @@ readProtocolConfig()
         protocol_1=""
         while [[ ! "$protocol_1" =~ ^([1-9][0-9]*)$ ]] || ((protocol_1>3))
         do
-            read -p "您的选择是：" protocol_1
+            # read -p "您的选择是：" protocol_1
+            protocol_1=3
+            echo -e "\033[5;41;34m您的选择是：${protocol_1}\033[0m"
         done
     fi
     if [ $protocol_2 -eq 1 ]; then
@@ -1775,7 +1811,9 @@ readProtocolConfig()
         choice=""
         while [[ ! "$choice" =~ ^([1-9][0-9]*)$ ]] || ((choice>2))
         do
-            read -p "您的选择是：" choice
+            # read -p "您的选择是：" choice
+            choice=2
+            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
         done
         [ $choice -eq 1 ] && protocol_3=2
     fi
@@ -1807,13 +1845,19 @@ readPretend()
         pretend=""
         while [[ "$pretend" != "1" && "$pretend" != "2" && "$pretend" != "3" && "$pretend" != "4" && "$pretend" != "5" ]]
         do
-            read -p "您的选择是：" pretend
+            # read -p "您的选择是：" pretend
+            if [[ -v preFake ]]; then
+                pretend=5
+            else
+                pretend=3
+            fi
+            echo -e "\033[5;41;34m您的选择是：${pretend}\033[0m"
         done
         queren=1
         if [ $pretend -eq 1 ]; then
             if [ -z "$machine" ]; then
                 red "您的VPS指令集不支持Cloudreve！"
-                yellow "Cloudreve仅支持x86_64、arm64和arm指令集"
+                yellow "Cloudreve仅支持 x86_64, arm64, armv7, armv6, armv5 !"
                 sleep 3s
                 queren=0
             fi
@@ -1865,11 +1909,12 @@ readPretend()
             ! ask_if "确认并继续？(y/n)" && queren=0
         elif [ $pretend -eq 5 ]; then
             yellow "输入反向代理网址，格式如：\"https://v.qq.com\""
-            pretend=""
-            while [ -z "$pretend" ]
-            do
-                read -p "请输入反向代理网址：" pretend
-            done
+            pretend="$preFake"
+#             while [ -z "$pretend" ]
+#             do
+#                 read -p "请输入反向代理网址：" pretend
+#             done
+            echo -e "\033[5;41;34m您输入的反向代理网址是：${pretend}\033[0m"
         fi
     done
 }
@@ -1901,7 +1946,9 @@ readDomain()
     echo
     while [ "$domain_config" != "1" ] && [ "$domain_config" != "2" ]
     do
-        read -p "您的选择是：" domain_config
+        # read -p "您的选择是：" domain_config
+        domain_config=2
+        echo -e "\033[5;41;34m您的选择是：${domain_config}\033[0m"
     done
     local queren=0
     while [ $queren -ne 1 ]
@@ -1916,17 +1963,15 @@ readDomain()
             done
         else
             tyblue '-------请输入解析到此服务器的域名(前面不带"http://"或"https://")-------'
-            while [ -z "$domain" ]
-            do
-                read -p "请输入域名：" domain
-                if [ "$(echo -n "$domain" | wc -c)" -gt 46 ]; then
-                    red "域名过长！"
-                    domain=""
-                fi
-            done
+#             while [ -z "$domain" ]
+#             do
+                # read -p "请输入域名：" domain
+            domain="$predomain"
+            echo -e "\033[5;41;34m您输入的域名是：${predomain}\033[0m" && queren=1
+#             done
         fi
         echo
-        ask_if "您输入的域名是\"$domain\"，确认吗？(y/n)" && queren=1
+        # ask_if "您输入的域名是\"$domain\"，确认吗？(y/n)"
     done
     readPretend "$domain"
     true_domain_list+=("$domain")
@@ -2007,7 +2052,7 @@ install_web_dependence()
         for i in "${pretend_list[@]}"
         do
             if [ "$i" == "2" ]; then
-                install_dependence ca-certificates wget unzip
+                install_dependence ca-certificates curl bzip2
                 break
             fi
         done
@@ -2015,7 +2060,7 @@ install_web_dependence()
         if [ "$1" == "1" ]; then
             install_dependence ca-certificates wget
         elif [ "$1" == "2" ]; then
-            install_dependence ca-certificates wget unzip
+            install_dependence ca-certificates curl bzip2
         fi
     fi
 }
@@ -2418,7 +2463,7 @@ events {
 http {
     include       mime.types;
     default_type  application/octet-stream;
-
+    server_names_hash_bucket_size 64;
     #log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
     #                  '\$status \$body_bytes_sent "\$http_referer" '
     #                  '"\$http_user_agent" "\$http_x_forwarded_for"';
@@ -2560,6 +2605,15 @@ server {
     return 301 https://${domain_list[0]};
 }
 EOF
+    if [ "${pretend_list[$i]}" == "3" ]; then
+cat >> $nginx_config<<EOF
+# Borrowed from https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md#nginx
+map \$http_upgrade \$connection_upgrade {
+    default upgrade;
+    '' close;
+}
+EOF
+    fi
     for ((i=0;i<${#domain_list[@]};i++))
     do
 cat >> $nginx_config<<EOF
@@ -2610,7 +2664,44 @@ EOF
                 echo "        return 403;" >> $nginx_config
                 echo "    }" >> $nginx_config
             else
-                echo "    return 403;" >> $nginx_config
+cat >> $nginx_config<<EOF
+    location = /.well-known/carddav {
+        rewrite ^/\.well-known/carddav$ https://\$host/remote.php/dav permanent;
+    }
+
+    location = /.well-known/caldav {
+        rewrite ^/\.well-known/caldav$ https://\$host/remote.php/dav permanent;
+    }
+    # Borrowed from https://beamtic.com/webfinger-and-nodeinfo-nextcloud its "Disable cache" option works for me
+    location = /.well-known/webfinger {
+        rewrite ^/\.well-known/webfinger$ https://\$host/index.php/.well-known/webfinger permanent;
+    }
+
+    location = /.well-known/nodeinfo {
+        rewrite ^/\.well-known/nodeinfo$ https://\$host/index.php/.well-known/nodeinfo permanent;
+    }
+    
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Port \$server_port;
+        proxy_set_header X-Forwarded-Scheme \$scheme;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header Accept-Encoding "";
+        proxy_set_header Host \$host;
+    
+        client_body_buffer_size 512k;
+        proxy_read_timeout 86400s;
+        client_max_body_size 0;
+
+        # Websocket
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+    }
+EOF
             fi
         elif [ "${pretend_list[$i]}" == "4" ]; then
             echo "    root ${nginx_prefix}/html/${true_domain_list[$i]};" >> $nginx_config
@@ -2619,6 +2710,7 @@ cat >> $nginx_config<<EOF
     location / {
         proxy_pass ${pretend_list[$i]};
         proxy_set_header referer "${pretend_list[$i]}";
+        proxy_ssl_server_name on;
     }
 EOF
         fi
@@ -2645,6 +2737,9 @@ cat > $xray_config <<EOF
     },
     "inbounds": [
         {
+            "sniffing": {
+                "enabled": true
+            },
             "port": 443,
             "protocol": "vless",
             "settings": {
@@ -2659,7 +2754,7 @@ EOF
             echo '                        "id": "'"$xid_1"'"' >> $xray_config
         else
             echo '                        "id": "'"$xid_1"'",' >> $xray_config
-            echo '                        "flow": "xtls-rprx-vision,none"' >> $xray_config
+            echo '                        "flow": "xtls-rprx-vision"' >> $xray_config
         fi
         echo '                    }' >> $xray_config
         echo '                ],' >> $xray_config
@@ -2762,6 +2857,9 @@ EOF
         fi
 cat >> $xray_config <<EOF
             },
+            "sniffing": {
+                "enabled": true
+            },
             "streamSettings": {
                 "network": "ws",
                 "wsSettings": {
@@ -2773,9 +2871,22 @@ EOF
 cat >> $xray_config <<EOF
         }
     ],
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "protocol": ["bittorrent"],
+                "outboundTag": "blocked"
+            }
+        ]
+    },
     "outbounds": [
         {
             "protocol": "freedom"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "blocked"
         }
     ]
 }
@@ -2796,14 +2907,19 @@ init_web()
         fi
         turn_on_off_php
     elif [ "${pretend_list[$1]}" == "2" ]; then
-        if ! wget -O "${nginx_prefix}/html/nextcloud.zip" "${nextcloud_url}"; then
+        if ! curl -o "${nginx_prefix}/html/nextcloud.tar.bz2" "${nextcloud_url}"; then
             red    "获取Nextcloud失败"
             yellow "按回车键继续或者按Ctrl+c终止"
             read -s
         fi
+        rm -rf "${nginx_prefix}/html/nextcloud"
+        if ! tar -xjf "${nginx_prefix}/html/nextcloud.tar.bz2" -C "${nginx_prefix}/html"; then
+            red    "解压 Nextcloud 失败"
+            yellow "按回车键继续或者按Ctrl+c终止"
+            read -s
+        fi
+        rm -f "${nginx_prefix}/html/nextcloud.tar.bz2"
         rm -rf "${nginx_prefix}/html/${true_domain_list[$1]}"
-        unzip -q -d "${nginx_prefix}/html" "${nginx_prefix}/html/nextcloud.zip"
-        rm -f "${nginx_prefix}/html/nextcloud.zip"
         mv "${nginx_prefix}/html/nextcloud" "${nginx_prefix}/html/${true_domain_list[$1]}"
         chown -R www-data:www-data "${nginx_prefix}/html/${true_domain_list[$1]}"
         systemctl start php-fpm
@@ -3019,8 +3135,8 @@ print_config_info()
         purple "   (V2RayN(G):SNI;Qv2ray:TLS设置-服务器地址;Shadowrocket:Peer 名称)"
         tyblue "  allowInsecure                 ：\\033[33mfalse"
         purple "   (Qv2ray:TLS设置-允许不安全的证书(不打勾);Shadowrocket:允许不安全(关闭))"
-        tyblue "  fingerprint                   ：\\033[33m空\\033[36m/\\033[33mchrome\\033[32m(推荐)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33msafari"
-        purple "                                    (此选项决定是否伪造浏览器指纹，空代表不伪造，使用GO程序默认指纹)"
+        tyblue "  fingerprint                   ：\\033[33m空\\033[36m/\\033[33mchrome\\033[32m(推荐)\\033[36m/\\033[33mfirefox\\033[36m/\\033[33mios\\033[36m/\\033[33msafari\\033[36m/\\033[33mandroid\\033[36m/\\033[33medge\\033[36m/\\033[33m360\\033[36m/\\033[33mqq\\033[36m/\\033[33mrandom"
+        purple "                                    (此选项决定是否伪造浏览器指纹：空代表不伪造，使用GO程序默认指纹；random代表随机选择一种浏览器伪造指纹)"
         tyblue "  alpn                          ："
         tyblue "                                  伪造浏览器指纹  ：此参数不生效，可随意设置"
         tyblue "                                  不伪造浏览器指纹：若serverName填的域名对应的伪装网站为网盘，建议设置为\\033[33mhttp/1.1\\033[36m；否则建议设置为\\033[33mh2,http/1.1 \\033[35m(此选项为空/未配置时，默认值为\"h2,http/1.1\")"
@@ -3123,7 +3239,8 @@ print_config_info()
         tyblue "------------------------------------------------------------------------"
     fi
     echo
-    ask_if "是否生成分享链接？(y/n)" && print_share_link
+    yellow "注：部分选项可能分享链接无法涉及，如果不怕麻烦，建议手动填写"
+    # ask_if "是否生成分享链接？(y/n)" && print_share_link
     echo
     yellow " 关于fingerprint与alpn，详见：https://github.com/kirin10000/Xray-script#关于tls握手tls指纹和alpn"
     echo
@@ -3150,8 +3267,10 @@ install_update_xray_tls_web()
     check_important_dependence_installed wget wget
     check_important_dependence_installed "procps" "procps-ng"
     install_epel
-    ask_update_script
-    check_ssh_timeout
+    # ask_update_script
+    echo -e "\033[5;41;34mForce skip ask_update_script()\033[0m"
+    # check_ssh_timeout
+    echo -e "\033[5;41;34mForce skip check_ssh_timeout()\033[0m"
     uninstall_firewall
     doupdate
     enter_temp_dir
@@ -3882,12 +4001,8 @@ simplify_system()
     get_system_info
     check_important_dependence_installed "procps" "procps-ng"
     yellow "警告："
-    tyblue " 1. 此功能可能导致某些VPS无法开机，请谨慎使用"
+    tyblue " 1. 此功不能保证在所有系统运行成功 (特别是某些VPS定制系统)，如果运行失败，可能导致VPS无法开机"
     tyblue " 2. 如果VPS上部署了 Xray-TLS+Web 以外的东西，可能被误删"
-    ! ask_if "是否要继续?(y/n)" && return 0
-    echo
-    yellow "提示：在精简系统前请先设置apt/yum/dnf的软件源为http/ftp而非https/ftps"
-    purple "通常来说系统默认即是http/ftp"
     ! ask_if "是否要继续?(y/n)" && return 0
     echo
     local save_ssh=0
@@ -3921,7 +4036,7 @@ simplify_system()
         done
     else
         local debian_remove_packages=('^cron$' '^anacron$' '^cups' '^foomatic' '^openssl$' '^snapd$' '^kdump-tools$' '^flex$' '^make$' '^automake$' '^cloud-init' '^pkg-config$' '^gcc-[1-9][0-9]*$' '^cpp-[1-9][0-9]*$' '^curl$' '^python' '^libpython' '^dbus$' '^at$' '^open-iscsi$' '^rsyslog$' '^acpid$' '^libnetplan0$' '^glib-networking-common$' '^bcache-tools$' '^bind([0-9]|-|$)' '^lshw$' '^thermald' '^libdbus' '^libevdev' '^libupower' '^readline-common$' '^libreadline' '^xz-utils$' '^selinux-utils$' '^wget$' '^zip$' '^unzip$' '^bzip2$' '^finalrd$' '^cryptsetup' '^libplymouth' '^lib.*-dev$' '^perl$' '^perl-modules' '^x11' '^libx11' '^qemu' '^xdg-' '^libglib' '^libicu' '^libxml' '^liburing' '^libisc' '^libdns' '^isc-' '^net-tools$' '^xxd$' '^xkb-data$' '^lsof$' '^task' '^usb' '^libusb' '^doc' '^libwrap' '^libtext' '^libmagic' '^libpci' '^liblocale' '^keyboard' '^libuni[^s]' '^libpipe' '^man-db$' '^manpages' '^liblock' '^liblog' '^libxapian' '^libpsl' '^libpap' '^libgs[0-9]' '^libpaper' '^postfix' '^nginx' '^libnginx' '^libpop' '^libslang' '^apt-utils$' '^google')
-        local debian_keep_packages=('apt-utils' 'whiptail' 'initramfs-tools' 'isc-dhcp-client' 'netplan.io' 'openssh-server' 'network-manager' 'ifupdown' 'ifupdown-ng')
+        local debian_keep_packages=('apt-utils' 'whiptail' 'initramfs-tools' 'isc-dhcp-client' 'netplan.io' 'openssh-server' 'network-manager' 'ifupdown' 'ifupdown-ng' 'ca-certificates')
         local remove_packages=()
         local keep_packages=()
         for i in "${debian_keep_packages[@]}"
@@ -3937,19 +4052,33 @@ simplify_system()
                 remove_packages+=("$package")
             fi
         done
-        #'^libp11' '^libtasn' '^libkey' '^libnet'
-        if ! apt_auto_remove_purge "${remove_packages[@]}"; then
-            red    "精简系统时有错误发生（某些软件包卸载失败）"
-            yellow "请尝试先更新系统软件包再精简系统"
-            tyblue "  更新系统软件包： 1. 运行脚本，选择更新系统/软件包"
-            tyblue "                   2. 选择仅更新软件包"
-            echo
-            tyblue "按回车键继续。。。"
-            read -p
-            $apt_no_install_recommends -y -f install
-        fi
         cp /etc/apt/sources.list sources.list.bak
         sed -i 's#https://#http://#g' /etc/apt/sources.list
+        #'^libp11' '^libtasn' '^libkey' '^libnet'
+        if ! apt_auto_remove_purge "${remove_packages[@]}"; then
+            $apt update
+            $apt -y -f --no-install-recommends install
+            if ! apt_auto_remove_purge "${remove_packages[@]}"; then
+                red    "精简系统时有错误发生（某些软件包卸载失败）"
+                echo
+                tyblue "如果您是小白，建议选择n终止卸载，如果后续仍有出现错误，请重装系统"
+                echo
+                tyblue "否则，可以按照以下步骤尝试修复："
+                tyblue " 1. 阅读错误信息，找到导致卸载错误的软件包；手动运行这条命令可能可以帮助寻找错误包： $apt -f --no-install-recommends install (在终端中运行，参考2)"
+                tyblue " 2. 按ctrl+z将脚本挂在后台，也可尝试新建一个终端(不一定能新建成功)"
+                tyblue " 3. 如果能看出导致卸载错误的原因并解决是最好；如果不能，运行 '$apt update && $apt --no-install-recommends install 软件包名' 手动升级该软件包"
+                tyblue " 4. 运行fg命令返回脚本(对应ctrl+z命令)"
+                tyblue " 5. 在完成上述步骤后，选择y继续卸载"
+                echo
+                if ask_if "继续卸载?(y/n)"; then
+                    if ! apt_auto_remove_purge "${remove_packages[@]}"; then
+                        red "卸载失败！"
+                        tyblue "按回车键继续，如果后续仍有出现错误，请重装系统"
+                        read -s
+                    fi
+                fi
+            fi
+        fi
         for i in "${keep_packages[@]}"
         do
             check_important_dependence_installed "$i" ""
@@ -4084,7 +4213,9 @@ start_menu()
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>27))
     do
-        read -p "您的选择是：" choice
+        # read -p "您的选择是：" choice
+        choice=1
+        echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
     done
     if (( choice==2 || (7<=choice&&choice<=9) || choice==13 || (15<=choice&&choice<=24) )) && [ $is_installed -eq 0 ]; then
         red "请先安装Xray-TLS+Web！！"
