@@ -1,5 +1,7 @@
 #!/bin/bash
 # GOTO: 1969  //由于原作者过于混乱的参数管理，不得已把域名的检查前置
+$1="candyvc.com"
+$2="1"
             if [[ -n $1 ]]; then
                 predomain="$1"
                 if [ "$(echo -n "$predomain" | wc -c)" -gt 46 ]; then
