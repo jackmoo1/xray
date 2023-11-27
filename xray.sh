@@ -1,6 +1,4 @@
 #!/bin/bash
-# GOTO: 1969  //由于原作者过于混乱的参数管理，不得已把域名的检查前置
-
 
 #系统信息
 # 指令集
@@ -38,7 +36,7 @@ cloudreve_prefix="/usr/local/cloudreve"
 cloudreve_service="/etc/systemd/system/cloudreve.service"
 unset cloudreve_is_installed
 
-nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.1.tar.bz2"
+nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-26.0.0.tar.bz2"
 
 xray_config="/usr/local/etc/xray/config.json"
 unset xray_is_installed
@@ -837,10 +835,10 @@ else
     red "不支持的系统"
     exit 1
 fi
-# if [[ -z "${BASH_SOURCE[0]}" ]]; then
-#     red "请以文件的形式运行脚本，或不支持的bash版本"
-#     exit 1
-# fi
+if [[ -z "${BASH_SOURCE[0]}" ]]; then
+    red "请以文件的形式运行脚本，或不支持的bash版本"
+    exit 1
+fi
 if [ "$EUID" != "0" ]; then
     red "请用root用户运行此脚本！！"
     exit 1
@@ -1221,9 +1219,7 @@ doupdate()
         choice=""
         while [ "$choice" != "1" ] && [ "$choice" != "2" ] && [ "$choice" != "3" ]
         do
-            # read -p "您的选择是：" choice
-            choice=3
-            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
+            read -p "您的选择是：" choice
         done
         if [ $release == "ubuntu" ] || [ $choice -ne 1 ]; then
             break
@@ -1552,13 +1548,7 @@ install_bbr()
         local choice=""
         while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>10))
         do
-            # read -p "您的选择是：" choice
-            if [[ $tcp_congestion_control == "bbr" ]] || (! version_ge $your_kernel_version 4.9); then
-                choice=0
-            else
-                choice=5
-            fi
-            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
+            read -p "您的选择是：" choice
         done
         if (( 1<=choice&&choice<=4 )); then
             if (( choice==1 || choice==4 )) && ([ $release == "ubuntu" ] || [ $release == "debian" ] || [ $release == "deepin" ] || [ $release == "other-debian" ]) && ! dpkg-deb --help | grep -qw "zstd"; then
@@ -1738,9 +1728,7 @@ readProtocolConfig()
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>7))
     do
-        # read -p "您的选择是：" choice
-        choice=5
-        echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
+        read -p "您的选择是：" choice
     done
     if [ $choice -eq 1 ] || [ $choice -eq 4 ] || [ $choice -eq 5 ] || [ $choice -eq 7 ]; then
         protocol_1=1
@@ -1766,9 +1754,7 @@ readProtocolConfig()
         protocol_1=""
         while [[ ! "$protocol_1" =~ ^([1-9][0-9]*)$ ]] || ((protocol_1>3))
         do
-            # read -p "您的选择是：" protocol_1
-            protocol_1=3
-            echo -e "\033[5;41;34m您的选择是：${protocol_1}\033[0m"
+            read -p "您的选择是：" protocol_1
         done
     fi
     if [ $protocol_2 -eq 1 ]; then
@@ -1795,9 +1781,7 @@ readProtocolConfig()
         choice=""
         while [[ ! "$choice" =~ ^([1-9][0-9]*)$ ]] || ((choice>2))
         do
-            # read -p "您的选择是：" choice
-            choice=2
-            echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
+            read -p "您的选择是：" choice
         done
         [ $choice -eq 1 ] && protocol_3=2
     fi
@@ -1829,13 +1813,7 @@ readPretend()
         pretend=""
         while [[ "$pretend" != "1" && "$pretend" != "2" && "$pretend" != "3" && "$pretend" != "4" && "$pretend" != "5" ]]
         do
-            # read -p "您的选择是：" pretend
-            if [[ -v preFake ]]; then
-                pretend=5
-            else
-                pretend=3
-            fi
-            echo -e "\033[5;41;34m您的选择是：${pretend}\033[0m"
+            read -p "您的选择是：" pretend
         done
         queren=1
         if [ $pretend -eq 1 ]; then
@@ -1894,11 +1872,10 @@ readPretend()
         elif [ $pretend -eq 5 ]; then
             yellow "输入反向代理网址，格式如：\"https://v.qq.com\""
             pretend=""
-#             while [ -z "$pretend" ]
-#             do
-#                 read -p "请输入反向代理网址：" pretend
-#             done
-            echo -e "\033[5;41;34m您输入的反向代理网址是：${pretend}\033[0m"
+            while [ -z "$pretend" ]
+            do
+                read -p "请输入反向代理网址：" pretend
+            done
         fi
     done
 }
@@ -1930,9 +1907,7 @@ readDomain()
     echo
     while [ "$domain_config" != "1" ] && [ "$domain_config" != "2" ]
     do
-        # read -p "您的选择是：" domain_config
-        domain_config=2
-        echo -e "\033[5;41;34m您的选择是：${domain_config}\033[0m"
+        read -p "您的选择是：" domain_config
     done
     local queren=0
     while [ $queren -ne 1 ]
@@ -1947,14 +1922,17 @@ readDomain()
             done
         else
             tyblue '-------请输入解析到此服务器的域名(前面不带"http://"或"https://")-------'
-#             while [ -z "$domain" ]
-#             do
-                # read -p "请输入域名：" domain
-            echo -e "\033[5;41;34m您输入的域名是：${domain}\033[0m" && queren=1
-#             done
+            while [ -z "$domain" ]
+            do
+                read -p "请输入域名：" domain
+                if [ "$(echo -n "$domain" | wc -c)" -gt 46 ]; then
+                    red "域名过长！"
+                    domain=""
+                fi
+            done
         fi
         echo
-        # ask_if "您输入的域名是\"$domain\"，确认吗？(y/n)"
+        ask_if "您输入的域名是\"$domain\"，确认吗？(y/n)" && queren=1
     done
     readPretend "$domain"
     true_domain_list+=("$domain")
@@ -2446,7 +2424,7 @@ events {
 http {
     include       mime.types;
     default_type  application/octet-stream;
-    server_names_hash_bucket_size 64;
+
     #log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
     #                  '\$status \$body_bytes_sent "\$http_referer" '
     #                  '"\$http_user_agent" "\$http_x_forwarded_for"';
@@ -2588,15 +2566,6 @@ server {
     return 301 https://${domain_list[0]};
 }
 EOF
-    if [ "${pretend_list[$i]}" == "3" ]; then
-cat >> $nginx_config<<EOF
-# Borrowed from https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md#nginx
-map \$http_upgrade \$connection_upgrade {
-    default upgrade;
-    '' close;
-}
-EOF
-    fi
     for ((i=0;i<${#domain_list[@]};i++))
     do
 cat >> $nginx_config<<EOF
@@ -2647,44 +2616,7 @@ EOF
                 echo "        return 403;" >> $nginx_config
                 echo "    }" >> $nginx_config
             else
-cat >> $nginx_config<<EOF
-    location = /.well-known/carddav {
-        rewrite ^/\.well-known/carddav$ https://\$host/remote.php/dav permanent;
-    }
-
-    location = /.well-known/caldav {
-        rewrite ^/\.well-known/caldav$ https://\$host/remote.php/dav permanent;
-    }
-    # Borrowed from https://beamtic.com/webfinger-and-nodeinfo-nextcloud its "Disable cache" option works for me
-    location = /.well-known/webfinger {
-        rewrite ^/\.well-known/webfinger$ https://\$host/index.php/.well-known/webfinger permanent;
-    }
-
-    location = /.well-known/nodeinfo {
-        rewrite ^/\.well-known/nodeinfo$ https://\$host/index.php/.well-known/nodeinfo permanent;
-    }
-    
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Port \$server_port;
-        proxy_set_header X-Forwarded-Scheme \$scheme;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header Accept-Encoding "";
-        proxy_set_header Host \$host;
-    
-        client_body_buffer_size 512k;
-        proxy_read_timeout 86400s;
-        client_max_body_size 0;
-
-        # Websocket
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection \$connection_upgrade;
-    }
-EOF
+                echo "    return 403;" >> $nginx_config
             fi
         elif [ "${pretend_list[$i]}" == "4" ]; then
             echo "    root ${nginx_prefix}/html/${true_domain_list[$i]};" >> $nginx_config
@@ -2693,7 +2625,6 @@ cat >> $nginx_config<<EOF
     location / {
         proxy_pass ${pretend_list[$i]};
         proxy_set_header referer "${pretend_list[$i]}";
-        proxy_ssl_server_name on;
     }
 EOF
         fi
@@ -2720,9 +2651,6 @@ cat > $xray_config <<EOF
     },
     "inbounds": [
         {
-            "sniffing": {
-                "enabled": true
-            },
             "port": 443,
             "protocol": "vless",
             "settings": {
@@ -2737,7 +2665,7 @@ EOF
             echo '                        "id": "'"$xid_1"'"' >> $xray_config
         else
             echo '                        "id": "'"$xid_1"'",' >> $xray_config
-            echo '                        "flow": "xtls-rprx-vision"' >> $xray_config
+            echo '                        "flow": "xtls-rprx-vision,none"' >> $xray_config
         fi
         echo '                    }' >> $xray_config
         echo '                ],' >> $xray_config
@@ -2840,9 +2768,6 @@ EOF
         fi
 cat >> $xray_config <<EOF
             },
-            "sniffing": {
-                "enabled": true
-            },
             "streamSettings": {
                 "network": "ws",
                 "wsSettings": {
@@ -2854,22 +2779,9 @@ EOF
 cat >> $xray_config <<EOF
         }
     ],
-    "routing": {
-        "rules": [
-            {
-                "type": "field",
-                "protocol": ["bittorrent"],
-                "outboundTag": "blocked"
-            }
-        ]
-    },
     "outbounds": [
         {
             "protocol": "freedom"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "blocked"
         }
     ]
 }
@@ -3223,7 +3135,7 @@ print_config_info()
     fi
     echo
     yellow "注：部分选项可能分享链接无法涉及，如果不怕麻烦，建议手动填写"
-    # ask_if "是否生成分享链接？(y/n)" && print_share_link
+    ask_if "是否生成分享链接？(y/n)" && print_share_link
     echo
     yellow " 关于fingerprint与alpn，详见：https://github.com/kirin10000/Xray-script#关于tls握手tls指纹和alpn"
     echo
@@ -3250,10 +3162,8 @@ install_update_xray_tls_web()
     check_important_dependence_installed wget wget
     check_important_dependence_installed "procps" "procps-ng"
     install_epel
-    # ask_update_script
-    echo -e "\033[5;41;34mForce skip ask_update_script()\033[0m"
-    # check_ssh_timeout
-    echo -e "\033[5;41;34mForce skip check_ssh_timeout()\033[0m"
+    ask_update_script
+    check_ssh_timeout
     uninstall_firewall
     doupdate
     enter_temp_dir
@@ -4196,9 +4106,7 @@ start_menu()
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>27))
     do
-        # read -p "您的选择是：" choice
-        choice=1
-        echo -e "\033[5;41;34m您的选择是：${choice}\033[0m"
+        read -p "您的选择是：" choice
     done
     if (( choice==2 || (7<=choice&&choice<=9) || choice==13 || (15<=choice&&choice<=24) )) && [ $is_installed -eq 0 ]; then
         red "请先安装Xray-TLS+Web！！"
