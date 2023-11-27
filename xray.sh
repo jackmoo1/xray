@@ -1,21 +1,6 @@
 #!/bin/bash
 # GOTO: 1969  //由于原作者过于混乱的参数管理，不得已把域名的检查前置
-$1="candyvc.com"
-$2="1"
-            if [[ -n $1 ]]; then
-                predomain="$1"
-                if [ "$(echo -n "$predomain" | wc -c)" -gt 46 ]; then
-                    echo -e "\033[5;41;34m域名过长！请更换域名后重新运行脚本！\033[0m"
-                    exit 1
-                fi                    
-            else
-                echo -e "\033[5;41;34m此脚本需要一个解析到本服务器的域名\n请补充域名后重新运行脚本！形如hostname.your.domain\033[0m"
-                exit 1
-            fi
- # GOTO: 1912
-            if [[ -n $2 ]]; then
-                preFake="$2"
-            fi
+
 
 #系统信息
 # 指令集
@@ -1908,7 +1893,7 @@ readPretend()
             ! ask_if "确认并继续？(y/n)" && queren=0
         elif [ $pretend -eq 5 ]; then
             yellow "输入反向代理网址，格式如：\"https://v.qq.com\""
-            pretend="$preFake"
+            pretend=""
 #             while [ -z "$pretend" ]
 #             do
 #                 read -p "请输入反向代理网址：" pretend
@@ -1965,8 +1950,7 @@ readDomain()
 #             while [ -z "$domain" ]
 #             do
                 # read -p "请输入域名：" domain
-            domain="$predomain"
-            echo -e "\033[5;41;34m您输入的域名是：${predomain}\033[0m" && queren=1
+            echo -e "\033[5;41;34m您输入的域名是：${domain}\033[0m" && queren=1
 #             done
         fi
         echo
