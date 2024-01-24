@@ -21,7 +21,8 @@ unset ssh_service
 #安装配置信息
 nginx_version="nginx-1.24.0"
 openssl_version="openssl-openssl-3.1.0"
-nginx_prefix="/usr/local/nginx"
+mkdir -p /usr/local/nginx
+#nginx_prefix="/usr/local/nginx"
 nginx_config="${nginx_prefix}/conf.d/xray.conf"
 nginx_service="/etc/systemd/system/nginx.service"
 nginx_is_installed=""
