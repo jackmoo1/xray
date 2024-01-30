@@ -1,0 +1,5 @@
+# > 今日头条
+hostname = p*.pstatp.com
+# 感谢【Jörgen Frecht】分享
+^https:\/\/p\d\.pstatp.com\/origin url reject
+^https:\/\/pb\d\.pstatp.com\/origin url reject
