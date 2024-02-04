@@ -54,7 +54,7 @@
 https://fbchina.flipchina.cn/v2/ad/query/* url reject 
                                                              
 # > 美团
-hostname = img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, wmapi.meituan.com
+#hostname = img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, wmapi.meituan.com
 ^https?:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ url reject-200
 ^https?:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg url reject-200
 ^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp url reject-200
@@ -86,7 +86,7 @@ hostname = img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net,
 ^https:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList url reject-dict 
 
 # > 拼多多
-hostname = api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com
+#hostname = api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com
 ^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash url reject 
 
 # > 阿里巴巴
