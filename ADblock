@@ -1,5 +1,5 @@
 # > 中国联通
-hostname = m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, app.10099.com.cn
+#hostname = m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn
 ^https?:\/\/m\.client\.10010\.com\/uniAdmsInterface\/getWelcomeAd url reject-200
 ^https?:\/\/m\.client\.10010\.com\/mobileService\/(activity|customer)\/(accountListData|get_client_adv|get_startadv) url reject-img
 ^https?:\/\/m\.client\.10010\.com\/mobileService\/customer\/getclientconfig\.htm url reject-dict
@@ -44,7 +44,7 @@ hostname = m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, app.10099.com
 ^https:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads url script-response-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js
                                                              
 # > 今日头条
-hostname = p*.pstatp.com
+#hostname = p*.pstatp.com
 # 感谢【Jörgen Frecht】分享
 ^https:\/\/p\d\.pstatp.com\/origin url reject
 ^https:\/\/pb\d\.pstatp.com\/origin url reject 
@@ -54,7 +54,7 @@ hostname = p*.pstatp.com
 https://fbchina.flipchina.cn/v2/ad/query/* url reject 
                                                              
 # > 美团
-hostname = img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, wmapi.meituan.com, img.meituan.net, s3plus.meituan.net
+hostname = img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, wmapi.meituan.com
 ^https?:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ url reject-200
 ^https?:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg url reject-200
 ^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp url reject-200
@@ -125,4 +125,4 @@ hostname = api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com
 ^https:\/\/gw\.alicdn\.com\/mt\/ url reject
 ^https:\/\/gw\.alicdn\.com\/tfs\/.+\d{3,4}-\d{4} url reject
 
-hostname = acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com           
+hostname = m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, app.10099.com.cn, www.baidu.com, fcvbjbcebos.baidu.com, cover.baidu.com, baichuan.baidu.com, api*.tuisong.baidu.com, afd.baidu.com, mobads.baidu.com, issuecdn.baidupcs.com, update.pan.baidu.com, sa*.tuisong.baidu.com, p*.pstatp.com, fbchina.flipchina.cn, img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, wmapi.meituan.com, peisongapi.meituan.com, cdb.meituan.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, img.alicdn.com
