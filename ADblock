@@ -1,3 +1,6 @@
+#!name=ADblock
+#!desc=常用软件去广告
+
 # > 中国联通
 #hostname = m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn
 ^https?:\/\/m\.client\.10010\.com\/uniAdmsInterface\/getWelcomeAd url reject-200
