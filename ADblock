@@ -2,7 +2,17 @@
 #!desc=常用软件去广告
 
 # > 番茄小说
-# hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com
+
+DOMAIN,p3-ad-sign.byteimg.com,REJECT
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
+DOMAIN,ads5-normal-lq.zijieapi.com,REJECT
+DOMAIN,v6-novelapp.ixigua.com,REJECT
+DOMAIN,*novelapp.ixigua.com,REJECT
+DOMAIN,v6-novelapp.fqnovelvod.com,REJECT
+DOMAIN,*novelapp.fqnovelvod.com,REJECT
+
 # 去章末广告
 ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ url reject
 ^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 url reject
@@ -19,7 +29,6 @@
 ^http:\/\/.+\.byteimg\.com\/web\.business\.image url reject
 
 # > 红版报
-# hostname = fbchina.flipchina.cn
 https://fbchina.flipchina.cn/v2/ad/query/* url reject
 
 hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, fbchina.flipchina.cn
