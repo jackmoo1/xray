@@ -1,0 +1,87 @@
+#!name=Adblock+
+#!desc=常用软件去广告
+
+
+
+[Rule]
+# > 番茄小说
+DOMAIN,p3-ad-sign.byteimg.com,REJECT
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
+DOMAIN,ads5-normal-lq.zijieapi.com,REJECT
+DOMAIN,v6-novelapp.ixigua.com,REJECT
+DOMAIN,*novelapp.ixigua.com,REJECT
+DOMAIN,v6-novelapp.fqnovelvod.com,REJECT
+DOMAIN,*novelapp.fqnovelvod.com,REJECT
+DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
+DOMAIN,ads5-normal-lq.zijieapi.com,REJECT
+
+[URL Rewrite]
+# 去章末广告
+^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ - reject
+^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 - reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ - reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+ - reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer - reject
+^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package - reject
+^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg - reject
+^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad - reject
+^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+ - reject
+^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4 - reject
+^https?:\/\/.+\.snssdk.com\/api\/ad\/.+ - reject
+^http:\/\/.+\.byteimg\.com\/ad-app-package - reject
+^http:\/\/.+\.byteimg\.com\/web\.business\.image - reject
+
+# > 红版报
+https://fbchina.flipchina.cn/v2/ad/query/* - reject
+
+# > 大师兄
+^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/.*?\/v\d\/(version|top_notice\?|advert\?position=[^2]+) - reject
+
+# tiktok
+(?<=_region=)CN(?=&) US 307
+(^h.+v5\/)(.+) $1 302
+(?<=&mcc_mnc=)4 2 307
+(?<=eme\/v)2(?=\/f\w{2}d\/\?.*) 1 302
+
+[Map Local]
+# 小红书去广告
+# 惊喜弹窗
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/surprisebox\/(get_style|open|submit_action) data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https:\/\/www\.xiaohongshu\.com\/api\/marketing\/box\/trigger\? data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json
+# 信息流
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v3\/note\/guide\? data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/resource\? data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+
+
+[Script]
+# haijiao
+haijiao = type=http-response, pattern=^http[s]?:\/\/.*(haijiao|hj).+api\/(topic.+\d+|attachment|login\/signin|user\/(current|info\/\d+)|banner\/banner_list)$, script-path=https://raw.githubusercontent.com/jasony9982/X/main/Scripts/haijiao.js, requires-body=true, max-size=-1, timeout=60
+
+# Reddit
+移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true
+
+# tiktok
+TK去水印 = type=http-response, pattern=https?:\/\/.*\.tiktokv\.com\/aweme\/v\d\/(feed|mix\/aweme|aweme\/post|(multi\/)?aweme\/detail|follow\/feed|nearby\/feed|search\/item|general\/search\/single|hot\/search\/video\/list|aweme\/favorite), script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/Tiktok.js, requires-body=true
+
+# 小红书去广告
+# 详情页,小部件
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/note\/widgets, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+# 搜索页
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/(banner|hot)_list, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/search\/(hint|trending)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v10\/search\/notes\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=6
+# 开屏广告
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/system_service\/config\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/system_service\/splash_config$, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+# 图片水印,视频水印
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/(v2\/note\/feed|v3\/note\/videofeed)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/followfeed\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+xiaohongshu = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v6\/homefeed\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+# live图无水印保存
+xiaohongshu = type=http-response, pattern=https://edith.xiaohongshu.com/api/sns/v1/note/live_photo/save, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
+
+
+[MITM]
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, fbchina.flipchina.cn, *hj*, *haijiao*, gql.reddit.com, gql-fed.reddit.com, *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com
