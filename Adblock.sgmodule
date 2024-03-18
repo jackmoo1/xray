@@ -71,6 +71,10 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info\?action data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
 
 [Script]
+# > IT之家
+# 移除 轮播图 置顶文章 信息流广告
+ithome = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds), script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/ithome.js, requires-body=true, max-size=-1, timeout=60
+
 # haijiao
 haijiao = type=http-response, pattern=^http[s]?:\/\/.*(haijiao|hj).+api\/(topic.+\d+|attachment|login\/signin|user\/(current|info\/\d+)|banner\/banner_list)$, script-path=https://raw.githubusercontent.com/jasony9982/X/main/Scripts/haijiao.js, requires-body=true, max-size=-1, timeout=60
 
@@ -103,4 +107,4 @@ replaceBody = type=http-response, pattern=^https?:\/\/mp\.weixin\.qq\.com\/mp\/g
 UnblockURLinWeChat = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
-hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, *hj*, *haijiao*, gql.reddit.com, gql-fed.reddit.com, *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, weixin110.qq.com, security.wechat.com
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, *hj*, *haijiao*, gql.reddit.com, gql-fed.reddit.com, *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, weixin110.qq.com, security.wechat.com, napi.ithome.com
