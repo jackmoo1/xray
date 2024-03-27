@@ -58,6 +58,68 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 (?<=&mcc_mnc=)4 2 307
 (?<=eme\/v)2(?=\/f\w{2}d\/\?.*) 1 302
 
+#!name = 百度
+#!desc = 百度去广告
+#!author = fmz200
+(ps|sv|offnavi|newvector|ulog.imap|newloc)(.map)?.(baidu|n.shifen).com - reject
+
+^https?:\/\/afd\.baidu\.com\/afd\/entry - reject
+
+^https?:\/\/als\.baidu\.com\/clog\/clog - reject
+
+^https?:\/\/baichuan\.baidu\.com\/rs\/adpmobile\/launch - reject
+
+^https?:\/\/cover\.baidu\.com\/cover\/page\/dspSwitchAds\/ - reject
+
+^https?:\/\/fcvbjbcebos\.baidu\.com\/.+.mp4 - reject
+
+^https?:\/\/fc-video\.cdn\.bcebos\.com - reject
+
+^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao - reject
+
+^https?:\/\/log.+?baidu\.com - reject
+
+^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
+
+^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo - reject
+
+^https?:\/\/mobads\.baidu\.com\/cpro\/ui\/mads.+ - reject
+
+^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
+
+^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
+
+^https?:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
+
+^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry - reject
+
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/(bchannel|welfare)\/list - reject
+
+^https?:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
+
+^https?:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
+
+^https?:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
+
+^https?:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
+
+^https?:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
+
+^https?:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adx - reject
+
+^https?:\/\/pan\.baidu\.com\/rest\/2\.0\/pcs\/ad - reject
+
+^https?:\/\/rp\.hpplay\.cn\/logouts - reject
+
+^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
+
+^https?:\/\/update.pan.baidu.com\/statistics - reject
+
+^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
+
+^https?:\/\/www.baidu.com\/?action=static&ms=1&version=css_page_2@0.*? - reject
+
+
 [Map Local]
 # 小红书去广告
 # 惊喜弹窗
@@ -70,6 +132,20 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 # 微信公众号去除商品推广
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info\?action data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
 
+#百度
+^https?:\/\/[\s\S]*\.baidu\.com/.*?ad[xs]\.php data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
+
+^https?:\/\/api\d\.tuisong\.baidu\.com data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
+
+^https?:\/\/appwk\.baidu\.com\/xpage\/interface\/wknaad data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
+
+^https?:\/\/fcvbjbcebos\.baidu\.com\/.+?\.mp4 data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
+
+^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao\/ data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
+
+^https?:\/\/sa\d\.tuisong\.baidu\.com data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
+
+^https?:\/\/t\d{2}\.baidu\.com data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
 [Script]
 # > IT之家
 # 移除 轮播图 置顶文章 信息流广告
@@ -107,4 +183,4 @@ replaceBody = type=http-response, pattern=^https?:\/\/mp\.weixin\.qq\.com\/mp\/g
 UnblockURLinWeChat = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
-hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, *hj*, *haijiao*, gql.reddit.com, gql-fed.reddit.com, *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, weixin110.qq.com, security.wechat.com, napi.ithome.com
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, *hj*, *haijiao*, gql.reddit.com, gql-fed.reddit.com, *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, weixin110.qq.com, security.wechat.com, napi.ithome.com, afd.baidu.com, api*.tuisong.baidu.com, appwk.baidu.com, baichuan.baidu.com, cover.baidu.com, fcvbjbcebos.baidu.com, fc-video.cdn.bcebos.com, issuecdn.baidupcs.com, mime.baidu.com, mobads.baidu.com, ndstatic.cdn.bcebos.com, pan.baidu.com, rp.hpplay.cn, sa*.tuisong.baidu.com, staticsns.cdn.bcebos.com, update.pan.baidu.com, www.baidu.com
