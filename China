@@ -531,6 +531,7 @@ DOMAIN-SUFFIX,battlecare.net
 DOMAIN-SUFFIX,baydn.com
 DOMAIN-SUFFIX,bazai.com
 DOMAIN-SUFFIX,bbbcdns.com
+DOMAIN-SUFFIX,bbiquge8.net
 DOMAIN-SUFFIX,bcebos.com
 DOMAIN-SUFFIX,bcfmglobal.com
 DOMAIN-SUFFIX,bcvbw.com
@@ -2257,6 +2258,7 @@ DOMAIN-SUFFIX,lizhifm.com
 DOMAIN-SUFFIX,ljcdn.com
 DOMAIN-SUFFIX,lkcoffee.com
 DOMAIN-SUFFIX,lkkbrand.com
+DOMAIN-SUFFIX,lkme.cc
 DOMAIN-SUFFIX,llsapp.com
 DOMAIN-SUFFIX,llscdn.com
 DOMAIN-SUFFIX,llsserver.com
@@ -2596,6 +2598,7 @@ DOMAIN-SUFFIX,pailitao.com
 DOMAIN-SUFFIX,paipai.com
 DOMAIN-SUFFIX,paipaibang.com
 DOMAIN-SUFFIX,pangolin-sdk-toutiao.com
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com
 DOMAIN-SUFFIX,paopaoche.net
 DOMAIN-SUFFIX,papocket.com
 DOMAIN-SUFFIX,paragon.com
@@ -2824,6 +2827,7 @@ DOMAIN-SUFFIX,sankuai.com
 DOMAIN-SUFFIX,sanwen.net
 DOMAIN-SUFFIX,saolife.com
 DOMAIN-SUFFIX,saraba1st.com
+DOMAIN-SUFFIX,saxysec.com
 DOMAIN-SUFFIX,sbsjk.com
 DOMAIN-SUFFIX,sc96655.com
 DOMAIN-SUFFIX,scdng.com
@@ -3338,6 +3342,7 @@ DOMAIN-SUFFIX,vcloudstc.net
 DOMAIN-SUFFIX,vcloudvod.com
 DOMAIN-SUFFIX,vdolady.com
 DOMAIN-SUFFIX,veeqi.net
+DOMAIN-SUFFIX,vegslb.com
 DOMAIN-SUFFIX,veryhuo.com
 DOMAIN-SUFFIX,veryzhun.com
 DOMAIN-SUFFIX,vg.com
@@ -3363,6 +3368,8 @@ DOMAIN-SUFFIX,volceapplog.com
 DOMAIN-SUFFIX,volces.com
 DOMAIN-SUFFIX,volcvod.com
 DOMAIN-SUFFIX,vpgame.com
+DOMAIN-SUFFIX,vp-log-verify.mob.com
+DOMAIN-SUFFIX,vukfnqr.com
 DOMAIN-SUFFIX,vxo7tu.com
 DOMAIN-SUFFIX,vzuu.com
 DOMAIN-SUFFIX,wallstcn.com
@@ -3823,6 +3830,7 @@ DOMAIN-KEYWORD,.tmall.com
 DOMAIN-KEYWORD,360buy
 DOMAIN-KEYWORD,alicdn
 DOMAIN-KEYWORD,alimama
+DOMAIN-KEYWORD,alibaba
 DOMAIN-KEYWORD,alipay
 DOMAIN-KEYWORD,aliyun
 DOMAIN-KEYWORD,appzapp
