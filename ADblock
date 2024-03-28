@@ -318,6 +318,13 @@ DOMAIN-SUFFIX,zhzzx.com
 IP-CIDR,34.215.155.61/32,no-resolve
 IP-CIDR,35.194.26.233/32,no-resolve
 IP-CIDR,35.239.57.233/32,no-resolve
+IP-CIDR,39.107.142.158/32,no-resolve
+IP-CIDR,39.97.128.148/32,no-resolve
+IP-CIDR,39.97.130.51/32,no-resolve
+IP-CIDR,42.187.182.106/32,no-resolve
+IP-CIDR,42.187.182.123/32,no-resolve
+IP-CIDR,42.187.184.154/32,no-resolve
+IP-CIDR,42.81.232.18/32,no-resolve
 IP-CIDR,44.228.85.26/32,no-resolve
 IP-CIDR,45.32.105.134/32,no-resolve
 IP-CIDR,77.162.125.199/32,no-resolve
@@ -362,12 +369,6 @@ IP-CIDR,223.87.182.102/32,no-resolve
 IP-CIDR,223.87.182.11/32,no-resolve
 IP-CIDR,223.87.182.52/32,no-resolve
 IP-CIDR,240.1.1.0/4,no-resolve
-IP-CIDR,39.107.142.158/32,no-resolve
-IP-CIDR,39.97.128.148/32,no-resolve
-IP-CIDR,39.97.130.51/32,no-resolve
-IP-CIDR,42.187.182.106/32,no-resolve
-IP-CIDR,42.187.182.123/32,no-resolve
-IP-CIDR,42.187.184.154/32,no-resolve
-IP-CIDR,42.81.232.18/32,no-resolve
+
 IP-CIDR,59.111.239.61/32,no-resolve
 IP-CIDR,59.111.239.62/32,no-resolve
