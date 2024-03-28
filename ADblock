@@ -315,6 +315,13 @@ DOMAIN-SUFFIX,yihuifu.cn
 DOMAIN-SUFFIX,yuanchengxiezuo.com
 DOMAIN-SUFFIX,zbrushcn.com
 DOMAIN-SUFFIX,zhzzx.com
+IP-CIDR,34.215.155.61/32,no-resolve
+IP-CIDR,35.194.26.233/32,no-resolve
+IP-CIDR,35.239.57.233/32,no-resolve
+IP-CIDR,44.228.85.26/32,no-resolve
+IP-CIDR,45.32.105.134/32,no-resolve
+IP-CIDR,77.162.125.199/32,no-resolve
+
 IP-CIDR,101.124.19.122/32,no-resolve
 IP-CIDR,101.227.200.11/32,no-resolve
 IP-CIDR,101.227.200.28/32,no-resolve
