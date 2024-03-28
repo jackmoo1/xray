@@ -1,37 +1,317 @@
-#!name=ADblock
-#!desc=常用软件去广告
+# 阿里巴巴
+DOMAIN,ossgw.alicdn.com
+DOMAIN,ems.youku.com
+DOMAIN,hudong.alicdn.com
+DOMAIN-SUFFIX,ut.taobao.com
+# 阿里云盘
+IP-CIDR,203.107.1.1/24,no-resolve
 
-# > 番茄小说
+# 安全浏览限制解除
+DOMAIN,lookup.api.bsb.baidu.com
+DOMAIN,proxy.safebrowsing.apple
+DOMAIN,safebrowsing.g.applimg.com
+DOMAIN,safebrowsing.googleapis.com
+DOMAIN,safebrowsing.urlsec.qq.com
+DOMAIN,token.safebrowsing.apple
+DOMAIN,vs6.bj2ct.u3.ucweb.com
+DOMAIN-SUFFIX,safebrowsing.apple
+DOMAIN-SUFFIX,u3.ucweb.com
 
-DOMAIN,p3-ad-sign.byteimg.com,REJECT
-DOMAIN,p6-ad-sign.byteimg.com,REJECT
-DOMAIN,p9-ad-sign.byteimg.com,REJECT
-DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
-DOMAIN,ads5-normal-lq.zijieapi.com,REJECT
-DOMAIN,v6-novelapp.ixigua.com,REJECT
-DOMAIN,*novelapp.ixigua.com,REJECT
-DOMAIN,v6-novelapp.fqnovelvod.com,REJECT
-DOMAIN,*novelapp.fqnovelvod.com,REJECT
-DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
-DOMAIN,ads5-normal-lq.zijieapi.com,REJECT
+# 高德地图
+DOMAIN,amap-aos-info-nogw.amap.com
+DOMAIN-SUFFIX,adiu.amap.com
+DOMAIN,aboard.apilocate.amap.com
+DOMAIN,apiinit.amap.com
+DOMAIN,icloud-amap.com
+DOMAIN,logs.amap.com
+DOMAIN-SUFFIX,dualstack-logs.amap.com
+DOMAIN-SUFFIX,logs.amap.com
+DOMAIN-SUFFIX,optimus-ads.amap.com
+DOMAIN-SUFFIX,page.amap.com
+DOMAIN,optimus-ads.amap.com
+DOMAIN,optimus-ads.amap.com.w.alikunlun.com
+DOMAIN-SUFFIX,shouji.sougou.com
+DOMAIN,u51.me
+DOMAIN-SUFFIX,u51.me
 
+# 工商银行
+DOMAIN,pageviewp.icbc.com.cn
+DOMAIN-SUFFIX,mall.icbc.com.cn
 
-# 去章末广告
-^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ url reject
-^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 url reject
-^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ url reject
-^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+ url reject
-^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer url reject
-^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package url reject
-^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg url reject
-^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad url reject
-^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+ url reject
-^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4 url reject
-^https?:\/\/.+\.snssdk.com\/api\/ad\/.+ url reject
-^http:\/\/.+\.byteimg\.com\/ad-app-package url reject
-^http:\/\/.+\.byteimg\.com\/web\.business\.image url reject
+# 建设银行
+DOMAIN-KEYWORD,adv.ccb.com
 
-# > 红版报
-https://fbchina.flipchina.cn/v2/ad/query/* url reject
+# 京东
+DOMAIN,dns.jd.com
+IP-CIDR,101.124.19.122/32,no-resolve
+IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
+# JavDB
+DOMAIN,api.liquidlink.cn
 
-hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, fbchina.flipchina.cn
+# 美团
+DOMAIN,maplocatesdksnapshot.d.meituan.net
+DOMAIN,metrics-picture.d.meituan.net
+IP-CIDR,103.37.155.60/32,no-resolve
+
+# > 广告联盟
+DOMAIN-SUFFIX,miaozhen.com
+DOMAIN-KEYWORD,-ad-sign.byteimg.com
+DOMAIN-KEYWORD,-tos.pstatp.com
+DOMAIN-KEYWORD,asiad.byteactivity
+DOMAIN-KEYWORD,pangolin-sdk-toutiao
+DOMAIN-KEYWORD,pangolin.snssdk.com
+DOMAIN-KEYWORD,pglstatp-toutiao
+DOMAIN-KEYWORD,video-cn.snssdk.com
+
+# > 收集用户隐私联盟，若有问题自行设置白名单
+DOMAIN-KEYWORD,volc
+
+# > 中国联通
+DOMAIN-SUFFIX,m1.ad.10010.com
+
+# Hijacking
+DOMAIN-SUFFIX,17gouwuba.com
+DOMAIN-SUFFIX,186078.com
+DOMAIN-SUFFIX,189key.com
+DOMAIN-SUFFIX,189zj.cn
+DOMAIN-SUFFIX,285680.com
+DOMAIN-SUFFIX,3721zh.com
+DOMAIN-SUFFIX,4336wang.cn
+DOMAIN-SUFFIX,51chumoping.com
+DOMAIN-SUFFIX,51mld.cn
+DOMAIN-SUFFIX,51mypc.cn
+DOMAIN-SUFFIX,58mingri.cn
+DOMAIN-SUFFIX,58mingtian.cn
+DOMAIN-SUFFIX,5vl58stm.com
+DOMAIN-SUFFIX,6d63d3.com
+DOMAIN-SUFFIX,7gg.cc
+DOMAIN-SUFFIX,91veg.com
+DOMAIN-SUFFIX,9s6q.cn
+DOMAIN-SUFFIX,adsame.com
+DOMAIN-SUFFIX,akuai.top
+DOMAIN-SUFFIX,atplay.cn
+DOMAIN-SUFFIX,baiwanchuangyi.com
+DOMAIN-SUFFIX,beerto.cn
+DOMAIN-SUFFIX,beilamusi.com
+DOMAIN-SUFFIX,benshiw.net
+DOMAIN-SUFFIX,bianxianmao.com
+DOMAIN-SUFFIX,bkyhq.cn
+DOMAIN-SUFFIX,bryonypie.com
+DOMAIN-SUFFIX,cishantao.com
+DOMAIN-SUFFIX,cszlks.com
+DOMAIN-SUFFIX,cudaojia.com
+DOMAIN-SUFFIX,dafapromo.com
+DOMAIN-SUFFIX,daitdai.com
+DOMAIN-SUFFIX,dsaeerf.com
+DOMAIN-SUFFIX,dugesheying.com
+DOMAIN-SUFFIX,dv8c1t.cn
+DOMAIN-SUFFIX,echatu.com
+DOMAIN-SUFFIX,erdoscs.com
+DOMAIN-SUFFIX,fan-yong.com
+DOMAIN-SUFFIX,feih.com.cn
+DOMAIN-SUFFIX,fjlqqc.com
+DOMAIN-SUFFIX,fkku194.com
+DOMAIN-SUFFIX,freedrive.cn
+DOMAIN-SUFFIX,gclick.cn
+DOMAIN-SUFFIX,goufanli100.com
+DOMAIN-SUFFIX,goupaoerdai.com
+DOMAIN-SUFFIX,gouwubang.com
+DOMAIN-SUFFIX,gscxs.cn
+DOMAIN-SUFFIX,gzxnlk.com
+DOMAIN-SUFFIX,haoshengtoys.com
+DOMAIN-SUFFIX,hbssjd.cn
+DOMAIN-SUFFIX,hyunke.com
+DOMAIN-SUFFIX,ichaosheng.com
+DOMAIN-SUFFIX,ishop789.com
+DOMAIN-SUFFIX,jdkic.com
+DOMAIN-SUFFIX,jiubuhua.com
+DOMAIN-SUFFIX,jsncke.com
+DOMAIN-SUFFIX,junkucm.com
+DOMAIN-SUFFIX,jwg365.cn
+DOMAIN-SUFFIX,kawo77.com
+DOMAIN-SUFFIX,kualianyingxiao.cn
+DOMAIN-SUFFIX,kumihua.com
+DOMAIN-SUFFIX,ltheanine.cn
+DOMAIN-SUFFIX,lvehaisen.com
+DOMAIN-SUFFIX,maipinshangmao.com
+DOMAIN-SUFFIX,minisplat.cn
+DOMAIN-SUFFIX,mkitgfs.com
+DOMAIN-SUFFIX,mlnbike.com
+DOMAIN-SUFFIX,mobjump.com
+DOMAIN-SUFFIX,nbkbgd.cn
+DOMAIN-SUFFIX,newapi.com
+DOMAIN-SUFFIX,pinzhitmall.com
+DOMAIN-SUFFIX,poppyta.com
+DOMAIN-SUFFIX,qianchuanghr.com
+DOMAIN-SUFFIX,qichexin.com
+DOMAIN-SUFFIX,qinchugudao.com
+DOMAIN-SUFFIX,quanliyouxi.cn
+DOMAIN-SUFFIX,qutaobi.com
+DOMAIN-SUFFIX,ry51w.cn
+DOMAIN-SUFFIX,sg536.cn
+DOMAIN-SUFFIX,sifubo.cn
+DOMAIN-SUFFIX,sifuce.cn
+DOMAIN-SUFFIX,sifuda.cn
+DOMAIN-SUFFIX,sifufu.cn
+DOMAIN-SUFFIX,sifuge.cn
+DOMAIN-SUFFIX,sifugu.cn
+DOMAIN-SUFFIX,sifuhe.cn
+DOMAIN-SUFFIX,sifuhu.cn
+DOMAIN-SUFFIX,sifuji.cn
+DOMAIN-SUFFIX,sifuka.cn
+DOMAIN-SUFFIX,smgru.net
+DOMAIN-SUFFIX,taoggou.com
+DOMAIN-SUFFIX,tcxshop.com
+DOMAIN-SUFFIX,tjqonline.cn
+DOMAIN-SUFFIX,topitme.com
+DOMAIN-SUFFIX,tt114.net
+DOMAIN-SUFFIX,tt3sm4.cn
+DOMAIN-SUFFIX,tuia.cn
+DOMAIN-SUFFIX,tuipenguin.com
+DOMAIN-SUFFIX,tuitiger.com
+DOMAIN-SUFFIX,urlaw.cn
+DOMAIN-SUFFIX,urlet.cn
+DOMAIN-SUFFIX,websd8.com
+DOMAIN-SUFFIX,wsgblw.com
+DOMAIN-SUFFIX,wx16999.com
+DOMAIN-SUFFIX,xchmai.com
+DOMAIN-SUFFIX,xiaohuau.xyz
+DOMAIN-SUFFIX,ygyzx.cn
+DOMAIN-SUFFIX,yinmong.com
+DOMAIN-SUFFIX,yitaopt.com
+DOMAIN-SUFFIX,yjqiqi.com
+DOMAIN-SUFFIX,yukhj.com
+DOMAIN-SUFFIX,zhaozecheng.cn
+DOMAIN-SUFFIX,zhenxinet.com
+DOMAIN-SUFFIX,zlne800.com
+DOMAIN-SUFFIX,zmlled.cn
+DOMAIN-SUFFIX,zunmi.cn
+DOMAIN-SUFFIX,zzd6.com
+IP-CIDR,39.107.15.115/32,no-resolve
+IP-CIDR,47.89.59.182/32,no-resolve
+IP-CIDR,103.49.209.27/32,no-resolve
+IP-CIDR,123.56.152.96/32,no-resolve
+# > ChinaTelecom
+IP-CIDR,61.160.200.223/32,no-resolve
+IP-CIDR,61.160.200.242/32,no-resolve
+IP-CIDR,61.160.200.252/32,no-resolve
+IP-CIDR,61.174.50.214/32,no-resolve
+IP-CIDR,111.175.220.163/32,no-resolve
+IP-CIDR,111.175.220.164/32,no-resolve
+IP-CIDR,122.229.8.47/32,no-resolve
+IP-CIDR,122.229.29.89/32,no-resolve
+IP-CIDR,124.232.160.178/32,no-resolve
+IP-CIDR,175.6.223.15/32,no-resolve
+IP-CIDR,183.59.53.237/32,no-resolve
+IP-CIDR,218.93.127.37/32,no-resolve
+IP-CIDR,221.228.17.152/32,no-resolve
+IP-CIDR,221.231.6.79/32,no-resolve
+IP-CIDR,222.186.61.91/32,no-resolve
+IP-CIDR,222.186.61.95/32,no-resolve
+IP-CIDR,222.186.61.96/32,no-resolve
+IP-CIDR,222.186.61.97/32,no-resolve
+# > ChinaUnicom
+IP-CIDR,106.75.231.48/32,no-resolve
+IP-CIDR,119.4.249.166/32,no-resolve
+IP-CIDR,220.196.52.141/32,no-resolve
+IP-CIDR,221.6.4.148/32,no-resolve
+# > ChinaMobile
+IP-CIDR,114.247.28.96/32,no-resolve
+IP-CIDR,120.240.95.37/32,no-resolve
+IP-CIDR,221.179.131.72/32,no-resolve
+IP-CIDR,221.179.140.145/32,no-resolve
+# > Dr.Peng
+# IP-CIDR,10.72.25.0/24,no-resolve
+IP-CIDR,115.182.16.79/32,no-resolve
+IP-CIDR,118.144.88.126/32,no-resolve
+IP-CIDR,118.144.88.215/32,no-resolve
+IP-CIDR,118.144.88.216/32,no-resolve
+IP-CIDR,120.76.189.132/32,no-resolve
+IP-CIDR,124.14.21.147/32,no-resolve
+IP-CIDR,124.14.21.151/32,no-resolve
+IP-CIDR,180.166.52.24/32,no-resolve
+IP-CIDR,211.161.101.106/32,no-resolve
+IP-CIDR,211.161.101.110/32,no-resolve
+IP-CIDR,220.115.251.25/32,no-resolve
+IP-CIDR,222.73.156.235/32,no-resolve
+
+# Malware
+# > Huawei AspiegelBot
+IP-CIDR,114.119.160.0/21,no-resolve
+# > KuaiZip
+# https://zhuanlan.zhihu.com/p/39534279
+DOMAIN-SUFFIX,kuaizip.com
+# > MacKeeper
+# https://www.lizhi.io/blog/40002904
+DOMAIN-SUFFIX,mackeeper.com
+DOMAIN-SUFFIX,zryydi.com
+# > Adobe Flash China Special Edition
+# https://www.zhihu.com/question/281163698/answer/441388130
+DOMAIN-SUFFIX,flash.cn
+DOMAIN,geo2.adobe.com
+# > C&J Marketing
+# https://www.zhihu.com/question/46746200
+DOMAIN-SUFFIX,4009997658.com
+DOMAIN-SUFFIX,abbyychina.com
+DOMAIN-SUFFIX,alienskins.cn
+DOMAIN-SUFFIX,anydeskchina.cn
+DOMAIN-SUFFIX,bartender.cc
+DOMAIN-SUFFIX,betterzip.net
+DOMAIN-SUFFIX,betterzipcn.com
+DOMAIN-SUFFIX,beyondcompare.cc
+DOMAIN-SUFFIX,bingdianhuanyuan.cn
+DOMAIN-SUFFIX,chemdraw.com.cn
+DOMAIN-SUFFIX,cjmakeding.com
+DOMAIN-SUFFIX,cjmkt.com
+DOMAIN-SUFFIX,codesoftchina.com
+DOMAIN-SUFFIX,coreldrawchina.com
+DOMAIN-SUFFIX,crossoverchina.com
+DOMAIN-SUFFIX,dongmansoft.com
+DOMAIN-SUFFIX,earmasterchina.cn
+DOMAIN-SUFFIX,easyrecoverychina.com
+DOMAIN-SUFFIX,ediuschina.com
+DOMAIN-SUFFIX,flstudiochina.com
+DOMAIN-SUFFIX,folxchina.cn
+DOMAIN-SUFFIX,formysql.com
+DOMAIN-SUFFIX,guitarpro.cc
+DOMAIN-SUFFIX,huishenghuiying.com.cn
+DOMAIN-SUFFIX,hypeapp.cn
+DOMAIN-SUFFIX,hypersnap.net
+DOMAIN-SUFFIX,iconworkshop.cn
+DOMAIN-SUFFIX,idmchina.net
+DOMAIN-SUFFIX,imazingchina.com
+DOMAIN-SUFFIX,imindmap.cc
+DOMAIN-SUFFIX,jihehuaban.com.cn
+DOMAIN-SUFFIX,keyshot.cc
+DOMAIN-SUFFIX,kingdeecn.cn
+DOMAIN-SUFFIX,logoshejishi.com
+DOMAIN-SUFFIX,luping.net.cn
+DOMAIN-SUFFIX,mairuan.cn
+DOMAIN-SUFFIX,mairuan.com
+DOMAIN-SUFFIX,mairuan.com.cn
+DOMAIN-SUFFIX,mairuan.net
+DOMAIN-SUFFIX,mairuanwang.com
+DOMAIN-SUFFIX,makeding.com
+DOMAIN-SUFFIX,mathtype.cn
+DOMAIN-SUFFIX,mindmanager.cc
+DOMAIN-SUFFIX,mindmanager.cn
+DOMAIN-SUFFIX,mindmapper.cc
+DOMAIN-SUFFIX,mycleanmymac.com
+DOMAIN-SUFFIX,nicelabel.cc
+DOMAIN-SUFFIX,ntfsformac.cc
+DOMAIN-SUFFIX,ntfsformac.cn
+DOMAIN-SUFFIX,officesoftcn.com
+DOMAIN-SUFFIX,overturechina.com
+DOMAIN-SUFFIX,passwordrecovery.cn
+DOMAIN-SUFFIX,pdfexpert.cc
+DOMAIN-SUFFIX,photozoomchina.com
+DOMAIN-SUFFIX,shankejingling.com
+DOMAIN-SUFFIX,ultraiso.net
+DOMAIN-SUFFIX,vegaschina.cn
+DOMAIN-SUFFIX,xitongqingli.com
+DOMAIN-SUFFIX,xmindchina.net
+DOMAIN-SUFFIX,xshellcn.com
+DOMAIN-SUFFIX,yihuifu.cn
+DOMAIN-SUFFIX,yuanchengxiezuo.com
+DOMAIN-SUFFIX,zbrushcn.com
+DOMAIN-SUFFIX,zhzzx.com
