@@ -1138,9 +1138,9 @@ DOMAIN-SUFFIX,coolsite.vip
 DOMAIN-SUFFIX,cootekservice.com
 DOMAIN-SUFFIX,cowlevel.net
 DOMAIN-SUFFIX,cowtransfer.com
+DOMAIN-SUFFIX,cpatrk.net
 DOMAIN-SUFFIX,cppblog.com
 DOMAIN-SUFFIX,cpppf.org
-DOMAIN-SUFFIX,cpatrk.net
 DOMAIN-SUFFIX,cqccn.com
 DOMAIN-SUFFIX,cqvip.com
 DOMAIN-SUFFIX,cr173.com
@@ -4083,4 +4083,4 @@ USER-AGENT,TIM*
 USER-AGENT,ting_en
 USER-AGENT,WebTorrent*
 USER-AGENT,WeChat*
-USER-AGENT,YYeTs*
+USER-AGENT,YYeTs
