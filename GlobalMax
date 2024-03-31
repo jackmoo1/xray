@@ -1,4 +1,4 @@
-#数据统计:24515
+#数据统计:24514
 DOMAIN,a248.e.akamai.net
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,adobeereg.com
@@ -24473,7 +24473,6 @@ USER-AGENT,Anime*
 USER-AGENT,Argo*
 USER-AGENT,battleroyale*
 USER-AGENT,BBCiPlayer*
-USER-AGENT,com.apple.trustd*
 USER-AGENT,com.google.ios.youtube*
 USER-AGENT,com.google.ios.youtubemusic*
 USER-AGENT,com.kktv.ios.kktv*
