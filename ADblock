@@ -1,4 +1,4 @@
-#数据统计：2425
+#数据统计：2416
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -29,7 +29,6 @@ DOMAIN,ad.wappalyzer.com
 DOMAIN,ad.ximalaya.com
 DOMAIN,ad.xy2013.cn
 DOMAIN,ad.yixin.im
-DOMAIN,ad.zijieapi.com
 DOMAIN,ad-analysis.pconline.com.cn
 DOMAIN,adapi.izuiyou.com
 DOMAIN,adbehavior.wsa.ximalaya.com
@@ -496,7 +495,6 @@ DOMAIN-SUFFIX,ad.xelements.cn
 DOMAIN-SUFFIX,ad.xiaomi.com
 DOMAIN-SUFFIX,ad.ximalaya.com
 DOMAIN-SUFFIX,ad.youku.com
-DOMAIN-SUFFIX,ad.zijieapi.com
 DOMAIN-SUFFIX,ad1.ru
 DOMAIN-SUFFIX,ad120m.com
 DOMAIN-SUFFIX,ad127m.com
@@ -608,11 +606,6 @@ DOMAIN-SUFFIX,ads.sohu.com
 DOMAIN-SUFFIX,ads.superad.cc
 DOMAIN-SUFFIX,ads1.msn.com
 DOMAIN-SUFFIX,ads2.msn.com
-DOMAIN-SUFFIX,ads3-normal-hl.zijieapi.com
-DOMAIN-SUFFIX,ads3-normal-lq.zijieapi.com
-DOMAIN-SUFFIX,ads5-normal-hl.zijieapi.com
-DOMAIN-SUFFIX,ads5-normal-lf.zijieapi.com
-DOMAIN-SUFFIX,ads5-normal-lq.zijieapi.com
 DOMAIN-SUFFIX,adsafeprotected.com
 DOMAIN-SUFFIX,adsage.cn
 DOMAIN-SUFFIX,adsage.com
@@ -1232,8 +1225,6 @@ DOMAIN-SUFFIX,mparticle.com
 DOMAIN-SUFFIX,mplxtms.com
 DOMAIN-SUFFIX,mpnrs.com
 DOMAIN-SUFFIX,msads.net
-DOMAIN-SUFFIX,mssdk.volces.com
-DOMAIN-SUFFIX,mssdk.zijieapi.com
 DOMAIN-SUFFIX,mtj.baidu.com
 DOMAIN-SUFFIX,mxmcdn.net
 DOMAIN-SUFFIX,mxtads.com
