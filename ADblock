@@ -1,4 +1,4 @@
-#数据统计：2415
+#数据统计：2410
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -229,7 +229,6 @@ DOMAIN,hui.sohu.com
 DOMAIN,huichuan.sm.cn
 DOMAIN,huichuan-mc.sm.cn
 DOMAIN,huodong.weibo.cn
-DOMAIN,i.snssdk.com
 DOMAIN,iad.apple.com
 DOMAIN,iad.g.163.com
 DOMAIN,iad0ssl.pcauto.com.cn
@@ -257,7 +256,6 @@ DOMAIN,info6.video.qq.com
 DOMAIN,ios.video.mpush.qq.com
 DOMAIN,ipv4.music.163.com
 DOMAIN,ipv6.music.163.com
-DOMAIN,is.snssdk.com
 DOMAIN,itad.linetv.tw
 DOMAIN,ivy.pchouse.com.cn
 DOMAIN,iyes.youku.com
@@ -325,7 +323,6 @@ DOMAIN,otheve.beacon.qq.com
 DOMAIN,pagead2.googlesyndication.com
 DOMAIN,pagead2.googlesyndication-cn.com
 DOMAIN,pageviewp.icbc.com.cn
-DOMAIN,pangolin.snssdk.com
 DOMAIN,pgdt.gtimg.cn
 DOMAIN,pgdt.gtimg.com
 DOMAIN,pgdt.ugdtimg.com
@@ -1013,7 +1010,6 @@ DOMAIN-SUFFIX,hypers.com
 DOMAIN-SUFFIX,hypersnap.net
 DOMAIN-SUFFIX,hyt.comp.360os.com
 DOMAIN-SUFFIX,hyunke.com
-DOMAIN-SUFFIX,i.snssdk.com
 DOMAIN-SUFFIX,iad.appboy.com
 DOMAIN-SUFFIX,iad.apple.com
 DOMAIN-SUFFIX,iad-01.braze.com
@@ -1061,7 +1057,6 @@ DOMAIN-SUFFIX,ioacfu.com
 DOMAIN-SUFFIX,irc.qubiankeji.com
 DOMAIN-SUFFIX,ironsrc.com
 DOMAIN-SUFFIX,irs01.com
-DOMAIN-SUFFIX,is.snssdk.com
 DOMAIN-SUFFIX,ishop789.com
 DOMAIN-SUFFIX,iskyworker.com
 DOMAIN-SUFFIX,itnuzleafan.com
