@@ -1,4 +1,4 @@
-#数据统计：2409
+#数据统计：2407
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -6,7 +6,6 @@ DOMAIN,abema-adx.ameba.jp
 DOMAIN,aboard.apilocate.amap.com
 DOMAIN,acdn.adnxs.com
 DOMAIN,acs4baichuan.m.taobao.com
-DOMAIN,ad.12306.cn
 DOMAIN,ad.21cn.com
 DOMAIN,ad.360in.com
 DOMAIN,ad.51wnl-cq.com
@@ -1795,7 +1794,6 @@ DOMAIN-SUFFIX,w1.zskwai.com
 DOMAIN-SUFFIX,w55c.net
 DOMAIN-SUFFIX,wapstart.ru
 DOMAIN-SUFFIX,watchingthat.net
-DOMAIN-SUFFIX,weather-analytics-events.apple.com
 DOMAIN-SUFFIX,weather-community-drcn.weather.dbankcloud.cn
 DOMAIN-SUFFIX,weather-drcn.music.dbankcloud.cn
 DOMAIN-SUFFIX,webads.eu
