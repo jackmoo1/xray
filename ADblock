@@ -1,4 +1,4 @@
-#数据统计：2407
+#数据统计：2401
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -23,7 +23,6 @@ DOMAIN,ad.mobile.youku.com
 DOMAIN,ad.period-calendar.com
 DOMAIN,ad.qingting.fm
 DOMAIN,ad.tencentmusic.com
-DOMAIN,ad.toutiao.com
 DOMAIN,ad.wappalyzer.com
 DOMAIN,ad.ximalaya.com
 DOMAIN,ad.xy2013.cn
@@ -191,7 +190,6 @@ DOMAIN,dflow.bz.mgtv.com
 DOMAIN,dispatcher.360in.com
 DOMAIN,dns.jd.com
 DOMAIN,dsp.fcbox.com
-DOMAIN,dsp.toutiao.com
 DOMAIN,duclick.baidu.com
 DOMAIN,emma-414870e223.huodonghezi.com
 DOMAIN,ems.youku.com
@@ -1106,7 +1104,6 @@ DOMAIN-SUFFIX,kumihua.com
 DOMAIN-SUFFIX,l.qq.com
 DOMAIN-SUFFIX,leadboltmobile.net
 DOMAIN-SUFFIX,lenzmx.com
-DOMAIN-SUFFIX,lf1-cdn-tos.bytegoofy.com
 DOMAIN-SUFFIX,lf3-ad-union-sdk.pglstatp-toutiao.com
 DOMAIN-SUFFIX,liadm.com
 DOMAIN-SUFFIX,links.services.disqus.com
@@ -1637,12 +1634,9 @@ DOMAIN-SUFFIX,tmfmazu-wangka.m.qq.com
 DOMAIN-SUFFIX,tmfsdk.m.qq.com
 DOMAIN-SUFFIX,tmfsdktcpv4.m.qq.com
 DOMAIN-SUFFIX,tnc3-aliec1.toutiaoapi.com
-DOMAIN-SUFFIX,tnc3-aliec2.bytedance.com
 DOMAIN-SUFFIX,tnc3-aliec2.toutiaoapi.com
-DOMAIN-SUFFIX,tnc3-alisc1.bytedance.com
 DOMAIN-SUFFIX,tnc3-alisc1.zijieapi.com
 DOMAIN-SUFFIX,tnc3-alisc2.zijieapi.com
-DOMAIN-SUFFIX,tnc3-bjlgy.bytedance.com
 DOMAIN-SUFFIX,tnc3-bjlgy.toutiaoapi.com
 DOMAIN-SUFFIX,tnc3-bjlgy.zijieapi.com
 DOMAIN-SUFFIX,tnkfactory.com
