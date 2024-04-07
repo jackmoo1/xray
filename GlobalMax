@@ -1,4 +1,4 @@
-# 规则统计:7065
+# 规则统计:7066
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
@@ -415,6 +415,7 @@ DOMAIN-SUFFIX,apkmonk.com
 DOMAIN-SUFFIX,apkplz.com
 DOMAIN-SUFFIX,apkpure.com
 DOMAIN-SUFFIX,aplusvpn.com
+DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,app.box.com
 DOMAIN-SUFFIX,app.cloudcone.com
 DOMAIN-SUFFIX,app.evozi.com
