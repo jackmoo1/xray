@@ -1,4 +1,4 @@
-# 规则统计:7015
+# 规则统计:6996
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
@@ -477,7 +477,6 @@ DOMAIN-SUFFIX,askstudent.com
 DOMAIN-SUFFIX,askynz.net
 DOMAIN-SUFFIX,aspi.org.au
 DOMAIN-SUFFIX,aspistrategist.org.au
-DOMAIN-SUFFIX,aspnetcdn.com
 DOMAIN-SUFFIX,assembla.com
 DOMAIN-SUFFIX,assets.bwbx.io
 DOMAIN-SUFFIX,assimp.org
@@ -526,8 +525,6 @@ DOMAIN-SUFFIX,axureformac.com
 DOMAIN-SUFFIX,azerbaycan.tv
 DOMAIN-SUFFIX,azerimix.com
 DOMAIN-SUFFIX,azubu.tv
-DOMAIN-SUFFIX,azure.com
-DOMAIN-SUFFIX,azureedge.net
 DOMAIN-SUFFIX,azurewebsites.net
 DOMAIN-SUFFIX,b0ne.com
 DOMAIN-SUFFIX,baby-kingdom.com
@@ -668,8 +665,6 @@ DOMAIN-SUFFIX,biliworld.com
 DOMAIN-SUFFIX,billypan.com
 DOMAIN-SUFFIX,binance.com
 DOMAIN-SUFFIX,binance.info
-DOMAIN-SUFFIX,bing.com
-DOMAIN-SUFFIX,bing.net
 DOMAIN-SUFFIX,bintray.com
 DOMAIN-SUFFIX,binux.me
 DOMAIN-SUFFIX,binwang.me
@@ -1049,7 +1044,6 @@ DOMAIN-SUFFIX,cdn.softlayer.net
 DOMAIN-SUFFIX,cdn1.lp.saboom.com
 DOMAIN-SUFFIX,cdnews.com.tw
 DOMAIN-SUFFIX,cdn-images.mailchimp.com
-DOMAIN-SUFFIX,cdnst.net
 DOMAIN-SUFFIX,cdp1989.org
 DOMAIN-SUFFIX,cdp1998.org
 DOMAIN-SUFFIX,cdp2006.org
@@ -1767,7 +1761,6 @@ DOMAIN-SUFFIX,ecsm.vs.com
 DOMAIN-SUFFIX,ecstart.com
 DOMAIN-SUFFIX,edgecastcdn.net
 DOMAIN-SUFFIX,edgekey.net
-DOMAIN-SUFFIX,edgesuite.net
 DOMAIN-SUFFIX,edicypages.com
 DOMAIN-SUFFIX,edmontonchina.cn
 DOMAIN-SUFFIX,edmontonservice.com
@@ -1985,7 +1978,6 @@ DOMAIN-SUFFIX,faproxy.com
 DOMAIN-SUFFIX,faqserv.com
 DOMAIN-SUFFIX,fartit.com
 DOMAIN-SUFFIX,farwestchina.com
-DOMAIN-SUFFIX,fast.com
 DOMAIN-SUFFIX,fast.wistia.com
 DOMAIN-SUFFIX,fastestvpn.com
 DOMAIN-SUFFIX,fastly.net
@@ -2353,7 +2345,6 @@ DOMAIN-SUFFIX,gfw.press
 DOMAIN-SUFFIX,gfw.report
 DOMAIN-SUFFIX,gfwlist.end
 DOMAIN-SUFFIX,gfwlist.start
-DOMAIN-SUFFIX,gfx.ms
 DOMAIN-SUFFIX,ggssl.com
 DOMAIN-SUFFIX,ghcr.io
 DOMAIN-SUFFIX,ghidra-sre.org
@@ -3432,8 +3423,6 @@ DOMAIN-SUFFIX,liujianshu.com
 DOMAIN-SUFFIX,liuxiaobo.net
 DOMAIN-SUFFIX,liu-xiaobo.org
 DOMAIN-SUFFIX,liuxiaotong.com
-DOMAIN-SUFFIX,live.com
-DOMAIN-SUFFIX,live.net
 DOMAIN-SUFFIX,livecoin.net
 DOMAIN-SUFFIX,livedoor.jp
 DOMAIN-SUFFIX,livefilestore.com
@@ -3776,10 +3765,8 @@ DOMAIN-SUFFIX,mrface.com
 DOMAIN-SUFFIX,mrslove.com
 DOMAIN-SUFFIX,mrtweet.com
 DOMAIN-SUFFIX,msa-it.org
-DOMAIN-SUFFIX,msedge.net
 DOMAIN-SUFFIX,msguancha.com
 DOMAIN-SUFFIX,msha.gov
-DOMAIN-SUFFIX,msn.com
 DOMAIN-SUFFIX,msn.com.tw
 DOMAIN-SUFFIX,m-sport.co.uk
 DOMAIN-SUFFIX,mswe1.org
@@ -4203,11 +4190,9 @@ DOMAIN-SUFFIX,on2.com
 DOMAIN-SUFFIX,onapp.com
 DOMAIN-SUFFIX,one.one.one
 DOMAIN-SUFFIX,oneclient.sfx.ms
-DOMAIN-SUFFIX,onedrive.com
 DOMAIN-SUFFIX,onedrive.live.com
 DOMAIN-SUFFIX,onedumb.com
 DOMAIN-SUFFIX,onejav.com
-DOMAIN-SUFFIX,onenote.com
 DOMAIN-SUFFIX,onion.city
 DOMAIN-SUFFIX,onion.ly
 DOMAIN-SUFFIX,online.recoveryversion.org
@@ -4941,7 +4926,6 @@ DOMAIN-SUFFIX,sfileydy.com
 DOMAIN-SUFFIX,sfshibao.com
 DOMAIN-SUFFIX,sftindia.org
 DOMAIN-SUFFIX,sftuk.org
-DOMAIN-SUFFIX,sfx.ms
 DOMAIN-SUFFIX,sg
 DOMAIN-SUFFIX,sgpstatp.com
 DOMAIN-SUFFIX,shadeyouvpn.com
@@ -5063,7 +5047,6 @@ DOMAIN-SUFFIX,skydrive.wns.windows.com
 DOMAIN-SUFFIX,skyking.com.tw
 DOMAIN-SUFFIX,skykiwi.com
 DOMAIN-SUFFIX,skynet.be
-DOMAIN-SUFFIX,skype.com
 DOMAIN-SUFFIX,skyvegas.com
 DOMAIN-SUFFIX,skyxvpn.com
 DOMAIN-SUFFIX,slack.com
@@ -6808,7 +6791,6 @@ DOMAIN-SUFFIX,zzcartoon.com
 DOMAIN-SUFFIX,zzcloud.me
 DOMAIN-SUFFIX,zzux.com
 DOMAIN-KEYWORD,.blogspot.
-DOMAIN-KEYWORD,1drv
 DOMAIN-KEYWORD,1e100
 DOMAIN-KEYWORD,abema
 DOMAIN-KEYWORD,amazon
@@ -6831,7 +6813,6 @@ DOMAIN-KEYWORD,pinterest
 DOMAIN-KEYWORD,porn
 DOMAIN-KEYWORD,sci-hub
 DOMAIN-KEYWORD,skydrive
-DOMAIN-KEYWORD,speedtest
 DOMAIN-KEYWORD,spotify
 DOMAIN-KEYWORD,tesla
 DOMAIN-KEYWORD,tiktok
