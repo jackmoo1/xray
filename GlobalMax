@@ -1,4 +1,4 @@
-# 规则统计:6996
+# 规则统计:6990
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
@@ -946,7 +946,6 @@ DOMAIN-SUFFIX,bybit.com
 DOMAIN-SUFFIX,bynet.co.il
 DOMAIN-SUFFIX,bypasscensorship.org
 DOMAIN-SUFFIX,byrut.org
-DOMAIN-SUFFIX,byteoversea.com
 DOMAIN-SUFFIX,c100tibet.org
 DOMAIN-SUFFIX,c2cx.com
 DOMAIN-SUFFIX,ca
@@ -2853,7 +2852,6 @@ DOMAIN-SUFFIX,iblogserv-f.net
 DOMAIN-SUFFIX,ibros.org
 DOMAIN-SUFFIX,ibtimes.com
 DOMAIN-SUFFIX,ibvpn.com
-DOMAIN-SUFFIX,ibytedtos.com
 DOMAIN-SUFFIX,ibyteimg.com
 DOMAIN-SUFFIX,i-cable.com
 DOMAIN-SUFFIX,icams.com
@@ -3005,7 +3003,6 @@ DOMAIN-SUFFIX,ipoock.com
 DOMAIN-SUFFIX,iportal.me
 DOMAIN-SUFFIX,ippotv.com
 DOMAIN-SUFFIX,ipredator.se
-DOMAIN-SUFFIX,ipstatp.com
 DOMAIN-SUFFIX,iptv.com.tw
 DOMAIN-SUFFIX,iptvbin.com
 DOMAIN-SUFFIX,ipv4.surfsharkdns.com
@@ -3780,7 +3777,6 @@ DOMAIN-SUFFIX,multiproxy.org
 DOMAIN-SUFFIX,multiupload.com
 DOMAIN-SUFFIX,mummysgold.com
 DOMAIN-SUFFIX,murmur.tw
-DOMAIN-SUFFIX,muscdn.com
 DOMAIN-SUFFIX,musicade.net
 DOMAIN-SUFFIX,muslimvideo.com
 DOMAIN-SUFFIX,muzi.com
@@ -5608,7 +5604,6 @@ DOMAIN-SUFFIX,tibettimes.net
 DOMAIN-SUFFIX,tibetwrites.org
 DOMAIN-SUFFIX,ticket.com.tw
 DOMAIN-SUFFIX,tigervpn.com
-DOMAIN-SUFFIX,tik-tokapi.com
 DOMAIN-SUFFIX,tiltbrush.com
 DOMAIN-SUFFIX,timdir.com
 DOMAIN-SUFFIX,time.com
@@ -6815,7 +6810,6 @@ DOMAIN-KEYWORD,sci-hub
 DOMAIN-KEYWORD,skydrive
 DOMAIN-KEYWORD,spotify
 DOMAIN-KEYWORD,tesla
-DOMAIN-KEYWORD,tiktok
 DOMAIN-KEYWORD,tiktokcdn-
 DOMAIN-KEYWORD,tiktokv
 DOMAIN-KEYWORD,ttvnw
