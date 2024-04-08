@@ -1,4 +1,4 @@
-# 规则统计:6990
+# 规则统计:6995
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
@@ -133,6 +133,7 @@ DOMAIN-SUFFIX,64tianwang.com
 DOMAIN-SUFFIX,64wiki.com
 DOMAIN-SUFFIX,66.ca
 DOMAIN-SUFFIX,666kb.com
+DOMAIN-SUFFIX,6dm.cc
 DOMAIN-SUFFIX,6do.news
 DOMAIN-SUFFIX,6park.com
 DOMAIN-SUFFIX,6parkbbs.com
@@ -275,6 +276,7 @@ DOMAIN-SUFFIX,alforattv.net
 DOMAIN-SUFFIX,alfredapp.com
 DOMAIN-SUFFIX,alhayat.com
 DOMAIN-SUFFIX,alicejapan.co.jp
+DOMAIN-SUFFIX,ali.gitcafe.ink
 DOMAIN-SUFFIX,aliengu.com
 DOMAIN-SUFFIX,al-islam.com
 DOMAIN-SUFFIX,alive.bar
@@ -2541,6 +2543,8 @@ DOMAIN-SUFFIX,hacker.org
 DOMAIN-SUFFIX,hackmd.io
 DOMAIN-SUFFIX,hackthatphone.net
 DOMAIN-SUFFIX,hahlo.com
+DOMAIN-SUFFIX,haijiao.com
+DIMAIN-SUFFIX,p.hjpfe1.com
 DOMAIN-SUFFIX,hakkatv.org.tw
 DOMAIN-SUFFIX,handcraftedsoftware.org
 DOMAIN-SUFFIX,hanime.tv
@@ -6099,6 +6103,7 @@ DOMAIN-SUFFIX,vilavpn.com
 DOMAIN-SUFFIX,vimeo.com
 DOMAIN-SUFFIX,vimeocdn.com
 DOMAIN-SUFFIX,vimperator.org
+DOMAIN-SUFFIX,vmiss.com
 DOMAIN-SUFFIX,vincnd.com
 DOMAIN-SUFFIX,vinniev.com
 DOMAIN-SUFFIX,vip-enterprise.com
