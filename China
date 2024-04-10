@@ -1,4 +1,4 @@
-#统计数据:3888
+#统计数据:3889
 DOMAIN,ad.10010.com
 DOMAIN,analytics.95516.com
 DOMAIN,blzddist1-a.akamaihd.net
@@ -3191,6 +3191,7 @@ DOMAIN-SUFFIX,toutiaoimg.com
 DOMAIN-SUFFIX,toutiaoimg.net
 DOMAIN-SUFFIX,toutiaopage.com
 DOMAIN-SUFFIX,toutiaostatic.com
+DOMAIN-SUFFIX,itoutiaostatic.com
 DOMAIN-SUFFIX,toutiaovod.com
 DOMAIN-SUFFIX,touzid.com
 DOMAIN-SUFFIX,tpyzq.com
