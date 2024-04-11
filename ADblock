@@ -1,4 +1,4 @@
-#数据统计：2403
+#数据统计：2404
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -733,6 +733,7 @@ DOMAIN-SUFFIX,applog.uc.cn
 DOMAIN-SUFFIX,applog.zijieapi.com
 DOMAIN-SUFFIX,applovin.com
 DOMAIN-SUFFIX,applvn.com
+DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,app-measurement.com
 DOMAIN-SUFFIX,appsflyer.com
 DOMAIN-SUFFIX,apsalar.com
