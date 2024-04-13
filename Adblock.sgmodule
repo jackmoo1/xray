@@ -1,8 +1,6 @@
 #!name=Adblock+
 #!desc=常用软件去广告
 
-
-
 [Rule]
 # > 番茄小说
 DOMAIN,p3-ad-sign.byteimg.com,REJECT
@@ -167,6 +165,11 @@ https://ci.xiaohongshu.com/system_config/watermark data-type=tiny-gif status-cod
 ^https?:\/\/img\.meituan\.net\/bizad\/.*.jpg data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
 ^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
 ^https?:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+
+# 微信公众号去除商品推广
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info\?action data-type=text data="{}" status-code=200
+
+
 
 [Script]
 # > IT之家
