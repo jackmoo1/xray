@@ -1,4 +1,4 @@
-#数据统计：2404
+#数据统计：2405
 DOMAIN,a.wkanx.com
 DOMAIN,a0.app.xiaomi.com
 DOMAIN,aaid.uyunad.com
@@ -786,6 +786,7 @@ DOMAIN-SUFFIX,books-analytics-events.apple.com
 DOMAIN-SUFFIX,brightcom.com
 DOMAIN-SUFFIX,bryonypie.com
 DOMAIN-SUFFIX,bugly.qq.com
+DOMAIN-SUFFIX,bugsnag.com
 DOMAIN-SUFFIX,bulldogcpi.com
 DOMAIN-SUFFIX,business-api.tiktok.com
 DOMAIN-SUFFIX,bxsnews.com
