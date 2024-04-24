@@ -6,6 +6,7 @@
 DOMAIN,p3-ad-sign.byteimg.com,REJECT
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
 DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN,ads5-normal.zijieapi.com
 DOMAIN,ads3-normal-hl.zijieapi.com,REJECT
 DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
 DOMAIN,ads5-normal-hl.zijieapi.com,REJECT
