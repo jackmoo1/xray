@@ -2667,17 +2667,10 @@ URL-REGEX,^https?://(api|b).zhuishushenqi.com/advert
 URL-REGEX,^https?://(api|www).zhihu.com/(fringe|adx|commercial|ad-style-service|banners|mqtt)
 URL-REGEX,^https?://(api|www).zhihu.com/.*(featured-comment-ad|recommendations|community-ad)
 URL-REGEX,^https?://(discardrp|startup)\.umetrip\.com/gateway/api/umetrip/native
-URL-REGEX,^https?://(www|s).youtube.com/(pagead|ptracking)
-URL-REGEX,^https?://(www|s).youtube.com/api/stats/ads
 URL-REGEX,^https?://.+.(musical|snssdk).(com|ly)/(api|motor)/ad/
 URL-REGEX,^https?://.+.58cdn.com.cn/brandads/
 URL-REGEX,^https?://.+.iydsj.com/api/.+/ad
 URL-REGEX,^https?://.+.kingsoft-office-service.com/ad
-URL-REGEX,^https?://.+.youtube.com/api/stats/.+adformat
-URL-REGEX,^https?://.+.youtube.com/api/stats/ads
-URL-REGEX,^https?://.+.youtube.com/get_midroll
-URL-REGEX,^https?://.+.youtube.com/get_midroll_
-
 URL-REGEX,^https?://.+/allOne.php\?ad_name
 URL-REGEX,^https?://.+/api/app/member/ver2/user/login/
 URL-REGEX,^https?://.+/cdn-adn/
