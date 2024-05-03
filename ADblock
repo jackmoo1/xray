@@ -2677,9 +2677,7 @@ URL-REGEX,^https?://.+.youtube.com/api/stats/.+adformat
 URL-REGEX,^https?://.+.youtube.com/api/stats/ads
 URL-REGEX,^https?://.+.youtube.com/get_midroll
 URL-REGEX,^https?://.+.youtube.com/get_midroll_
-URL-REGEX,^https?://.+.youtube.com/pagead/
-URL-REGEX,^https?://.+.youtube.com/ptracking
-URL-REGEX,^https?://.+.youtube.com/ptracking\?
+
 URL-REGEX,^https?://.+/allOne.php\?ad_name
 URL-REGEX,^https?://.+/api/app/member/ver2/user/login/
 URL-REGEX,^https?://.+/cdn-adn/
@@ -2873,7 +2871,6 @@ URL-REGEX,^https?://render.alipay.com/p/s/h5data/prod/spring-festival-2019-h5dat
 URL-REGEX,^https?://res.kfc.com.cn/advertisement/
 URL-REGEX,^https?://res-release.wuta-cam.com/json/ads_component_cache.json
 URL-REGEX,^https?://richmanapi.jxedt.com/api/ad/
-URL-REGEX,^https?://s.youtube.com/api/stats/qoe?.*adformat
 URL-REGEX,^https?://s1.api.tv.itc.cn/v\d/mobile/control/switch.json
 URL-REGEX,^https?://s3plus.meituan.net/.+/linglong/
 URL-REGEX,^https?://sdkapp.uve.weibo.com/\interface/sdk/actionad.php
@@ -2909,9 +2906,6 @@ URL-REGEX,^https?://www.myhug.cn/ad/
 URL-REGEX,^https?://www.shihuo.cn/app3/saveAppInfo
 URL-REGEX,^https?://www.zhihu.com/terms/privacy/confirm
 URL-REGEX,^https?://y.gtimg.cn/music/common/upload/targeted_ads
-URL-REGEX,^https?://youtubei.googleapis.com/.+ad_break
-URL-REGEX,^https?://youtubei.googleapis.com/youtubei/.+ad_
-URL-REGEX,^https?://youtubei.googleapis.com/youtubei/.+log_
 USER-AGENT,AVOS*
 AND,((DOMAIN-KEYWORD,f-log), (DOMAIN-SUFFIX,grammarly.io))
 AND,((DOMAIN-KEYWORD,genuine), (DOMAIN-KEYWORD,autodesk))
