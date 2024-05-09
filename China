@@ -1,4 +1,4 @@
-#统计数据:4107
+#统计数据:4108
 DOMAIN,ad.10010.com
 DOMAIN,analytics.95516.com
 DOMAIN,blzddist1-a.akamaihd.net
@@ -1453,6 +1453,7 @@ DOMAIN-SUFFIX,fqjob.net
 DOMAIN-SUFFIX,fqnovel.com
 DOMAIN-SUFFIX,fqnovelpic.com
 DOMAIN-SUFFIX,fqnovelvod.com
+DOMAIN-SUFFIX,fqnovelstatic.com
 DOMAIN-SUFFIX,frdic.com
 DOMAIN-SUFFIX,freebuf.com
 DOMAIN-SUFFIX,freshhema.com
