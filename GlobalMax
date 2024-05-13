@@ -1,4 +1,4 @@
-# 规则统计:24898
+# 规则统计:24902
 DOMAIN,a.ppy.sh
 DOMAIN,a771.dscq.akamai.net
 DOMAIN,addons.mozilla.org
@@ -5466,6 +5466,7 @@ DOMAIN-SUFFIX,cloudlive.com
 DOMAIN-SUFFIX,cloudlock.com
 DOMAIN-SUFFIX,cloudmagic.com
 DOMAIN-SUFFIX,cloudn.me
+DOMAIN-SUFFIX,cloudns.biz
 DOMAIN-SUFFIX,cloudproxy.app
 DOMAIN-SUFFIX,cloudrobotics.com
 DOMAIN-SUFFIX,cloudvolumes.com
@@ -6928,6 +6929,7 @@ DOMAIN-SUFFIX,dtvce.com
 DOMAIN-SUFFIX,dtwang.org
 DOMAIN-SUFFIX,dualeotruyen1s.com
 DOMAIN-SUFFIX,duanzhihu.com
+DOMAIN-SUFFIX,duangks.com
 DOMAIN-SUFFIX,dubai-escort-list.com
 DOMAIN-SUFFIX,dubaihotties.org
 DOMAIN-SUFFIX,dubox.com
@@ -15290,6 +15292,8 @@ DOMAIN-SUFFIX,netflixdnstest8.com
 DOMAIN-SUFFIX,netflixdnstest9.com
 DOMAIN-SUFFIX,netflixinvestor.com
 DOMAIN-SUFFIX,netflixtechblog.com
+DOMAIN-SUFFIX,netfly.tv
+DOMAIN-SUFFIX,netfly.fun
 DOMAIN-SUFFIX,netlify.app
 DOMAIN-SUFFIX,netlify.com
 DOMAIN-SUFFIX,netlify-rum.netlify.app
