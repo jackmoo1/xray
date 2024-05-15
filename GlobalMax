@@ -1,4 +1,4 @@
-# 规则统计:19337
+# 规则统计:19338
 DOMAIN,a.ppy.sh
 DOMAIN,addons.mozilla.org
 DOMAIN,anime-rule34-world.b-cdn.net
@@ -13488,6 +13488,7 @@ DOMAIN-SUFFIX,reddit.com
 DOMAIN-SUFFIX,redditlist.com
 DOMAIN-SUFFIX,redditmail.com
 DOMAIN-SUFFIX,redditmedia.com
+DOMAIN-SUFFIX,redditspace.com
 DOMAIN-SUFFIX,redditstatic.com
 DOMAIN-SUFFIX,redfaptube.com
 DOMAIN-SUFFIX,redgifs.com
