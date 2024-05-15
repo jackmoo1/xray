@@ -1,4 +1,4 @@
-#统计数据:6169
+#统计数据:6158
 DOMAIN,14033.live.streamtheworld.com
 DOMAIN,156zy.suyunbo.tv
 DOMAIN,19183.live.streamtheworld.com
@@ -24,7 +24,6 @@ DOMAIN,amdlive-ch01.ctnd.com.edgesuite.net
 DOMAIN,amdlive-ch03.ctnd.com.edgesuite.net
 DOMAIN,amdlive-ch03-ctnd-com.akamaized.net
 DOMAIN,analytics.95516.com
-DOMAIN,analytics.strava.com
 DOMAIN,antvlive.ab5c6921.cdnviet.com
 DOMAIN,app.xygdcm.com
 DOMAIN,app.yixianfabu.com
@@ -1211,7 +1210,6 @@ DOMAIN-SUFFIX,apass.com
 DOMAIN-SUFFIX,apcdns.net
 DOMAIN-SUFFIX,apecn.com
 DOMAIN-SUFFIX,api.crisp.chat
-DOMAIN-SUFFIX,apifox.com
 DOMAIN-SUFFIX,apigwtencent.com
 DOMAIN-SUFFIX,apimkt.net
 DOMAIN-SUFFIX,apira.org
@@ -1373,12 +1371,10 @@ DOMAIN-SUFFIX,baofengtv.com
 DOMAIN-SUFFIX,baomitu.com
 DOMAIN-SUFFIX,baoxianshichang.com
 DOMAIN-SUFFIX,battle.net
-DOMAIN-SUFFIX,battlecare.net
 DOMAIN-SUFFIX,battlenet.com.cn
 DOMAIN-SUFFIX,baxiami.com
 DOMAIN-SUFFIX,baydn.com
 DOMAIN-SUFFIX,bazai.com
-DOMAIN-SUFFIX,bbbcdns.com
 DOMAIN-SUFFIX,bbiquge8.net
 DOMAIN-SUFFIX,bcebos.com
 DOMAIN-SUFFIX,bce-cdn.com
@@ -1410,7 +1406,6 @@ DOMAIN-SUFFIX,bdydns.net
 DOMAIN-SUFFIX,bdymkt.com
 DOMAIN-SUFFIX,bdysites.com
 DOMAIN-SUFFIX,bearychat.com
-DOMAIN-SUFFIX,beatsbydre.com
 DOMAIN-SUFFIX,beihaidc.com
 DOMAIN-SUFFIX,beijing-lipin.com
 DOMAIN-SUFFIX,beitai.pt
@@ -2527,7 +2522,6 @@ DOMAIN-SUFFIX,ford.com
 DOMAIN-SUFFIX,foresightfund.com
 DOMAIN-SUFFIX,founderff.com
 DOMAIN-SUFFIX,foundertype.com
-DOMAIN-SUFFIX,foxmail.com
 DOMAIN-SUFFIX,fqjob.net
 DOMAIN-SUFFIX,fqnovel.com
 DOMAIN-SUFFIX,fqnovelpic.com
@@ -3536,7 +3530,6 @@ DOMAIN-SUFFIX,jd.ru
 DOMAIN-SUFFIX,jd.shop
 DOMAIN-SUFFIX,jdair.net
 DOMAIN-SUFFIX,jd-app.com
-DOMAIN-SUFFIX,jdbusiness.com
 DOMAIN-SUFFIX,jdcache.com
 DOMAIN-SUFFIX,jdcdn.com
 DOMAIN-SUFFIX,jdcloud.com
@@ -4324,7 +4317,6 @@ DOMAIN-SUFFIX,open.cd
 DOMAIN-SUFFIX,openaboc.com
 DOMAIN-SUFFIX,openapp.run
 DOMAIN-SUFFIX,openinstall.io
-DOMAIN-SUFFIX,openintelliedge.tech
 DOMAIN-SUFFIX,openkylin.top
 DOMAIN-SUFFIX,openlearning.com
 DOMAIN-SUFFIX,openmidas.com
@@ -4455,7 +4447,6 @@ DOMAIN-SUFFIX,pterclub.com
 DOMAIN-SUFFIX,pthome.net
 DOMAIN-SUFFIX,ptsbao.club
 DOMAIN-SUFFIX,puata.info
-DOMAIN-SUFFIX,pubbcsapp.com
 DOMAIN-SUFFIX,pubghelper.com
 DOMAIN-SUFFIX,pubgtool.com
 DOMAIN-SUFFIX,pubyun.com
@@ -5158,7 +5149,6 @@ DOMAIN-SUFFIX,tengkaxx.com
 DOMAIN-SUFFIX,tenxcloud.com
 DOMAIN-SUFFIX,test-cignacmb.com
 DOMAIN-SUFFIX,test-ipv4.com
-DOMAIN-SUFFIX,test-ipv6.com
 DOMAIN-SUFFIX,testwaf.com
 DOMAIN-SUFFIX,texasholdemcup.com
 DOMAIN-SUFFIX,texasholdemcup.net
@@ -6114,7 +6104,6 @@ PROCESS-NAME,NetTransport
 PROCESS-NAME,parsecd
 PROCESS-NAME,privoxy
 PROCESS-NAME,qBittorrent
-PROCESS-NAME,qbittorrent*
 PROCESS-NAME,qbittorrent-nox
 PROCESS-NAME,ss-local
 PROCESS-NAME,SunloginClient_Desktop
