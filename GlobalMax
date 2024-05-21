@@ -1,4 +1,4 @@
-# 规则统计:19338
+# 规则统计:19339
 DOMAIN,a.ppy.sh
 DOMAIN,addons.mozilla.org
 DOMAIN,anime-rule34-world.b-cdn.net
@@ -2513,6 +2513,7 @@ DOMAIN-SUFFIX,braintreepayments.tv
 DOMAIN-SUFFIX,braintreepaymentsolutions.com
 DOMAIN-SUFFIX,braintreeps.com
 DOMAIN-SUFFIX,brainyquote.com
+DOMAIN-SUFFIX,branch.io
 DOMAIN-SUFFIX,branchportal.com
 DOMAIN-SUFFIX,brandeasygo.com
 DOMAIN-SUFFIX,brandelectronic.com
