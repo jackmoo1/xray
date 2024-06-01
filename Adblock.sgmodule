@@ -93,6 +93,7 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 ^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
 
 # 有道词典 其他
+# 其他
 ^https?:\/\/oimage([a-z])([0-9])\.ydstatic\.com\/.+adpublish - reject
 
 # 美团
@@ -144,25 +145,25 @@ https://ci.xiaohongshu.com/system_config/watermark data-type=tiny-gif status-cod
 ^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg data-type=text data=" " status-code=200
 ^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png data-type=tiny-gif status-code=200
 
-
-# 有道翻译广告
-^https?:\/\/dict\.youdao\.com\/course\/tab\/translateTab data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+# 有道词典
+# 翻译广告
+^https?:\/\/dict\.youdao\.com\/course\/tab\/translateTab data-type=text data="{}" status-code=200
 # 首次查词弹窗
-^https?:\/\/api-overmind\.youdao\.com\/openapi\/get\/luna\/dict\/dict-mobile\/prod\/dictCommonConfig data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json
+^https?:\/\/api-overmind\.youdao\.com\/openapi\/get\/luna\/dict\/dict-mobile\/prod\/dictCommonConfig data-type=text data="{}" status-code=200
 # 首页弹窗
-^https?:\/\/cdke\.youdao\.com\/course3\/recommend\/dict\/startup data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https?:\/\/cdke\.youdao\.com\/course3\/recommend\/dict\/startup data-type=text data="{}" status-code=200
 # 搜索预想
-^https?:\/\/dict\.youdao\.com\/commonsearch data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https?:\/\/dict\.youdao\.com\/commonsearch data-type=text data="{}" status-code=200
 # 会员优惠券弹窗
-^https?:\/\/dict\.youdao\.com\/vip\/activity\/couponinfo data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https?:\/\/dict\.youdao\.com\/vip\/activity\/couponinfo data-type=text data="{}" status-code=200
 # 首页左上角福利中心
-^https?:\/\/dict\.youdao\.com\/dictusertask\/system data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
+^https?:\/\/dict\.youdao\.com\/dictusertask\/system data-type=text data="{}" status-code=200
 # 会员界面横幅广告
-^https?:\/\/dictvip-business\.youdao\.com\/home\/ad data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
-^https?:\/\/oimage\w\d\.ydstatic\.com\/image\?.+?=adpublish data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
-^https?:\/\/dsp-impr2\.youdao\.com\/adload data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/impservice\.dictapp\.youdao\.com\/imp\/request data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
-^https?:\/\/oral\.youdao\.com\/oral\/adInfo data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
+^https?:\/\/dictvip-business\.youdao\.com\/home\/ad data-type=text data="{}" status-code=200
+^https?:\/\/oimage\w\d\.ydstatic\.com\/image\?.+?=adpublish data-type=tiny-gif status-code=200
+^https?:\/\/dsp-impr2\.youdao\.com\/adload data-type=text data=" " status-code=200
+^https?:\/\/impservice\.dictapp\.youdao\.com\/imp\/request data-type=tiny-gif status-code=200
+^https?:\/\/oral\.youdao\.com\/oral\/adInfo data-type=tiny-gif status-code=200
 
 
 # 美团
@@ -231,7 +232,6 @@ baiduCloud.vip = type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/api\/g
 
 # 有道词典 首页净化，学习Tab界面净化，首页听读训练净化
 dict-youdao-ad = type=http-response, pattern=^https?:\/\/dict\.youdao\.com\/(homepage\/promotion|course\/tab\/home|homepage\/tile), script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/youdao/dict-youdao-ad.js, requires-body=true, max-size=-1, timeout=60
-
 
 [MITM]
 hostname = %APPEND% *.pangolin-sdk-toutiao.com ,*.pangolin-sdk-toutiao.* ,*.pstatp.com ,*.pstatp.com.* ,*.pglstatp-toutiao.com.* ,*.pglstatp-toutiao.com ,gurd.snssdk.com ,gurd.snssdk.com.* ,*default.ixigua.com ,adim.pinduoduo.com ,*.fqnovelvod.com ,fbchina.flipchina.cn ,*hj* ,*haijiao* ,gql.reddit.com ,gql-fed.reddit.com ,*.tiktokv.com ,*.byteoversea.com ,*.tik-tokapi.com ,sdk.alibaba.com.ailbaba.me ,pages.xiaohongshu.com ,www.xiaohongshu.com ,edith.xiaohongshu.com ,referee.xiaohongshu.com ,mp.weixin.qq.com ,weixin110.qq.com ,security.wechat.commp.weixin.qq.com ,security.wechat.com ,napi.ithome.com ,afd.baidu.com ,api*.tuisong.baidu.com ,appwk.baidu.com ,baichuan.baidu.com ,cover.baidu.com ,fcvbjbcebos.baidu.com ,fc-video.cdn.bcebos.com ,issuecdn.baidupcs.com ,mime.baidu.com ,mobads.baidu.com ,ndstatic.cdn.bcebos.com ,pan.baidu.com ,rp.hpplay.cn ,sa*.tuisong.baidu.com ,staticsns.cdn.bcebos.com ,update.pan.baidu.com ,www.baidu.com ,dict.youdao.com ,api-overmind.youdao.com ,cdke.youdao.com ,dictvip-business.youdao.com ,dsp-impr2.youdao.com ,impservice.dictapp.youdao.com ,oral.youdao.com ,oimage*.ydstatic.com ,img.meituan.net ,p*.meituan.net ,s3plus.meituan.net ,www.meituan.net ,flowplus.meituan.net ,wmapi.meituan.net ,apimobile.meituan.net ,apimobile.meituan.com ,gw.alicdn.com ,heic.alicdn.com ,asp.cntv.myalicdn.com ,dss0.bdstatic.com ,tb1.bdstatic.com ,tb2.bdstatic.com ,ss0.bdstatic.com ,gss0.bdstatic.com ,newclient.map.baidu.com																																																																							
