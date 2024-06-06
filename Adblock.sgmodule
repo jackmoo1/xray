@@ -193,9 +193,6 @@ https://ci.xiaohongshu.com/system_config/watermark data-type=tiny-gif status-cod
 # 移除 轮播图 置顶文章 信息流广告
 ithome = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds), script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/ithome.js, requires-body=true, max-size=-1, timeout=60
 
-# haijiao
-haijiao = type=http-response, pattern=^http[s]?:\/\/.*(haijiao|hj).+api\/(topic.+\d+|attachment|login\/signin|user\/(current|info\/\d+)|banner\/banner_list)$, script-path=https://raw.githubusercontent.com/jasony9982/X/main/Scripts/haijiao.js, requires-body=true, max-size=-1, timeout=60
-
 # Reddit
 移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true
 
