@@ -1,4 +1,4 @@
-#统计数据:6162
+#统计数据:6167
 DOMAIN,14033.live.streamtheworld.com
 DOMAIN,156zy.suyunbo.tv
 DOMAIN,19183.live.streamtheworld.com
@@ -23,6 +23,7 @@ DOMAIN,amdlive.ctnd.com.edgesuite.net
 DOMAIN,amdlive-ch01.ctnd.com.edgesuite.net
 DOMAIN,amdlive-ch03.ctnd.com.edgesuite.net
 DOMAIN,amdlive-ch03-ctnd-com.akamaized.net
+DOMAIN,amp-api-edge.apps.apple.com
 DOMAIN,analytics.95516.com
 DOMAIN,antvlive.ab5c6921.cdnviet.com
 DOMAIN,app.xygdcm.com
@@ -1551,6 +1552,7 @@ DOMAIN-SUFFIX,brmnq.com
 DOMAIN-SUFFIX,broadcasthe.net
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,bscabank.com
+DOMAIN-SUFFIX,bsccdn.net
 DOMAIN-SUFFIX,bsclink.com
 DOMAIN-SUFFIX,bstatic.com
 DOMAIN-SUFFIX,bsydns.com
@@ -2291,6 +2293,7 @@ DOMAIN-SUFFIX,douban.com
 DOMAIN-SUFFIX,douban.fm
 DOMAIN-SUFFIX,doubanio.com
 DOMAIN-SUFFIX,doubao.com
+DOMAIN-SUFFIX,doupay.com
 DOMAIN-SUFFIX,douxie.com
 DOMAIN-SUFFIX,douyin.com
 DOMAIN-SUFFIX,douyinclips.com
@@ -2390,6 +2393,7 @@ DOMAIN-SUFFIX,ecitic.net
 DOMAIN-SUFFIX,ecjobhome.com
 DOMAIN-SUFFIX,ecloud-gdu.com
 DOMAIN-SUFFIX,ecombdapi.com
+DOMAIN-SUFFIX,ecombdimg.com
 DOMAIN-SUFFIX,ecombdpage.com
 DOMAIN-SUFFIX,ecombdstatic.com
 DOMAIN-SUFFIX,ecom-lightapp.com
@@ -4547,6 +4551,7 @@ DOMAIN-SUFFIX,qiniudn.com
 DOMAIN-SUFFIX,qiniudns.com
 DOMAIN-SUFFIX,qiniup.com
 DOMAIN-SUFFIX,qiumibao.com
+DOMAIN-SUFFIX,qishui.com
 DOMAIN-SUFFIX,qiushibaike.com
 DOMAIN-SUFFIX,qiuwen.wiki
 DOMAIN-SUFFIX,qixin.com
