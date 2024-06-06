@@ -1,5 +1,5 @@
 # 规则名称:Global
-# 规则统计:6780
+# 规则统计:6783
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -1587,6 +1587,7 @@ DOMAIN-SUFFIX,dtdns.net
 DOMAIN-SUFFIX,dtiblog.com
 DOMAIN-SUFFIX,dtic.mil
 DOMAIN-SUFFIX,dtwang.org
+DOMAIN-SUFFIX,duangks.com
 DOMAIN-SUFFIX,duanzhihu.com
 DOMAIN-SUFFIX,dubox.com
 DOMAIN-SUFFIX,duck.com
@@ -3712,6 +3713,7 @@ DOMAIN-SUFFIX,nakuz.com
 DOMAIN-SUFFIX,nalandabodhi.org
 DOMAIN-SUFFIX,nalandawest.org
 DOMAIN-SUFFIX,name.com
+DOMAIN-SUFFIX,namesilo.com
 DOMAIN-SUFFIX,namgyal.org
 DOMAIN-SUFFIX,namgyalmonastery.org
 DOMAIN-SUFFIX,namsisi.com
@@ -6426,6 +6428,7 @@ DOMAIN-SUFFIX,yuvutu.com
 DOMAIN-SUFFIX,yvesgeleyn.com
 DOMAIN-SUFFIX,ywpw.com
 DOMAIN-SUFFIX,yx51.net
+DOMAIN-SUFFIX,yxvm.com
 DOMAIN-SUFFIX,yyii.org
 DOMAIN-SUFFIX,yyjlymb.xyz
 DOMAIN-SUFFIX,yysub.net
