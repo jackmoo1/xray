@@ -1,4 +1,4 @@
-# 规则统计:6740
+# 规则统计:6741
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -9,7 +9,6 @@ DOMAIN,cdn.statically.io
 DOMAIN,cloud.oracle.com
 DOMAIN,cloud-cdn-digitalocean-com.global.ssl.fastly.net
 DOMAIN,cvws.icloud-content.com
-DOMAIN,.cloudfront.net
 DOMAIN,developer.apple.com
 DOMAIN,dmqdd6hw24ucf.cloudfront.net
 DOMAIN,http-inputs-notion.splunkcloud.com
@@ -1595,6 +1594,7 @@ DOMAIN-SUFFIX,duping.net
 DOMAIN-SUFFIX,duplicati.com
 DOMAIN-SUFFIX,dupola.com
 DOMAIN-SUFFIX,dupola.net
+DOMAIN-SUFFIX,duse.me
 DOMAIN-SUFFIX,dushi.ca
 DOMAIN-SUFFIX,duyaoss.com
 DOMAIN-SUFFIX,dvdpac.com
@@ -3080,8 +3080,8 @@ DOMAIN-SUFFIX,kekys.com
 DOMAIN-SUFFIX,kekedy.app
 DOMAIN-SUFFIX,kekedy.me
 DOMAIN-SUFFIX,keke9.com
-DOMAIN-SUFFIX,.kkys5.
-DOMAIN-SUFFIX,.kkys6.
+DOMAIN-SUFFIX,kkys5.com
+DOMAIN-SUFFIX,kkys6.com
 DOMAIN-SUFFIX,kendatire.com
 DOMAIN-SUFFIX,kendincos.net
 DOMAIN-SUFFIX,kenengba.com
@@ -6090,6 +6090,7 @@ DOMAIN-SUFFIX,whois.ripe.net
 DOMAIN-SUFFIX,whois.corporatedomains.com
 DOMAIN-SUFFIX,whois.iana.org
 DOMAIN-SUFFIX,whois.markmonitor.com
+DOMAIN-SUFFIX,whois.verisign-grs.com
 DOMAIN-SUFFIX,whotalking.com
 DOMAIN-SUFFIX,whrq.net
 DOMAIN-SUFFIX,whylover.com
