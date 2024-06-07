@@ -1,5 +1,5 @@
 # 规则名称:Global
-# 规则统计:6784
+# 规则统计:6730
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -10,15 +10,7 @@ DOMAIN,cdn.statically.io
 DOMAIN,cloud.oracle.com
 DOMAIN,cloud-cdn-digitalocean-com.global.ssl.fastly.net
 DOMAIN,cvws.icloud-content.com
-DOMAIN,d19eijqb5qll1w.cloudfront.net
-DOMAIN,d1e00ek4ebabms.cloudfront.net
-DOMAIN,d1v5ir2lpwr8os.cloudfront.net
-DOMAIN,d1xfray82862hr.cloudfront.net
-DOMAIN,d22qjgkvxw22r6.cloudfront.net
-DOMAIN,d25xi40x97liuc.cloudfront.net
-DOMAIN,d27xxe7juh1us6.cloudfront.net
-DOMAIN,d3196yreox78o9.cloudfront.net
-DOMAIN,d3c33hcgiwev3.cloudfront.net
+DOMAIN,.cloudfront.net
 DOMAIN,developer.apple.com
 DOMAIN,dmqdd6hw24ucf.cloudfront.net
 DOMAIN,http-inputs-notion.splunkcloud.com
@@ -1587,7 +1579,6 @@ DOMAIN-SUFFIX,dtdns.net
 DOMAIN-SUFFIX,dtiblog.com
 DOMAIN-SUFFIX,dtic.mil
 DOMAIN-SUFFIX,dtwang.org
-DOMAIN-SUFFIX,duangks.com
 DOMAIN-SUFFIX,duanzhihu.com
 DOMAIN-SUFFIX,dubox.com
 DOMAIN-SUFFIX,duck.com
@@ -3713,7 +3704,6 @@ DOMAIN-SUFFIX,nakuz.com
 DOMAIN-SUFFIX,nalandabodhi.org
 DOMAIN-SUFFIX,nalandawest.org
 DOMAIN-SUFFIX,name.com
-DOMAIN-SUFFIX,namesilo.com
 DOMAIN-SUFFIX,namgyal.org
 DOMAIN-SUFFIX,namgyalmonastery.org
 DOMAIN-SUFFIX,namsisi.com
@@ -6063,7 +6053,6 @@ DOMAIN-SUFFIX,wenweipo.com
 DOMAIN-SUFFIX,wenxuecity.com
 DOMAIN-SUFFIX,wenyunchao.com
 DOMAIN-SUFFIX,wenzhao.ca
-DOMAIN-SUFFIX,wepc.au
 DOMAIN-SUFFIX,westca.com
 DOMAIN-SUFFIX,westernshugdensociety.org
 DOMAIN-SUFFIX,westernwolves.com
@@ -6429,7 +6418,6 @@ DOMAIN-SUFFIX,yuvutu.com
 DOMAIN-SUFFIX,yvesgeleyn.com
 DOMAIN-SUFFIX,ywpw.com
 DOMAIN-SUFFIX,yx51.net
-DOMAIN-SUFFIX,yxvm.com
 DOMAIN-SUFFIX,yyii.org
 DOMAIN-SUFFIX,yyjlymb.xyz
 DOMAIN-SUFFIX,yysub.net
@@ -6742,45 +6730,3 @@ IP-CIDR,74.86.0.0/16
 IP-CIDR,75.126.0.0/16
 IP-CIDR,75.126.150.0/16
 IP-CIDR,91.105.192.0/23
-PROCESS-NAME,LookupViewService
-URL-REGEX,^http://(.+)\.gvt1\.com/edgedl
-USER-AGENT,AbemaTV*
-USER-AGENT,All4
-USER-AGENT,Anime*
-USER-AGENT,Argo*
-USER-AGENT,battleroyale*
-USER-AGENT,BBCiPlayer*
-USER-AGENT,com.kktv.ios.kktv*
-USER-AGENT,com.apple.trustd*
-USER-AGENT,DAZN*
-USER-AGENT,Deezer*
-USER-AGENT,Disney+*
-USER-AGENT,Duolingo*
-USER-AGENT,encoreTVB*
-USER-AGENT,FOX%20
-USER-AGENT,HBO%20
-USER-AGENT,HWTVMobile*
-USER-AGENT,InstantVideo.US*
-USER-AGENT,ITV_Player*
-USER-AGENT,JOOX*
-USER-AGENT,KKTV*
-USER-AGENT,LINE%20
-USER-AGENT,My5
-USER-AGENT,mytv*
-USER-AGENT,Niconico*
-USER-AGENT,OneDrive*
-USER-AGENT,Pandora*
-USER-AGENT,PayPal*
-USER-AGENT,PBS*
-USER-AGENT,Prime%20
-USER-AGENT,Roam*
-USER-AGENT,SoundCloud*
-USER-AGENT,Spotify*
-USER-AGENT,TaiwanGood*
-USER-AGENT,TIDAL*
-USER-AGENT,TwDramas
-USER-AGENT,WeMusic*
-USER-AGENT,WhatsApp*
-AND,((DOMAIN-SUFFIX,azureedge.net),(DOMAIN-KEYWORD,appcenter-filemanagement))
-AND,((DOMAIN-SUFFIX,dailymotion.com),(DOMAIN-KEYWORD,proxy-))
-AND,((DOMAIN-SUFFIX,tgstat.ru),(DOMAIN-KEYWORD,static))
