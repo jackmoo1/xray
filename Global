@@ -1,5 +1,4 @@
-# 规则名称:Global
-# 规则统计:6730
+# 规则统计:6733
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -3194,6 +3193,7 @@ DOMAIN-SUFFIX,leisurecafe.ca
 DOMAIN-SUFFIX,leisurepro.com
 DOMAIN-SUFFIX,lematin.ch
 DOMAIN-SUFFIX,lemonde.fr
+DOMAIN-SUFFIX,lencr.org
 DOMAIN-SUFFIX,lenwhite.com
 DOMAIN-SUFFIX,leorockwell.com
 DOMAIN-SUFFIX,lerosua.org
@@ -3519,6 +3519,8 @@ DOMAIN-SUFFIX,minzhuzhongguo.org
 DOMAIN-SUFFIX,miroguide.com
 DOMAIN-SUFFIX,mirrorbooks.com
 DOMAIN-SUFFIX,mirrormedia.mg
+DOMAIN-SUFFIX,misaka.cloudns.biz
+DOMAIN-SUFFIX,misaka.io
 DOMAIN-SUFFIX,mist.vip
 DOMAIN-SUFFIX,mit.edu
 DOMAIN-SUFFIX,mitao.com.tw
