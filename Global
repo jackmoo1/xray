@@ -1,5 +1,5 @@
 # 规则名称:Global
-# 规则统计:6783
+# 规则统计:6784
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -6063,6 +6063,7 @@ DOMAIN-SUFFIX,wenweipo.com
 DOMAIN-SUFFIX,wenxuecity.com
 DOMAIN-SUFFIX,wenyunchao.com
 DOMAIN-SUFFIX,wenzhao.ca
+DOMAIN-SUFFIX,wepc.au
 DOMAIN-SUFFIX,westca.com
 DOMAIN-SUFFIX,westernshugdensociety.org
 DOMAIN-SUFFIX,westernwolves.com
