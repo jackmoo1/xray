@@ -1,4 +1,4 @@
-# 规则统计:6733
+# 规则统计:6740
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -3076,6 +3076,12 @@ DOMAIN-SUFFIX,kebrum.com
 DOMAIN-SUFFIX,kechara.com
 DOMAIN-SUFFIX,keepandshare.com
 DOMAIN-SUFFIX,keezmovies.com
+DOMAIN-SUFFIX,kekys.com
+DOMAIN-SUFFIX,kekedy.app
+DOMAIN-SUFFIX,kekedy.me
+DOMAIN-SUFFIX,keke9.com
+DOMAIN-SUFFIX,.kkys5.
+DOMAIN-SUFFIX,.kkys6.
 DOMAIN-SUFFIX,kendatire.com
 DOMAIN-SUFFIX,kendincos.net
 DOMAIN-SUFFIX,kenengba.com
@@ -6080,6 +6086,7 @@ DOMAIN-SUFFIX,whitebear.freebearblog.org
 DOMAIN-SUFFIX,whodns.xyz
 DOMAIN-SUFFIX,whoer.net
 DOMAIN-SUFFIX,whois.arin.org
+DOMAIN-SUFFIX,whois.ripe.net
 DOMAIN-SUFFIX,whois.corporatedomains.com
 DOMAIN-SUFFIX,whois.iana.org
 DOMAIN-SUFFIX,whois.markmonitor.com
