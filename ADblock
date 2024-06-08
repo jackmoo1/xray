@@ -9,10 +9,10 @@ DOMAIN,ads3-normal-lq.zijieapi.com
 DOMAIN,ads5-normal-hl.zijieapi.com
 DOMAIN,ads5-normal-lq.zijieapi.com
 DOMAIN,v6-novelapp.ixigua.com
-DOMAIN,*novelapp.ixigua.com
+DOMAIN-KEYWORD,novelapp.ixigua.com
 DOMAIN,v3-novelapp.fqnovelvod.com
 DOMAIN,v6-novelapp.fqnovelvod.com
-DOMAIN,*novelapp.fqnovelvod.com
+DOMAIN-KEYWORD,novelapp.fqnovelvod.com
 DOMAIN,ads3-normal-lq.zijieapi.com
 DOMAIN,ads5-normal-lq.zijieapi.com
 DOMAIN,a.wkanx.com
