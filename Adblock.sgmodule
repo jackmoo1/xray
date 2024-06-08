@@ -137,17 +137,6 @@ https://ci.xiaohongshu.com/system_config/watermark data-type=tiny-gif status-cod
 ^https?:\/\/impservice\.dictapp\.youdao\.com\/imp\/request data-type=tiny-gif status-code=200
 ^https?:\/\/oral\.youdao\.com\/oral\/adInfo data-type=tiny-gif status-code=200
 
-# 美团
-^https?:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/s3plus\.meituan\.net\/v1\/mss_a002 data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
-^https?:\/\/p\d.meituan.net\/movie\/.*?\?may_covertWebp data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-img.gif"
-^https?:\/\/wmapi\.meituan\.com\/api\/v7\/(loadInfo|openscreen|startpicture)\? data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
-^https?:\/\/img\.meituan\.net\/bizad\/.*.jpg data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-200.txt"
-^https?:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList data="https://raw.githubusercontent.com/mieqq/mieqq/master/reject-dict.json"
-
 # 微信公众号去除商品推广
 #^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info\?action url reject-dict
 ^https:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|masonryfeed|relatedarticle)\? data-type=text data="{}" status-code=200
