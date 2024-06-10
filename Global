@@ -1,4 +1,4 @@
-# 规则统计:6743
+# 规则统计:6741
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -4647,7 +4647,6 @@ DOMAIN-SUFFIX,scache.vzw.com
 DOMAIN-SUFFIX,scache1.vzw.com
 DOMAIN-SUFFIX,scache2.vzw.com
 DOMAIN-SUFFIX,scasino.com
-DOMAIN-SUFFIX,scdn.co
 DOMAIN-SUFFIX,schema.org
 DOMAIN-SUFFIX,sciencedaily.com
 DOMAIN-SUFFIX,sciencemag.org
@@ -6606,7 +6605,6 @@ DOMAIN-KEYWORD,res.cloudinary.com
 DOMAIN-KEYWORD,sci-hub
 DOMAIN-KEYWORD,skydrive
 DOMAIN-KEYWORD,sony
-DOMAIN-KEYWORD,spotify
 DOMAIN-KEYWORD,tesla
 DOMAIN-KEYWORD,ttvnw
 DOMAIN-KEYWORD,twimg
