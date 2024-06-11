@@ -1,4 +1,4 @@
-#数据统计:35
+#数据统计:34
 DOMAIN,youtubei.googleapis.com
 DOMAIN,yt3.ggpht.com
 DOMAIN-SUFFIX,1e100.net
@@ -26,11 +26,10 @@ DOMAIN-SUFFIX,youtubekids.com
 DOMAIN-SUFFIX,youtube-nocookie.com
 DOMAIN-SUFFIX,yt.be
 DOMAIN-SUFFIX,ytimg.com
-DOMAIN-KEYWORD,gmail
 DOMAIN-KEYWORD,google
 DOMAIN-KEYWORD,youtube
-IP-CIDR,173.194.0.0/16,no-resolve
-IP-CIDR,74.125.0.0/16,no-resolve
+IP-CIDR,173.194.0.0/16
+IP-CIDR,74.125.0.0/16
 USER-AGENT,com.google.ios.youtube*
 USER-AGENT,Viu*
 USER-AGENT,YouTube*
