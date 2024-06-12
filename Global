@@ -1,4 +1,4 @@
-# 规则统计:6741
+# 规则统计:6742
 DOMAIN,api.avax.network
 DOMAIN,api.revenuecat.com
 DOMAIN,api.sprig.com
@@ -799,6 +799,7 @@ DOMAIN-SUFFIX,boysmaster.com
 DOMAIN-SUFFIX,br.hao123.com
 DOMAIN-SUFFIX,br.st
 DOMAIN-SUFFIX,brainyquote.com
+DOMAIN-SUFFIX,branch.io
 DOMAIN-SUFFIX,brandonhutchinson.com
 DOMAIN-SUFFIX,braumeister.org
 DOMAIN-SUFFIX,brave.com
