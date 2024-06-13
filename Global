@@ -1,24 +1,4 @@
-# 规则统计:6742
-DOMAIN,api.avax.network
-DOMAIN,api.revenuecat.com
-DOMAIN,api.sprig.com
-DOMAIN,api.waqi.info
-DOMAIN,api2.amplitude.com
-DOMAIN,aqi.aqicn.org
-DOMAIN,cdn.statically.io
-DOMAIN,cloud.oracle.com
-DOMAIN,cloud-cdn-digitalocean-com.global.ssl.fastly.net
-DOMAIN,cvws.icloud-content.com
-DOMAIN,developer.apple.com
-DOMAIN,dmqdd6hw24ucf.cloudfront.net
-DOMAIN,http-inputs-notion.splunkcloud.com
-DOMAIN,ip-scan.adspower.net
-DOMAIN,lab.skk.moe
-DOMAIN,ocsp.int-x3.letsencrypt.org
-DOMAIN,sessions.bugsnag.com
-DOMAIN,testflight.apple.com
-DOMAIN,vcards.metowolf.com
-DOMAIN,voice.telephony.goog
+# 规则统计:6734
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0rz.tw
@@ -349,12 +329,17 @@ DOMAIN-SUFFIX,apetube.com
 DOMAIN-SUFFIX,api.acaisbest.shop
 DOMAIN-SUFFIX,api.ai
 DOMAIN-SUFFIX,api.amplitude.com
+DOMAIN-SUFFIX,api.avax.network
 DOMAIN-SUFFIX,api.linksalpha.com
 DOMAIN-SUFFIX,api.mixpanel.com
 DOMAIN-SUFFIX,api.proxlet.com
 DOMAIN-SUFFIX,api.pureapk.com
 DOMAIN-SUFFIX,api.recaptcha.net
+DOMAIN-SUFFIX,api.revenuecat.com
+DOMAIN-SUFFIX,api.sprig.com
 DOMAIN-SUFFIX,api.termius.com
+DOMAIN-SUFFIX,api.waqi.info
+DOMAIN-SUFFIX,api2.amplitude.com
 DOMAIN-SUFFIX,apiary.io
 DOMAIN-SUFFIX,apidocs.linksalpha.com
 DOMAIN-SUFFIX,apigee.com
@@ -387,6 +372,7 @@ DOMAIN-SUFFIX,appsocks.net
 DOMAIN-SUFFIX,appspot.com
 DOMAIN-SUFFIX,appsto.re
 DOMAIN-SUFFIX,aptoide.com
+DOMAIN-SUFFIX,aqi.aqicn.org
 DOMAIN-SUFFIX,ar.hao123.com
 DOMAIN-SUFFIX,arcgis.com
 DOMAIN-SUFFIX,arctosia.com
@@ -958,6 +944,7 @@ DOMAIN-SUFFIX,cdn.printfriendly.com
 DOMAIN-SUFFIX,cdn.seatguru.com
 DOMAIN-SUFFIX,cdn.segment.com
 DOMAIN-SUFFIX,cdn.softlayer.net
+DOMAIN-SUFFIX,cdn.statically.io
 DOMAIN-SUFFIX,cdn1.lp.saboom.com
 DOMAIN-SUFFIX,cdnews.com.tw
 DOMAIN-SUFFIX,cdn-images.mailchimp.com
@@ -1154,6 +1141,7 @@ DOMAIN-SUFFIX,cloakpoint.com
 DOMAIN-SUFFIX,cloud.cupronickel.goog
 DOMAIN-SUFFIX,cloud.mail.ru
 DOMAIN-SUFFIX,cloud.oracle.com
+DOMAIN-SUFFIX,cloud-cdn-digitalocean-com.global.ssl.fastly.net
 DOMAIN-SUFFIX,cloudcone.com
 DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,cloudflare.net
@@ -1340,6 +1328,7 @@ DOMAIN-SUFFIX,curvefish.com
 DOMAIN-SUFFIX,cusp.hk
 DOMAIN-SUFFIX,cusu.hk
 DOMAIN-SUFFIX,cutscenes.net
+DOMAIN-SUFFIX,cvws.icloud-content.com
 DOMAIN-SUFFIX,cw.com.tw
 DOMAIN-SUFFIX,cwb.gov.tw
 DOMAIN-SUFFIX,cyberctm.com
@@ -1352,12 +1341,8 @@ DOMAIN-SUFFIX,cz.cc
 DOMAIN-SUFFIX,d.pr
 DOMAIN-SUFFIX,d0z.net
 DOMAIN-SUFFIX,d100.net
-DOMAIN-SUFFIX,d1b183sg0nvnuh.cloudfront.net
-DOMAIN-SUFFIX,d1c37gjwa26taa.cloudfront.net
 DOMAIN-SUFFIX,d2bay.com
 DOMAIN-SUFFIX,d2pass.com
-DOMAIN-SUFFIX,d3c33hcgiwev3.cloudfront.net
-DOMAIN-SUFFIX,d3rhr7kgmtrq1v.cloudfront.net
 DOMAIN-SUFFIX,dabr.co.uk
 DOMAIN-SUFFIX,dabr.eu
 DOMAIN-SUFFIX,dabr.me
@@ -1459,6 +1444,7 @@ DOMAIN-SUFFIX,dessci.com
 DOMAIN-SUFFIX,destiny.xfiles.to
 DOMAIN-SUFFIX,destroy-china.jp
 DOMAIN-SUFFIX,deutsche-welle.de
+DOMAIN-SUFFIX,developer.apple.com
 DOMAIN-SUFFIX,developers.box.net
 DOMAIN-SUFFIX,deviantart.com
 DOMAIN-SUFFIX,deviantart.net
@@ -2646,6 +2632,7 @@ DOMAIN-SUFFIX,ht.ly
 DOMAIN-SUFFIX,htkou.net
 DOMAIN-SUFFIX,htl.li
 DOMAIN-SUFFIX,html5rocks.com
+DOMAIN-SUFFIX,http-inputs-notion.splunkcloud.com
 DOMAIN-SUFFIX,https443.net
 DOMAIN-SUFFIX,https443.org
 DOMAIN-SUFFIX,huacloud.xyz
@@ -2869,6 +2856,7 @@ DOMAIN-SUFFIX,ipoock.com
 DOMAIN-SUFFIX,iportal.me
 DOMAIN-SUFFIX,ippotv.com
 DOMAIN-SUFFIX,ipredator.se
+DOMAIN-SUFFIX,ip-scan.adspower.net
 DOMAIN-SUFFIX,ipstatp.com
 DOMAIN-SUFFIX,iptv.com.tw
 DOMAIN-SUFFIX,iptvbin.com
@@ -3077,12 +3065,10 @@ DOMAIN-SUFFIX,kebrum.com
 DOMAIN-SUFFIX,kechara.com
 DOMAIN-SUFFIX,keepandshare.com
 DOMAIN-SUFFIX,keezmovies.com
-DOMAIN-SUFFIX,kekys.com
+DOMAIN-SUFFIX,keke9.com
 DOMAIN-SUFFIX,kekedy.app
 DOMAIN-SUFFIX,kekedy.me
-DOMAIN-SUFFIX,keke9.com
-DOMAIN-SUFFIX,kkys5.com
-DOMAIN-SUFFIX,kkys6.com
+DOMAIN-SUFFIX,kekys.com
 DOMAIN-SUFFIX,kendatire.com
 DOMAIN-SUFFIX,kendincos.net
 DOMAIN-SUFFIX,kenengba.com
@@ -3115,6 +3101,8 @@ DOMAIN-SUFFIX,kiwi.kz
 DOMAIN-SUFFIX,kkbox.com
 DOMAIN-SUFFIX,kknews.cc
 DOMAIN-SUFFIX,kk-whys.co.jp
+DOMAIN-SUFFIX,kkys5.com
+DOMAIN-SUFFIX,kkys6.com
 DOMAIN-SUFFIX,klip.me
 DOMAIN-SUFFIX,kmuh.org.tw
 DOMAIN-SUFFIX,knowledgerush.com
@@ -4695,6 +4683,7 @@ DOMAIN-SUFFIX,serveuser.com
 DOMAIN-SUFFIX,serveusers.com
 DOMAIN-SUFFIX,sesawe.net
 DOMAIN-SUFFIX,sesawe.org
+DOMAIN-SUFFIX,sessions.bugsnag.com
 DOMAIN-SUFFIX,sethwklein.net
 DOMAIN-SUFFIX,setn.com
 DOMAIN-SUFFIX,settv.com.tw
@@ -5233,6 +5222,7 @@ DOMAIN-SUFFIX,tensorflow.org
 DOMAIN-SUFFIX,tenzinpalmo.com
 DOMAIN-SUFFIX,terabox.com
 DOMAIN-SUFFIX,teraboxcdn.com
+DOMAIN-SUFFIX,testflight.apple.com
 DOMAIN-SUFFIX,tew.org
 DOMAIN-SUFFIX,textnow.com
 DOMAIN-SUFFIX,textnow.me
@@ -5827,6 +5817,7 @@ DOMAIN-SUFFIX,vansky.com
 DOMAIN-SUFFIX,vaticannews.va
 DOMAIN-SUFFIX,vatn.org
 DOMAIN-SUFFIX,vbstatic.co
+DOMAIN-SUFFIX,vcards.metowolf.com
 DOMAIN-SUFFIX,vcfbuilder.org
 DOMAIN-SUFFIX,vcf-online.org
 DOMAIN-SUFFIX,vds.rightster.com
@@ -5909,6 +5900,7 @@ DOMAIN-SUFFIX,vocativ.com
 DOMAIN-SUFFIX,vocn.tv
 DOMAIN-SUFFIX,vocus.cc
 DOMAIN-SUFFIX,vod.wwe.com
+DOMAIN-SUFFIX,voice.telephony.goog
 DOMAIN-SUFFIX,voicettank.org
 DOMAIN-SUFFIX,vot.org
 DOMAIN-SUFFIX,vovo2000.com
@@ -6086,10 +6078,10 @@ DOMAIN-SUFFIX,whitebear.freebearblog.org
 DOMAIN-SUFFIX,whodns.xyz
 DOMAIN-SUFFIX,whoer.net
 DOMAIN-SUFFIX,whois.arin.org
-DOMAIN-SUFFIX,whois.ripe.net
 DOMAIN-SUFFIX,whois.corporatedomains.com
 DOMAIN-SUFFIX,whois.iana.org
 DOMAIN-SUFFIX,whois.markmonitor.com
+DOMAIN-SUFFIX,whois.ripe.net
 DOMAIN-SUFFIX,whois.verisign-grs.com
 DOMAIN-SUFFIX,whotalking.com
 DOMAIN-SUFFIX,whrq.net
