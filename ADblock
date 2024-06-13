@@ -1,4 +1,4 @@
-#数据统计：2627
+#数据统计：2630
 # > 番茄小说
 DOMAIN-SUFFIX,p3-ad-sign.byteimg.com
 DOMAIN-SUFFIX,p6-ad-sign.byteimg.com
@@ -40,6 +40,7 @@ DOMAIN-SUFFIX,ad.xy2013.cn
 DOMAIN-SUFFIX,ad.yixin.im
 DOMAIN-SUFFIX,ad-analysis.pconline.com.cn
 DOMAIN-SUFFIX,adapi.izuiyou.com
+DOMAIN-SUFFIX,adashx.m.taobao.com
 DOMAIN-SUFFIX,adbehavior.wsa.ximalaya.com
 DOMAIN-SUFFIX,adbehavior.ximalaya.com
 DOMAIN-SUFFIX,adbs.ximalaya.com
@@ -684,6 +685,7 @@ DOMAIN-SUFFIX,ali-ad.a.yximgs.com
 DOMAIN-SUFFIX,alienskins.cn
 DOMAIN-SUFFIX,alitui.weibo.com
 DOMAIN-SUFFIX,amazon-adsystem.com
+DOMAIN-SUFFIX,amdc.m.taobao.com
 DOMAIN-SUFFIX,amdcopen.m.taobao.com
 DOMAIN-SUFFIX,amoad.com
 DOMAIN-SUFFIX,amobee.com
@@ -901,6 +903,7 @@ DOMAIN-SUFFIX,duckdns.org
 DOMAIN-SUFFIX,dugesheying.com
 DOMAIN-SUFFIX,dutils.com
 DOMAIN-SUFFIX,dv8c1t.cn
+DOMAIN-SUFFIX,dev.g.alicdn.com
 DOMAIN-SUFFIX,dvzk66.cn
 DOMAIN-SUFFIX,dwyhup.cn
 DOMAIN-SUFFIX,dxp.baidu.com
