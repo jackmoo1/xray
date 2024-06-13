@@ -1,4 +1,4 @@
-#数据统计：21
+#数据统计：20
 DOMAIN-SUFFIX,pscdn.co
 DOMAIN-SUFFIX,scdn.co
 DOMAIN-SUFFIX,spoti.fi
@@ -19,4 +19,3 @@ DOMAIN-KEYWORD,-spotify-
 DOMAIN-KEYWORD,spotify.com
 IP-CIDR,104.154.127.126/32
 IP-CIDR,35.186.224.47/32
-PROCESS-NAME,com.spotify.music
