@@ -58,46 +58,6 @@ fonts.gstatic.com = server:119.29.29.29 // Google Fonts
 stun.l.google.com = server:syslib // Google STUN
 stun?.l.google.com = server:syslib // Google STUN
 
-# > Router Admin Panel
-*.id.ui.direct = server:syslib // Ubiquiti Unifi Network App
-# unifi.ui.com = server:syslib // Ubiquiti Unifi Portal
-unifi.local = server:syslib // Ubiquiti Unifi OS
-# network.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
-amplifi.lan = server:syslib // Ubiquiti Amplifi Router
-router.synology.com = server:syslib // Synology Router
-sila.razer.com = server:syslib // Razer Sila Router
-router.asus.com = server:syslib // Asus Router
-routerlogin.net = server:syslib // Netgear Router
-orbilogin.com = server:syslib // Netgear Obri Router
-www.LinksysSmartWiFi.com = server:syslib // Linksys Router
-LinksysSmartWiFi.com = server:syslib // Linksys Router
-myrouter.local = server:syslib // Linksys Router
-instant.arubanetworks.com = server:syslib // Aurba Router
-setmeup.arubanetworks.com = server:syslib // Aurba Router
-www.miwifi.com = server:syslib // 小米 Mi WiFi Router
-miwifi.com = server:syslib // 小米 Mi WiFi Router
-mediarouter.home = server:syslib // 华为 Huawei Router
-tplogin.cn = server:syslib // TP-Link Router
-tplinklogin.net = server:syslib // TP-Link Router
-tplinkwifi.net = server:syslib // TP-Link Router
-melogin.cn = server:syslib // 水星 MERCURY Router
-falogin.cn = server:syslib // 迅捷 FAST Router
-tendawifi.com = server:syslib // 腾达 Tenda Router
-leike.cc = server:syslib // 磊科 Netcore Router
-zte.home = server:syslib // 中兴 ZTE Router
-p.to = server:syslib // 斐讯 PHICOMM Router
-phicomm.me = server:syslib // 斐讯 PHICOMM Router
-hiwifi.com = server:syslib // 极路由 HiWiFi Router
-peiluyou.com = server:syslib // 迅雷路由
-_hotspot_.m2m = server:syslib // M2M routers at MiFi Hotspot
-hotspot.cslwifi.com = server:syslib // csl Wi-Fi
-
-# > Apple
-# refer: https://support.apple.com/zh-cn/HT210060
-networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
-# *.apple.com = server:https://doh.dns.apple.com/dns-query // Apple.com
-*.icloud.com = server:https://doh.dns.apple.com/dns-query // iCloud.com
-
 # > 阿里巴巴
 # refer: https://www.alidns.com
 *.alibaba.cn = server:quic://dns.alidns.com // 阿里巴巴
