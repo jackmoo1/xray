@@ -1,4 +1,4 @@
-# 规则统计:6734
+# 规则统计:6737
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0rz.tw
@@ -359,13 +359,14 @@ DOMAIN-SUFFIX,app.evozi.com
 DOMAIN-SUFFIX,app.heywire.com
 DOMAIN-SUFFIX,app.smartmailcloud.com
 DOMAIN-SUFFIX,app.tutanota.com
+DOMAIN-SUFFIX,apple.news
+DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,appbrain.com
 DOMAIN-SUFFIX,appdownloader.net
 DOMAIN-SUFFIX,applecensorship.com
 DOMAIN-SUFFIX,appledaily.com
 DOMAIN-SUFFIX,appledaily.com.hk
 DOMAIN-SUFFIX,appledaily.com.tw
-DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,apps.evozi.com
 DOMAIN-SUFFIX,appshopper.com
 DOMAIN-SUFFIX,appsocks.net
@@ -947,6 +948,7 @@ DOMAIN-SUFFIX,cdn.softlayer.net
 DOMAIN-SUFFIX,cdn.statically.io
 DOMAIN-SUFFIX,cdn1.lp.saboom.com
 DOMAIN-SUFFIX,cdnews.com.tw
+DOMAIN-SUFFIX,cdn-apple.com
 DOMAIN-SUFFIX,cdn-images.mailchimp.com
 DOMAIN-SUFFIX,cdnst.net
 DOMAIN-SUFFIX,cdp1989.org
@@ -6733,3 +6735,4 @@ IP-CIDR,75.126.0.0/16
 IP-CIDR,75.126.150.0/16
 IP-CIDR,91.105.192.0/23
 USER-AGENT,Surge/*
+USER-AGENT,*FindMyiPhone?
