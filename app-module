@@ -1,0 +1,11 @@
+#!name=VPS监控
+#!desc=监控VPS流量信息和处理器、内存占用情况
+#!author= 面板和脚本部分@Sestea @clydetime  VPS端部分 @Sestea 由 @整点猫咪 进行整理
+#!howto=将模块内容复制到本地后根据自己VPS IP地址及端口修改 http://127.0.0.1:7122
+
+[Panel]
+US = script-name= US,update-interval=14400
+SG = script-name= SG,update-interval=14400
+[Script]
+US = type=generic,script-path=https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/script/serverinfo.js, argument = url=http://38.207.171.80:7122&name=vmiss🇺🇸&icon=party.popper
+SG = type=generic,script-path=https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/script/serverinfo.js, argument = url=http://178.173.249.55:7122&name=yxvm🇭🇰&icon=party.popper
