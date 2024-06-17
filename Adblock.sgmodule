@@ -25,10 +25,9 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 
 # tiktok
 (?<=_region=)CN(?=&) US 307
-(^h.+v5\/)(.+) $1 302
 (?<=&mcc_mnc=)4 2 307
-(?<=eme\/v)2(?=\/f\w{2}d\/\?.*) 1 302
-
+^(https?:\/\/(tnc|dm)[\w-]+\.\w+\.com\/.+)(\?)(.+) $1$3 302
+(^https?:\/\/*\.\w{4}okv.com\/.+&.+)(\d{2}\.3\.\d)(.+) $118.0$3 302
 #!name = 百度
 #!desc = 百度去广告
 #!author = fmz200
