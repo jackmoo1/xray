@@ -57,20 +57,26 @@ DOMAIN-KEYWORD,spotify.com
 IP-CIDR,104.154.127.126/32
 IP-CIDR,35.186.224.47/32
 ###TikTok
-# 规则统计:16
+# 规则统计:22
 DOMAIN-SUFFIX,byteoversea.com
 DOMAIN-SUFFIX,capcutapi.com
 DOMAIN-SUFFIX,capcutvod.com
 DOMAIN-SUFFIX,ibytedtos.com
+DOMAIN-SUFFIX,ibyteimg.com
 DOMAIN-SUFFIX,ipstatp.com
+DOMAIN-SUFFIX,isnssdk.com
 DOMAIN-SUFFIX,muscdn.com
 DOMAIN-SUFFIX,musical.ly
+DOMAIN-SUFFIX,p16-tiktokcdn-com.akamaized.net
 DOMAIN-SUFFIX,pangle.io
+DOMAIN-SUFFIX,sgpstatp.com
 DOMAIN-SUFFIX,sgsnssdk.com
+DOMAIN-SUFFIX,snssdk.com
 DOMAIN-SUFFIX,tiktok.com
 DOMAIN-SUFFIX,tik-tokapi.com
 DOMAIN-SUFFIX,tiktokcdn.com
 DOMAIN-SUFFIX,tiktokv.com
+DOMAIN-KEYWORD,musical.ly
 DOMAIN-KEYWORD,tiktok
 DOMAIN-KEYWORD,tiktokcdn
 USER-AGENT,TikTok*
