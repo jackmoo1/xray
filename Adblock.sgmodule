@@ -23,18 +23,6 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 # > 大师兄
 ^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/.*?\/v\d\/(version|top_notice\?|advert\?position=[^2]+) - reject
 
-#!name = 百度
-#!desc = 百度去广告
-#!author = fmz200
-^https?:\/\/fcvbjbcebos\.baidu\.com\/.+.mp4 - reject
-^https?:\/\/cover\.baidu\.com\/cover\/page\/dspSwitchAds\/ - reject
-^https?:\/\/baichuan\.baidu\.com\/rs\/adpmobile\/launch - reject
-^https?:\/\/afd\.baidu\.com\/afd\/entry - reject
-^https?:\/\/als\.baidu\.com\/clog\/clog - reject
-^https?:\/\/mobads\.baidu\.com\/cpro\/ui\/mads.+ - reject
-^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
-^https?:\/\/log.+?baidu\.com - reject
-^https?:\/\/www.baidu.com\/?action=static&ms=1&version=css_page_2@0.*? - reject
 # > 百度翻译
 ^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo - reject
 ^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
@@ -53,10 +41,9 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 ^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
 ^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
 ^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao - reject
+^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
 ^https?:\/\/fc-video\.cdn\.bcebos\.com - reject
 ^https?:\/\/rp\.hpplay\.cn\/logouts - reject
-^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
-^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
 
 # 有道词典 其他
 # 其他
@@ -96,20 +83,18 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 # > 小红书_启动引导
 ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/guide\/home_guide data-type=text data="{}" status-code=200
 
-
-#百度
-^https?:\/\/fcvbjbcebos\.baidu\.com\/.+?\.mp4 data-type=tiny-gif status-code=200
-^https?:\/\/api\d\.tuisong\.baidu\.com data-type=tiny-gif status-code=200
-^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao\/ data-type=text data=" " status-code=200
-^https?:\/\/[\s\S]*\.baidu\.com/.*?ad[xs]\.php data-type=tiny-gif status-code=200
-^https?:\/\/t\d{2}\.baidu\.com data-type=tiny-gif status-code=200
-^https?:\/\/sa\d\.tuisong\.baidu\.com data-type=tiny-gif status-code=200
-
-# > 百度地图
-^https?:\/\/dss0\.bdstatic\.com\/-0U0bnSm1A5BphGlnYG\/ data-type=text data=" " status-code=200
-^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump data-type=tiny-gif status-code=200
-^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg data-type=text data=" " status-code=200
-^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png data-type=tiny-gif status-code=200
+# > 百度地图_首页底部推荐
+^https?:\/\/.*map\.baidu\.com\/.*govui\/rich_content data-type=text data=" " status-code=200
+# > 百度地图_搜索推广
+^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui.*qt=hw data-type=text data=" " status-code=200
+# > 百度地图_开屏广告|首页左上角广告
+^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads data-type=text data=" " status-code=200
+# > 百度地图_DNS处理
+^https?:\/\/httpdns\.baidubce\.com data-type=text data=" " status-code=200
+# > 百度地图_各种商业推广
+^https?:\/\/newclient\.map\.baidu\.com\/client\/crossmarketing data-type=text data=" " status-code=200
+# > 百度地图_我的页面地图动态
+^https?:\/\/newclient\.map\.baidu\.com\/client\/usersystem\/home\/dynamic data-type=text data=" " status-code=200
 
 # 有道词典
 # 翻译广告
@@ -183,14 +168,14 @@ UnblockURLinWeChat = type=http-response, pattern=^https\:\/\/(weixin110\.qq|secu
 # 微信封禁页面 //weixin110.qq.com, security.wechat.com
 wechat110 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security\.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/wechat/wechat110.js, requires-body=true, max-size=-1, timeout=60
 
-# 百度地图
-baidumap = type=http-response, pattern=^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js, requires-body=true, max-size=-1, timeout=60
-
 # > 百度网盘_开屏广告@ddgksf2013
 baiduCloud.vip = type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/api\/getsyscfg, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.vip.js, requires-body=true, max-size=-1, timeout=60
 
 # 有道词典 首页净化，学习Tab界面净化，首页听读训练净化
 dict-youdao-ad = type=http-response, pattern=^https?:\/\/dict\.youdao\.com\/(homepage\/promotion|course\/tab\/home|homepage\/tile), script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/youdao/dict-youdao-ad.js, requires-body=true, max-size=-1, timeout=60
 
+内容农场(www.google.com|com.hk) = type=http-response , pattern="^https?:\/\/(www\.google)(\.\w{2,4}){1,2}\/(search\?|\?sa=|\?FORM)(?!.*?(apps=))" , requires-body=1 , max-size=0 , script-path=https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adguard/Adblock4limbo.js , script-update-interval=0
+
+
 [MITM]
-hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, gql.reddit.com, gql-fed.reddit.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, security.wechat.com, napi.ithome.com, afd.baidu.com, api*.tuisong.baidu.com, appwk.baidu.com, baichuan.baidu.com, cover.baidu.com, fcvbjbcebos.baidu.com, fc-video.cdn.bcebos.com, issuecdn.baidupcs.com, mime.baidu.com, mobads.baidu.com, ndstatic.cdn.bcebos.com, pan.baidu.com, rp.hpplay.cn, sa*.tuisong.baidu.com, staticsns.cdn.bcebos.com, update.pan.baidu.com, www.baidu.com, dict.youdao.com, api-overmind.youdao.com, cdke.youdao.com, dictvip-business.youdao.com, dsp-impr2.youdao.com, impservice.dictapp.youdao.com, oral.youdao.com, oimage*.ydstatic.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, apimobile.meituan.com, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, gql.reddit.com, gql-fed.reddit.com, sdk.alibaba.com.ailbaba.me, pages.xiaohongshu.com, www.xiaohongshu.com, edith.xiaohongshu.com, referee.xiaohongshu.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.commp.weixin.qq.com, security.wechat.com, napi.ithome.com, pan.baidu.com, ndstatic.cdn.bcebos.com, staticsns.cdn.bcebos.com, issuecdn.baidupcs.com, update.pan.baidu.com, fc-video.cdn.bcebos.com, rp.hpplay.cn, mime.baidu.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, 180.76.76.200, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, dict.youdao.com, api-overmind.youdao.com, cdke.youdao.com, dictvip-business.youdao.com, dsp-impr2.youdao.com, impservice.dictapp.youdao.com, oral.youdao.com, oimage*.ydstatic.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, www.meituan.net, flowplus.meituan.net, wmapi.meituan.net, apimobile.meituan.net, apimobile.meituan.com, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com, www.google.com.hk
