@@ -1,4 +1,4 @@
-# 规则统计:6737
+# 规则统计:6761
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0rz.tw
@@ -173,7 +173,6 @@ DOMAIN-SUFFIX,addictedtocoffee.de
 DOMAIN-SUFFIX,addr.tools
 DOMAIN-SUFFIX,adelaidebbs.com
 DOMAIN-SUFFIX,admin.recaptcha.net
-DOMAIN-SUFFIX,admob.com
 DOMAIN-SUFFIX,adpl.org.hk
 DOMAIN-SUFFIX,adsense.com
 DOMAIN-SUFFIX,adtidy.org
@@ -268,7 +267,6 @@ DOMAIN-SUFFIX,amnesty.tw
 DOMAIN-SUFFIX,amnestyusa.org
 DOMAIN-SUFFIX,amnyemachen.org
 DOMAIN-SUFFIX,amoiist.com
-DOMAIN-SUFFIX,amplitude.com
 DOMAIN-SUFFIX,ampproject.com
 DOMAIN-SUFFIX,ampproject.net
 DOMAIN-SUFFIX,ampproject.org
@@ -359,14 +357,15 @@ DOMAIN-SUFFIX,app.evozi.com
 DOMAIN-SUFFIX,app.heywire.com
 DOMAIN-SUFFIX,app.smartmailcloud.com
 DOMAIN-SUFFIX,app.tutanota.com
-DOMAIN-SUFFIX,apple.news
-DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,appbrain.com
 DOMAIN-SUFFIX,appdownloader.net
+DOMAIN-SUFFIX,apple.comscoreresearch.com
+DOMAIN-SUFFIX,apple.news
 DOMAIN-SUFFIX,applecensorship.com
 DOMAIN-SUFFIX,appledaily.com
 DOMAIN-SUFFIX,appledaily.com.hk
 DOMAIN-SUFFIX,appledaily.com.tw
+DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,apps.evozi.com
 DOMAIN-SUFFIX,appshopper.com
 DOMAIN-SUFFIX,appsocks.net
@@ -422,6 +421,7 @@ DOMAIN-SUFFIX,atlassian.com
 DOMAIN-SUFFIX,atnext.com
 DOMAIN-SUFFIX,att.com
 DOMAIN-SUFFIX,audionow.com
+DOMAIN-SUFFIX,audio-ssl.itunes.apple.com
 DOMAIN-SUFFIX,auntology.fandom.com
 DOMAIN-SUFFIX,authorizeddns.net
 DOMAIN-SUFFIX,authorizeddns.org
@@ -939,6 +939,7 @@ DOMAIN-SUFFIX,cdef.org
 DOMAIN-SUFFIX,cdig.info
 DOMAIN-SUFFIX,cdjp.org
 DOMAIN-SUFFIX,cdn.angruo.com
+DOMAIN-SUFFIX,cdn.apple-cloudkit.com
 DOMAIN-SUFFIX,cdn.helixstudios.net
 DOMAIN-SUFFIX,cdn.jwplayer.com
 DOMAIN-SUFFIX,cdn.printfriendly.com
@@ -947,8 +948,8 @@ DOMAIN-SUFFIX,cdn.segment.com
 DOMAIN-SUFFIX,cdn.softlayer.net
 DOMAIN-SUFFIX,cdn.statically.io
 DOMAIN-SUFFIX,cdn1.lp.saboom.com
-DOMAIN-SUFFIX,cdnews.com.tw
 DOMAIN-SUFFIX,cdn-apple.com
+DOMAIN-SUFFIX,cdnews.com.tw
 DOMAIN-SUFFIX,cdn-images.mailchimp.com
 DOMAIN-SUFFIX,cdnst.net
 DOMAIN-SUFFIX,cdp1989.org
@@ -1450,8 +1451,10 @@ DOMAIN-SUFFIX,developer.apple.com
 DOMAIN-SUFFIX,developers.box.net
 DOMAIN-SUFFIX,deviantart.com
 DOMAIN-SUFFIX,deviantart.net
+DOMAIN-SUFFIX,devimages-cdn.apple.com
 DOMAIN-SUFFIX,devio.us
 DOMAIN-SUFFIX,devpn.com
+DOMAIN-SUFFIX,devstreaming-cdn.apple.com
 DOMAIN-SUFFIX,dfas.mil
 DOMAIN-SUFFIX,dfn.org
 DOMAIN-SUFFIX,d-fukyu.com
@@ -1513,6 +1516,7 @@ DOMAIN-SUFFIX,dns-stuff.com
 DOMAIN-SUFFIX,dnvod.tv
 DOMAIN-SUFFIX,docker.com
 DOMAIN-SUFFIX,docofcard.com
+DOMAIN-SUFFIX,docs-assets.developer.apple.com
 DOMAIN-SUFFIX,doctorvoice.org
 DOMAIN-SUFFIX,documentingreality.com
 DOMAIN-SUFFIX,dogfartnetwork.com
@@ -1569,7 +1573,6 @@ DOMAIN-SUFFIX,dtwang.org
 DOMAIN-SUFFIX,duanzhihu.com
 DOMAIN-SUFFIX,dubox.com
 DOMAIN-SUFFIX,duck.com
-DOMAIN-SUFFIX,duckdns.org
 DOMAIN-SUFFIX,duckload.com
 DOMAIN-SUFFIX,duckmylife.com
 DOMAIN-SUFFIX,dueapp.com
@@ -1954,7 +1957,6 @@ DOMAIN-SUFFIX,flnet.org
 DOMAIN-SUFFIX,flog.tw
 DOMAIN-SUFFIX,flowercloud.net
 DOMAIN-SUFFIX,flowercloud.xyz
-DOMAIN-SUFFIX,flurry.com
 DOMAIN-SUFFIX,flyvpn.com
 DOMAIN-SUFFIX,flyzy2005.com
 DOMAIN-SUFFIX,flzbcdn.xyz
@@ -2364,6 +2366,7 @@ DOMAIN-SUFFIX,grotty-monday.com
 DOMAIN-SUFFIX,gs-discuss.com
 DOMAIN-SUFFIX,gsearch.media
 DOMAIN-SUFFIX,gsp.target.com
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
 DOMAIN-SUFFIX,gtricks.com
 DOMAIN-SUFFIX,gts-vpn.com
 DOMAIN-SUFFIX,gtv.org
@@ -2561,6 +2564,9 @@ DOMAIN-SUFFIX,hkusu.net
 DOMAIN-SUFFIX,hkvwet.com
 DOMAIN-SUFFIX,hkwcc.org.hk
 DOMAIN-SUFFIX,hkzone.org
+DOMAIN-SUFFIX,hls.itunes.apple.com
+DOMAIN-SUFFIX,hls-amt.itunes.apple.com
+DOMAIN-SUFFIX,hls-svod.itunes.apple.com
 DOMAIN-SUFFIX,h-moe.com
 DOMAIN-SUFFIX,hmoegirl.com
 DOMAIN-SUFFIX,hmonghot.com
@@ -3002,6 +3008,7 @@ DOMAIN-SUFFIX,jpl.nasa.gov
 DOMAIN-SUFFIX,jpopforum.net
 DOMAIN-SUFFIX,jqueryui.com
 DOMAIN-SUFFIX,js.revsci.net
+DOMAIN-SUFFIX,js-cdn.music.apple.com
 DOMAIN-SUFFIX,jsdelivr.net
 DOMAIN-SUFFIX,jshell.net
 DOMAIN-SUFFIX,jshint.com
@@ -3014,7 +3021,6 @@ DOMAIN-SUFFIX,juliereyc.com
 DOMAIN-SUFFIX,junauza.com
 DOMAIN-SUFFIX,june4commemoration.org
 DOMAIN-SUFFIX,junefourth-20.net
-DOMAIN-SUFFIX,jungleheart.com
 DOMAIN-SUFFIX,junglobal.net
 DOMAIN-SUFFIX,juoaa.com
 DOMAIN-SUFFIX,justdied.com
@@ -3383,7 +3389,13 @@ DOMAIN-SUFFIX,marxist.net
 DOMAIN-SUFFIX,marxists.org
 DOMAIN-SUFFIX,mash.to
 DOMAIN-SUFFIX,mashable.com
+DOMAIN-SUFFIX,mask.apple-dns.net
+DOMAIN-SUFFIX,mask.icloud.com
+DOMAIN-SUFFIX,mask-api.fe.apple-dns.net
+DOMAIN-SUFFIX,mask-api.icloud.com
 DOMAIN-SUFFIX,maskedip.com
+DOMAIN-SUFFIX,mask-h2.icloud.com
+DOMAIN-SUFFIX,mask-t.apple-dns.net
 DOMAIN-SUFFIX,mastodon.cloud
 DOMAIN-SUFFIX,mastodon.host
 DOMAIN-SUFFIX,mastodon.social
@@ -3796,10 +3808,14 @@ DOMAIN-SUFFIX,news.tvbs.com.tw
 DOMAIN-SUFFIX,news.ycombinator.com
 DOMAIN-SUFFIX,news100.com.tw
 DOMAIN-SUFFIX,newsancai.com
+DOMAIN-SUFFIX,news-assets.apple.com
 DOMAIN-SUFFIX,newschinacomment.org
+DOMAIN-SUFFIX,news-client.apple.com
 DOMAIN-SUFFIX,newscn.org
 DOMAIN-SUFFIX,newsdetox.ca
 DOMAIN-SUFFIX,newsdh.com
+DOMAIN-SUFFIX,news-edge.apple.com
+DOMAIN-SUFFIX,news-events.apple.com
 DOMAIN-SUFFIX,newsmagazine.asia
 DOMAIN-SUFFIX,newsmax.com
 DOMAIN-SUFFIX,newspeak.cc
@@ -3897,6 +3913,7 @@ DOMAIN-SUFFIX,noxinfluencer.com
 DOMAIN-SUFFIX,noypf.com
 DOMAIN-SUFFIX,npa.go.jp
 DOMAIN-SUFFIX,npa.gov.tw
+DOMAIN-SUFFIX,np-edge.itunes.apple.com
 DOMAIN-SUFFIX,npm.gov.tw
 DOMAIN-SUFFIX,npnt.me
 DOMAIN-SUFFIX,nps.gov
@@ -3979,6 +3996,7 @@ DOMAIN-SUFFIX,oclp.hk
 DOMAIN-SUFFIX,ocnttv.com
 DOMAIN-SUFFIX,ocreampies.com
 DOMAIN-SUFFIX,ocry.com
+DOMAIN-SUFFIX,ocsp.apple.com
 DOMAIN-SUFFIX,ocsp.int-x3.letsencrypt.org
 DOMAIN-SUFFIX,october-review.org
 DOMAIN-SUFFIX,oculus.com
@@ -4064,7 +4082,6 @@ DOMAIN-SUFFIX,orchidbbs.com
 DOMAIN-SUFFIX,ordns.he.net
 DOMAIN-SUFFIX,organcare.org.tw
 DOMAIN-SUFFIX,organharvestinvestigation.net
-DOMAIN-SUFFIX,organiccrap.com
 DOMAIN-SUFFIX,orgasm.com
 DOMAIN-SUFFIX,orgfree.com
 DOMAIN-SUFFIX,oricon.co.jp
@@ -4251,6 +4268,7 @@ DOMAIN-SUFFIX,placemix.com
 DOMAIN-SUFFIX,playartifact.com
 DOMAIN-SUFFIX,playboy.com
 DOMAIN-SUFFIX,playboyplus.com
+DOMAIN-SUFFIX,play-edge.itunes.apple.com
 DOMAIN-SUFFIX,player.fm
 DOMAIN-SUFFIX,playno1.com
 DOMAIN-SUFFIX,playpcesor.com
@@ -4612,6 +4630,7 @@ DOMAIN-SUFFIX,saltyfish.io
 DOMAIN-SUFFIX,salvation.org.hk
 DOMAIN-SUFFIX,samair.ru
 DOMAIN-SUFFIX,sambhota.org
+DOMAIN-SUFFIX,sandbox.itunes.apple.com
 DOMAIN-SUFFIX,sandscotaicentral.com
 DOMAIN-SUFFIX,sankakucomplex.com
 DOMAIN-SUFFIX,sankei.com
@@ -5548,6 +5567,8 @@ DOMAIN-SUFFIX,tushycash.com
 DOMAIN-SUFFIX,tutanota.com
 DOMAIN-SUFFIX,tuvpn.com
 DOMAIN-SUFFIX,tuzaijidi.com
+DOMAIN-SUFFIX,tv.apple.com
+DOMAIN-SUFFIX,tv.applemusic.com
 DOMAIN-SUFFIX,tv.com
 DOMAIN-SUFFIX,tv.jtbc.joins.com
 DOMAIN-SUFFIX,tvants.com
@@ -5782,6 +5803,7 @@ DOMAIN-SUFFIX,ustibetcommittee.org
 DOMAIN-SUFFIX,ustream.tv
 DOMAIN-SUFFIX,usus.cc
 DOMAIN-SUFFIX,utopianpal.com
+DOMAIN-SUFFIX,uts-api.itunes.apple.com
 DOMAIN-SUFFIX,uu-gg.com
 DOMAIN-SUFFIX,uukanshu.com
 DOMAIN-SUFFIX,uvwxyz.xyz
@@ -6383,12 +6405,10 @@ DOMAIN-SUFFIX,yobit.net
 DOMAIN-SUFFIX,yobt.com
 DOMAIN-SUFFIX,yobt.tv
 DOMAIN-SUFFIX,yogichen.org
-DOMAIN-SUFFIX,yolasite.com
 DOMAIN-SUFFIX,yomiuri.co.jp
 DOMAIN-SUFFIX,yong.hu
 DOMAIN-SUFFIX,yorkbbs.ca
 DOMAIN-SUFFIX,you.com
-DOMAIN-SUFFIX,youdontcare.com
 DOMAIN-SUFFIX,you-get.org
 DOMAIN-SUFFIX,youjizz.com
 DOMAIN-SUFFIX,youmaker.com
@@ -6399,7 +6419,6 @@ DOMAIN-SUFFIX,your-freedom.net
 DOMAIN-SUFFIX,yourlisten.com
 DOMAIN-SUFFIX,yourlust.com
 DOMAIN-SUFFIX,yourprivatevpn.com
-DOMAIN-SUFFIX,yourtrap.com
 DOMAIN-SUFFIX,yousendit.com
 DOMAIN-SUFFIX,youshun12.com
 DOMAIN-SUFFIX,youthforfreechina.org
@@ -6734,5 +6753,10 @@ IP-CIDR,74.86.0.0/16
 IP-CIDR,75.126.0.0/16
 IP-CIDR,75.126.150.0/16
 IP-CIDR,91.105.192.0/23
-USER-AGENT,Surge/*
 USER-AGENT,*FindMyiPhone?
+USER-AGENT,AppleNews*
+USER-AGENT,AppleTV*
+USER-AGENT,com.apple.news*
+USER-AGENT,com.apple.trustd*
+USER-AGENT,com.apple.tv*
+USER-AGENT,Surge/*
