@@ -1,6 +1,6 @@
 # 规则统计:5485
-DOMAIN,fmipmobile.icloud.com
-DOMAIN,statici.icloud.com
+DOMAIN-SUFFIX,fmipmobile.icloud.com
+DOMAIN-SUFFIX,statici.icloud.com
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
