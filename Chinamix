@@ -1,4 +1,4 @@
-# 规则统计:5486
+# 规则统计:5487
 DOMAIN-SUFFIX,fmipmobile.icloud.com
 DOMAIN-SUFFIX,statici.icloud.com
 DOMAIN-SUFFIX,00cdn.com
@@ -2018,6 +2018,7 @@ DOMAIN-SUFFIX,gdtimg.com
 DOMAIN-SUFFIX,geekpark.net
 DOMAIN-SUFFIX,geetest.com
 DOMAIN-SUFFIX,geilicdn.com
+DOMAIN-SUFFIX,gepush.com
 DOMAIN-SUFFIX,getui.com
 DOMAIN-SUFFIX,getui.net
 DOMAIN-SUFFIX,gezida.com
