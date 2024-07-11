@@ -1,4 +1,4 @@
-# 规则统计:1243
+# 规则统计:1247
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,10010.com
 DOMAIN-SUFFIX,115.com
@@ -200,6 +200,7 @@ DOMAIN-SUFFIX,bytescm.com
 DOMAIN-SUFFIX,bytetcc.com
 DOMAIN-SUFFIX,bytetos.com
 DOMAIN-SUFFIX,bytexservice.com
+DOMAIN-SUFFIX,caiyunapp.com
 DOMAIN-SUFFIX,camera360.com
 DOMAIN-SUFFIX,cbmwz.net
 DOMAIN-SUFFIX,cctv.cn
@@ -392,6 +393,8 @@ DOMAIN-SUFFIX,gg.apple.com
 DOMAIN-SUFFIX,ghpym.com
 DOMAIN-SUFFIX,giffox.com
 DOMAIN-SUFFIX,gifshow.com
+DOMAIN-SUFFIX,gitee.com
+DOMAIN-SUFFIX,gitee.io
 DOMAIN-SUFFIX,go2map.com
 DOMAIN-SUFFIX,godic.net
 DOMAIN-SUFFIX,gogokid.com
@@ -544,6 +547,7 @@ DOMAIN-SUFFIX,ksyungslb.com
 DOMAIN-SUFFIX,kuaidi100.com
 DOMAIN-SUFFIX,kuaishou.com
 DOMAIN-SUFFIX,kugou.com
+DOMAIN-SUFFIX,kuiniuca.com
 DOMAIN-SUFFIX,lain.bgm.tv
 DOMAIN-SUFFIX,lancdns.com
 DOMAIN-SUFFIX,landiannews.com
