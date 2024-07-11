@@ -1,4 +1,4 @@
-# 规则统计:1003
+# 规则统计:999
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,10010.com
 DOMAIN-SUFFIX,115.com
@@ -51,7 +51,6 @@ DOMAIN-SUFFIX,abercrombie.com
 DOMAIN-SUFFIX,acfun.tv
 DOMAIN-SUFFIX,acg.tv
 DOMAIN-SUFFIX,acgvideo.com
-DOMAIN-SUFFIX,ad.12306.cn
 DOMAIN-SUFFIX,ain.bgm.tv
 DOMAIN-SUFFIX,air-matters.com
 DOMAIN-SUFFIX,air-matters.io
@@ -256,7 +255,6 @@ DOMAIN-SUFFIX,dota2.wmsj.cn
 DOMAIN-SUFFIX,douban.com
 DOMAIN-SUFFIX,doubanio.com
 DOMAIN-SUFFIX,douyin.com
-DOMAIN-SUFFIX,douyincdn.com
 DOMAIN-SUFFIX,douyinpic.com
 DOMAIN-SUFFIX,douyinstatic.com
 DOMAIN-SUFFIX,douyinvod.com
@@ -722,8 +720,11 @@ DOMAIN-SUFFIX,toutiaocdn.net
 DOMAIN-SUFFIX,toutiaocloud.com
 DOMAIN-SUFFIX,toutiaohao.com
 DOMAIN-SUFFIX,toutiaohao.net
+DOMAIN-SUFFIX,toutiaoimg.cn
 DOMAIN-SUFFIX,toutiaoimg.com
 DOMAIN-SUFFIX,toutiaopage.com
+DOMAIN-SUFFIX,toutiaostatic.com
+DOMAIN-SUFFIX,toutiaovod.com
 DOMAIN-SUFFIX,trip.com
 DOMAIN-SUFFIX,tripodeck.com
 DOMAIN-SUFFIX,ts.thefilehosting.com
@@ -781,7 +782,6 @@ DOMAIN-SUFFIX,womai.com
 DOMAIN-SUFFIX,wscdns.com
 DOMAIN-SUFFIX,wukong.com
 DOMAIN-SUFFIX,wxapp.tc.qq.com
-DOMAIN-SUFFIX,xdrig.com
 DOMAIN-SUFFIX,xhscdn.com
 DOMAIN-SUFFIX,xiachufang.com
 DOMAIN-SUFFIX,xiami.com
@@ -965,14 +965,11 @@ IP-CIDR,63.92.224.0/19
 IP-CIDR,65.199.22.0/23
 USER-AGENT,*com.apple.Maps?
 USER-AGENT,*com.apple.mobileme.fmip1
-USER-AGENT,*FindMyiPhone?
-USER-AGENT,*Music?
 USER-AGENT,*WeatherFoundation*
 USER-AGENT,AdBlock*
 USER-AGENT,arrowio*
 USER-AGENT,balls*
 USER-AGENT,Best%20Trace*
-USER-AGENT,cmb*
 USER-AGENT,cmblife*
 USER-AGENT,com.apple.appstored*
 USER-AGENT,com.apple.Maps
@@ -989,7 +986,6 @@ USER-AGENT,locationd*
 USER-AGENT,Maps*
 USER-AGENT,MegaWerewolf*
 USER-AGENT,MicroMessenger%20Client
-USER-AGENT,MicroMessenger*
 USER-AGENT,MicroMessengerClient*
 USER-AGENT,Microsoft*
 USER-AGENT,Moke*
