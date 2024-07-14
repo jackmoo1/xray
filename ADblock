@@ -1,4 +1,4 @@
-#数据统计：2574
+#数据统计：2576
 # > 番茄小说
 DOMAIN-SUFFIX,p3-ad-sign.byteimg.com
 DOMAIN-SUFFIX,p6-ad-sign.byteimg.com
@@ -222,6 +222,8 @@ DOMAIN-SUFFIX,ggx.cmvideo.cn
 DOMAIN-SUFFIX,ggx03.miguvideo.com
 DOMAIN-SUFFIX,glitter.services.disqus.com
 DOMAIN-SUFFIX,goblin.hupu.com
+DOMAIN-SUFFIX,graph-fallback.instagram.com
+DOMAIN-SUFFIX,graph.instagram.com
 DOMAIN-SUFFIX,hbftgh.ibjkqnhjwd.xyz
 DOMAIN-SUFFIX,hc-ssp.sm.cn
 DOMAIN-SUFFIX,hdns.ksyun.com
