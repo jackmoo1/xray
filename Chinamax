@@ -1,4 +1,4 @@
-# 规则统计:5130
+# 规则统计:5128
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -920,7 +920,6 @@ DOMAIN-SUFFIX,brmnq.com
 DOMAIN-SUFFIX,broadcasthe.net
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,bscabank.com
-DOMAIN-SUFFIX,bsccdn.net
 DOMAIN-SUFFIX,bsclink.com
 DOMAIN-SUFFIX,bstatic.com
 DOMAIN-SUFFIX,bsydns.com
@@ -3649,7 +3648,6 @@ DOMAIN-SUFFIX,rtbbox.com
 DOMAIN-SUFFIX,rtvcdn.com.au
 DOMAIN-SUFFIX,rtyhfg.com
 DOMAIN-SUFFIX,ruan8.com
-DOMAIN-SUFFIX,ruanmei.com
 DOMAIN-SUFFIX,ruby-china.org
 DOMAIN-SUFFIX,rubyconfchina.org
 DOMAIN-SUFFIX,ruguoapp.com
