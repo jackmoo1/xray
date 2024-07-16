@@ -1,4 +1,4 @@
-# 规则统计:5131
+# 规则统计:5130
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -1732,7 +1732,6 @@ DOMAIN-SUFFIX,ecitic.com
 DOMAIN-SUFFIX,ecitic.net
 DOMAIN-SUFFIX,ecjobhome.com
 DOMAIN-SUFFIX,ecloud-gdu.com
-DOMAIN-SUFFIX,ecombdapi.com
 DOMAIN-SUFFIX,ecombdimg.com
 DOMAIN-SUFFIX,ecombdpage.com
 DOMAIN-SUFFIX,ecombdstatic.com
