@@ -156,6 +156,8 @@ DOMAIN,token.safebrowsing.apple
 DOMAIN,vs6.bj2ct.u3.ucweb.com
 DOMAIN-SUFFIX,safebrowsing.apple
 DOMAIN-SUFFIX,u3.ucweb.com
+DOMAIN-SUFFIX,fancyapi.com
+DOMAIN-SUFFIX,wcp.taobao.com
 IP-CIDR,27.221.92.233/32
 IP-CIDR,49.71.37.101/32
 IP-CIDR,117.71.105.23/32
