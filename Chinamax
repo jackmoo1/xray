@@ -1,4 +1,4 @@
-# 规则统计:5131
+# 规则统计:5133
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -3136,6 +3136,7 @@ DOMAIN-SUFFIX,mukewang.com
 DOMAIN-SUFFIX,mumayi.com
 DOMAIN-SUFFIX,muomou.com
 DOMAIN-SUFFIX,musical.ly
+DOMAIN-SUFFIX,mutalisk.vipfengfei.com
 DOMAIN-SUFFIX,muwai.com
 DOMAIN-SUFFIX,muyewx.com
 DOMAIN-SUFFIX,muzhiwan.com
@@ -4130,6 +4131,7 @@ DOMAIN-SUFFIX,tmzvps.com
 DOMAIN-SUFFIX,tnkjmec.com
 DOMAIN-SUFFIX,toaobg.com
 DOMAIN-SUFFIX,tobosu.com
+DOMAIN-SUFFIX,token.safebrowsing.apple
 DOMAIN-SUFFIX,tom.com
 DOMAIN-SUFFIX,tongdun.net
 DOMAIN-SUFFIX,tongji.linezing.com
