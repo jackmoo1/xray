@@ -146,6 +146,16 @@ DOMAIN-SUFFIX,janapi.jd.com
 #instagram
 DOMAIN-SUFFIX,graph-fallback.instagram.com
 DOMAIN-SUFFIX,graph.instagram.com
+#其它
+DOMAIN,lookup.api.bsb.baidu.com
+DOMAIN,proxy.safebrowsing.apple
+DOMAIN,safebrowsing.g.applimg.com
+DOMAIN,safebrowsing.googleapis.com
+DOMAIN,safebrowsing.urlsec.qq.com
+DOMAIN,token.safebrowsing.apple
+DOMAIN,vs6.bj2ct.u3.ucweb.com
+DOMAIN-SUFFIX,safebrowsing.apple
+DOMAIN-SUFFIX,u3.ucweb.com
 IP-CIDR,27.221.92.233/32
 IP-CIDR,49.71.37.101/32
 IP-CIDR,117.71.105.23/32
