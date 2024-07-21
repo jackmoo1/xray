@@ -143,6 +143,9 @@ DOMAIN-SUFFIX,route-stats.d.meituan.net
 DOMAIN-SUFFIX,dsp-x.jd.com
 DOMAIN-SUFFIX,xlog.jd.com
 DOMAIN-SUFFIX,janapi.jd.com
+#instagram
+DOMAIN-SUFFIX,graph-fallback.instagram.com
+DOMAIN-SUFFIX,graph.instagram.com
 IP-CIDR,27.221.92.233/32
 IP-CIDR,49.71.37.101/32
 IP-CIDR,117.71.105.23/32
