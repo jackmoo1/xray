@@ -1,4 +1,4 @@
-# 规则统计:5132
+# 规则统计:5139
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -920,6 +920,7 @@ DOMAIN-SUFFIX,brmnq.com
 DOMAIN-SUFFIX,broadcasthe.net
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,bscabank.com
+DOMAIN-SUFFIX,bscdn.net
 DOMAIN-SUFFIX,bsclink.com
 DOMAIN-SUFFIX,bstatic.com
 DOMAIN-SUFFIX,bsydns.com
@@ -1348,6 +1349,7 @@ DOMAIN-SUFFIX,cnthinkers.com
 DOMAIN-SUFFIX,cntv.cn
 DOMAIN-SUFFIX,cntv.com.cn
 DOMAIN-SUFFIX,cn-visa.com
+DOMAIN-SUFFIX,cnzz.com
 DOMAIN-SUFFIX,cnweblog.com
 DOMAIN-SUFFIX,cnzhibo.com
 DOMAIN-SUFFIX,cocodiy.com
@@ -3020,6 +3022,8 @@ DOMAIN-SUFFIX,miaobolive.com
 DOMAIN-SUFFIX,miaomiaoz.com
 DOMAIN-SUFFIX,miaomiaozhe.com
 DOMAIN-SUFFIX,miaopai.com
+DOMAIN-SUFFIX,miaoshou.com
+DOMAIN-SUFFIX,miaoshoucdn.com
 DOMAIN-SUFFIX,miaostreet.com
 DOMAIN-SUFFIX,micro-game-client.com
 DOMAIN-SUFFIX,midasbuy.com
@@ -5131,4 +5135,7 @@ IP-CIDR,205.180.175.0/24
 IP-CIDR,221.226.128.146/32
 IP-CIDR,63.92.224.0/19
 IP-CIDR,65.199.22.0/23
+IP-CIDR,162.159.200.123/32
+IP-CIDR,129.250.35.250/32
+IP-CIDR,5.79.34.123/32
 
