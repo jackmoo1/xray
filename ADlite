@@ -141,7 +141,7 @@ DOMAIN-SUFFIX,re.taobao.com
 DOMAIN-SUFFIX,temai.taobao.com
 DOMAIN-SUFFIX,unitacs.m.taobao.com
 DOMAIN-SUFFIX,w.m.taobao.com
-AND,((DOMAIN-KEYWORD, adash), (DOMAIN-SUFFIX,taobao.com))
+AND,((DOMAIN-KEYWORD, adash), (DOMAIN-SUFFIX, taobao.com))
 DOMAIN-KEYWORD，simba.taobao.com
 # 网易
 DOMAIN-SUFFIX,nex.163.com
