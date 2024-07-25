@@ -132,35 +132,17 @@ DOMAIN-SUFFIX,et.tanx.com
 DOMAIN-SUFFIX,ut.taobao.com
 DOMAIN-SUFFIX,dns.alidns.com
 # > 淘宝
-DOMAIN-SUFFIX,adashbc.m.taobao.com
-DOMAIN-SUFFIX,adashbc.ut.taobao.com
-DOMAIN-SUFFIX,adash-c.ut.taobao.com
-DOMAIN-SUFFIX,adashx4yt.m.taobao.com
-DOMAIN-SUFFIX,adashxgc.ut.taobao.com
 DOMAIN-SUFFIX,agoodm.m.taobao.com
 DOMAIN-SUFFIX,ai.taobao.com
 DOMAIN-SUFFIX,api.waptest.taobao.com
 DOMAIN-SUFFIX,apoll.m.taobao.com
-DOMAIN-SUFFIX,click.mz.simba.taobao.com
-DOMAIN-SUFFIX,click.simba.taobao.com
-DOMAIN-SUFFIX,click.tz.simba.taobao.com
-DOMAIN-SUFFIX,dsp.simba.taobao.com
-DOMAIN-SUFFIX,fav.simba.taobao.com
-DOMAIN-SUFFIX,h-adashx.ut.taobao.com
-DOMAIN-SUFFIX,m.simba.taobao.com
-DOMAIN-SUFFIX,m-adash.m.taobao.com
-DOMAIN-SUFFIX,mclick.simba.taobao.com
 DOMAIN-SUFFIX,re.m.taobao.com
 DOMAIN-SUFFIX,re.taobao.com
-DOMAIN-SUFFIX,redirect.simba.taobao.com
-DOMAIN-SUFFIX,simba.m.taobao.com
-DOMAIN-SUFFIX,srd.simba.taobao.com
-DOMAIN-SUFFIX,stat.simba.taobao.com
 DOMAIN-SUFFIX,temai.taobao.com
-DOMAIN-SUFFIX,textlink.simba.taobao.com
-DOMAIN-SUFFIX,tns.simba.taobao.com
 DOMAIN-SUFFIX,unitacs.m.taobao.com
 DOMAIN-SUFFIX,w.m.taobao.com
+AND,((DOMAIN-KEYWORD, adash), (DOMAIN-SUFFIX,taobao.com))
+DOMAIN-KEYWORD，simba.taobao.com
 # 网易
 DOMAIN-SUFFIX,nex.163.com
 DOMAIN-SUFFIX,iad.g.163.com
@@ -232,10 +214,6 @@ DOMAIN-SUFFIX,sugar.zhihu.com
 DOMAIN-SUFFIX,zxid-m.mobileservice.cn
 #其它
 DOMAIN-SUFFIX,lookup.api.bsb.baidu.com
-DOMAIN-SUFFIX,proxy.safebrowsing.apple
-DOMAIN-SUFFIX,token.safebrowsing.apple
-DOMAIN-SUFFIX,vs6.bj2ct.u3.ucweb.com
-DOMAIN-SUFFIX,safebrowsing.apple
 DOMAIN-SUFFIX,u3.ucweb.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,wcp.taobao.com
