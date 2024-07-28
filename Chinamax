@@ -1,4 +1,4 @@
-# 规则统计:5148
+# 规则统计:5149
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -2874,6 +2874,7 @@ DOMAIN-SUFFIX,lnlib.net
 DOMAIN-SUFFIX,local.adguard.org
 DOMAIN-SUFFIX,localizecdn.com
 DOMAIN-SUFFIX,lofter.com
+DOMAIN-SUFFIX,log.aliyuncs.com
 DOMAIN-SUFFIX,log.mmstat.com
 DOMAIN-SUFFIX,logiseasy.com
 DOMAIN-SUFFIX,loli.net
