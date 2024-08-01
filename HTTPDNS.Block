@@ -1,5 +1,5 @@
 #!name=🚫 Block HTTPDNS
-#!desc=拦截常见的HTTPDNS服务，以确保这些请求都能够在Loon的DNS框架下工作。
+#!desc=拦截常见的HTTPDNS服务，以确保这些请求都能够在Surge的DNS框架下工作。
 #!author=可莉🅥 VirgilClyne
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/HTTPDNS.png
 #!category=🚫 Block HTTPDNS
@@ -7,30 +7,6 @@
 #!date=2024-07-29 16:19:28
 
 [Rule]
-# YY语音
-DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
-DOMAIN,union-httpdns.gslb.yy.com,REJECT
-DOMAIN,httpdns-v6.gslb.yy.com,REJECT
-# 虎牙
-URL-REGEX,^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns,REJECT
-AND, ((DOMAIN-KEYWORD, api100-core-quic-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, api100-normal-quic-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, api100-normal-quic-aweme-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, api100-quic-core-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, api100-quic-normal-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, frontier-aweme-), (AND, ((OR, ((DOMAIN-KEYWORD, -ipa.), (DOMAIN-KEYWORD, -ipainner.), (DOMAIN-KEYWORD, -origin.), (DOMAIN-KEYWORD, -ipainner-))), (OR, ((DOMAIN-SUFFIX, snssdk.com), (DOMAIN-SUFFIX, amemv.com)))))), REJECT
-AND, ((DOMAIN-KEYWORD, frontier100-aweme), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, ma5-normal-), (DOMAIN-SUFFIX, zijieapi.com)), REJECT
-AND, ((DOMAIN-KEYWORD, polaris5-normal-), (DOMAIN-SUFFIX, zijieapi.com)), REJECT
-AND, ((DOMAIN-KEYWORD, webcast100-ws-c-), (DOMAIN-SUFFIX, amemv.com)), REJECT
-AND, ((DOMAIN-KEYWORD, tnc), (AND, ((OR, ((DOMAIN-KEYWORD, -bjlgy), (DOMAIN-KEYWORD, -alisc), (DOMAIN-KEYWORD, -aliec), (DOMAIN-KEYWORD, -alisg))), (OR, ((DOMAIN-SUFFIX, snssdk.com), (DOMAIN-SUFFIX, isnssdk.com), (DOMAIN-SUFFIX, toutiaoapi.com), (DOMAIN-SUFFIX, bytedance.com), (DOMAIN-SUFFIX, zijieapi.com)))))), REJECT
-DOMAIN,frontier-aweme-hl.snssdk.com,REJECT
-DOMAIN,frontier-aweme.snssdk.com,REJECT
-DOMAIN,frontier-quic-test.bytedance.com,REJECT
-AND, ((IP-CIDR, 110.249.199.75/32, no-resolve), (DEST-PORT, 6443)), REJECT
-AND, ((IP-CIDR, 111.225.147.191/32, no-resolve), (DEST-PORT, 6443)), REJECT
-AND, ((IP-CIDR, 111.63.61.101/32, no-resolve), (DEST-PORT, 6443)), REJECT
-AND, ((IP-CIDR, 220.243.141.0/32, no-resolve), (DEST-PORT, 6443)), REJECT
 # 微信
 DOMAIN,dns.weixin.qq.com,REJECT
 DOMAIN,dns.weixin.qq.com.cn,REJECT
@@ -183,12 +159,10 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 # 百度网盘
 ^https?:\/\/180\.76\.76\.200\/v\d\/resolve - reject
 ^https?:\/\/180\.76\.76\.112\/v\d\/resolve - reject
-# 虎牙
-^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
 
 [Map Local]
 # 网易邮箱
 ^https?:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/http\/urlConfig\.do$ data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, appconf.mail.163.com, amdc.alipay.com, 180.76.76.200, 180.76.76.112, cdn.wup.huya.com
+hostname = %APPEND% 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, appconf.mail.163.com, amdc.alipay.com, 180.76.76.200, 180.76.76.112
