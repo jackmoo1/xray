@@ -1,4 +1,4 @@
-# 规则统计:5149
+# 规则统计:5150
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -2369,6 +2369,7 @@ DOMAIN-SUFFIX,ifanr.com
 DOMAIN-SUFFIX,ifanr.in
 DOMAIN-SUFFIX,ifanrusercontent.com
 DOMAIN-SUFFIX,ifanrx.com
+DOMAIN-SUFFIX,lf-cdn-tos.bytescm.com
 DOMAIN-SUFFIX,ifeng.com
 DOMAIN-SUFFIX,ifengimg.com
 DOMAIN-SUFFIX,ifengweekly.com
