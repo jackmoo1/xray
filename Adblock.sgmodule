@@ -17,6 +17,7 @@
 ^https:\/\/lf\d?-cdn-tos\.bytescm\.com\/obj\/static\/ad\/ - reject
 ^https:\/\/lf\d?-analytics\.bytescm\.com\/obj\/adjssdk\/ - reject
 ^https:\/\/sf\d?-fe-tos\.pglstatp-toutiao\.com\/obj\/ad-pattern\/ - reject
+
 # 拼多多广告平台
 ^https:\/\/video-dsp\.pddpic\.com\/market-dsp-video\/ - reject
 ^https:\/\/t-dsp\.pinduoduo\.com\/dspcb\/i\/mrk_union - reject
