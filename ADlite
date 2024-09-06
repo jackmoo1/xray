@@ -1,31 +1,49 @@
 # 字节跳动广告
-AND,((DOMAIN-KEYWORD, -ad-), (DOMAIN-SUFFIX, byteimg.com))
-AND,((DOMAIN-KEYWORD, -ttam-), (DOMAIN-SUFFIX, ibyteimg.com))
-AND,((DOMAIN-KEYWORD, ssdk-), (DOMAIN-SUFFIX, pangle.io))
-AND,((DOMAIN-KEYWORD, ads), (DOMAIN-KEYWORD, normal), (DOMAIN-SUFFIX, zijieapi.com))
-AND,((DOMAIN-KEYWORD, api), (DOMAIN-KEYWORD, -access-), (DOMAIN-SUFFIX, pangle.io))
-AND,((DOMAIN-KEYWORD, api), (DOMAIN-KEYWORD, -dual-event-sg), (DOMAIN-SUFFIX, pangle.io))
-AND,((DOMAIN-KEYWORD, api), (DOMAIN-KEYWORD, -log-), (DOMAIN-SUFFIX, pangle.io))
-AND,((DOMAIN-KEYWORD, api), (DOMAIN-KEYWORD, -dual-event-), (DOMAIN-SUFFIX, pangle.io))
-AND,((DOMAIN-KEYWORD, api), (DOMAIN-KEYWORD, pangolin), (DOMAIN-SUFFIX, sgsnssdk.com))
-AND,((DOMAIN-KEYWORD, minigame), (DOMAIN-SUFFIX, zijieapi.com))
-DOMAIN-SUFFIX,mon.zijieapi.com
-DOMAIN-SUFFIX,mssdk-bu.bytedance.com
-DOMAIN-SUFFIX,toblog.ctobsnssdk.com
-DOMAIN-SUFFIX,mssdk.volces.com
-DOMAIN-SUFFIX,pangolin.snssdk.com
-DOMAIN-SUFFIX,ssdk-sg.pangle.io
-DOMAIN-KEYWORD,-ad-sign.byteimg.com
-DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com
-DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com
-DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com
-DOMAIN-KEYWORD,api-access.pangolin-sdk-toutiao
-DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao
-DOMAIN-KEYWORD,-analytics.bytescm.com
-DOMAIN-KEYWORD,-short.bytetos.com
+AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com))
+AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com))
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io))
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io))
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io))
+AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com))
+AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com))
+AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com))
+AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com))
+AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com))
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com))
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com))
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com))
+AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io))
+AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com))
+AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com))
 DOMAIN-KEYWORD,-ad.byteoversea.com
-DOMAIN-KEYWORD,-static.i18n-pglstatp.com
+DOMAIN-KEYWORD,-ad-sign.byteimg.com
+DOMAIN-KEYWORD,-analytics.bytescm.com
+DOMAIN-KEYWORD,asiad.byteactivity
+DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com
+DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com
+DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao
+DOMAIN-KEYWORD,-short.bytetos.com
 DOMAIN-KEYWORD,video-cn.snssdk.com
+DOMAIN-SUFFIX,bds.snssdk.com
+DOMAIN-SUFFIX,dm.bytedance.com
+DOMAIN-SUFFIX,dm.pstatp.com
+DOMAIN-SUFFIX,dm.toutiao.com
+DOMAIN-SUFFIX,extlog.snssdk.com
+DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com
+DOMAIN-SUFFIX,i.snssdk.com
+DOMAIN-SUFFIX,is.snssdk.com
+DOMAIN-SUFFIX,log.snssdk.com
+DOMAIN-SUFFIX,mon.zijieapi.com
+DOMAIN-SUFFIX,mssdk.volces.com
+DOMAIN-SUFFIX,mssdk-bu.bytedance.com
+DOMAIN-SUFFIX,pangolin.snssdk.com
+DOMAIN-SUFFIX,s3a.pstatp.com
+DOMAIN-SUFFIX,sdfp.snssdk.com
+DOMAIN-SUFFIX,ssdk-sg.pangle.io
+DOMAIN-SUFFIX,toblog.ctobsnssdk.com
+DOMAIN-SUFFIX,tosv.boe.byted.org
+DOMAIN-SUFFIX,tosv.byted.org
+URL-REGEX, ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/
 # 讯飞AI营销
 DOMAIN-KEYWORD,iflyad.bj.openstorage.cn
 DOMAIN-KEYWORD,bjimp.voiceads.cn
@@ -41,6 +59,7 @@ DOMAIN-SUFFIX,adukwai.com
 DOMAIN-SUFFIX,sdk.beizi.biz
 # 秒针系统 - 广告服务商
 DOMAIN-SUFFIX,miaozhen.com
+DOMAIN-SUFFIX,admaster.com.cn
 # 艾狄墨搏 - 广告服务商
 DOMAIN-SUFFIX,monitor.ssp.admobile.top
 DOMAIN-SUFFIX,sdk.ssp.admobile.top
@@ -63,40 +82,55 @@ DOMAIN-SUFFIX,jiguang.cn
 DOMAIN-SUFFIX,jpush.cn
 DOMAIN-SUFFIX,jpush.io
 # 百度联盟 - 广告服务商
-DOMAIN-SUFFIX,mobads.baidu.com
-DOMAIN-SUFFIX,mobads-logs.baidu.com
-DOMAIN-SUFFIX,pos.baidu.com
-DOMAIN-SUFFIX,bgg.baidu.com
 DOMAIN-SUFFIX,als.baidu.com
-DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com
+DOMAIN-SUFFIX,bgg.baidu.com
 DOMAIN-SUFFIX,cpro.baidustatic.com
 DOMAIN-SUFFIX,feed-image.baidu.com
+DOMAIN-SUFFIX,mobads.baidu.com
+DOMAIN-SUFFIX,mobads-logs.baidu.com
+DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com
+DOMAIN-SUFFIX,nadvideo2.baidu.com
+DOMAIN-SUFFIX,pos.baidu.com
 DOMAIN-SUFFIX,union.baidu.cn
 DOMAIN-SUFFIX,union.baidu.com
+DOMAIN-SUFFIX,wn.pos.baidu.com
 # 百度地图
 DOMAIN-SUFFIX,afd.baidu.com
 DOMAIN-SUFFIX,afdconf.baidu.com
 DOMAIN-SUFFIX,lc.map.baidu.com
 # 腾讯
+DOMAIN-KEYWORD,trace.qq.com
+DOMAIN-KEYWORD,trace.video.qq.com
 DOMAIN-SUFFIX,adsmind.gdtimg.com
+DOMAIN-SUFFIX,c2.gdt.qq.com
+DOMAIN-SUFFIX,gdt.qq.com
+DOMAIN-SUFFIX,huatuocode.huatuo.qq.com
 DOMAIN-SUFFIX,i.gtimg.cn
 DOMAIN-SUFFIX,info4.video.qq.com
 DOMAIN-SUFFIX,info6.video.qq.com
 DOMAIN-SUFFIX,ios.bugly.qq.com
 DOMAIN-SUFFIX,ios.video.mpush.qq.com
-DOMAIN-SUFFIX,mazu.m.qq.com
+DOMAIN-SUFFIX,l.qq.com
+DOMAIN-SUFFIX,mi.gdt.qq.com
 DOMAIN-SUFFIX,otheve.beacon.qq.com
 DOMAIN-SUFFIX,pgdt.gtimg.cn
+DOMAIN-SUFFIX,pgdt.ugdtimg.com
+DOMAIN-SUFFIX,qzs.gdtimg.com
+DOMAIN-SUFFIX,qzs.qq.com
+DOMAIN-SUFFIX,rmonitor.qq.com
 DOMAIN-SUFFIX,sdk.e.qq.com
+DOMAIN-SUFFIX,sdkconfig.video.qq.com
+DOMAIN-SUFFIX,t.gdt.qq.com
 DOMAIN-SUFFIX,tmead.y.qq.com
 DOMAIN-SUFFIX,tmeadbak.y.qq.com
 DOMAIN-SUFFIX,tmeadcomm.y.qq.com
 DOMAIN-SUFFIX,tpns.qq.com
-DOMAIN-KEYWORD,trace.qq.com
-DOMAIN-KEYWORD,trace.video.qq.com
-DOMAIN-SUFFIX,gdt.qq.com
-DOMAIN-SUFFIX,l.qq.com
+DOMAIN-SUFFIX,tpstelemetry.tencent.com
 DOMAIN-SUFFIX,ugdtimg.com
+DOMAIN-SUFFIX,v.gdt.qq.com
+DOMAIN-SUFFIX,v2.gdt.qq.com
+DOMAIN-SUFFIX,win.gdt.qq.com
+DOMAIN-SUFFIX,wup.imtt.qq.com
 IP-CIDR,47.110.187.87/32
 # App全渠道统计
 DOMAIN-SUFFIX,openinstall.io
@@ -104,17 +138,25 @@ DOMAIN-SUFFIX,openinstall.io
 DOMAIN-SUFFIX,mobileservice.cn
 DOMAIN-SUFFIX,getui.com
 DOMAIN-SUFFIX,igexin.com
+DOMAIN-SUFFIX,b-gtc.getui.net
+DOMAIN-SUFFIX,c-gtc.getui.net
+DOMAIN-SUFFIX,c-hzgt2.getui.com
+DOMAIN-SUFFIX,dnms.getui.com
+DOMAIN-SUFFIX,ido.getui.net
+DOMAIN-SUFFIX,sdk-conf.getui.com
+DOMAIN-SUFFIX,sdk-open-phone.getui.com
 # 友盟
+DOMAIN-SUFFIX,aaid.umeng.com
+DOMAIN-SUFFIX,aspect-upush.umeng.com
 DOMAIN-SUFFIX,cnlogs.umeng.com
+DOMAIN-SUFFIX,deeplink.umeng.com
 DOMAIN-SUFFIX,errlog.umeng.com
 DOMAIN-SUFFIX,errnewlog.umeng.com
+DOMAIN-SUFFIX,log.umtrack.com
+DOMAIN-SUFFIX,plbslog.umeng.com
 DOMAIN-SUFFIX,ucc.umeng.com
 DOMAIN-SUFFIX,ulogs.umeng.com
 DOMAIN-SUFFIX,utoken.umeng.com
-DOMAIN-SUFFIX,deeplink.umeng.com
-DOMAIN-SUFFIX,aspect-upush.umeng.com
-DOMAIN-SUFFIX,plbslog.umeng.com
-DOMAIN-SUFFIX,log.umtrack.com
 # 天目 - 广告服务商
 DOMAIN-SUFFIX,sdk.tianmu.mobi
 # 上海优比客思科技有限公司 - 广告服务商
@@ -130,6 +172,10 @@ DOMAIN-SUFFIX,hudong.alicdn.com
 DOMAIN-SUFFIX,et.tanx.com
 DOMAIN-SUFFIX,ut.taobao.com
 DOMAIN-SUFFIX,dns.alidns.com
+DOMAIN-SUFFIX,beacon-api.aliyuncs.com
+DOMAIN-SUFFIX,adash.man.aliyuncs.com
+DOMAIN-SUFFIX,applog.uc.cn
+AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,ut.taobao.com))
 # > 淘宝
 DOMAIN-SUFFIX,agoodm.m.taobao.com
 DOMAIN-SUFFIX,ai.taobao.com
@@ -140,7 +186,7 @@ DOMAIN-SUFFIX,re.taobao.com
 DOMAIN-SUFFIX,temai.taobao.com
 DOMAIN-SUFFIX,unitacs.m.taobao.com
 DOMAIN-SUFFIX,w.m.taobao.com
-AND,((DOMAIN-KEYWORD, adash), (DOMAIN-SUFFIX, taobao.com))
+AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,taobao.com))
 DOMAIN-KEYWORD,simba.taobao.com
 # 网易
 DOMAIN-SUFFIX,nex.163.com
@@ -155,6 +201,21 @@ DOMAIN-SUFFIX,babel-statistics-android.d.meituan.net
 DOMAIN-SUFFIX,maplocatesdksnapshot.d.meituan.net
 DOMAIN-SUFFIX,metrics-picture.d.meituan.net
 DOMAIN-SUFFIX,route-stats.d.meituan.net
+# 美数科技
+DOMAIN-SUFFIX,sdk.1rtb.net
+DOMAIN-SUFFIX,cdn.1rtb.com
+# 嗨量科技 - 海贝巨量
+DOMAIN-SUFFIX,adx.halomobi.com
+# 钧云 - ADHUB
+DOMAIN-SUFFIX,api.htp.hubcloud.com.cn
+DOMAIN-SUFFIX,res1.hubcloud.com.cn
+DOMAIN-SUFFIX,sdktmp.hubcloud.com.cn
+DOMAIN-SUFFIX,v.adx.hubcloud.com.cn
+# SupersonicAds
+DOMAIN-SUFFIX,init.supersonicads.com
+# 聚次方 - TopOn
+DOMAIN-SUFFIX,api.mosspf.com
+DOMAIN-SUFFIX,da.mosspf.com
 # 京东
 DOMAIN-SUFFIX,dsp-x.jd.com
 DOMAIN-SUFFIX,xlog.jd.com
