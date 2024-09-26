@@ -5,14 +5,6 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 #!category=🌐 DNS enhanced
 
-[General]
-# ---(DNS 服务器)---
-# > 通过代理请求使用本地DNS映射结果
-use-local-host-item-for-proxy = true
-
-# > 加密DNS服务器
-# 使加密DNS请求通过代理策略执行
-encrypted-dns-follow-outbound-mode = false
 
 [Host]
 
@@ -133,48 +125,6 @@ tb.cn = server:quic://dns.alidns.com // 淘宝短网址
 *.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
 url.cn = server:https://doh.pub/dns-query // 腾讯短网址
 
-# > 百度
-# refer: https://dudns.baidu.com/support/localdns/Address/index.html
-*.baidu = server:180.76.76.76 // 百度
-*.baidu.com = server:180.76.76.76 // 百度
-*.bdimg.com = server:180.76.76.76 // 百度 静态资源
-*.bdstatic.com = server:180.76.76.76 // 百度 静态资源
-*.baidupcs.* = server:180.76.76.76 // 百度网盘
-*.baiduyuncdn.* = server:180.76.76.76 // 百度云CDN
-*.baiduyundns.* = server:180.76.76.76 // 百度云DNS
-*.bdydns.* = server:180.76.76.76 // 百度云 DNS
-*.bdycdn.* = server:180.76.76.76 // 百度云 CDN
-*.bdysite.com = server:180.76.76.76 // 百度云 域名
-*.bdysites.com = server:180.76.76.76 // 百度云 域名
-*.baidubce.* = server:180.76.76.76 // 百度智能云
-*.bcedns.* = server:180.76.76.76 // 百度智能云 DNS
-*.bcebos.com = server:180.76.76.76 // 百度智能云 对象存储BOS
-*.bcevod.com = server:180.76.76.76 // 百度智能云 播放器服务
-*.bceimg.com = server:180.76.76.76 // 百度智能云 图片服务
-*.bcehost.com = server:180.76.76.76 // 百度智能云 主机
-*.bcehosts.com = server:180.76.76.76 // 百度智能云 主机
-dwz.cn = server:180.76.76.76 // 百度短网址
-
-# > 360
-# refer: https://sdns.360.net/dnsPublic.html#course
-*.360.cn = server:https://doh.360.cn/dns-query // 360安全中心
-*.360safe.com = server:https://doh.360.cn/dns-query // 360安全卫士
-*.360kuai.com = server:https://doh.360.cn/dns-query // 360快资讯
-*.so.com = server:https://doh.360.cn/dns-query // 360搜索
-*.360webcache.com = server:https://doh.360.cn/dns-query // 360网页快照服务
-*.qihuapi.com = server:https://doh.360.cn/dns-query // 奇虎api
-*.qhimg.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhimgs.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhimgs?.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhmsg.com = server:https://doh.360.cn/dns-query // 360
-*.qhres.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
-*.qhres?.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
-*.dhrest.com = server:https://doh.360.cn/dns-query // 导航静态文件
-*.qhupdate.com = server:https://doh.360.cn/dns-query // 360
-*.yunpan.cn = server:https://doh.360.cn/dns-query // 360安全云盘
-*.yunpan.com.cn = server:https://doh.360.cn/dns-query // 360安全云盘
-*.yunpan.com = server:https://doh.360.cn/dns-query // 360安全云盘
-urlqh.cn = server:https://doh.360.cn/dns-query // 360短网址
 
 # > Bytedance
 # refer: https://www.volcengine.com/docs/6758/179060
