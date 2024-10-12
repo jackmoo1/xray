@@ -5,7 +5,6 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 #!category=🌐 DNS enhanced
 
-
 [Host]
 
 # > Encrypted DNS
@@ -53,20 +52,6 @@ stun?.l.google.com = server:syslib // Google STUN
 # > 腾讯
 # refer: https://www.dnspod.cn/products/publicdns
 *.tencent.com = server:https://doh.pub/dns-query // 腾讯
-*.qcloud.com = server:https://doh.pub/dns-query // 腾讯云
-*.qcloudcdn.cn = server:https://doh.pub/dns-query // 腾讯云CDN
-*.qcloudcdn.com = server:https://doh.pub/dns-query // 腾讯云CDN
-*.qcloudcos.com = server:https://doh.pub/dns-query // 腾讯云对象储存
-*.qcloudimg.com = server:https://doh.pub/dns-query // 腾讯云静态资源
-*.qcloudcjgj.com = server:https://doh.pub/dns-query // 腾讯云超级管家
-*.qcloudwzgj.com = server:https://doh.pub/dns-query // 腾讯云网站管家
-*.qcloudzygj.com = server:https://doh.pub/dns-query // 腾讯云主页管家
-*.myqcloud.com = server:https://doh.pub/dns-query // 腾讯开放云
-*.tencent-cloud.net = server:https://doh.pub/dns-query // 腾讯云
-*.tencentcloud-aiot.com = server:https://doh.pub/dns-query // 腾讯云aiot解决方案
-*.tencentcloudapi.com = server:https://doh.pub/dns-query // 腾讯云API
-*.tencentcloudcr.com = server:https://doh.pub/dns-query // 腾讯云容器镜像服务TCR
-*.tencentcloudmarket.com = server:https://doh.pub/dns-query // 腾讯云云市场
 *.qq.com = server:https://doh.pub/dns-query // QQ
 *.qlogo.cn = server:https://doh.pub/dns-query // 腾讯头像
 *.qpic.cn = server:https://doh.pub/dns-query // 腾讯图片
