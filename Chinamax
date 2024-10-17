@@ -1,4 +1,4 @@
-# 规则统计:6300
+# 规则统计:6301
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -3318,6 +3318,7 @@ DOMAIN-SUFFIX,nnykzy120.com
 DOMAIN-SUFFIX,nodeloc.com
 DOMAIN-SUFFIX,nomuraoi-sec.com
 DOMAIN-SUFFIX,nonperformingassets.net
+DOMAIN-SUFFIX,notify.bugsnag.com
 DOMAIN-SUFFIX,novipnoad.com
 DOMAIN-SUFFIX,novotrail.com
 DOMAIN-SUFFIX,novotrails.com
