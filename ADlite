@@ -280,6 +280,9 @@ DOMAIN-SUFFIX,wcp.taobao.com
 DOMAIN-SUFFIX,kuaishouzt.com
 DOMAIN-SUFFIX,tec73.com
 DOMAIN-KEYWORD,safebrowsing
+DOMAIN-SUFFIX,ios.prod.cloud.netflix.com
+DOMAIN-SUFFIX,appboot.netflix.com
+DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com
 IP-CIDR,117.177.248.17/32,no-resolve
 IP-CIDR,117.177.248.41/32,no-resolve
 IP-CIDR,223.87.176.139/32,no-resolve
