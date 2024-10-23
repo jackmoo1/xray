@@ -107,7 +107,7 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 [Script]
 # > IT之家
 # 移除 轮播图 置顶文章 信息流广告
-ithome = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds), script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/ithome.js, requires-body=true, max-size=-1, timeout=60
+#ithome = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds), script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/ithome.js, requires-body=true, max-size=-1, timeout=60
 
 # Reddit
 移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true
