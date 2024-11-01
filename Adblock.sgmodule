@@ -106,7 +106,7 @@ https://fbchina.flipchina.cn/v2/ad/query/* - reject
 
 [Script]
 # Reddit
-移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true
+移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js, requires-body=true
 
 ## 小红书 详情页,小部件
 # > 小红书_搜索结果推荐广告
