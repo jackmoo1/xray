@@ -94,10 +94,6 @@ DOMAIN-SUFFIX,pos.baidu.com
 DOMAIN-SUFFIX,union.baidu.cn
 DOMAIN-SUFFIX,union.baidu.com
 DOMAIN-SUFFIX,wn.pos.baidu.com
-# 百度地图
-DOMAIN-SUFFIX,afd.baidu.com
-DOMAIN-SUFFIX,afdconf.baidu.com
-DOMAIN-SUFFIX,lc.map.baidu.com
 # 腾讯
 DOMAIN-KEYWORD,trace.qq.com
 DOMAIN-KEYWORD,trace.video.qq.com
@@ -195,12 +191,6 @@ DOMAIN-SUFFIX,adx-bj.anythinktech.com
 DOMAIN-SUFFIX,api.anythinktech.com
 DOMAIN-SUFFIX,tk.anythinktech.com
 DOMAIN-SUFFIX,da.anythinktech.com
-# 美团
-DOMAIN-SUFFIX,al-log.d.meituan.net
-DOMAIN-SUFFIX,babel-statistics-android.d.meituan.net
-DOMAIN-SUFFIX,maplocatesdksnapshot.d.meituan.net
-DOMAIN-SUFFIX,metrics-picture.d.meituan.net
-DOMAIN-SUFFIX,route-stats.d.meituan.net
 # 美数科技
 DOMAIN-SUFFIX,sdk.1rtb.net
 DOMAIN-SUFFIX,cdn.1rtb.com
