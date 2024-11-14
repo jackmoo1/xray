@@ -50,21 +50,12 @@ stun.l.google.com = server:syslib // Google STUN
 stun?.l.google.com = server:syslib // Google STUN
 
 # > 腾讯
-# refer: https://www.dnspod.cn/products/publicdns
-*.tencent.com = server:https://doh.pub/dns-query // 腾讯
-*.qq.com = server:https://doh.pub/dns-query // QQ
-*.qlogo.cn = server:https://doh.pub/dns-query // 腾讯头像
-*.qpic.cn = server:https://doh.pub/dns-query // 腾讯图片
-*.weixin.qq.com = server:https://doh.pub/dns-query // 微信
-*.wx.qq.com = server:https://doh.pub/dns-query // 微信
-*.weixin.com = server:https://doh.pub/dns-query // 微信
-*.weixinbridge.com = server:https://doh.pub/dns-query // 微信公众平台
-*.wechat.com = server:https://doh.pub/dns-query // WeChat
-*.servicewechat.com = server:https://doh.pub/dns-query // 微信小程序
-*.weiyun.com = server:https://doh.pub/dns-query // 微云
-*.gtimg.cn = server:https://doh.pub/dns-query // 腾讯 图片 静态资源
-*.idqqimg.com = server:https://doh.pub/dns-query // 腾讯 图片 静态资源
-*.cdn-go.cn = server:https://doh.pub/dns-query // 腾讯 静态资源 CDN
-*.smtcdns.com = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
-*.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
-url.cn = server:https://doh.pub/dns-query // 腾讯短网址
+*.qq.com = server:101.226.4.6 // QQ
+*.qlogo.cn = server:101.226.4.6 // 腾讯头像
+*.qpic.cn = server:101.226.4.6 // 腾讯图片
+*.weixin.qq.com = server:101.226.4.6 // 微信
+*.wx.qq.com = server:101.226.4.6 // 微信
+*.weixin.com = server:101.226.4.6 // 微信
+*.weixinbridge.com = server:101.226.4.6 // 微信公众平台
+*.wechat.com = server:101.226.4.6 // WeChat
+*.servicewechat.com = server:101.226.4.6 // 微信小程序
