@@ -1,4 +1,4 @@
-#数据统计：8851
+#数据统计：8857
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
@@ -234,6 +234,7 @@ DOMAIN-SUFFIX,ahorsecock.com
 DOMAIN-SUFFIX,ahsexfilme.com
 DOMAIN-SUFFIX,ai.binwang.me
 DOMAIN-SUFFIX,ai.com
+DOMAIN-SUFFIX,ai.google.dev
 DOMAIN-SUFFIX,ai-kan.net
 DOMAIN-SUFFIX,aimoon.com
 DOMAIN-SUFFIX,aiph.net
@@ -281,6 +282,8 @@ DOMAIN-SUFFIX,aliengu.com
 DOMAIN-SUFFIX,al-islam.com
 DOMAIN-SUFFIX,alive.bar
 DOMAIN-SUFFIX,alivercm.com
+DOMAIN-SUFFIX,alkalicore-pa.clients6.google.com
+DOMAIN-SUFFIX,alkalimakersuite-pa.clients6.google.com
 DOMAIN-SUFFIX,alkasir.com
 DOMAIN-SUFFIX,all4mom.org
 DOMAIN-SUFFIX,allcoin.com
@@ -5349,6 +5352,8 @@ DOMAIN-SUFFIX,ooni.org
 DOMAIN-SUFFIX,oopsforum.com
 DOMAIN-SUFFIX,ooyala.com
 DOMAIN-SUFFIX,open.com.hk
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,openaiapi-site.azureedge.net
 DOMAIN-SUFFIX,openallweb.com
 DOMAIN-SUFFIX,openapiservice.com
 DOMAIN-SUFFIX,opendemocracy.net
@@ -6678,6 +6683,7 @@ DOMAIN-SUFFIX,starwarskids.com
 DOMAIN-SUFFIX,stash.wiki
 DOMAIN-SUFFIX,stat.gov.tw
 DOMAIN-SUFFIX,state.gov
+DOMAIN-SUFFIX,static.cloudflareinsights.com
 DOMAIN-SUFFIX,static.comico.tw
 DOMAIN-SUFFIX,static.shemalez.com
 DOMAIN-SUFFIX,static01.nyt.com
@@ -8569,6 +8575,11 @@ DOMAIN-SUFFIX,zzdh.pw
 DOMAIN-SUFFIX,zzdh77.com
 DOMAIN-SUFFIX,zzux.com
 DOMAIN-SUFFIX,zzycdz.com
+IP-ASN,211157
+IP-ASN,44907
+IP-ASN,59930
+IP-ASN,62014
+IP-ASN,62041
 DOMAIN-KEYWORD,12diasderegalosdeitunes
 DOMAIN-KEYWORD,18comic
 DOMAIN-KEYWORD,1e100
@@ -8692,11 +8703,6 @@ DOMAIN-KEYWORD,xxxv
 DOMAIN-KEYWORD,yahoo
 DOMAIN-KEYWORD,yandex
 DOMAIN-KEYWORD,youtube
-IP-ASN,211157
-IP-ASN,44907
-IP-ASN,59930
-IP-ASN,62014
-IP-ASN,62041
 IP-CIDR,1.201.0.0/24
 IP-CIDR,101.32.118.0/23
 IP-CIDR,101.32.96.0/20
