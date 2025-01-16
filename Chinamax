@@ -4258,7 +4258,7 @@ DOMAIN-SUFFIX,touqikan.com
 DOMAIN-SUFFIX,toursbms.com
 DOMAIN-SUFFIX,toutiao.com
 DOMAIN-SUFFIX,toutiao13.com
-DOMAIN-SUFFIX,toutiaoapi.com
+#DOMAIN-SUFFIX,toutiaoapi.com
 DOMAIN-SUFFIX,toutiaocdn.com
 DOMAIN-SUFFIX,toutiaocdn.net
 DOMAIN-SUFFIX,toutiaocloud.com
@@ -5083,7 +5083,7 @@ DOMAIN-SUFFIX,zhuihd.com
 DOMAIN-SUFFIX,zhujiceping.com
 DOMAIN-SUFFIX,zhujiwiki.com
 DOMAIN-SUFFIX,zhuoyuegame.com
-DOMAIN-SUFFIX,zijieapi.com
+#DOMAIN-SUFFIX,zijieapi.com
 DOMAIN-SUFFIX,zijiecdn.com
 DOMAIN-SUFFIX,zijiecdn.net
 DOMAIN-SUFFIX,zijieimg.com
