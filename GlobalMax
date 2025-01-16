@@ -1,4 +1,4 @@
-#数据统计：8810
+#数据统计：8811
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
@@ -449,6 +449,7 @@ DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,app-measurement.net
 DOMAIN-SUFFIX,appmediagroup.com
 DOMAIN-SUFFIX,apps.evozi.com
+DOMAIN-SUFFIX,appsflyer.com
 DOMAIN-SUFFIX,appshopper.com
 DOMAIN-SUFFIX,appsocks.net
 DOMAIN-SUFFIX,appspot.com
