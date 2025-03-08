@@ -1,4 +1,4 @@
-# 规则统计:5298
+# 规则统计:5300
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,01058511989.com
 DOMAIN-SUFFIX,0123456789.com
@@ -2336,6 +2336,7 @@ DOMAIN-SUFFIX,hxfy888.com
 DOMAIN-SUFFIX,hxsd.com
 DOMAIN-SUFFIX,hzyzhp.com
 DOMAIN-SUFFIX,i.ipinyou.com
+DOMAIN-SUFFIX,i.snssdk.com
 DOMAIN-SUFFIX,i360mall.com
 DOMAIN-SUFFIX,i3839.com
 DOMAIN-SUFFIX,ianvisa.com
@@ -2688,6 +2689,7 @@ DOMAIN-SUFFIX,juefeng.com
 DOMAIN-SUFFIX,juejin.im
 DOMAIN-SUFFIX,juhuasuan.com
 DOMAIN-SUFFIX,juliangyinqing.net
+DOMAIN-SUFFIX,juliangyinqing.com
 DOMAIN-SUFFIX,julive.com
 DOMAIN-SUFFIX,jumdfd.com
 DOMAIN-SUFFIX,jumei.com
