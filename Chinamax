@@ -1,5 +1,5 @@
 # 规则名称: ChinaMax
-# 规则统计:112516
+# 规则统计:112517
 DOMAIN-SUFFIX,0.zone
 DOMAIN-SUFFIX,00.net
 DOMAIN-SUFFIX,000.link
@@ -10433,8 +10433,8 @@ DOMAIN-SUFFIX,alionexpo.com
 DOMAIN-SUFFIX,alip.biz
 DOMAIN-SUFFIX,alipan.com
 DOMAIN-SUFFIX,alipansou.com
-DOMAIN-SUFFIX,alipay
 DOMAIN-SUFFIX,alipay.com
+DOMAIN-SUFFIX,alipay.com.cn
 DOMAIN-SUFFIX,alipay.hk
 DOMAIN-SUFFIX,alipay.net
 DOMAIN-SUFFIX,alipayauto.com
@@ -32466,6 +32466,7 @@ DOMAIN-SUFFIX,foreveross.com
 DOMAIN-SUFFIX,foreweld.com
 DOMAIN-SUFFIX,forface3d.com
 DOMAIN-SUFFIX,forgame.com
+DOMAIN-SUFFIX,forhis.com
 DOMAIN-SUFFIX,forindata.com
 DOMAIN-SUFFIX,forkeji.com
 DOMAIN-SUFFIX,forkliftnet.com
