@@ -1,5 +1,5 @@
 # 规则名称: ChinaMax
-# 规则统计:112517
+# 规则统计:112518
 DOMAIN-SUFFIX,0.zone
 DOMAIN-SUFFIX,00.net
 DOMAIN-SUFFIX,000.link
@@ -24209,6 +24209,7 @@ DOMAIN-SUFFIX,cuopen.net
 DOMAIN-SUFFIX,cuour.com
 DOMAIN-SUFFIX,cuour.org
 DOMAIN-SUFFIX,cuour-edu.com
+DOMAIN-SUFFIX,cup.com.cn
 DOMAIN-SUFFIX,cupdapp.com
 DOMAIN-SUFFIX,cupdata.com
 DOMAIN-SUFFIX,cupddns.com
