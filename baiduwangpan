@@ -1,7 +1,7 @@
-#!name=baiduCloud
-#!desc=baiduCloud
-
 [Map Local]
+# > 百度网盘_启动弹窗
+^https?:\/\/.*baidu\.com\/rest\/.*\/membership\/proxy\/guide data-type=text data=" " status-code=200
+
 # > 百度网盘_设置信息流
 ^https?:\/\/pan\.baidu\.com\/act\/v\d\/(bchannel|welfare)\/list data-type=text data=" " status-code=200
 
@@ -11,12 +11,30 @@
 # > 百度网盘_活动推广
 ^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry data-type=text data=" " status-code=200
 
+# > 百度网盘_热搜list
+^https:\/\/pan\.baidu\.com\/feed\/hotlist data-type=text data=" " status-code=200
+
+# > 百度网盘_活动推广
+^https?:\/\/.*zhangyuyidong\.cn\/api\/zysdk data-type=text data=" " status-code=200
+
+# > 百度网盘_搜索填词
+^https:\/\/pan\.baidu\.com\/queryintent\/queryhint data-type=text data=" " status-code=200
+
+# > 百度网盘_金币乐园
+^https:\/\/pan\.baidu\.com\/coins\/center\/notice data-type=text data=" " status-code=200
+
 [Script]
 # > 百度网盘_开屏广告
-baiduCloud.vip = type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/api\/getsyscfg, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.vip.js, requires-body=true, max-size=-1, timeout=60
+baiduCloud.adblock = type=http-response, pattern=^https?:\/\/pan\.baidu\.com\/api\/getsyscfg, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.adblock.js, requires-body=true, max-size=-1, timeout=60
 
-# > 百度网盘_会员权益
-baiduCloud.vip = type=http-response, pattern=^https:\/\/pan\.baidu\.com\/rest\/.*\/membership\/user\?app_id, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.vip.js, requires-body=true, max-size=-1, timeout=60
+# > 百度网盘_广告推广
+baiduCloud.adblock = type=http-response, pattern=^https?:\/\/afd\.baidu\.com\/afd\/entry, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.adblock.js, requires-body=true, max-size=-1, timeout=60
+
+# > 百度网盘_游戏广告
+baiduCloud.adblock = type=http-response, pattern=^https:\/\/pan\.baidu\.com\/rest\/.*\/membership\/user\?method=gamecenter, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.adblock.js, requires-body=true, max-size=-1, timeout=60
+
+# > 百度网盘_首页信息流
+baiduCloud.adblock = type=http-response, pattern=^https:\/\/pan\.baidu\.com\/feed\/cardinfos, script-path=https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.adblock.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
-hostname = %APPEND% pan.baidu.com
+hostname = %APPEND% pan.baidu.com, afd.baidu.com
