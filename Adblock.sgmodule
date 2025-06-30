@@ -287,7 +287,6 @@ AND,((NOT,((OR,((DOMAIN-SUFFIX,bilibili.com),(DOMAIN-SUFFIX,hdslb.com),(DOMAIN-S
 AND,((OR,((DOMAIN-SUFFIX,gvt3.com), (DOMAIN-SUFFIX,gvt2.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,gvt0.com))), (DOMAIN-KEYWORD,beacon)),REJECT
 URL-REGEX,^https:\/\/spclient\.wg\.spotify\.com\/ad-logic\/prefetch)),REJECT
 AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com,extended-matching)),REJECT
-AND,((GEOIP,CN),(DOMAIN,pitaya.bytedance.com,extended-matching)),DIRECT
 
 [URL Rewrite]
 # 百度地图
