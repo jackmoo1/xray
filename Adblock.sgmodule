@@ -287,6 +287,8 @@ AND,((NOT,((OR,((DOMAIN-SUFFIX,bilibili.com),(DOMAIN-SUFFIX,hdslb.com),(DOMAIN-S
 AND,((OR,((DOMAIN-SUFFIX,gvt3.com), (DOMAIN-SUFFIX,gvt2.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,gvt0.com))), (DOMAIN-KEYWORD,beacon)),REJECT
 URL-REGEX,^https:\/\/spclient\.wg\.spotify\.com\/ad-logic\/prefetch)),REJECT
 AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com,extended-matching)),REJECT
+# 阻止电报频繁请求
+AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
 
 [URL Rewrite]
 # 百度地图
