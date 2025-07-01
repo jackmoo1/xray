@@ -330,31 +330,28 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 ^https?:\/\/gw\.alicdn\.com\/mt\/ - reject
 ^https?:\/\/gw\.alicdn\.com\/tfs\/.+\d{3,4}-\d{4} - reject
 
-# > 百度翻译
-^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo$ - reject
-^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
-# > 百度网盘
+# 百度地图，网盘，翻译
+^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
+^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
 ^https?:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adx - reject
+^https?:\/\/pan\.baidu\.com\/rest\/2\.0\/pcs\/ad - reject
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/(bchannel|welfare)\/list - reject
 ^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry - reject
+^https?:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
+^https?:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
+^https?:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
+^https?:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
+^https?:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
+^https?:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
+^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
+^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
+^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
 ^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao - reject
-^https?:\/\/update.pan.baidu.com\/statistics - reject
-^https:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
-^https:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
-^https:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
-^http:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
-^https:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
-^https:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
-^https:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
-^https:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
-^http:\/\/rp\.hpplay\.cn\/logouts - reject
-^https:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
-# > 百度地图
-^https:\/\/dss0.bdstatic.com\/-0U0bnSm1A5BphGlnYG\/ - reject-200
-^https:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
-^https?:\/\/tb1.bdstatic.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
-^https?+:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg - reject-200
-^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png - reject-img
-^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump - reject-img
+^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
+^https?:\/\/fc-video\.cdn\.bcebos\.com - reject
+^https?:\/\/rp\.hpplay\.cn\/logouts - reject
+^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo - reject
+^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
 
 [Map Local]
 # > 中国联通
@@ -408,7 +405,7 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 #今日水印相机
 ^https?:\/\/api\.sogaha\.cn\/ssp\/ad\/get\?ip data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# > 百度地图_首页底部推荐
+# > 百度地图，网盘，翻译
 ^https?:\/\/dss0\.bdstatic\.com\/-0U0bnSm1A5BphGlnYG\/ data-type=text data=" " status-code=200
 ^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump data-type=tiny-gif status-code=200
 ^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg data-type=text data=" " status-code=200
@@ -449,7 +446,7 @@ weixin110 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wech
 
 内容农场(www.google.com|com.hk) = type=http-response , pattern="^https?:\/\/(www\.google)(\.\w{2,4}){1,2}\/(search\?|\?sa=|\?FORM)(?!.*?(apps=))" , requires-body=1 , max-size=0 , script-path=https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adguard/Adblock4limbo.js , script-update-interval=0
 
-baidumap = type=http-response, pattern=^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js, requires-body=true, max-size=-1, timeout=60
-
+# > 百度地图
+百度地图广告 = type=http-response, pattern=^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js, requires-body=true, timeout=60
 [MITM]
-hostname = %APPEND% m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, api.sogaha.cn, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, pan.baidu.com, ndstatic.cdn.bcebos.com, staticsns.cdn.bcebos.com, issuecdn.baidupcs.com, update.pan.baidu.com, fc-video.cdn.bcebos.com, rp.hpplay.cn, mime.baidu.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, 180.76.76.200, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com
+hostname = %APPEND% m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, api.sogaha.cn, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com, pan.baidu.com, ndstatic.cdn.bcebos.com, staticsns.cdn.bcebos.com, issuecdn.baidupcs.com, update.pan.baidu.com, fc-video.cdn.bcebos.com, rp.hpplay.cn, mime.baidu.com
