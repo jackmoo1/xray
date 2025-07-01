@@ -331,28 +331,30 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 ^https?:\/\/gw\.alicdn\.com\/tfs\/.+\d{3,4}-\d{4} - reject
 
 # > 百度翻译
-^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo - reject
+^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo$ - reject
 ^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
 # > 百度网盘
 ^https?:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adx - reject
-^https?:\/\/pan\.baidu\.com\/rest\/2\.0\/pcs\/ad - reject
-^https?:\/\/pan\.baidu\.com\/act\/v\d\/(bchannel|welfare)\/list - reject
 ^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry - reject
-^https?:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
-^https?:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
-^https?:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
-^https?:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
-^https?:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
-^https?:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
-^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
-^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
-^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
 ^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao - reject
-^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
-^https?:\/\/fc-video\.cdn\.bcebos\.com - reject
-^https?:\/\/rp\.hpplay\.cn\/logouts - reject
-^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
-^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
+^https?:\/\/update.pan.baidu.com\/statistics - reject
+^https:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
+^https:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
+^https:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
+^http:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
+^https:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
+^https:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
+^https:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
+^https:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
+^http:\/\/rp\.hpplay\.cn\/logouts - reject
+^https:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
+# > 百度地图
+^https:\/\/dss0.bdstatic.com\/-0U0bnSm1A5BphGlnYG\/ - reject-200
+^https:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
+^https?:\/\/tb1.bdstatic.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
+^https?+:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg - reject-200
+^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png - reject-img
+^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump - reject-img
 
 [Map Local]
 # > 中国联通
