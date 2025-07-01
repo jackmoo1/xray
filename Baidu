@@ -25,16 +25,10 @@ hostname = pan.baidu.com, ndstatic.cdn.bcebos.com, staticsns.cdn.bcebos.com, iss
 ^https?:\/\/rp\.hpplay\.cn\/logouts url reject
 
 # > 百度地图_首页底部推荐
-^https?:\/\/.*map\.baidu\.com\/.*govui\/rich_content url reject-200
-# > 百度地图_搜索框下足记Tips
-;^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui.*qt=rgc url reject-200
-# > 百度地图_搜索推广
-^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui.*qt=hw url reject-200
-# > 百度地图_开屏广告|首页左上角广告
-^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads url reject-200
-# > 百度地图_DNS处理
-^https?:\/\/httpdns\.baidubce\.com url reject-200
-# > 百度地图_各种商业推广
-^https?:\/\/newclient\.map\.baidu\.com\/client\/crossmarketing url reject-200
-# > 百度地图_我的页面地图动态
-^https?:\/\/newclient\.map\.baidu\.com\/client\/usersystem\/home\/dynamic url reject-200
+^https?:\/\/dss0\.bdstatic\.com\/-0U0bnSm1A5BphGlnYG\/ url reject-200
+^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) url reject
+^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg url reject
+^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump url reject-img
+^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg url reject-200
+^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png url reject-img
+^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads url script-response-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js
