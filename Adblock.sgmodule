@@ -3,101 +3,101 @@
 
 [Rule]
 # 字节跳动广告
-AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com)),REJECT
-AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com)),REJECT
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com)),REJECT
-AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com)),REJECT
-AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com)),REJECT
-AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
-AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com)),REJECT
-AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT
-AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
-DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT
-DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
-DOMAIN-KEYWORD,-analytics.bytescm.com,REJECT
-DOMAIN-KEYWORD,asiad.byteactivity,REJECT
-DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,REJECT
-DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com,REJECT
-DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao,REJECT
-DOMAIN-KEYWORD,-short.bytetos.com,REJECT
-DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
-DOMAIN-SUFFIX,bds.snssdk.com,REJECT
-DOMAIN-SUFFIX,dm.bytedance.com,REJECT
-DOMAIN-SUFFIX,dm.pstatp.com,REJECT
-DOMAIN-SUFFIX,dm.toutiao.com,REJECT
-DOMAIN-SUFFIX,extlog.snssdk.com,REJECT
-DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com,REJECT
-DOMAIN-SUFFIX,is.snssdk.com,REJECT
-DOMAIN-SUFFIX,log.snssdk.com,REJECT
-DOMAIN-SUFFIX,mon.zijieapi.com,REJECT
-DOMAIN-SUFFIX,mssdk.volces.com,REJECT
-DOMAIN-SUFFIX,mssdk-bu.bytedance.com,REJECT
-DOMAIN-SUFFIX,pangolin.snssdk.com,REJECT
-DOMAIN-SUFFIX,s3a.pstatp.com,REJECT
-DOMAIN-SUFFIX,sdfp.snssdk.com,REJECT
-DOMAIN-SUFFIX,ssdk-sg.pangle.io,REJECT
-DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT
-DOMAIN-SUFFIX,tosv.boe.byted.org,REJECT
-DOMAIN-SUFFIX,tosv.byted.org,REJECT
+AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT-NO-DROP
+AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT-NO-DROP
+DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,-analytics.bytescm.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,asiad.byteactivity,REJECT-NO-DROP
+DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao,REJECT-NO-DROP
+DOMAIN-KEYWORD,-short.bytetos.com,REJECT-NO-DROP
+DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,bds.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,dm.bytedance.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,dm.pstatp.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,dm.toutiao.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,extlog.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,is.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,log.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mon.zijieapi.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mssdk.volces.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mssdk-bu.bytedance.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,pangolin.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,s3a.pstatp.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,sdfp.snssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,ssdk-sg.pangle.io,REJECT-NO-DROP
+DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,tosv.boe.byted.org,REJECT-NO-DROP
+DOMAIN-SUFFIX,tosv.byted.org,REJECT-NO-DROP
 URL-REGEX, ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/,REJECT
 
 # 百度联盟 - 广告服务商
-DOMAIN-SUFFIX,als.baidu.com,REJECT
-DOMAIN-SUFFIX,bgg.baidu.com,REJECT
-DOMAIN-SUFFIX,cpro.baidustatic.com,REJECT
-DOMAIN-SUFFIX,feed-image.baidu.com,REJECT
-DOMAIN-SUFFIX,mobads.baidu.com,REJECT
-DOMAIN-SUFFIX,mobads-logs.baidu.com,REJECT
-DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com,REJECT
-DOMAIN-SUFFIX,nadvideo2.baidu.com,REJECT
-DOMAIN-SUFFIX,pos.baidu.com,REJECT
-DOMAIN-SUFFIX,union.baidu.cn,REJECT
-DOMAIN-SUFFIX,union.baidu.com,REJECT
-DOMAIN-SUFFIX,wn.pos.baidu.com,REJECT
+DOMAIN-SUFFIX,als.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,bgg.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,cpro.baidustatic.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,feed-image.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mobads.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mobads-logs.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,nadvideo2.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,pos.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,union.baidu.cn,REJECT-NO-DROP
+DOMAIN-SUFFIX,union.baidu.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,wn.pos.baidu.com,REJECT-NO-DROP
 # 友盟
-DOMAIN-SUFFIX,aaid.umeng.com,REJECT
-DOMAIN-SUFFIX,aspect-upush.umeng.com,REJECT
-DOMAIN-SUFFIX,cnlogs.umeng.com,REJECT
-DOMAIN-SUFFIX,deeplink.umeng.com,REJECT
-DOMAIN-SUFFIX,errlog.umeng.com,REJECT
-DOMAIN-SUFFIX,errnewlog.umeng.com,REJECT
-DOMAIN-SUFFIX,log.umtrack.com,REJECT
-DOMAIN-SUFFIX,plbslog.umeng.com,REJECT
-DOMAIN-SUFFIX,ucc.umeng.com,REJECT
-DOMAIN-SUFFIX,ulogs.umeng.com,REJECT
-DOMAIN-SUFFIX,utoken.umeng.com,REJECT
+DOMAIN-SUFFIX,aaid.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,aspect-upush.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,cnlogs.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,deeplink.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,errlog.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,errnewlog.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,log.umtrack.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,plbslog.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,ucc.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,ulogs.umeng.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,utoken.umeng.com,REJECT-NO-DROP
 # 京东
-DOMAIN-SUFFIX,dsp-x.jd.com,REJECT
-DOMAIN-SUFFIX,xlog.jd.com,REJECT
-DOMAIN-SUFFIX,janapi.jd.com,REJECT
+DOMAIN-SUFFIX,dsp-x.jd.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,xlog.jd.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,janapi.jd.com,REJECT-NO-DROP
 #instagram
-DOMAIN-SUFFIX,graph-fallback.instagram.com,REJECT
-DOMAIN-SUFFIX,graph.instagram.com,REJECT
+DOMAIN-SUFFIX,graph-fallback.instagram.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,graph.instagram.com,REJECT-NO-DROP
 # 工商银行
-DOMAIN-SUFFIX,pageviewp.icbc.com.cn,REJECT
-DOMAIN-SUFFIX,mall.icbc.com.cn,REJECT
+DOMAIN-SUFFIX,pageviewp.icbc.com.cn,REJECT-NO-DROP
+DOMAIN-SUFFIX,mall.icbc.com.cn,REJECT-NO-DROP
 # 什么值得买
-DOMAIN-SUFFIX,api.zuihuimai.com,REJECT
+DOMAIN-SUFFIX,api.zuihuimai.com,REJECT-NO-DROP
 # 微博 开屏广告
-DOMAIN-SUFFIX,huodong.weibo.cn,REJECT
-DOMAIN-SUFFIX,biz.weibo.com,REJECT
+DOMAIN-SUFFIX,huodong.weibo.cn,REJECT-NO-DROP
+DOMAIN-SUFFIX,biz.weibo.com,REJECT-NO-DROP
 # 微信
-DOMAIN-SUFFIX,badjs.weixinbridge.com,REJECT
+DOMAIN-SUFFIX,badjs.weixinbridge.com,REJECT-NO-DROP
 # 云闪付 开屏广告
-DOMAIN-SUFFIX,ads.95516.com,REJECT
-DOMAIN-SUFFIX,switch.cup.com.cn,REJECT
+DOMAIN-SUFFIX,ads.95516.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,switch.cup.com.cn,REJECT-NO-DROP
 #其它
-DOMAIN-KEYWORD,safebrowsing,REJECT
-DOMAIN-SUFFIX,ios.prod.cloud.netflix.com,REJECT
-DOMAIN-SUFFIX,appboot.netflix.com,REJECT
-DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com,REJECT
+DOMAIN-KEYWORD,safebrowsing,REJECT-NO-DROP
+DOMAIN-SUFFIX,ios.prod.cloud.netflix.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,appboot.netflix.com,REJECT-NO-DROP
+DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com,REJECT-NO-DROP
 IP-CIDR, 1.3.0.10/32,REJECT,no-resolve
 IP-CIDR, 10.72.25.0/24,REJECT,no-resolve
 IP-CIDR, 101.124.19.122/32,REJECT,no-resolve
