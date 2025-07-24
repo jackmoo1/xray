@@ -582,31 +582,6 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 # 闲鱼
 AND,((URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch",extended-matching),(USER-AGENT,"%E9%97%B2%E9%B1%BC*")),REJECT
 
-[Body Rewrite]
-# 闲鱼
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.home\.nextfresh\/ '.data.homeTopList |= map(select(.sectionType == "kingkongDo")) | .data.sections |= map(select(.data.clickParam.args.cardType as $ct | $ct != "homeMultiBanner" and $ct != "mamaAD")) | .data.sections |= map(select((.template.name|type=="string")and(.template.name=="idlefish_home_new_commodity_card"or(.template.name|contains("fish_home_tags_item_card")))))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.widget\.refresh\.get\/ '.data.homeTopList |= map(select(.sectionType == "kingkongDo"))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.home\.whale\.modulet\/ '.data.container.sections |= map(select(.template.name == "fish_home_miniapp"))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.fun\.follow\.feed\.list\/ '.data.sections|=map(select(.cardType==2001))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.home\.newitem\.page\/ '.data.sections |= map(select(.data.clickParam.args.cardType as $ct | $ct != "banner" and $ct != "mamaAD"))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.local\.flow\.plat\.section\/ 'walk(if type == "object" and has("components") then .components |= map(if .data.template.name == "fish_city_banner" then del(.data.item) else . end) else . end)'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.local\.home\/ '.data.sections |= map(select((.template.cardEnum != "ads") and (.cardType == "common")))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.user\.page\.my\.adapter\/ '.data.container.sections |= map(select(.template.name as $name | ["my_fy25_header","my_fy25_user_info","my_fy25_trade","my_fy25_appraise","my_fy25_tools"] | index($name)))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.user\.page\.my\.adapter\/ ' .data.container.sections |= map(   if .index == "5" then      .item.tool.exContent.tools = [       [         {           "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/act-react/pages/e4mbwSjGRWxw",           "exContent": {             "title": "简历认证",             "icon": "https://img.alicdn.com/imgextra/i4/O1CN01eiWw4r1GJlOaTIEfx_!!6000000000602-2-tps-84-84.png",             "toolId": 26           },           "clickParam": {             "args": {               "toolId": "26"             },             "arg1": "Function"           }         },         {           "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/moyu-tb-resell/pages/newResell?isNeedRefresh=0&setTab=1",           "exContent": {             "title": "淘宝转卖",             "icon": "https://gw.alicdn.com/imgextra/i2/O1CN01JTbPcx1Qrn3n9w03n_!!6000000002030-2-tps-84-84.png",             "toolId": 11           },           "clickParam": {             "args": {               "toolId": "11"             },             "arg1": "Function"           }         },         {           "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/planting-notes/pages/publishCenter",           "exContent": {             "title": "宝贝上首页",             "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01BOqDXJ1RA6uBkvYQW_!!6000000002070-2-tps-84-84.png",             "toolId": 34           },           "clickParam": {             "args": {               "toolId": "34"             },             "arg1": "Function"           }         },         {           "targetUrl": "https://h5.m.goofish.com/cea/idleFish-F2e/creator-pha/mypost?loadingVisible=false",           "exContent": {             "title": "我的帖子",             "icon": "https://gw.alicdn.com/imgextra/i1/O1CN01Cge0QO1R2K5RfoaOw_!!6000000002053-2-tps-84-84.png",             "toolId": 13           },           "clickParam": {             "args": {               "toolId": "13"             },             "arg1": "Function"           }         }       ],       [         {           "targetUrl": "https://h5.m.goofish.com/app/msd/buyer-aqcenter/index.html?source=316#/notice",           "exContent": {             "title": "闲鱼公约",             "icon": "https://img.alicdn.com/imgextra/i4/O1CN01A9ofQ51t1EOZfykDn_!!6000000005841-2-tps-84-84.png",             "toolId": 20           },           "clickParam": {             "args": {               "toolId": "20"             },             "arg1": "Function"           }         },         {           "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/experience-officer/pages/home?kun=true",           "exContent": {             "title": "闲鱼体验官",             "icon": "https://gw.alicdn.com/imgextra/i1/O1CN016leRFv1N0Fprgaghl_!!6000000001507-2-tps-84-84.png",             "toolId": 2           },           "clickParam": {             "args": {               "toolId": "2"             },             "arg1": "Function"           }         },         {           "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/cro-security-center/pages/security-center",           "exContent": {             "title": "安全中心",             "icon": "https://gw.alicdn.com/imgextra/i4/O1CN013kllih1NlQd6e3sRv_!!6000000001610-2-tps-84-84.png",             "toolId": 1           },           "clickParam": {             "args": {               "toolId": "1"             },             "arg1": "Function"           }         }       ]     ]   else      .    end )'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.home\.circle\.list\/ '.data.circleList[].showInfo.titleImage |= (.lightUrl="" | .url="" | del(.width, .height))'
-http-response-jq ^https:\/\/g-acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search\/ '.data.resultList |= map(if .data.item.main.exContent.dislikeFeedback.clickParam.args.bizType == "ad" then empty else . end)'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search\.discover\/ '.data.resultList |= map(select(.type != "MarketHotSpot"))'
-http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.item\.search\.activate\/ '.data.cardList |= map(if has("cardData") and (.cardData | has("hotwords")) then .cardData |= del(.hotwords) else . end)'
-# 百度地图
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/feed\/govui\/rich_content 'delpaths([["data"]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/client\/noticebar\/get\? 'delpaths([["content","multi_data"]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/(client\/)?usersystem\/mine\/page\? 'if (getpath([]) | has("data")) then (setpath(["data"]; {})) else . end'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads&type=user_home_new_service 'delpaths([["ads"]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/living\/nearby\/api\? 'delpaths([["Result","cards",1]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/living\/nearby\/api\? 'delpaths([["Result","cards",4]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/living\/nearby\/api\? 'delpaths([["Result","cards",5]])'
-http-response-jq ^https:\/\/newclient\.map\.baidu\.com\/living\/nearby\/api\? 'delpaths([["Result","cards",9]])'
-
 [URL Rewrite]
 # tiktok
 ^https:\/\/api-va\.tiktokv\.com\/api\/ad\/ - reject
@@ -704,28 +679,6 @@ URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
 ^https?:\/\/gw\.alicdn\.com\/mt\/ - reject
 ^https?:\/\/gw\.alicdn\.com\/tfs\/.+\d{3,4}-\d{4} - reject
 
-# 百度地图，网盘，翻译
-^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
-^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
-^https?:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adx - reject
-^https?:\/\/pan\.baidu\.com\/rest\/2\.0\/pcs\/ad - reject
-^https?:\/\/pan\.baidu\.com\/act\/v\d\/(bchannel|welfare)\/list - reject
-^https?:\/\/pan\.baidu\.com\/act\/api\/activityentry - reject
-^https?:\/\/pan\.baidu\.com\/pmall\/order\/privilege\/info - reject
-^https?:\/\/pan\.baidu\.com\/rest\/.+\/pcs\/adx - reject
-^https?:\/\/pan\.baidu\.com\/api\/useractivity\/activity - reject
-^https?:\/\/pan\.baidu\.com\/act\/.+\/bchannel\/list - reject
-^https?:\/\/pan\.baidu\.com\/api\/certuser\/get - reject
-^https?:\/\/pan\.baidu\.com\/component\/view\/(1510|1130)\?vip - reject
-^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js - reject
-^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html - reject
-^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png - reject
-^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao - reject
-^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
-^https?:\/\/fc-video\.cdn\.bcebos\.com - reject
-^https?:\/\/rp\.hpplay\.cn\/logouts - reject
-^https?:\/\/mime\.baidu\.com\/v\d\/IosStart\/getStartInfo - reject
-^https?:\/\/mime\.baidu\.com\/v\d\/activity\/advertisement - reject
 
 [Map Local]
 # > 中国联通
@@ -782,20 +735,7 @@ URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
 #今日水印相机
 ^https?:\/\/api\.sogaha\.cn\/ssp\/ad\/get\?ip data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# > 百度地图，网盘，翻译
-^https:\/\/yongche\.baidu\.com\/gomarketing\/api\/popup\/getentrancecordovaurl$ data-type=text data="{}" status-code=200
-^https:\/\/yongche\.baidu\.com\/goorder\/passenger\/cobuild\/pull\? data-type=text data="{}" status-code=200
-^https:\/\/yongche\.baidu\.com\/goorder\/passenger\/operationgirdle$ data-type=text data="{}" status-code=200
-^https:\/\/yongche\.baidu\.com\/goorder\/passenger\/baseinfo$ data-type=text data="{}" status-code=200
-^https:\/\/ecom\.map\.baidu\.com\/ad-ops\/afd\/popup\? data-type=text data="{}" status-code=200
-^https:\/\/maphotel\.baidu\.com\/hotel\/goextranet\/activity\/detail\? data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/api\/getconfig data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/api\/getsyscfg data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/api\/taskscore\/tasklist data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/act\/api\/activityentry data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/rest\/2\.0\/membership\/user\?method=gamecenter data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/act\/v2\/welfare\/list data-type=text data="{}" status-code=200
-^https:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adv data-type=text data="{}" status-code=200
+
 
 [Script]
 # 淘宝
@@ -832,7 +772,5 @@ weixin110 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wech
 
 内容农场(www.google.com|com.hk) = type=http-response , pattern="^https?:\/\/(www\.google)(\.\w{2,4}){1,2}\/(search\?|\?sa=|\?FORM)(?!.*?(apps=))" , requires-body=1 , max-size=0 , script-path=https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adguard/Adblock4limbo.js , script-update-interval=0
 
-# > 百度地图
-百度地图广告 = type=http-response, pattern=^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js, requires-body=true, timeout=60
 [MITM]
-hostname = %APPEND% m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, api.sogaha.cn, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com, pan.baidu.com, ndstatic.cdn.bcebos.com, staticsns.cdn.bcebos.com, issuecdn.baidupcs.com, update.pan.baidu.com, fc-video.cdn.bcebos.com, rp.hpplay.cn, mime.baidu.com, ecom.map.baidu.com, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro amdc.alipay.com, 180.76.76.200, 180.76.76.112, acs.m.goofish.com, g-acs.m.goofish.com, afd.baidu.com, newclient.map.baidu.com, yongche.baidu.com, ecom.map.baidu.com
+hostname = %APPEND% m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, *.fqnovelvod.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, api.sogaha.cn, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro amdc.alipay.com, 180.76.76.200, 180.76.76.112, acs.m.goofish.com, g-acs.m.goofish.com
