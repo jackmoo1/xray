@@ -1,7 +1,6 @@
 #!name=Ad-sgmodule
 #!desc=常用软件去广告
 
-force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443
 [Rule]
 # 字节跳动广告
 AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com)),REJECT
