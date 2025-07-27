@@ -135,8 +135,8 @@ DOMAIN,httpdnsvip.meituan.com,REJECT
 IP-CIDR,202.90.108.13/32,REJECT,no-resolve
 IP-CIDR,202.90.110.46/32,REJECT,no-resolve
 #instagram
-DOMAIN-SUFFIX,graph-fallback.instagram.com,REJECT
-DOMAIN-SUFFIX,graph.instagram.com,REJECT
+DOMAIN-SUFFIX,graph-fallback.instagram.com,REJECT-DROP
+DOMAIN-SUFFIX,graph.instagram.com,REJECT-DROP
 # 工商银行
 DOMAIN-SUFFIX,pageviewp.icbc.com.cn,REJECT
 DOMAIN-SUFFIX,mall.icbc.com.cn,REJECT
