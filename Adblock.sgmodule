@@ -104,17 +104,17 @@ IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 DOMAIN,httpdns.baidubce.com,REJECT
 IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 # 友盟
-DOMAIN-SUFFIX,aaid.umeng.com,REJECT
-DOMAIN-SUFFIX,aspect-upush.umeng.com,REJECT
-DOMAIN-SUFFIX,cnlogs.umeng.com,REJECT
-DOMAIN-SUFFIX,deeplink.umeng.com,REJECT
-DOMAIN-SUFFIX,errlog.umeng.com,REJECT
-DOMAIN-SUFFIX,errnewlog.umeng.com,REJECT
-DOMAIN-SUFFIX,log.umtrack.com,REJECT
-DOMAIN-SUFFIX,plbslog.umeng.com,REJECT
-DOMAIN-SUFFIX,ucc.umeng.com,REJECT
-DOMAIN-SUFFIX,ulogs.umeng.com,REJECT
-DOMAIN-SUFFIX,utoken.umeng.com,REJECT
+DOMAIN-SUFFIX,aaid.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,aspect-upush.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,cnlogs.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,deeplink.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,errlog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,errnewlog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,log.umtrack.com,REJECT-DROP
+DOMAIN-SUFFIX,plbslog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,ucc.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,ulogs.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,utoken.umeng.com,REJECT-DROP
 # 华为
 DOMAIN,httpdns.c.cdnhwc2.com,REJECT
 DOMAIN-SUFFIX,dsp-x.jd.com,REJECT
