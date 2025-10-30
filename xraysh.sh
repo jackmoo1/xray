@@ -2657,26 +2657,30 @@ EOF
 #获取证书 参数: 域名位置
 get_cert()
 {
-    if [ "${domain_config_list[$1]}" -eq 1 ]; then
+    if [ ${domain_config_list[$1]} -eq 1 ]; then
         green "正在获取 \"${domain_list[$1]}\"、\"${true_domain_list[$1]}\" 的域名证书"
     else
         green "正在获取 \"${domain_list[$1]}\" 的域名证书"
     fi
-    mv "${nginx_prefix}/conf/nginx.conf" "${nginx_prefix}/conf/nginx.conf.bak2"
-    cp "${nginx_prefix}/conf/nginx.conf.default" "${nginx_prefix}/conf/nginx.conf"
-    local temp=()
-    [ "${domain_config_list[$1]}" -eq 1 ] && temp=("-d" "${domain_list[$1]}")
-    if ! "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp && ! "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp; then
-        "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp --debug || "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp --debug
+    mv $xray_config ${xray_config}.bak
+    mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak2
+    cp ${nginx_prefix}/conf/nginx.conf.default ${nginx_prefix}/conf/nginx.conf
+    echo "{}" > $xray_config
+    local temp=""
+    [ ${domain_config_list[$1]} -eq 1 ] && temp="-d ${domain_list[$1]}"
+    if ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp && ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp; then
+        $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp --debug || $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp --debug
     fi
-    if ! "$HOME/.acme.sh/acme.sh" --installcert -d "${true_domain_list[$1]}" --key-file "${nginx_prefix}/certs/${true_domain_list[$1]}.key" --fullchain-file "${nginx_prefix}/certs/${true_domain_list[$1]}.cer" --reloadcmd "systemctl restart nginx && sleep 2s" --ecc; then
-        "$HOME/.acme.sh/acme.sh" --remove --domain "${true_domain_list[$1]}" --ecc
-        rm -rf "$HOME/.acme.sh/${true_domain_list[$1]}_ecc"
+    if ! $HOME/.acme.sh/acme.sh --installcert -d ${true_domain_list[$1]} --key-file ${nginx_prefix}/certs/${true_domain_list[$1]}.key --fullchain-file ${nginx_prefix}/certs/${true_domain_list[$1]}.cer --reloadcmd "sleep 2s && systemctl restart xray" --ecc; then
+        $HOME/.acme.sh/acme.sh --remove --domain ${true_domain_list[$1]} --ecc
+        rm -rf $HOME/.acme.sh/${true_domain_list[$1]}_ecc
         rm -rf "${nginx_prefix}/certs/${true_domain_list[$1]}.key" "${nginx_prefix}/certs/${true_domain_list[$1]}.cer"
-        mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
+        mv ${xray_config}.bak $xray_config
+        mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
         return 1
     fi
-    mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
+    mv ${xray_config}.bak $xray_config
+    mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
     return 0
 }
 get_all_certs()
@@ -2690,7 +2694,8 @@ get_all_certs()
             yellow "    1.域名是否解析正确"
             yellow "    2.vps防火墙80端口是否开放"
             yellow "并在安装/重置域名完成后，使用脚本主菜单\"重置域名\"选项修复"
-            report_bug
+            yellow "按回车键继续。。。"
+            read -s
         fi
     done
 }
