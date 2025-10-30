@@ -28,7 +28,7 @@ php_version="php-8.2.8"
 php_prefix="/usr/local/php"
 php_service="/etc/systemd/system/php-fpm.service"
 
-cloudreve_version="3.8.3"
+cloudreve_version="3.8.0"
 
 nextcloud_url="https://download.nextcloud.com/server/releases/nextcloud-27.0.0.tar.bz2"
 
@@ -95,7 +95,7 @@ using_swap_now=0
 update=0
 # 在 install_update_xray_reality_web 函数中
 in_install_update_xray_reality_web=0
-script_url="https://github.com/wztx/kirin10000-Xray-script/raw/main/Xray-REALITY+Web.sh"
+script_url="https://github.com/kirin10000/Xray-script/raw/main/Xray-REALITY+Web.sh"
 
 #功能性函数：
 #定义几个颜色
@@ -147,13 +147,13 @@ version_ge()
 }
 report_bug()
 {
-    green  "欢迎进行Bug report(https://github.com/wztx/kirin10000-Xray-script/issues)，感谢您的支持"
+    green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
     yellow "按回车键继续或者Ctrl+c退出"
     read -rs
 }
 report_bug_exit()
 {
-    green  "欢迎进行Bug report(https://github.com/wztx/kirin10000-Xray-script/issues)，感谢您的支持"
+    green  "欢迎进行Bug report(https://github.com/kirin10000/Xray-script/issues)，感谢您的支持"
     exit 1
 }
 #进入工作目录
@@ -1239,9 +1239,9 @@ install_bbr()
                     fi
                     local temp_kernel_sh_url
                     if [ $choice -eq 1 ]; then
-                        temp_kernel_sh_url="https://github.com/wztx/kirin10000-Xray-script/update-kernel/raw/master/update-kernel-stable.sh"
+                        temp_kernel_sh_url="https://github.com/kirin10000/update-kernel/raw/master/update-kernel-stable.sh"
                     elif [ $choice -eq 4 ]; then
-                        temp_kernel_sh_url="https://github.com/wztx/kirin10000-Xray-script/update-kernel/raw/master/update-kernel.sh"
+                        temp_kernel_sh_url="https://github.com/kirin10000/update-kernel/raw/master/update-kernel.sh"
                     else
                         temp_kernel_sh_url="https://github.com/kirin10000/xanmod-install/raw/main/xanmod-install.sh"
                     fi
@@ -1802,7 +1802,7 @@ readProtocolConfig()
     echo
     blue   " 注："
     blue   "   1. 如不使用CDN，请选择TCP(REALITY)"
-    blue   "   2. gRPC和WebSocket支持通过CDN，关于两者的区别，详见：https://github.com/wztx/kirin10000-Xray-script#关于grpc与websocket"
+    blue   "   2. gRPC和WebSocket支持通过CDN，关于两者的区别，详见：https://github.com/kirin10000/Xray-script#关于grpc与websocket"
     echo
     local choice=""
     while [[ ! "$choice" =~ ^(0|[1-9][0-9]*)$ ]] || ((choice>7))
@@ -2657,30 +2657,26 @@ EOF
 #获取证书 参数: 域名位置
 get_cert()
 {
-    if [ ${domain_config_list[$1]} -eq 1 ]; then
+    if [ "${domain_config_list[$1]}" -eq 1 ]; then
         green "正在获取 \"${domain_list[$1]}\"、\"${true_domain_list[$1]}\" 的域名证书"
     else
         green "正在获取 \"${domain_list[$1]}\" 的域名证书"
     fi
-    mv $xray_config ${xray_config}.bak
-    mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak2
-    cp ${nginx_prefix}/conf/nginx.conf.default ${nginx_prefix}/conf/nginx.conf
-    echo "{}" > $xray_config
-    local temp=""
-    [ ${domain_config_list[$1]} -eq 1 ] && temp="-d ${domain_list[$1]}"
-    if ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp && ! $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp; then
-        $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp --debug || $HOME/.acme.sh/acme.sh --issue -d ${true_domain_list[$1]} $temp -w ${nginx_prefix}/html/issue_certs -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && sleep 2s && systemctl restart nginx" --ocsp --debug
+    mv "${nginx_prefix}/conf/nginx.conf" "${nginx_prefix}/conf/nginx.conf.bak2"
+    cp "${nginx_prefix}/conf/nginx.conf.default" "${nginx_prefix}/conf/nginx.conf"
+    local temp=()
+    [ "${domain_config_list[$1]}" -eq 1 ] && temp=("-d" "${domain_list[$1]}")
+    if ! "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp && ! "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp; then
+        "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp --debug || "$HOME/.acme.sh/acme.sh" --issue -d "${true_domain_list[$1]}" "${temp[@]}" -w "${nginx_prefix}/html/issue_certs" -k ec-256 -ak ec-256 --server letsencrypt --pre-hook "mv ${nginx_prefix}/conf/nginx.conf ${nginx_prefix}/conf/nginx.conf.bak && cp ${nginx_prefix}/conf/issue_certs.conf ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --post-hook "mv ${nginx_prefix}/conf/nginx.conf.bak ${nginx_prefix}/conf/nginx.conf && systemctl restart nginx && sleep 2s" --ocsp --debug
     fi
-    if ! $HOME/.acme.sh/acme.sh --installcert -d ${true_domain_list[$1]} --key-file ${nginx_prefix}/certs/${true_domain_list[$1]}.key --fullchain-file ${nginx_prefix}/certs/${true_domain_list[$1]}.cer --reloadcmd "sleep 2s && systemctl restart xray" --ecc; then
-        $HOME/.acme.sh/acme.sh --remove --domain ${true_domain_list[$1]} --ecc
-        rm -rf $HOME/.acme.sh/${true_domain_list[$1]}_ecc
+    if ! "$HOME/.acme.sh/acme.sh" --installcert -d "${true_domain_list[$1]}" --key-file "${nginx_prefix}/certs/${true_domain_list[$1]}.key" --fullchain-file "${nginx_prefix}/certs/${true_domain_list[$1]}.cer" --reloadcmd "systemctl restart nginx && sleep 2s" --ecc; then
+        "$HOME/.acme.sh/acme.sh" --remove --domain "${true_domain_list[$1]}" --ecc
+        rm -rf "$HOME/.acme.sh/${true_domain_list[$1]}_ecc"
         rm -rf "${nginx_prefix}/certs/${true_domain_list[$1]}.key" "${nginx_prefix}/certs/${true_domain_list[$1]}.cer"
-        mv ${xray_config}.bak $xray_config
-        mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
+        mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
         return 1
     fi
-    mv ${xray_config}.bak $xray_config
-    mv ${nginx_prefix}/conf/nginx.conf.bak2 ${nginx_prefix}/conf/nginx.conf
+    mv "${nginx_prefix}/conf/nginx.conf.bak2" "${nginx_prefix}/conf/nginx.conf"
     return 0
 }
 get_all_certs()
@@ -2694,8 +2690,7 @@ get_all_certs()
             yellow "    1.域名是否解析正确"
             yellow "    2.vps防火墙80端口是否开放"
             yellow "并在安装/重置域名完成后，使用脚本主菜单\"重置域名\"选项修复"
-            yellow "按回车键继续。。。"
-            read -s
+            report_bug
         fi
     done
 }
@@ -3161,7 +3156,7 @@ reset_nextcloud_host()
     while ! [[ -f "${nginx_prefix}/html/${true_domain_list[$1]}/config/config.php" ]]
     do
         yellow "域名 ${domain_list[$1]} 的nextcloud配置文件不存在，请先打开网站 https://${domain_list[$1]} 进行nextcloud初始化！"
-        yellow "如果有疑问，请前往 https://github.com/wztx/kirin10000-Xray-script/issues 进行Bug Report"
+        yellow "如果有疑问，请前往 https://github.com/kirin10000/Xray-script/issues 进行Bug Report"
         tyblue "完成初始化后按回车键继续。。。"
         read -rs
         echo
@@ -4455,11 +4450,11 @@ start_menu()
     tyblue "------------------------ Xray-REALITY+Web 搭建/管理脚本 ------------------------"
     tyblue "           系统发行版 ：           ${distro}"
     tyblue "           系统版本   ：           ${system_version}"
-    tyblue "       官网：https://github.com/wztx/kirin10000-Xray-script"
+    tyblue "       官网：https://github.com/kirin10000/Xray-script"
     tyblue "----------------------------------- 注意事项 -----------------------------------"
     yellow " 1. 此脚本至少需要一个解析到本服务器的域名"
     tyblue " 2. 此脚本安装时间较长，建议在安装前阅读："
-    tyblue "      https://github.com/wztx/kirin10000-Xray-script#安装时长说明"
+    tyblue "      https://github.com/kirin10000/Xray-script#安装时长说明"
     green  " 3. 建议在纯净的系统上使用此脚本 (VPS控制台-重置系统)"
     tyblue "----------------------------------------------------------------------------"
     echo
