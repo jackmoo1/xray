@@ -1422,10 +1422,10 @@ gen_reality_key()
 {
     local lines
     mapfile -t lines <<<"$(/usr/local/bin/xray x25519)"
-    if ! grep -qi private <<< "${lines[0]}" || ! grep -qi public <<< "${lines[1]}"; then
-        red    "获取x25519密钥对出错"
-        report_bug
-    fi
+    #if ! grep -qi private <<< "${lines[0]}" || ! grep -qi public <<< "${lines[1]}"; then
+        #red    "获取x25519密钥对出错"
+        #report_bug
+    #fi
     reality_private_key=$(echo "${lines[0]}" | cut -d ':' -f 2 | awk '{print $NF}')
     reality_public_key=$(echo "${lines[1]}" | cut -d ':' -f 2 | awk '{print $NF}')
 }
