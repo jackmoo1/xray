@@ -3608,9 +3608,10 @@ install_update_xray_reality_web()
         rm -rf $HOME/.acme.sh
         curl https://get.acme.sh | sh
         $HOME/.acme.sh/acme.sh --register-account -ak ec-256 --server zerossl -m "my@example.com"
-        gen_reality_key
+        
     fi
     $HOME/.acme.sh/acme.sh --upgrade --auto-upgrade
+    gen_reality_key
     get_all_certs
 
     #配置Nginx和Xray
