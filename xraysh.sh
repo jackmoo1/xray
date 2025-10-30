@@ -3599,17 +3599,23 @@ install_update_xray_reality_web()
     install_nginx_part2
     [ $update -eq 1 ] && [ $use_existed_nginx -eq 0 ] && restore_webs
 
-#安装Xray
+    #安装Xray
     remove_xray
     install_update_xray
 
     if [ $update -eq 0 ]; then
-        [ -e $HOME/.acme.sh/acme.sh ] && $HOME/.acme.sh/acme.sh --uninstall
-        rm -rf $HOME/.acme.sh
-        curl https://get.acme.sh | sh
-        $HOME/.acme.sh/acme.sh --register-account -ak ec-256 --server zerossl -m "my@example.com"
+        [ -e "$HOME/.acme.sh/acme.sh" ] && "$HOME/.acme.sh/acme.sh" --uninstall
+        rm -rf "$HOME/.acme.sh"
+        local src
+        if ! src="$(curl -L https://get.acme.sh)" || ! sh <(echo "$src"); then
+            red "acme.sh 安装失败！"
+            report_bug
+        fi
+        "$HOME/.acme.sh/acme.sh" --register-account -ak ec-256 --server zerossl -m "my@example.com"
+
+        gen_reality_key
     fi
-    $HOME/.acme.sh/acme.sh --upgrade --auto-upgrade
+    "$HOME/.acme.sh/acme.sh" --upgrade --auto-upgrade
     get_all_certs
 
     #配置Nginx和Xray
