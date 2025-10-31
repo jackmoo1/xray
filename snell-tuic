@@ -49,7 +49,6 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 
 创建tuic配置文件
 cat << EOF > /usr/local/sbin/tuic/config.toml
-{
 log_level = "info"
 server = "0.0.0.0:8443"
 udp_relay_ipv6 = false
@@ -93,7 +92,6 @@ initial_window = 1048576
 type = "direct"
 # IP mode: auto, prefer_v4, prefer_v6, only_v4, only_v6
 ip_mode = "auto"
-}
 EOF
 
 
