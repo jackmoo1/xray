@@ -1,0 +1,141 @@
+#####snell
+
+sudo -i
+sudo apt update && sudo apt install wget unzip
+apt install vim
+wget https://dl.nssurge.com/snell/snell-server-v5.0.0-linux-amd64.zip
+sudo unzip snell-server-v5.0.0-linux-amd64.zip -d /usr/local/bin
+chmod +x /usr/local/bin/snell-server
+sudo mkdir /etc/snell
+sudo snell-server --wizard -c /etc/snell/snell-server.conf
+sudo vim /lib/systemd/system/snell.service
+
+[粘贴】
+[Unit]
+Description=Snell Proxy Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Group=nogroup
+LimitNOFILE=32768
+ExecStart=/usr/local/bin/snell-server -c /etc/snell/snell-server.conf
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=snell-server
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+sudo systemctl enable snell
+sudo systemctl start snell
+sudo systemctl status snell
+
+查看自己Snell配置：
+cat /etc/snell/snell-server.conf
+
+
+####tuic
+下载并赋权
+
+mkdir -p /usr/local/sbin/tuic
+wget https://github.com/Itsusinn/tuic/releases/download/v1.5.3/tuic-server-x86_64-linux -O /usr/local/sbin/tuic/tuic-server && chmod +x /usr/local/sbin/tuic/tuic-server
+#port=8443
+uuid=$(cat /proc/sys/kernel/random/uuid)
+#passwd=$(date +%s%N | md5sum | cut -c 1-12)
+
+创建tuic配置文件
+cat << EOF > /usr/local/sbin/tuic/config.toml
+{
+log_level = "info"
+server = "0.0.0.0:8443"
+udp_relay_ipv6 = false
+zero_rtt_handshake = false
+dual_stack = false
+auth_timeout = "3s"
+task_negotiation_timeout = "3s"
+gc_interval = "3s"
+gc_lifetime = "15s"
+max_external_packet_size = 1500
+
+[users]
+"$uuid" = "yf910508"
+
+[tls]
+self_sign = false
+certificate = "/usr/local/nginx/certs/yjcbest.com.cer"
+private_key = "/usr/local/nginx/certs/yjcbest.com.key"
+alpn = ["h3", "spdy/3.1"]
+
+[restful]
+addr = "127.0.0.1:8448"
+secret = ""
+maximum_clients_per_user = 0
+
+[quic]
+initial_mtu = 1200
+min_mtu = 1200
+gso = true
+pmtu = true
+send_window = 16777216
+receive_window = 8388608
+max_idle_time = "10s"
+
+[quic.congestion_control]
+controller = "bbr"
+initial_window = 1048576
+
+[outbound.default]
+# Outbound type: direct or socks5
+type = "direct"
+# IP mode: auto, prefer_v4, prefer_v6, only_v4, only_v6
+ip_mode = "auto"
+}
+EOF
+
+
+创建系统配置文件
+cat << EOF > /etc/systemd/system/tuic-server.service
+[Unit]
+Description=Tuic 1.0.0 high-performance proxy built on top of the QUIC protocol
+After=network.target nss-lookup.target
+
+[Service]
+User=root
+WorkingDirectory=/usr/local/sbin/tuic
+ExecStart=/usr/local/sbin/tuic/tuic-server -c config.toml
+Restart=on-failure
+RestartPreventExitStatus=1
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+创建开机启动项
+systemctl daemon-reload
+systemctl enable tuic-server.service
+systemctl start tuic-server.service
+#ufw allow ${port}
+#ufw reload
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
