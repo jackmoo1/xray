@@ -1422,7 +1422,7 @@ gen_reality_key()
 {
     local lines
     mapfile -t lines <<<"$(/usr/local/bin/xray x25519)"
-    #if ! grep -qi private <<< "${lines[0]}" || ! grep -qi public <<< "${lines[1]}"; then
+    #if ! grep -qi PrivateKey <<< "${lines[0]}" || ! grep -qi Password <<< "${lines[1]}"; then
         #red    "获取x25519密钥对出错"
         #report_bug
     #fi
