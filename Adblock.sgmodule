@@ -17,7 +17,7 @@ AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
 AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT
 AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com)),REJECT
 AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT
+AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT-DROP
 AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
 DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT
 DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
