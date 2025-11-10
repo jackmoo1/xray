@@ -326,204 +326,6 @@ IP-CIDR,221.229.203.225/32,REJECT,no-resolve # 疑似被控肉鸡，活跃残留
 IP-CIDR,183.60.123.112/32,REJECT,no-resolve # 腾讯云段异常探测，UDP 高端口扫描
 
 
-# > APT_Block.list（国际APT攻击组织域名/IP规则集）
-# - 分类：APT 攻击组织 / 网络间谍行为 / 国家级攻击源 / 威胁IOC拦截
-# - 来源：公开威胁情报平台 / 国家级攻击活动披露 / 安全研究社区IOC报告 / 实测补充分析
-# - 特征：涵盖 APT1 ~ APTxx 等组织使用的C2控制器、钓鱼跳转域、后门通信节点与攻击基础设施
-# - 命名：包含主流厂商命名与自定义编号，归属清晰，编号连续，注释规范
-# > APT1（中国 · 被 Mandiant 命名为 Comment Crew）
-IP-CIDR,108.61.246.56,REJECT,no-resolve # C2节点，Mandiant 报告披露
-IP-CIDR,63.141.241.186,REJECT,no-resolve # 控制服务器，上海相关基础设施，Mandiant 报告披露
-DOMAIN-SUFFIX,ma-omaha.com,REJECT # 控制服务器，上海相关基础设施，Mandiant 报告披露
-
-# > APT2（中国 · 又名 Putter Panda）
-DOMAIN-SUFFIX,ctable.org,REJECT # 可疑 C2 域名，由注册人 cpyy.chen@gmail.com 登记，CrowdStrike 报告披露
-DOMAIN-SUFFIX,gamemuster.com,REJECT # 可疑 C2 域名，注册人为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,kyoceras.net,REJECT # 被用于潜在控制通信，注册邮箱为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,nestlere.com,REJECT # 可疑远控域名，注册人与前述一致，CrowdStrike 报告披露
-DOMAIN-SUFFIX,raylitoday.com,REJECT # 用于钓鱼攻击或控制通信，注册人 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,renewgis.com,REJECT # 涉及APT2活动域名，注册人为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,siseau.com,REJECT # 与 cpyy@qq.com 邮箱相关，注册人活动指向APT2，CrowdStrike 报告披露
-DOMAIN-SUFFIX,bmwauto.org,REJECT # 登记邮箱为 cpyy@sina.com，疑似APT2控制节点，CrowdStrike 报告披露
-DOMAIN-SUFFIX,t008.net,REJECT # 与APT2组织相关，注册人 cpyy@sina.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,vssigma.com,REJECT # 注册人邮箱为 cpyy@sina.com，被APT2用于远控，CrowdStrike 报告披露
-
-# > APT3（中国 · 被 FireEye 命名为 UPS Team / Gothic Panda）
-IP-CIDR,96.44.136.115,REJECT,no-resolve # C2，早期使用 HTTPS 后门通信
-DOMAIN-SUFFIX,ups-backup.com,REJECT # 使用的伪装 UPS 快递域名
-
-# > APT5 （中国· UNC2630 / Keyhole Panda / Manganese）
-IP-CIDR,165.232.136.220,REJECT,no-resolve # C2 之一，Citrix ADC 利用通道资料
-DOMAIN-SUFFIX,citrixadc-update.com,REJECT # 伪造 Citrix ADC 域名用于漏洞利用链
-DOMAIN-SUFFIX,keyholepanda-tracker.net,REJECT # Manganese / Keyhole Panda 列出的域名样例
-
-# > APT6 （中国 · 又名 “Ke3chang” 或 “MenuPass”）
-DOMAIN-SUFFIX,cdn.dropboxapi.com,REJECT # 常用伪装 C2 通信
-IP-CIDR,185.53.178.8,REJECT,no-resolve # MenuPass C2，相关域名解析IP
-
-
-# > APT10 （中国 · FireEye 命名为 Stone Panda）
-DOMAIN-SUFFIX,update.icloudsync.net,REJECT # APT10 钓鱼活动中伪装 Apple iCloud 域名
-IP-CIDR,45.77.173.179,REJECT,no-resolve # 用于远程命令控制的 VPS 地址
-DOMAIN-SUFFIX,microsoft-updates.org,REJECT # 模拟 Windows 更新域名进行持久化连接
-DOMAIN-SUFFIX,cdn.office365updates.com,REJECT # 投递恶意文档后用于回传数据的伪 CDN 域名
-IP-CIDR,103.112.45.200,REJECT,no-resolve # 活动中的 payload / 控制节点之一
-
-# > APT11 （中国 · 又名 Comment Crew / APT1 关联组）
-DOMAIN-SUFFIX,greenfurnishings.com,REJECT # APT11 C2 域名，Mandiant 报告披露
-IP-CIDR,58.246.239.22,REJECT,no-resolve # APT11 控制器IP，疑似与“Comment Crew”关联
-
-# > APT12 （中国 · 被 CrowdStrike 命名为 Numbered Panda）
-DOMAIN-SUFFIX,globalnewswire.org,REJECT # APT12 伪装新闻门户，用于钓鱼传播后门
-IP-CIDR,211.253.30.114,REJECT,no-resolve # APT12 远控服务通信IP，来源于攻击日志样本
-
-# > APT13 （中国 · 被命名为 KeyBoy）
-DOMAIN-SUFFIX,winserverupdater.com,REJECT # C2 域名，常伪装系统更新
-IP-CIDR,178.238.232.202,REJECT,no-resolve # 控制节点，Unit42 报告披露
-
-# > APT14 （中国 · 被命名为 Naikon）
-DOMAIN-SUFFIX,oceaninfosys.net,REJECT # 针对海事单位的 C2 域名
-IP-CIDR,74.208.4.200,REJECT,no-resolve # 回传数据节点，攻击样本中提取
-
-# > APT15（中国 · FireEye 命名为 Ke3chang / Secureworks 命名为 BRONZE PRESIDENT）
-IP-CIDR,122.10.84.147,REJECT,no-resolve # C2 控制器，使用 DNS 隧道进行隐蔽通信，FireEye 报告披露
-
-# > APT16 （中国 · FireEye 命名为 DeputyDog）
-DOMAIN-SUFFIX,washingtonpost.xyz,REJECT # 钓鱼域名，针对日本政治目标,  FireEye 报告披露
-
-# > APT17 （中国 · CrowdStrike 命名为 DeputyDog）
-IP-CIDR,103.20.198.48,REJECT,no-resolve # C2 控制器，关联 Hacking Team 泄漏工具组件, CrowdStrike  报告披露
-
-# > APT18 （中国 · Mandiant 命名为 Dynamite Panda）
-IP-CIDR,61.160.224.211,REJECT,no-resolve # C2 控制器，攻击医疗行业，使用 Gh0st RAT，Mandiant 报告披露
-
-# > APT19 （中国 · FireEye 命名为 Codoso Team）
-DOMAIN-SUFFIX,service-android.net,REJECT # C2 控制器，远控指令域名, FireEye  报告披露
-
-# > APT21 （中国 · 未正式命名）
-IP-CIDR,203.81.105.97,REJECT,no-resolve # APT21 疑似与 APT1 有交集，攻击政府机构
-
-# > APT27 （中国 · 命名为 Emissary Panda）
-DOMAIN-SUFFIX,update.saasvpn.com,REJECT # C2 控制域名，用于 HyperBro 木马通信
-IP-CIDR,45.66.230.0/24,REJECT,no-resolve # 活动基础设施段，含远控与数据上传节点，关联 Bronze Union 行动
-
-# > APT30 （中国 · FireEye 命名为 APT30）
-DOMAIN-SUFFIX,mail-cabinet.org,REJECT # 仿冒政府通信邮箱域名，用于钓鱼与初始投递
-IP-CIDR,43.254.217.0/24,REJECT,no-resolve # C2 控制段，关联 SHIPSHAPE 工具通信行为
-
-# > APT31 （中国 · 被命名为 Zirconium / Judgment Panda）
-DOMAIN-SUFFIX,globalservicecdn.com,REJECT # CobaltStrike Beacon 通信伪装域名, Microsoft 报告披露
-IP-CIDR,103.41.124.0/24,REJECT,no-resolve # 使用的钓鱼和远控 IP 段
-
-# > APT40 （中国 · FireEye 命名为 Leviathan）
-DOMAIN-SUFFIX,research-collab.org,REJECT # 针对海事与学术合作单位的攻击域名
-IP-CIDR,119.28.100.0/24,REJECT,no-resolve # 使用的 C2 与信息收集服务器, Recorded Future 报告披露
-
-# > APT41 （中国 · FireEye 命名为 Double Dragon）
-IP-CIDR,158.247.199.185,REJECT,no-resolve # C2，常用于 DNS TXT 隧道通信
-DOMAIN-SUFFIX,flnetupdate.com,REJECT # 在 2020 年攻击医疗、教育行业时使用的伪装更新域名
-DOMAIN-SUFFIX,browser-update.org,REJECT # 常用浏览器伪更新钓鱼域名, CrowdStrike 报告披露
-IP-CIDR,45.120.67.15,REJECT,no-resolve # 远控服务器IP，曾用于 Winnti 工具集
-
-DOMAIN-SUFFIX,storyonboard.net,REJECT # 历史活动中使用的 C2 控制域名  
-DOMAIN-SUFFIX,tisone360.org,REJECT # C2 域名，常与 Flash 漏洞利用及伪装组件相关  
-DOMAIN-SUFFIX,openofficev.info,REJECT # 用于投递载荷与伪装更新的通信域名
-DOMAIN-SUFFIX,saytargetworld.net,REJECT # 被用于历史攻击中的控制通信 
-IP-CIDR,23.111.184.119,REJECT,no-resolve # 新攻击活动中的 C2 控制器，Trellix 报告披露
-
-# > Evasive Panda（中国 · Avast 命名）# Nightdoor 木马使用的通信与下载服务器
-DOMAIN-SUFFIX,tibetpost.net,REJECT # 被入侵网站，用作跳转或恶意组件托管  
-DOMAIN-SUFFIX,monlamit.com,REJECT # 被入侵网站，作为攻击链的一部分  
-DOMAIN-SUFFIX,devicebug.com,REJECT # update.devicebug.com 为 Nightdoor 后门的 C&C 控制服务器  
-IP-CIDR,188.208.141.204,REJECT,no-resolve # Nightdoor 木马下载组件服务器，活动记录于 2024 年初  
-
-# > Keydnap（macOS 平台后门 · 基于 Tor 的远控通信）
-DOMAIN-SUFFIX,g5wcesdfjzne7255.onion.to,REJECT # Keydnap 后门通信域名  
-DOMAIN-SUFFIX,r2elajikcosf7zee.onion.to,REJECT # Keydnap 后门通信域名  
-
-# > MustangPanda（中国 · Korplug 木马与下载服务器）
-DOMAIN-SUFFIX,locvnpt.com,REJECT # 下载服务器，曾用于 2020 年 Recorded Future 报告中的攻击活动  
-DOMAIN-SUFFIX,upespr.com,REJECT # 下载服务器  
-DOMAIN-SUFFIX,urmsec.com,REJECT # 下载服务器  
-DOMAIN-SUFFIX,zyber-i.com,REJECT # 下载服务器  
-IP-CIDR,43.254.218.42,REJECT,no-resolve # 下载服务器  
-IP-CIDR,45.131.179.179,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,45.154.14.235,REJECT,no-resolve # upespr.com 域名对应下载服务器  
-IP-CIDR,92.118.188.78,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,101.36.125.203,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,103.56.53.120,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,103.79.120.66,REJECT,no-resolve # locvnpt.com 域名对应下载服务器  
-IP-CIDR,107.178.71.211,REJECT,no-resolve # zyber-i.com 域名对应下载服务器  
-IP-CIDR,154.204.27.130,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,154.204.27.181,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,156.226.173.23,REJECT,no-resolve # urmsec.com 域名对应下载服务器  
-IP-CIDR,176.113.69.91,REJECT,no-resolve # Korplug C&C 控制服务器  
-IP-CIDR,185.207.153.208,REJECT,no-resolve # 下载服务器  
- 
-# > Ke3chang / Okrum（APT15 · 中国 · ESET 命名）  
-DOMAIN-SUFFIX,audioexp.com,REJECT # Ke3chang 控制的恶意 C&C 域名（APT15 关联）  
-DOMAIN-SUFFIX,allionhealth.com,REJECT # Ke3chang 使用的伪装医疗站点域名  
-DOMAIN-SUFFIX,amazonout.com,REJECT # Ke3chang 控制的假冒 Amazon 子域，用于 C2  
-DOMAIN-SUFFIX,babytoy-online.com,REJECT # Ke3chang 使用的多级子域名投递平台  
-DOMAIN-SUFFIX,beleimprensa.org,REJECT # Ke3chang 使用的伪装葡语媒体站点域名  
-DOMAIN-SUFFIX,burgermap.org,REJECT # Ke3chang 控制的恶意导航站点域名  
-DOMAIN-SUFFIX,compatsec.com,REJECT # Ke3chang 使用的短链接型控制域名  
-DOMAIN-SUFFIX,deltimesweb.com,REJECT # Ke3chang C&C 伪装新闻网站  
-DOMAIN-SUFFIX,europemis.com,REJECT # Ke3chang 使用的多个子域伪装欧洲站点  
-DOMAIN-SUFFIX,freetaxbar.com,REJECT # Ke3chang 用于伪装税务服务网站的域名  
-DOMAIN-SUFFIX,globaleducat.com,REJECT # Okrum 阶段控制的 C&C 伪装教育类站点  
-DOMAIN-SUFFIX,hausblow.com,REJECT # Ke3chang 使用的假冒建材网站域名  
-DOMAIN-SUFFIX,huntereim.com,REJECT # Ke3chang 使用的伪装组织名控制域名  
-DOMAIN-SUFFIX,iniciohali.com,REJECT # Ke3chang 投递或交互型域名  
-DOMAIN-SUFFIX,livehams.com,REJECT # Ke3chang 假冒视频直播网站  
-DOMAIN-SUFFIX,miniaturizate.org,REJECT # Ke3chang 控制的交互域名，使用西语掩护  
-DOMAIN-SUFFIX,mimepanel.org,REJECT # Ke3chang 控制的伪装面板网站  
-DOMAIN-SUFFIX,nmsvillage.com,REJECT # Ke3chang 使用多个子域的 C2 域名结构  
-DOMAIN-SUFFIX,premlist.com,REJECT # Ke3chang 使用的投递交互型域名  
-DOMAIN-SUFFIX,privatedns.org,REJECT # Ke3chang 控制的 DNS 假冒站点，用于绕过检测  
-DOMAIN-SUFFIX,sanpaulostat.com,REJECT # Ke3chang 伪装州政府网站的控制域名  
-DOMAIN-SUFFIX,slovakmaps.com,REJECT # Okrum 阶段伪装地理服务站点域名  
-DOMAIN-SUFFIX,soportesisco.com,REJECT # Okrum 阶段假冒 Cisco 支持平台的域名  
-DOMAIN-SUFFIX,ufmsecret.org,REJECT # Ke3chang 伪装教育或学术用途站点域名  
-DOMAIN-SUFFIX,zepotac.com,REJECT # Ke3chang 使用的隐蔽式交互控制域名  
-DOMAIN-SUFFIX,menorustru.com,REJECT # 孤立发现的 Ke3chang 关联 C2 域名，无公开指向子域  
-
-# > SparklingGoblin（中国· APT 组织 / 使用 SideWalk、Crosswalk 等自研 RAT）
-DOMAIN-SUFFIX,update.facebookint.workers.dev,REJECT # SparklingGoblin 控制域名，用于 RAT 通信
-DOMAIN-SUFFIX,cdn.cloudfiare.workers.dev,REJECT # SparklingGoblin 控制域名，伪装 Cloudflare 传输 RAT
-IP-CIDR,104.21.49.220,REJECT,no-resolve # SparklingGoblin 控制服务器 IP
-IP-CIDR,80.85.155.80,REJECT,no-resolve # SparklingGoblin 控制服务器 IP
-IP-CIDR,193.38.54.110,REJECT,no-resolve # SparklingGoblin 控制服务器 IP
-
-# > TA410（中国· APT 组织 / 多平台后门与 C&C 架构）
-DOMAIN-SUFFIX,cahe.microsofts.com,REJECT # QuasarRAT 木马 C&C 控制域名
-DOMAIN-SUFFIX,ffca.caibi379.com,REJECT # QuasarRAT 下载器 C&C 域名
-DOMAIN-SUFFIX,smtp.nsfwgo.com,REJECT # Korplug（PlugX）远控木马 C&C 域名
-DOMAIN-SUFFIX,dlaxpcmghd.com,REJECT # LookBack 木马 C&C 控制域名
-DOMAIN-SUFFIX,wwww.dlmum.com,REJECT # FlowCloud 木马控制域名
-IP-CIDR,43.254.216.104,REJECT,no-resolve # TA410 早期投递服务器（Delivery Server）
-IP-CIDR,45.124.115.103,REJECT,no-resolve # LookBack / Delivery C&C 控制服务器
-IP-CIDR,161.82.181.4,REJECT,no-resolve # TA410 投递控制服务器
-IP-CIDR,43.254.219.153,REJECT,no-resolve # X4 后门 C&C 控制服务器
-IP-CIDR,154.223.141.36,REJECT,no-resolve # HTran 数据隧道 C&C 控制服务器
-IP-CIDR,103.139.2.93,REJECT,no-resolve # Tendyron 后门木马控制服务器
-IP-CIDR,185.225.19.17,REJECT,no-resolve # LookBack 木马控制服务器
-IP-CIDR,94.158.245.249,REJECT,no-resolve # LookBack 木马控制服务器
-IP-CIDR,5.252.179.227,REJECT,no-resolve # LookBack 木马控制服务器
-IP-CIDR,222.186.151.141,REJECT,no-resolve # FlowCloud 后门木马控制服务器
-IP-CIDR,47.111.22.65,REJECT,no-resolve # FlowCross 后门木马控制服务器
-IP-CIDR,114.55.109.199,REJECT,no-resolve # FlowCloud 后门木马控制服务器
-IP-CIDR,185.225.17.39,REJECT,no-resolve # LookBack 木马控制服务器
-
-# > Tick（中国 · Bronze Butler / 情报窃取与持久化攻击 / 多种自研后门工具）
-IP-CIDR,115.144.69.108,REJECT,no-resolve # ShadowPY 后门 C&C（伪装域名 travelasist.com）
-IP-CIDR,110.10.16.56,REJECT,no-resolve # Netboy 后门 C&C（伪装域名 mssql.waterglue.org）
-IP-CIDR,103.127.124.117,REJECT,no-resolve # 被恶意更新程序访问，用于密钥解密
-IP-CIDR,103.127.124.119,REJECT,no-resolve # ReVBShell A 版后门 C&C（伪装域名 slientship.com）
-IP-CIDR,103.127.124.76,REJECT,no-resolve # ReVBShell B 版后门 C&C
-IP-CIDR,58.230.118.78,REJECT,no-resolve # Ghostdown 后门服务器（伪装域名 oracle.eneygylakes.com）
-IP-CIDR,192.185.89.178,REJECT,no-resolve # 被 32 位恶意安装器访问，用于加载远程 payload
-
 # > 广告与追踪服务（Google Ads & Tracking）
 DOMAIN-SUFFIX,googleadservices.com,REJECT # Google 广告服务接口
 DOMAIN-SUFFIX,googleadapis.l.google.com,REJECT # Google API 服务域名（内部/广告相关 API 调用）
@@ -590,30 +392,6 @@ DOMAIN-SUFFIX,sentry.cloudflare.com,REJECT # 行为分析追踪系统
 DOMAIN-SUFFIX,o33249.ingest.us.sentry.io,REJECT # Sentry 错误追踪与日志采集域名，用于 GPT 应用的异常报告上传
 DOMAIN-SUFFIX,browser-intake-datadoghq.com,REJECT # Datadog 监控上报域名，GPT 应用用于收集前端性能指标与异常信息
 
-#   Ticketmaster 分析与广告服务（可选是否归入行为分析）
-DOMAIN-SUFFIX,analytics.ticketmaster.com,REJECT # 用户行为分析与数据收集
-DOMAIN-SUFFIX,ads.ticketmaster.com,REJECT # 广告与推广服务接口
-
-# > Cash App 广告与行为追踪（可移入其他模块）
-DOMAIN-SUFFIX,analytics.cash.app,REJECT # 用户行为数据与分析系统
-DOMAIN-SUFFIX,ads.cash.app,REJECT # 推广与广告平台接口
-
-# > SHEIN
-DOMAIN-SUFFIX,uberinternal.com,REJECT # Uber 内部服务域（日志与行为上报）
-
-# > Coinbase 加密货币平台
-DOMAIN-SUFFIX,analytics.coinbase.com ,REJECT # Coinbase 用户行为分析与打点服务
-
-# > Segment 行为追踪服务
-DOMAIN-SUFFIX,segment.io,REJECT # 用户行为追踪服务，广泛嵌入于 App 与网页中，采集分析数据
-
-# > Adform 行为监听器
-DOMAIN-SUFFIX,track.adform.net,REJECT # Adform：广告行为监听器
-
-# > 实验分流与行为测试平台
-DOMAIN-SUFFIX,default.exp-tas.com,REJECT # 实验分流平台，可能进行 A/B 测试配置注入
-
-
 
 
 [URL Rewrite]
@@ -667,9 +445,6 @@ DOMAIN-SUFFIX,default.exp-tas.com,REJECT # 实验分流平台，可能进行 A/B
 ^http:\/\/103\.37\.155\.60\/fetch - reject
 # 腾讯DNS
 ^https?:\/\/119\.29\.29\.29\/d - reject
-# 百度网盘
-^https?:\/\/180\.76\.76\.200\/v\d\/resolve - reject
-^https?:\/\/180\.76\.76\.112\/v\d\/resolve - reject
 # Pinduoduo
 ^http:\/\/101\.35\.204\.35\/d - reject
 ^http:\/\/101\.35\.212\.35\/d - reject
@@ -718,16 +493,6 @@ URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
 
 
 [Map Local]
-# > 中国联通
-^https?:\/\/m\.client\.10010\.com\/mobileService\/(activity|customer)\/(accountListData|get_client_adv|get_startadv) data-type=tiny-gif status-code=200
-^https?:\/\/m\.client\.10010\.com\/mobileService\/customer\/getclientconfig\.htm data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https?:\/\/m\.client\.10010\.com\/uniAdmsInterface\/(getHomePageAd|getWelcomeAd) data-type=tiny-gif status-code=200
-^https?:\/\/[^(apple|10010)]+\.(com|cn)\/(a|A)d(s|v)?(\/|\.js) data-type=tiny-gif status-code=200
-^https?:\/\/m1\.ad\.10010\.com\/noticeMag\/images\/imageUpload\/2\d{3} data-type=tiny-gif status-code=200
-^https?:\/\/res\.mall\.10010\.cn\/mall\/common\/js\/fa\.js?referer= data-type=tiny-gif status-code=200
-^https?:\/\/zt-app\.go189\.cn\/zt-app\/welcome\/.*?Animation data-type=tiny-gif status-code=200
-^https?:\/\/m\.client\.10010\.com\/mobileService\/customer\/accountListData\.htm data-type=text data='{"imgIndex":"0","adv":{"startup_adv":{"advCntList":[],"buttonList":[]}},"respCode":"0000"}' header='Content-Type:application/json'
-
 # > 小红书
 # 惊喜弹窗
 ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/surprisebox\/(get_style|open|submit_action) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -760,8 +525,6 @@ URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
 ^https?:\/\/apimobile\.meituan\.com\/group\/v1\/recommend\/unity\/recommends data-type=text data="{}" status-code=200
 ^https?:\/\/api\.pinduoduo\.com\/api\/aquarius\/hungary\/global\/homepage\? data-type=text data="{}" status-code=200
 
-#今日水印相机
-^https?:\/\/api\.sogaha\.cn\/ssp\/ad\/get\?ip data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 # 淘宝
@@ -799,4 +562,4 @@ weixin110 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wech
 内容农场(www.google.com|com.hk) = type=http-response , pattern="^https?:\/\/(www\.google)(\.\w{2,4}){1,2}\/(search\?|\?sa=|\?FORM)(?!.*?(apps=))" , requires-body=1 , max-size=0 , script-path=https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adguard/Adblock4limbo.js , script-update-interval=0
 
 [MITM]
-hostname = %APPEND% m.client.10010.com, m1.ad.10010.com, res.mall.10010.cn, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, api.sogaha.cn, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro amdc.alipay.com, 180.76.76.200, 180.76.76.112, acs.m.goofish.com, g-acs.m.goofish.com, 2401:b180:2000:30::1c, 2401:b180:2000:20::10
+hostname = %APPEND% acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, fbchina.flipchina.cn, sdk.alibaba.com.ailbaba.me, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, gw.alicdn.com, heic.alicdn.com, asp.cntv.myalicdn.com, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro amdc.alipay.com, acs.m.goofish.com, g-acs.m.goofish.com, 2401:b180:2000:30::1c, 2401:b180:2000:20::10
