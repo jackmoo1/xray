@@ -1,0 +1,35 @@
+domain_set:
+  - youtubei.googleapis.com
+  - yt3.ggpht.com
+domain_suffix_set:
+  - 1e100.net
+  - 2mdn.net
+  - app-measurement.net
+  - g.co
+  - ggpht.com
+  - goo.gl
+  - googleapis.cn
+  - googleapis.com
+  - googlevideo.com
+  - gstatic.cn
+  - gstatic.com
+  - gvt0.com
+  - gvt1.com
+  - gvt2.com
+  - gvt3.com
+  - withyoutube.com
+  - xn--ngstr-lra8j.com
+  - youtu.be
+  - youtube.com
+  - youtubeeducation.com
+  - youtubegaming.com
+  - youtubekids.com
+  - youtube-nocookie.com
+  - yt.be
+  - ytimg.com
+domain_keyword_set:
+  - google
+  - youtube
+ip_cidr_set:
+  - 173.194.0.0/16
+  - 74.125.0.0/16
