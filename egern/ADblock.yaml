@@ -1,6 +1,4 @@
-domain
-domain_suffix
-domain_keyword
+no_resolve: true
 - and:
     match:
     - domain_keyword:
@@ -105,7 +103,6 @@ domain_keyword
         match: v
     - domain_keyword:
         match: -be-pack.pglstatp-toutiao.com
-no_resolve: true
 domain_set:
 - httpdns.bilivideo.com
 - httpdns.alicdn.com
