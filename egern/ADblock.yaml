@@ -19,19 +19,6 @@ domain_suffix_set:
   - aedns.weixin.qq.com
   - dns.weixin.qq.com
   - dns.weixin.qq.com.cn
-domain_keyword_set:
-  - -ad.byteoversea.com
-  - -ad-sign.byteimg.com
-  - -analytics.bytescm.com
-  - asiad.byteactivity
-  - -be-pack-sign.pglstatp-toutiao.com
-  - -fe-tos.pglstatp-toutiao.com
-  - log-api.pangolin-sdk-toutiao
-  - -short.bytetos.com
-  - video-cn.snssdk.com
-  - safebrowsing
-  - simba.taobao.com
-domain_suffix_set:
   - bds.snssdk.com
   - dm.bytedance.com
   - dm.pstatp.com
@@ -222,6 +209,18 @@ domain_suffix_set:
   - sentry.cloudflare.com
   - o33249.ingest.us.sentry.io
   - browser-intake-datadoghq.com
+  domain_keyword_set:
+  - -ad.byteoversea.com
+  - -ad-sign.byteimg.com
+  - -analytics.bytescm.com
+  - asiad.byteactivity
+  - -be-pack-sign.pglstatp-toutiao.com
+  - -fe-tos.pglstatp-toutiao.com
+  - log-api.pangolin-sdk-toutiao
+  - -short.bytetos.com
+  - video-cn.snssdk.com
+  - safebrowsing
+  - simba.taobao.com
 ip_cidr_set:
   - 47.101.175.206/32
   - 47.100.123.169/32
