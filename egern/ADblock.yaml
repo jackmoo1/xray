@@ -209,7 +209,7 @@ domain_suffix_set:
   - sentry.cloudflare.com
   - o33249.ingest.us.sentry.io
   - browser-intake-datadoghq.com
-  domain_keyword_set:
+domain_keyword_set:
   - ad.byteoversea.com
   - ad-sign.byteimg.com
   - analytics.bytescm.com
