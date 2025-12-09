@@ -1,0 +1,420 @@
+domain
+domain_suffix
+domain_keyword
+- and:
+    match:
+    - domain_keyword:
+        match: -ad-
+    - domain_suffix:        
+        match: byteimg.com
+- and:
+    match:
+    - domain_keyword:
+        match: ads
+    - domain_keyword:
+        match: normal        
+    - domain_suffix:        
+        match: zijieapi.com
+- and:
+    match:
+    - domain_keyword:
+        match: api
+    - domain_keyword:
+        match: -access-        
+    - domain_suffix:        
+        match: pangle.io
+- and:
+    match:
+    - domain_keyword:
+        match: api
+    - domain_keyword:
+        match: -dual-event-        
+    - domain_suffix:        
+        match: pangle.io
+- and:
+    match:
+    - domain_keyword:
+        match: api
+    - domain_keyword:
+        match: -log-        
+    - domain_suffix:        
+        match: pangle.io
+- and:
+    match:
+    - domain_keyword:
+        match: if
+    - domain_keyword:
+        match: -analytics.bytescm.com        
+- and:
+    match:
+    - domain_keyword:
+        match: if
+    - domain_keyword:
+        match: -short.bytetos.com
+- and:
+    match:
+    - domain_keyword:
+        match: minigame
+    - domain_keyword:
+        match: zijieapi.com
+- and:
+    match:
+    - domain_keyword:
+        match: pangolin
+    - domain_keyword:
+        match: sgsnssdk.com
+- and:
+    match:
+    - domain_keyword:
+        match: s
+    - domain_keyword:
+        match: -fe-scm.pglstatp-toutiao.com
+- and:
+    match:
+    - domain_keyword:
+        match: sf
+    - domain_keyword:
+        match: -be-pack.pglstatp-toutiao.com
+- and:
+    match:
+    - domain_keyword:
+        match: sf
+    - domain_keyword:
+        match: -static.i18n-pglstatp.com
+- and:
+    match:
+    - domain_keyword:
+        match: sf
+    - domain_keyword:
+        match: -ttcdn-tos.pstatp.com
+- and:
+    match:
+    - domain_keyword:
+        match: ssdk-
+    - domain_suffix:
+        match: pangle.io
+- and:
+    match:
+    - domain_keyword:
+        match: -ttam-
+    - domain_suffix:
+        match: ibyteimg.com
+- and:
+    match:
+    - domain_keyword:
+        match: v
+    - domain_keyword:
+        match: -be-pack.pglstatp-toutiao.com
+no_resolve: true
+domain_set:
+- httpdns.bilivideo.com
+- httpdns.alicdn.com
+- httpdns-api.aliyuncs.com
+- httpdns-sc.aliyuncs.com
+- httpdns.baidu.com
+- httpsdns.baidu.com
+- httpdns.bcelive.com
+- httpdns.baidubce.com
+- httpdns.c.cdnhwc2.com
+- dns.jd.com
+- httpdns.volcengineapi.com
+- dig.bdurl.net
+- dig.zjurl.cn
+- httpdns.meituan.com
+- httpdnsvip.meituan.com
+- dns.weixin.qq.com
+- dns.weixin.qq.com.cn
+- aedns.weixin.qq.com
+- dns.weixin.qq.com
+- dns.weixin.qq.com.cn
+domain_keyword_set:
+- -ad.byteoversea.com
+- -ad-sign.byteimg.com
+- -analytics.bytescm.com
+- asiad.byteactivity
+- -be-pack-sign.pglstatp-toutiao.com
+- -fe-tos.pglstatp-toutiao.com
+- log-api.pangolin-sdk-toutiao
+- -short.bytetos.com
+- video-cn.snssdk.com
+- safebrowsing
+- simba.taobao.com
+domain_suffix_set:
+- bds.snssdk.com
+- dm.bytedance.com
+- dm.pstatp.com
+- dm.toutiao.com
+- extlog.snssdk.com
+- gromore.pangolin-sdk-toutiao.com
+- is.snssdk.com
+- log.snssdk.com
+- mon.zijieapi.com
+- mssdk.volces.com
+- mssdk-bu.bytedance.com
+- pangolin.snssdk.com
+- s3a.pstatp.com
+- sdfp.snssdk.com
+- ssdk-sg.pangle.io
+- toblog.ctobsnssdk.com
+- tosv.boe.byted.org
+- tosv.byted.org
+- als.baidu.com
+- bgg.baidu.com
+- cpro.baidustatic.com
+- feed-image.baidu.com
+- mobads.baidu.com
+- mobads-logs.baidu.com
+- mobads-pre-config.cdn.bcebos.com
+- nadvideo2.baidu.com
+- pos.baidu.com
+- union.baidu.cn
+- union.baidu.com
+- wn.pos.baidu.com
+- h-adashx.ut.taobao.com
+- aaid.umeng.com
+- aspect-upush.umeng.com
+- cnlogs.umeng.com
+- deeplink.umeng.com
+- errlog.umeng.com
+- errnewlog.umeng.com
+- log.umtrack.com
+- plbslog.umeng.com
+- ucc.umeng.com
+- ulogs.umeng.com
+- utoken.umeng.com
+- dsp-x.jd.com
+- xlog.jd.com
+- janapi.jd.com
+- graph-fallback.instagram.com
+- graph.instagram.com
+- pageviewp.icbc.com.cn
+- mall.icbc.com.cn
+- api.zuihuimai.com
+- huodong.weibo.cn
+- biz.weibo.com
+- badjs.weixinbridge.com
+- ads.95516.com
+- switch.cup.com.cn
+- ios.prod.cloud.netflix.com
+- appboot.netflix.com
+- ios.ngp.prod.cloud.netflix.com
+- mon.snssdk.com
+- api5-normal-lf.amemv.com
+- api5-normal-lq.amemv.com
+- sf16-muse-va.ibytedtos.com
+- ib.snssdk.com
+- data.bytedance.net
+- log-api.pangolin-sdk-toutiao.com
+- log.xiaohongshu.com
+- ark.xiaohongshu.com
+- sns-web.xiaohongshu.com
+- referee.xiaohongshu.com
+- hm.baidu.com
+- tcbox.baidu.com
+- log.re.baidu.com
+- mbd.baidu.com
+- ossgw.alicdn.com
+- ems.youku.com
+- hudong.alicdn.com
+- et.tanx.com
+- ut.taobao.com
+- dns.alidns.com
+- beacon-api.aliyuncs.com
+- adash.man.aliyuncs.com
+- applog.uc.cn
+- adashx.m.taobao.com
+- atanx.alicdn.com
+- gdkj.gaodun.com
+- arms-retcode.aliyuncs.com
+- ynuf.alipay.com
+- open-adash.alipay.com
+- log.mmstat.com
+- sdkapplog.51ping.com
+- adashx4yt.m.taobao.com
+- track.alicdn.com
+- m-adash.cn-hangzhou.log.aliyuncs.com
+- xlog.snssdk.com
+- applog.uc.cn
+- acjs.aliyun.com
+- trace.aliyun.com
+- spm.aliyun.com
+- log-mmserver.alibaba.com
+- dap.alipay.com
+- log-api.pangolin-sdk-toutiao.com
+- gm.mmstat.com
+- nr-op.elemecdn.com
+- loggw.alipay.com
+- agoodm.m.taobao.com
+- ai.taobao.com
+- api.waptest.taobao.com
+- apoll.m.taobao.com
+- re.m.taobao.com
+- re.taobao.com
+- temai.taobao.com
+- unitacs.m.taobao.com
+- w.m.taobao.com
+- bugly.qq.com
+- mta.qq.com
+- beacon.qq.com
+- tracking.qq.com
+- log.tbs.qq.com
+- tdid.qq.com
+- sngdia.qq.com
+- tajs.qq.com
+- oth.eve.mdt.qq.com
+- report.qq.com
+- sdk.e.qq.com
+- dldir1.qq.com
+- report.servicewechat.com
+- myqcloud.com
+- wxapp.tc.qq.com
+- miniapp.qq.com
+- sandbox.api.qq.com
+- inews.qq.com
+- events.redditmedia.com
+- tool.chinaz.com
+- csstools.chinaz.com
+- atl-paas.net
+- ds-cdn.prod-east.frontend.public.atl-paas.net
+- ft.2x5.xyz
+- s.2x5.xyz
+- aks.ugho.com
+- taobc.tv
+- topmicrosoftmarketing.com
+- intanschools.py628fxjlk-gok67gvk2652.p.temp-site.link
+- dscriy.chtq.net
+- cybaq.chtq.net
+- ftisthebest.com
+- googleadservices.com
+- googleadapis.l.google.com
+- mobileapptracking.com
+- pagead2.googlesyndication.com
+- googleadservices-cn.com
+- googleads.g.doubleclick-cn.net
+- googlesyndication.com
+- adservice.google.com
+- adservice.google.cn
+- googleads.g.doubleclick.net
+- googleads.g.doubleclick.com
+- adtrafficquality.google
+- googletagservices-cn.com
+- adservice.google.com.mt
+- pagead.l.google.com
+- partnerad.l.google.com
+- video-stats.video.google.com
+- wintricksbanner.googlepages.com
+- app-measurement.com
+- config.app-measurement.com
+- firebaseinstallations.googleapis.com
+- google-analytics.com
+- analytics.google.com
+- firebase-settings.crashlytics.com
+- crashlyticsreports-pa.googleapis.com
+- clientmetrics-pa.googleapis.com
+- firebaselogging-pa.googleapis.com
+- firebasedynamiclinks.googleapis.com
+- crashlytics.com
+- app-analytics-services.com
+- s.youtube.com
+- youtube-nocookie.com
+- dns.msftncsi.com
+- mobile.events.data.microsoft.com
+- in.appcenter.ms
+- otelrules.svc.static.microsoft
+- officeci.azurewebsites.net
+- hispace.hicloud.com
+- logservice.hicloud.com
+- metrics1.data.hicloud.com
+- config.hicloud.com
+- push-api.cloud.huawei.com
+- sentry.cloudflare.com
+- o33249.ingest.us.sentry.io
+- browser-intake-datadoghq.com
+ip_cidr_set:
+- 47.101.175.206/32
+- 47.100.123.169/32
+- 120.46.169.234/32
+- 121.36.72.124/32
+- 116.63.10.135/32
+- 122.9.7.134/32
+- 117.185.228.108/32
+- 117.144.238.29/32
+- 122.9.13.79/32
+- 122.9.15.129/32
+- 101.91.140.224/32
+- 101.91.140.124/32
+- 114.116.215.110/32
+- 116.63.10.31/32
+- 112.64.218.119/32
+- 112.65.200.117/32
+- 203.107.1.0/24
+- 180.76.76.200/32
+- 186.76.76.200/32
+- 101.124.19.122/32
+- 103.224.222.208/32
+- 119.29.29.98/32
+- 119.29.29.99/32
+- 202.90.108.13/32
+- 202.90.110.46/32
+- 59.82.121.221
+- 114.80.179.230
+- 101.226.28.238
+- 119.42.231.59
+- 74.86.151.167
+- 59.82.121.221
+- 222.186.181.100/32
+- 222.187.225.3/32
+- 119.255.133.28/32
+- 119.255.133.16/32
+- 221.228.217.0/24
+- 221.229.203.225/32
+- 183.60.123.112/32
+ip_cidr6_set:
+- 2402:db40:5100:1011::5/128
+- 2402:4e00:1200:ed00:0:9089:6dac:96b6/128
+url_regex_set:
+- ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/
+- ^http:\/\/182\.254\.116\.116\/d
+- ^http:\/\/\[2402:4e00:1411:201:0:9964:ba21:5a41\]\/d
+- ^http:\/\/101\.35\.204\.35\/d
+- ^http:\/\/101\.35\.212\.35\/d
+- ^http:\/\/114\.110\.96\.26\/d
+- ^http:\/\/114\.110\.97\.97\/d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
