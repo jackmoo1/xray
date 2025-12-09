@@ -210,14 +210,14 @@ domain_suffix_set:
   - o33249.ingest.us.sentry.io
   - browser-intake-datadoghq.com
   domain_keyword_set:
-  - -ad.byteoversea.com
-  - -ad-sign.byteimg.com
-  - -analytics.bytescm.com
+  - ad.byteoversea.com
+  - ad-sign.byteimg.com
+  - analytics.bytescm.com
   - asiad.byteactivity
-  - -be-pack-sign.pglstatp-toutiao.com
-  - -fe-tos.pglstatp-toutiao.com
+  - be-pack-sign.pglstatp-toutiao.com
+  - fe-tos.pglstatp-toutiao.com
   - log-api.pangolin-sdk-toutiao
-  - -short.bytetos.com
+  - short.bytetos.com
   - video-cn.snssdk.com
   - safebrowsing
   - simba.taobao.com
@@ -260,9 +260,6 @@ ip_cidr_set:
   - 221.228.217.0/24
   - 221.229.203.225/32
   - 183.60.123.112/32
-ip_cidr6_set:
-  - 2402:db40:5100:1011::5/128
-  - 2402:4e00:1200:ed00:0:9089:6dac:96b6/128
 url_regex_set:
   - ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/
   - ^http:\/\/182\.254\.116\.116\/d
