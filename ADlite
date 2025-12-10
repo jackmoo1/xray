@@ -1,393 +1,294 @@
 # 字节跳动广告
-AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com))
-AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com))
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io))
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io))
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io))
-AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com))
-AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com))
-AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com))
-AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com))
-AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com))
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com))
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com))
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com))
-AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io))
-AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com))
-AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com))
-DOMAIN-KEYWORD,-ad.byteoversea.com
-DOMAIN-KEYWORD,-ad-sign.byteimg.com
-DOMAIN-KEYWORD,-analytics.bytescm.com
-DOMAIN-KEYWORD,asiad.byteactivity
-DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com
-DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com
-DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao
-DOMAIN-KEYWORD,-short.bytetos.com
-DOMAIN-KEYWORD,video-cn.snssdk.com
-DOMAIN-SUFFIX,bds.snssdk.com
-DOMAIN-SUFFIX,dm.bytedance.com
-DOMAIN-SUFFIX,dm.pstatp.com
-DOMAIN-SUFFIX,dm.toutiao.com
-DOMAIN-SUFFIX,extlog.snssdk.com
-DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com
-DOMAIN-SUFFIX,is.snssdk.com
-DOMAIN-SUFFIX,log.snssdk.com
-DOMAIN-SUFFIX,mon.zijieapi.com
-DOMAIN-SUFFIX,mssdk.volces.com
-DOMAIN-SUFFIX,mssdk-bu.bytedance.com
-DOMAIN-SUFFIX,pangolin.snssdk.com
-DOMAIN-SUFFIX,s3a.pstatp.com
-DOMAIN-SUFFIX,sdfp.snssdk.com
-DOMAIN-SUFFIX,ssdk-sg.pangle.io
-DOMAIN-SUFFIX,toblog.ctobsnssdk.com
-DOMAIN-SUFFIX,tosv.boe.byted.org
-DOMAIN-SUFFIX,tosv.byted.org
-URL-REGEX, ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/
+AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com)),REJECT
+AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com)),REJECT-DROP
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io)),REJECT
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io)),REJECT
+AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io)),REJECT
+AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com)),REJECT
+AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com)),REJECT
+AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com)),REJECT
+AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
+AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com)),REJECT
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT
+AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com)),REJECT
+AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io)),REJECT
+AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT-DROP
+AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
+DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT
+DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
+DOMAIN-KEYWORD,-analytics.bytescm.com,REJECT
+DOMAIN-KEYWORD,asiad.byteactivity,REJECT
+DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,REJECT
+DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com,REJECT
+DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao,REJECT
+DOMAIN-KEYWORD,-short.bytetos.com,REJECT
+DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
+DOMAIN-SUFFIX,bds.snssdk.com,REJECT
+DOMAIN-SUFFIX,dm.bytedance.com,REJECT
+DOMAIN-SUFFIX,dm.pstatp.com,REJECT
+DOMAIN-SUFFIX,dm.toutiao.com,REJECT
+DOMAIN-SUFFIX,extlog.snssdk.com,REJECT
+DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,is.snssdk.com,REJECT
+DOMAIN-SUFFIX,log.snssdk.com,REJECT
+DOMAIN-SUFFIX,mon.zijieapi.com,REJECT
+DOMAIN-SUFFIX,mssdk.volces.com,REJECT
+DOMAIN-SUFFIX,mssdk-bu.bytedance.com,REJECT
+DOMAIN-SUFFIX,pangolin.snssdk.com,REJECT
+DOMAIN-SUFFIX,s3a.pstatp.com,REJECT
+DOMAIN-SUFFIX,sdfp.snssdk.com,REJECT
+DOMAIN-SUFFIX,ssdk-sg.pangle.io,REJECT
+DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT
+DOMAIN-SUFFIX,tosv.boe.byted.org,REJECT
+DOMAIN-SUFFIX,tosv.byted.org,REJECT
+URL-REGEX, ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/,REJECT
 
-# > 抖音 / 字节跳动相关行为指纹
 
-DOMAIN-SUFFIX,mon.snssdk.com # 字节跳动行为统计与设备指纹接口
-DOMAIN-SUFFIX,api5-normal-lf.amemv.com # 抖音行为监控接口（API5 通道）
-DOMAIN-SUFFIX,api5-normal-lq.amemv.com # 抖音行为监控接口（备用线路）
-DOMAIN-SUFFIX,sf16-muse-va.ibytedtos.com # 字节跳动日志上报与 SDK 签名验证域
-DOMAIN-SUFFIX,ib.snssdk.com # 字节跳动行为数据回传主站
-DOMAIN-SUFFIX,data.bytedance.net # 字节跳动数据上传与分析平台
-DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com # 字节跳动穿山甲广告 SDK 接口
-IP-CIDR,59.82.121.221 # 字节跳动行为分析节点
-
-# 讯飞AI营销
-DOMAIN-KEYWORD,iflyad.bj.openstorage.cn
-DOMAIN-KEYWORD,bjimp.voiceads.cn
-# InMobi - 邑盟信息技术（上海）有限公司
-DOMAIN-SUFFIX,config.inmobi.cn
-# 北京锐讯灵通科技有限公司
-DOMAIN-SUFFIX,ztoken.uyunad.com
-# 快手联盟 - 广告服务商
-DOMAIN-SUFFIX,gdfp.gifshow.com
-DOMAIN-SUFFIX,open.e.kuaishou.com
-DOMAIN-SUFFIX,adukwai.com
-# 上海倍孜
-DOMAIN-SUFFIX,sdk.beizi.biz
-# 秒针系统 - 广告服务商
-DOMAIN-SUFFIX,miaozhen.com
-DOMAIN-SUFFIX,admaster.com.cn
-# 艾狄墨搏 - 广告服务商
-DOMAIN-SUFFIX,monitor.ssp.admobile.top
-DOMAIN-SUFFIX,sdk.ssp.admobile.top
-DOMAIN-SUFFIX,admobile.top
-# 袤博 - 广告服务商
-DOMAIN-SUFFIX,api-c.dutils.com
-DOMAIN-SUFFIX,api-d.dutils.com
-DOMAIN-SUFFIX,api-p0.yksdks.com
-DOMAIN-SUFFIX,cache-verify.dutils.com
-DOMAIN-SUFFIX,cdn-api-verify.dutils.com
-DOMAIN-SUFFIX,devs-data.dutils.com
-DOMAIN-SUFFIX,log-verify.dutils.com
-DOMAIN-SUFFIX,m.mpl.dutils.com
-DOMAIN-SUFFIX,api.share.mob.com
-DOMAIN-SUFFIX,api.verify.mob.com
-DOMAIN-SUFFIX,log-verify.mob.com
-DOMAIN-SUFFIX,sdk.push.mob.com
-# 极光 - 广告服务商
-DOMAIN-SUFFIX,jiguang.cn
-DOMAIN-SUFFIX,jpush.cn
-DOMAIN-SUFFIX,jpush.io
-
-# > 小红书指纹与日志收集行为
-
-DOMAIN-SUFFIX,log.xiaohongshu.com # 小红书行为日志与用户数据采集接口
-DOMAIN-SUFFIX,ark.xiaohongshu.com # 小红书策略分发与行为回传接口
-DOMAIN-SUFFIX,sns-web.xiaohongshu.com # 小红书社交数据行为接口
-DOMAIN-SUFFIX,referee.xiaohongshu.com # 小红书内容审核与行为风险评估接
+# 哔哩哔哩
+DOMAIN,httpdns.bilivideo.com,REJECT
+# KEY_EXT_P2P_HTTPDNS_BILI_IP
+IP-CIDR,47.101.175.206/32,REJECT,no-resolve
+IP-CIDR,47.100.123.169/32,REJECT,no-resolve
+IP-CIDR,120.46.169.234/32,REJECT,no-resolve
+IP-CIDR,121.36.72.124/32,REJECT,no-resolve
+# KEY_EXT_P2P_BILIDNS_CMCC_IP
+IP-CIDR,116.63.10.135/32,REJECT,no-resolve
+IP-CIDR,122.9.7.134/32,REJECT,no-resolve
+IP-CIDR,117.185.228.108/32,REJECT,no-resolve
+IP-CIDR,117.144.238.29/32,REJECT,no-resolve
+# KEY_EXT_P2P_BILIDNS_CT_IP
+IP-CIDR,122.9.13.79/32,REJECT,no-resolve
+IP-CIDR,122.9.15.129/32,REJECT,no-resolve
+IP-CIDR,101.91.140.224/32,REJECT,no-resolve
+IP-CIDR,101.91.140.124/32,REJECT,no-resolve
+# KEY_EXT_P2P_BILIDNS_CU_IP
+IP-CIDR,114.116.215.110/32,REJECT,no-resolve
+IP-CIDR,116.63.10.31/32,REJECT,no-resolve
+IP-CIDR,112.64.218.119/32,REJECT,no-resolve
+IP-CIDR,112.65.200.117/32,REJECT,no-resolve
 
 # 百度联盟 - 广告服务商
-DOMAIN-SUFFIX,als.baidu.com
-DOMAIN-SUFFIX,bgg.baidu.com
-DOMAIN-SUFFIX,cpro.baidustatic.com
-DOMAIN-SUFFIX,feed-image.baidu.com
-DOMAIN-SUFFIX,mobads.baidu.com
-DOMAIN-SUFFIX,mobads-logs.baidu.com
-DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com
-DOMAIN-SUFFIX,nadvideo2.baidu.com
-DOMAIN-SUFFIX,pos.baidu.com
-DOMAIN-SUFFIX,union.baidu.cn
-DOMAIN-SUFFIX,union.baidu.com
-DOMAIN-SUFFIX,wn.pos.baidu.com
+DOMAIN-SUFFIX,als.baidu.com,REJECT
+DOMAIN-SUFFIX,bgg.baidu.com,REJECT
+DOMAIN-SUFFIX,cpro.baidustatic.com,REJECT
+DOMAIN-SUFFIX,feed-image.baidu.com,REJECT
+DOMAIN-SUFFIX,mobads.baidu.com,REJECT
+DOMAIN-SUFFIX,mobads-logs.baidu.com,REJECT
+DOMAIN-SUFFIX,mobads-pre-config.cdn.bcebos.com,REJECT
+DOMAIN-SUFFIX,nadvideo2.baidu.com,REJECT
+DOMAIN-SUFFIX,pos.baidu.com,REJECT
+DOMAIN-SUFFIX,union.baidu.cn,REJECT
+DOMAIN-SUFFIX,union.baidu.com,REJECT
+DOMAIN-SUFFIX,wn.pos.baidu.com,REJECT
+# 阿里巴巴
+DOMAIN-SUFFIX,h-adashx.ut.taobao.com,REJECT-DROP
+DOMAIN,httpdns.alicdn.com,REJECT
+# 阿里云
+DOMAIN,httpdns-api.aliyuncs.com,REJECT
+DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+IP-CIDR,203.107.1.0/24,REJECT,no-resolve
+# 百度
+DOMAIN,httpdns.baidu.com,REJECT
+DOMAIN,httpsdns.baidu.com,REJECT
+DOMAIN,httpdns.bcelive.com,REJECT
+IP-CIDR,180.76.76.200/32,REJECT,no-resolve
+# 百度智能云
+DOMAIN,httpdns.baidubce.com,REJECT
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+# 友盟
+DOMAIN-SUFFIX,aaid.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,aspect-upush.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,cnlogs.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,deeplink.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,errlog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,errnewlog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,log.umtrack.com,REJECT-DROP
+DOMAIN-SUFFIX,plbslog.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,ucc.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,ulogs.umeng.com,REJECT-DROP
+DOMAIN-SUFFIX,utoken.umeng.com,REJECT-DROP
+# 华为
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+DOMAIN-SUFFIX,dsp-x.jd.com,REJECT
+DOMAIN-SUFFIX,xlog.jd.com,REJECT
+DOMAIN-SUFFIX,janapi.jd.com,REJECT
+# 京东
+DOMAIN,dns.jd.com,REJECT
+IP-CIDR,101.124.19.122/32,REJECT,no-resolve
+IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
+# 京东云
+IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+# 腾讯云
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+URL-REGEX,^http:\/\/182\.254\.116\.116\/d,REJECT
+# 字节跳动
+DOMAIN,httpdns.volcengineapi.com,REJECT
+DOMAIN,dig.bdurl.net,REJECT
+DOMAIN,dig.zjurl.cn,REJECT
+# 美团
+DOMAIN,httpdns.meituan.com,REJECT
+DOMAIN,httpdnsvip.meituan.com,REJECT
+IP-CIDR,202.90.108.13/32,REJECT,no-resolve
+IP-CIDR,202.90.110.46/32,REJECT,no-resolve
+#instagram
+DOMAIN-SUFFIX,graph-fallback.instagram.com,REJECT-DROP
+DOMAIN-SUFFIX,graph.instagram.com,REJECT-DROP
+# 工商银行
+DOMAIN-SUFFIX,pageviewp.icbc.com.cn,REJECT
+DOMAIN-SUFFIX,mall.icbc.com.cn,REJECT
+# 什么值得买
+DOMAIN-SUFFIX,api.zuihuimai.com,REJECT
+# 微博 开屏广告
+DOMAIN-SUFFIX,huodong.weibo.cn,REJECT
+DOMAIN-SUFFIX,biz.weibo.com,REJECT
+# 微信
+DOMAIN-SUFFIX,badjs.weixinbridge.com,REJECT
+# 微信
+DOMAIN,dns.weixin.qq.com,REJECT
+DOMAIN,dns.weixin.qq.com.cn,REJECT
+DOMAIN,aedns.weixin.qq.com,REJECT
+DOMAIN,dns.weixin.qq.com,REJECT
+DOMAIN,dns.weixin.qq.com.cn,REJECT
+URL-REGEX,"^http:\/\/\[2402:4e00:1411:201:0:9964:ba21:5a41\]\/d",REJECT
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
+
+# 云闪付 开屏广告
+DOMAIN-SUFFIX,ads.95516.com,REJECT
+DOMAIN-SUFFIX,switch.cup.com.cn,REJECT
+#其它
+DOMAIN-KEYWORD,safebrowsing,REJECT
+DOMAIN-SUFFIX,ios.prod.cloud.netflix.com,REJECT
+DOMAIN-SUFFIX,appboot.netflix.com,REJECT
+DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com,REJECT
+AND,((DOMAIN-KEYWORD,f-log), (DOMAIN-SUFFIX,grammarly.io)),REJECT
+AND,((DOMAIN-KEYWORD,genuine), (DOMAIN-KEYWORD,autodesk)),REJECT
+AND,((DOMAIN-SUFFIX,msa.cdn.mediaset.net), (DOMAIN-KEYWORD,adv0)),REJECT
+AND,((DOMAIN-SUFFIX,prod.hosts.ooklaserver.net), (DOMAIN-KEYWORD,.ad.)),REJECT
+AND,((NOT,((OR,((DOMAIN-SUFFIX,bilibili.com),(DOMAIN-SUFFIX,hdslb.com),(DOMAIN-SUFFIX,wo.cn),(DOMAIN-SUFFIX,biligame.com),(DOMAIN-SUFFIX,bilivideo.com),(DOMAIN-SUFFIX,biliapi.com),(DOMAIN-SUFFIX,biliapi.net),(DOMAIN-SUFFIX,biliintl.com),(DOMAIN-SUFFIX,bstarstatic.com),(DOMAIN-SUFFIX,akamaized.net))))),(USER-AGENT,bili*)),REJECT
+AND,((OR,((DOMAIN-SUFFIX,gvt3.com), (DOMAIN-SUFFIX,gvt2.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,gvt0.com))), (DOMAIN-KEYWORD,beacon)),REJECT
+URL-REGEX,^https:\/\/spclient\.wg\.spotify\.com\/ad-logic\/prefetch)),REJECT
+AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com,extended-matching)),REJECT
+# 阻止电报频繁请求
+AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
+
+
+# > 抖音 / 字节跳动相关行为指纹
+DOMAIN-SUFFIX,mon.snssdk.com,REJECT # 字节跳动行为统计与设备指纹接口
+DOMAIN-SUFFIX,api5-normal-lf.amemv.com,REJECT # 抖音行为监控接口（API5 通道）
+DOMAIN-SUFFIX,api5-normal-lq.amemv.com,REJECT # 抖音行为监控接口（备用线路）
+DOMAIN-SUFFIX,sf16-muse-va.ibytedtos.com,REJECT # 字节跳动日志上报与 SDK 签名验证域
+DOMAIN-SUFFIX,ib.snssdk.com,REJECT # 字节跳动行为数据回传主站
+DOMAIN-SUFFIX,data.bytedance.net,REJECT # 字节跳动数据上传与分析平台
+DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com,REJECT # 字节跳动穿山甲广告 SDK 接口
+IP-CIDR,59.82.121.221,REJECT,no-resolve # 字节跳动行为分析节点
+
+
+# > 小红书指纹与日志收集行为
+DOMAIN-SUFFIX,log.xiaohongshu.com,REJECT # 小红书行为日志与用户数据采集接口
+DOMAIN-SUFFIX,ark.xiaohongshu.com,REJECT # 小红书策略分发与行为回传接口
+DOMAIN-SUFFIX,sns-web.xiaohongshu.com,REJECT # 小红书社交数据行为接口
+DOMAIN-SUFFIX,referee.xiaohongshu.com,REJECT # 小红书内容审核与行为风险评估接
+
 
 # > 百度行为分析服务
+DOMAIN-SUFFIX,hm.baidu.com,REJECT # 百度统计（常用于嵌入式网页行为追踪）
+DOMAIN-SUFFIX,tcbox.baidu.com,REJECT # 百度 App 行为日志接口
+DOMAIN-SUFFIX,log.re.baidu.com,REJECT # 百度推荐系统行为日志上报接口
+DOMAIN-SUFFIX,mbd.baidu.com,REJECT # 百度行为组件与内容分发策略接口
 
-DOMAIN-SUFFIX,hm.baidu.com # 百度统计（常用于嵌入式网页行为追踪）
-DOMAIN-SUFFIX,tcbox.baidu.com # 百度 App 行为日志接口
-DOMAIN-SUFFIX,log.re.baidu.com # 百度推荐系统行为日志上报接口
-DOMAIN-SUFFIX,mbd.baidu.com # 百度行为组件与内容分发策略接口
 
-# 腾讯
-DOMAIN-KEYWORD,trace.qq.com
-DOMAIN-KEYWORD,trace.video.qq.com
-DOMAIN-SUFFIX,adsmind.gdtimg.com
-DOMAIN-SUFFIX,c2.gdt.qq.com
-DOMAIN-SUFFIX,gdt.qq.com
-DOMAIN-SUFFIX,huatuocode.huatuo.qq.com
-DOMAIN-SUFFIX,i.gtimg.cn
-DOMAIN-SUFFIX,info4.video.qq.com
-DOMAIN-SUFFIX,info6.video.qq.com
-DOMAIN-SUFFIX,ios.bugly.qq.com
-DOMAIN-SUFFIX,ios.video.mpush.qq.com
-DOMAIN-SUFFIX,l.qq.com
-DOMAIN-SUFFIX,mi.gdt.qq.com
-DOMAIN-SUFFIX,otheve.beacon.qq.com
-DOMAIN-SUFFIX,pgdt.gtimg.cn
-DOMAIN-SUFFIX,pgdt.ugdtimg.com
-DOMAIN-SUFFIX,qzs.gdtimg.com
-DOMAIN-SUFFIX,qzs.qq.com
-DOMAIN-SUFFIX,rmonitor.qq.com
-DOMAIN-SUFFIX,sdk.e.qq.com
-DOMAIN-SUFFIX,sdkconfig.video.qq.com
-DOMAIN-SUFFIX,t.gdt.qq.com
-DOMAIN-SUFFIX,tmead.y.qq.com
-DOMAIN-SUFFIX,tmeadbak.y.qq.com
-DOMAIN-SUFFIX,tmeadcomm.y.qq.com
-DOMAIN-SUFFIX,tpns.qq.com
-DOMAIN-SUFFIX,tpstelemetry.tencent.com
-DOMAIN-SUFFIX,ugdtimg.com
-DOMAIN-SUFFIX,v.gdt.qq.com
-DOMAIN-SUFFIX,v2.gdt.qq.com
-DOMAIN-SUFFIX,win.gdt.qq.com
-DOMAIN-SUFFIX,wup.imtt.qq.com
-IP-CIDR,47.110.187.87/32
-# App全渠道统计
-DOMAIN-SUFFIX,openinstall.io
-# 个推
-DOMAIN-SUFFIX,mobileservice.cn
-DOMAIN-SUFFIX,getui.com
-DOMAIN-SUFFIX,igexin.com
-DOMAIN-SUFFIX,b-gtc.getui.net
-DOMAIN-SUFFIX,c-gtc.getui.net
-DOMAIN-SUFFIX,c-hzgt2.getui.com
-DOMAIN-SUFFIX,dnms.getui.com
-DOMAIN-SUFFIX,ido.getui.net
-DOMAIN-SUFFIX,sdk-conf.getui.com
-DOMAIN-SUFFIX,sdk-open-phone.getui.com
-# 友盟
-DOMAIN-SUFFIX,aaid.umeng.com
-DOMAIN-SUFFIX,aspect-upush.umeng.com
-DOMAIN-SUFFIX,cnlogs.umeng.com
-DOMAIN-SUFFIX,deeplink.umeng.com
-DOMAIN-SUFFIX,errlog.umeng.com
-DOMAIN-SUFFIX,errnewlog.umeng.com
-DOMAIN-SUFFIX,log.umtrack.com
-DOMAIN-SUFFIX,plbslog.umeng.com
-DOMAIN-SUFFIX,ucc.umeng.com
-DOMAIN-SUFFIX,ulogs.umeng.com
-DOMAIN-SUFFIX,utoken.umeng.com
-# 天目 - 广告服务商
-DOMAIN-SUFFIX,sdk.tianmu.mobi
-# 上海优比客思科技有限公司 - 广告服务商
-DOMAIN-SUFFIX,e-u1.ubixioe.com
-DOMAIN-SUFFIX,sdk-data.ubixioe.com
-DOMAIN-SUFFIX,tower.ubixioe.com
-DOMAIN-SUFFIX,tx-cfg-u1.ubixioe.com
-DOMAIN-SUFFIX,tx-data-u1.ubixioe.com
 # 阿里巴巴
-DOMAIN-SUFFIX,ossgw.alicdn.com
-DOMAIN-SUFFIX,ems.youku.com
-DOMAIN-SUFFIX,hudong.alicdn.com
-DOMAIN-SUFFIX,et.tanx.com
-DOMAIN-SUFFIX,ut.taobao.com
-DOMAIN-SUFFIX,dns.alidns.com
-DOMAIN-SUFFIX,beacon-api.aliyuncs.com
-DOMAIN-SUFFIX,adash.man.aliyuncs.com
-DOMAIN-SUFFIX,applog.uc.cn
-AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,ut.taobao.com))
-DOMAIN-SUFFIX,adashx.m.taobao.com # 淘宝广告监测 SDK 接口
-DOMAIN-SUFFIX,atanx.alicdn.com # 阿里广告素材 CDN
-DOMAIN-SUFFIX,gdkj.gaodun.com # 高德广告 SDK 接口
-DOMAIN-SUFFIX,arms-retcode.aliyuncs.com # 阿里前端行为日志采集（广告 SDK 用于追踪）
-DOMAIN-SUFFIX,ynuf.alipay.com # 支付宝广告与活动调度接口
-DOMAIN-SUFFIX,open-adash.alipay.com # 闲鱼 / 支付宝广告监控接口
-DOMAIN-SUFFIX,log.mmstat.com # 阿里广告打点服务器
-DOMAIN-SUFFIX,sdkapplog.51ping.com # 可能涉及咸鱼行为分析
-DOMAIN-SUFFIX,adashx4yt.m.taobao.com # 淘宝广告日志收集节点
-DOMAIN-SUFFIX,track.alicdn.com # 阿里广告追踪链接
-DOMAIN-SUFFIX,m-adash.cn-hangzhou.log.aliyuncs.com # 阿里广告日志上传服务器
-IP-CIDR,114.80.179.230 # 阿里系广告投放节点，疑似用于高德地图开屏广告内容分发
+DOMAIN-SUFFIX,ossgw.alicdn.com,REJECT,REJECT
+DOMAIN-SUFFIX,ems.youku.com,REJECT
+DOMAIN-SUFFIX,hudong.alicdn.com,REJECT
+DOMAIN-SUFFIX,et.tanx.com,REJECT
+DOMAIN-SUFFIX,ut.taobao.com,REJECT
+DOMAIN-SUFFIX,dns.alidns.com,REJECT
+DOMAIN-SUFFIX,beacon-api.aliyuncs.com,REJECT
+DOMAIN-SUFFIX,adash.man.aliyuncs.com,REJECT
+DOMAIN-SUFFIX,applog.uc.cn,REJECT
+AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,ut.taobao.com)),REJECT
+DOMAIN-SUFFIX,adashx.m.taobao.com,REJECT # 淘宝广告监测 SDK 接口
+DOMAIN-SUFFIX,atanx.alicdn.com,REJECT # 阿里广告素材 CDN
+DOMAIN-SUFFIX,gdkj.gaodun.com,REJECT # 高德广告 SDK 接口
+DOMAIN-SUFFIX,arms-retcode.aliyuncs.com,REJECT # 阿里前端行为日志采集（广告 SDK 用于追踪）
+DOMAIN-SUFFIX,ynuf.alipay.com,REJECT # 支付宝广告与活动调度接口
+DOMAIN-SUFFIX,open-adash.alipay.com,REJECT # 闲鱼 / 支付宝广告监控接口
+DOMAIN-SUFFIX,log.mmstat.com,REJECT # 阿里广告打点服务器
+DOMAIN-SUFFIX,sdkapplog.51ping.com,REJECT # 可能涉及咸鱼行为分析
+DOMAIN-SUFFIX,adashx4yt.m.taobao.com,REJECT # 淘宝广告日志收集节点
+DOMAIN-SUFFIX,track.alicdn.com,REJECT # 阿里广告追踪链接
+DOMAIN-SUFFIX,m-adash.cn-hangzhou.log.aliyuncs.com,REJECT # 阿里广告日志上传服务器
+IP-CIDR,114.80.179.230,REJECT,no-resolve # 阿里系广告投放节点，疑似用于高德地图开屏广告内容分发
 # > 阿里系遥测接口
 
-DOMAIN-SUFFIX,xlog.snssdk.com # 闲鱼集成字节跳动 xlog 模块的行为上传接口
-DOMAIN-SUFFIX,applog.uc.cn # UC 系产品行为分析与遥测数据上传
-DOMAIN-SUFFIX,acjs.aliyun.com # 阿里云前端日志采集服务接口（含前端 JS 报错）
-DOMAIN-SUFFIX,trace.aliyun.com # 阿里追踪系统，用户操作行为分析
-DOMAIN-SUFFIX,spm.aliyun.com # SPM 埋点追踪系统域名
-DOMAIN-SUFFIX,log-mmserver.alibaba.com # 阿里巴巴移动端日志系统接口
-DOMAIN-SUFFIX,dap.alipay.com # 支付宝数据分析与页面行为追踪域名
-DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com # 字节跳动穿山甲广告 SDK 日志接口
-DOMAIN-SUFFIX,gm.mmstat.com # 阿里巴巴统计平台域名，用于埋点与行为分析接口 
-IP-CIDR,101.226.28.238  # 支付宝 datagw 边缘网关，涉及数据分析与链路调度
-IP-CIDR,119.42.231.59  # 支付宝 mdap 域名解析节点，涉及设备信息采集
-DOMAIN-SUFFIX,nr-op.elemecdn.com  # 饿了么运营 CDN 资源节点，包含埋点与广告数据
-DOMAIN-SUFFIX,loggw.alipay.com # 支付宝客户端日志网关，上报用户行为数据 
+DOMAIN-SUFFIX,xlog.snssdk.com,REJECT # 闲鱼集成字节跳动 xlog 模块的行为上传接口
+DOMAIN-SUFFIX,applog.uc.cn,REJECT # UC 系产品行为分析与遥测数据上传
+DOMAIN-SUFFIX,acjs.aliyun.com,REJECT # 阿里云前端日志采集服务接口（含前端 JS 报错）
+DOMAIN-SUFFIX,trace.aliyun.com,REJECT # 阿里追踪系统，用户操作行为分析
+DOMAIN-SUFFIX,spm.aliyun.com,REJECT # SPM 埋点追踪系统域名
+DOMAIN-SUFFIX,log-mmserver.alibaba.com,REJECT # 阿里巴巴移动端日志系统接口
+DOMAIN-SUFFIX,dap.alipay.com,REJECT # 支付宝数据分析与页面行为追踪域名
+DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com,REJECT # 字节跳动穿山甲广告 SDK 日志接口
+DOMAIN-SUFFIX,gm.mmstat.com,REJECT # 阿里巴巴统计平台域名，用于埋点与行为分析接口 
+IP-CIDR,101.226.28.238,REJECT,no-resolve # 支付宝 datagw 边缘网关，涉及数据分析与链路调度
+IP-CIDR,119.42.231.59,REJECT,no-resolve # 支付宝 mdap 域名解析节点，涉及设备信息采集
+DOMAIN-SUFFIX,nr-op.elemecdn.com ,REJECT # 饿了么运营 CDN 资源节点，包含埋点与广告数据
+DOMAIN-SUFFIX,loggw.alipay.com,REJECT # 支付宝客户端日志网关，上报用户行为数据 
 
 # > 淘宝
-DOMAIN-SUFFIX,agoodm.m.taobao.com
-DOMAIN-SUFFIX,ai.taobao.com
-DOMAIN-SUFFIX,api.waptest.taobao.com
-DOMAIN-SUFFIX,apoll.m.taobao.com
-DOMAIN-SUFFIX,re.m.taobao.com
-DOMAIN-SUFFIX,re.taobao.com
-DOMAIN-SUFFIX,temai.taobao.com
-DOMAIN-SUFFIX,unitacs.m.taobao.com
-DOMAIN-SUFFIX,w.m.taobao.com
-AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,taobao.com))
-DOMAIN-KEYWORD,simba.taobao.com
-# 网易
-DOMAIN-SUFFIX,nex.163.com
-DOMAIN-SUFFIX,iad.g.163.com
-DOMAIN-SUFFIX,adx-bj.anythinktech.com
-DOMAIN-SUFFIX,api.anythinktech.com
-DOMAIN-SUFFIX,tk.anythinktech.com
-DOMAIN-SUFFIX,da.anythinktech.com
-# 美数科技
-DOMAIN-SUFFIX,sdk.1rtb.net
-DOMAIN-SUFFIX,cdn.1rtb.com
-# 嗨量科技 - 海贝巨量
-DOMAIN-SUFFIX,adx.halomobi.com
-# 钧云 - ADHUB
-DOMAIN-SUFFIX,api.htp.hubcloud.com.cn
-DOMAIN-SUFFIX,res1.hubcloud.com.cn
-DOMAIN-SUFFIX,sdktmp.hubcloud.com.cn
-DOMAIN-SUFFIX,v.adx.hubcloud.com.cn
-# SupersonicAds
-DOMAIN-SUFFIX,init.supersonicads.com
-# 聚次方 - TopOn
-DOMAIN-SUFFIX,api.mosspf.com
-DOMAIN-SUFFIX,da.mosspf.com
-# 京东
-DOMAIN-SUFFIX,dsp-x.jd.com
-DOMAIN-SUFFIX,xlog.jd.com
-DOMAIN-SUFFIX,janapi.jd.com
-#instagram
-DOMAIN-SUFFIX,graph-fallback.instagram.com
-DOMAIN-SUFFIX,graph.instagram.com
-# DNS 无响应
-DOMAIN-SUFFIX,adttrackingprd.hwwt8.com
-# 高德地图
-DOMAIN-SUFFIX,amap-aos-info-nogw.amap.com
-# 工商银行
-DOMAIN-SUFFIX,pageviewp.icbc.com.cn
-DOMAIN-SUFFIX,mall.icbc.com.cn
-# Outlook
-DOMAIN-SUFFIX,acdn.adnxs.com
-DOMAIN-SUFFIX,mediation.adnxs.com
-DOMAIN-SUFFIX,sin3-ib.adnxs.com
-# 其他
-DOMAIN-SUFFIX,affcpatrk.com
-# 什么值得买
-DOMAIN-SUFFIX,api.zuihuimai.com
-# 数字联盟
-DOMAIN-SUFFIX,shuzilm.cn
-# Speedtest
-DOMAIN-SUFFIX,ads.pubmatic.com
-DOMAIN-SUFFIX,id.hadron.ad.gt
-DOMAIN-KEYWORD,-adsystem.com
-# 微博 开屏广告
-DOMAIN-SUFFIX,huodong.weibo.cn
-DOMAIN-SUFFIX,biz.weibo.com
-# 微信
-DOMAIN-SUFFIX,badjs.weixinbridge.com
-# 菜鸟
-DOMAIN-SUFFIX,acs4baichuan.m.taobao.com
-DOMAIN-SUFFIX,adsmind.ugdtimg.com
-DOMAIN-SUFFIX,api.sm.cn
-DOMAIN-SUFFIX,baichuan-sdk.alicdn.com
-DOMAIN-SUFFIX,huichuan-mc.sm.cn
-DOMAIN-SUFFIX,huichuan.sm.cn
-DOMAIN-SUFFIX,m-vali.cp31.ott.cibntv.net
-DOMAIN-SUFFIX,nbsdk-baichuan.alicdn.com
-DOMAIN-SUFFIX,vali-g1.cp31.ott.cibntv.net
-DOMAIN-SUFFIX,vali-ugc.cp31.ott.cibntv.net
-# 云闪付 开屏广告
-DOMAIN-SUFFIX,ads.95516.com
-DOMAIN-SUFFIX,switch.cup.com.cn
-# Yandex
-DOMAIN-SUFFIX,yandexmetrica.com
-# 知乎
-DOMAIN-SUFFIX,appcloud.zhihu.com
-DOMAIN-SUFFIX,appcloud2.in.zhihu.com
-DOMAIN-SUFFIX,crash2.zhihu.com
-DOMAIN-SUFFIX,mqtt.zhihu.com
-DOMAIN-SUFFIX,sugar.zhihu.com
-DOMAIN-SUFFIX,zxid-m.mobileservice.cn
-#其它
-DOMAIN-SUFFIX,lookup.api.bsb.baidu.com
-DOMAIN-SUFFIX,u3.ucweb.com
-DOMAIN-SUFFIX,fancyapi.com
-DOMAIN-SUFFIX,wcp.taobao.com
-DOMAIN-SUFFIX,kuaishouzt.com
-DOMAIN-SUFFIX,tec73.com
-DOMAIN-KEYWORD,safebrowsing
-DOMAIN-SUFFIX,ios.prod.cloud.netflix.com
-DOMAIN-SUFFIX,appboot.netflix.com
-DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com
+DOMAIN-SUFFIX,agoodm.m.taobao.com,REJECT
+DOMAIN-SUFFIX,ai.taobao.com,REJECT
+DOMAIN-SUFFIX,api.waptest.taobao.com,REJECT
+DOMAIN-SUFFIX,apoll.m.taobao.com,REJECT
+DOMAIN-SUFFIX,re.m.taobao.com,REJECT
+DOMAIN-SUFFIX,re.taobao.com,REJECT
+DOMAIN-SUFFIX,temai.taobao.com,REJECT
+DOMAIN-SUFFIX,unitacs.m.taobao.com,REJECT
+DOMAIN-SUFFIX,w.m.taobao.com,REJECT
+AND,((DOMAIN-KEYWORD,adash), (DOMAIN-SUFFIX,taobao.com)),REJECT
+DOMAIN-KEYWORD,simba.taobao.com,REJECT
+
 
 # > 腾讯行为追踪与遥测服务（Tencent Behavior & Telemetry Services）
+DOMAIN-SUFFIX,bugly.qq.com,REJECT # Bugly 崩溃日志与异常上报接口
+DOMAIN-SUFFIX,mta.qq.com,REJECT # MTA 移动分析平台（行为埋点与性能数据）
+DOMAIN-SUFFIX,beacon.qq.com,REJECT # Beacon 行为数据采集平台（追踪分析）
+DOMAIN-SUFFIX,tracking.qq.com,REJECT # 用户行为追踪接口
+DOMAIN-SUFFIX,log.tbs.qq.com,REJECT # TBS（腾讯浏览服务）行为日志与崩溃上报
+DOMAIN-SUFFIX,tdid.qq.com,REJECT # Tencent Device ID 设备指纹系统
+DOMAIN-SUFFIX,sngdia.qq.com,REJECT # 腾讯广告行为记录接口
+DOMAIN-SUFFIX,tajs.qq.com,REJECT # Tencent Analytics JS 埋点日志
+DOMAIN-SUFFIX,oth.eve.mdt.qq.com,REJECT # 多端设备行为同步接口
+DOMAIN-SUFFIX,report.qq.com,REJECT # 应用行为上报中心（接口通用）
+DOMAIN-SUFFIX,sdk.e.qq.com ,REJECT # 腾讯广告 SDK 域名，用于广告拉取与行为采集
+DOMAIN-SUFFIX,dldir1.qq.com,REJECT # 安装包与更新接口（含行为采样）
+DOMAIN-SUFFIX,report.servicewechat.com,REJECT # 微信服务接口（含行为分析组件）
+DOMAIN-SUFFIX,myqcloud.com,REJECT # 腾讯云小程序行为上传域（常用于 SDK）
+DOMAIN-SUFFIX,wxapp.tc.qq.com,REJECT # 小程序平台日志与崩溃分析服务
+DOMAIN-SUFFIX,miniapp.qq.com,REJECT # QQ 小程序相关行为数据域名
+DOMAIN-SUFFIX,sandbox.api.qq.com,REJECT # SDK 模拟测试行为回传（可能用于调试监听）
+DOMAIN-SUFFIX,inews.qq.com,REJECT # 建议封锁，防监听
 
-DOMAIN-SUFFIX,bugly.qq.com # Bugly 崩溃日志与异常上报接口
-DOMAIN-SUFFIX,mta.qq.com # MTA 移动分析平台（行为埋点与性能数据）
-DOMAIN-SUFFIX,beacon.qq.com # Beacon 行为数据采集平台（追踪分析）
-DOMAIN-SUFFIX,tracking.qq.com # 用户行为追踪接口
-DOMAIN-SUFFIX,log.tbs.qq.com # TBS（腾讯浏览服务）行为日志与崩溃上报
-DOMAIN-SUFFIX,tdid.qq.com # Tencent Device ID 设备指纹系统
-DOMAIN-SUFFIX,sngdia.qq.com # 腾讯广告行为记录接口
-DOMAIN-SUFFIX,tajs.qq.com # Tencent Analytics JS 埋点日志
-DOMAIN-SUFFIX,oth.eve.mdt.qq.com # 多端设备行为同步接口
-DOMAIN-SUFFIX,report.qq.com # 应用行为上报中心（接口通用）
-DOMAIN-SUFFIX,sdk.e.qq.com  # 腾讯广告 SDK 域名，用于广告拉取与行为采集
-DOMAIN-SUFFIX,dldir1.qq.com # 安装包与更新接口（含行为采样）
-DOMAIN-SUFFIX,report.servicewechat.com # 微信服务接口（含行为分析组件）
-DOMAIN-SUFFIX,myqcloud.com # 腾讯云小程序行为上传域（常用于 SDK）
-DOMAIN-SUFFIX,wxapp.tc.qq.com # 小程序平台日志与崩溃分析服务
-DOMAIN-SUFFIX,miniapp.qq.com # QQ 小程序相关行为数据域名
-DOMAIN-SUFFIX,sandbox.api.qq.com # SDK 模拟测试行为回传（可能用于调试监听）
-DOMAIN-SUFFIX,inews.qq.com # 建议封锁，防监听
-
-# > GFW / Geedge 自有基础设施域名（泄露推测 / 待验证）
-
-DOMAIN-SUFFIX,tsg.geedge.net # Tiangou Secure Gateway 控制 / 下发接口
-DOMAIN-SUFFIX,mirror.geedge.net # Geedge 包 / 部署镜像服务域名
-DOMAIN-SUFFIX,repo.geedge.net # 包管理 / 源代码发布服务域
-DOMAIN-SUFFIX,update.geedge.net # 固件 / 软件更新接口（GFW 内部模块更新）
-DOMAIN-SUFFIX,config.geedge.net # 配置下发 / 参数同步接口
-DOMAIN-SUFFIX,logsrv.geedge.net # 日志汇集 / 监控上传服务入口
-DOMAIN-SUFFIX,api.geedge.net # 内部 API 接口 / 模块通信域名
-DOMAIN-SUFFIX,tsggw.geedge.net # Tiangou Gateway 网关接入域名
-DOMAIN-SUFFIX,mirror.mesa-lab.net # MESA Lab 镜像 / 工具服务域
-DOMAIN-SUFFIX,control.mesa-lab.net # MESA 控制 / 任务下发接口
-
-# > 迅雷行为分析接口
-
-DOMAIN-SUFFIX,dlandroid.rcv.sandai.net  # 迅雷 Android 客户端行为监听接口，使用 HTTP 明文通信，上报遥测数据
 
 # > Reddit 行为指纹与事件上报服务
-
-DOMAIN-SUFFIX,events.redditmedia.com # Reddit 媒体内容统计与事件上报服务（广告行为追踪）
+DOMAIN-SUFFIX,events.redditmedia.com,REJECT # Reddit 媒体内容统计与事件上报服务（广告行为追踪）
 
 # > 行为分析与网站工具相关域名
-
-DOMAIN-SUFFIX,tool.chinaz.com # 站长工具主站服务域名，提供 IP 查询、SEO 分析等站长工具功能
-DOMAIN-SUFFIX,csstools.chinaz.com # 站长工具 CSS 前端工具子域，用于网页样式调试与生成服务
+DOMAIN-SUFFIX,tool.chinaz.com,REJECT # 站长工具主站服务域名，提供 IP 查询、SEO 分析等站长工具功能
+DOMAIN-SUFFIX,csstools.chinaz.com,REJECT # 站长工具 CSS 前端工具子域，用于网页样式调试与生成服务
 
 # > Atlassian 云平台域名（Jira / Confluence / Bitbucket 等服务）-可疑
-
-DOMAIN-SUFFIX,atl-paas.net # Atlassian 云平台基础设施域名，用于前端资源分发与服务接入（如 Jira、Confluence）
-DOMAIN-SUFFIX,ds-cdn.prod-east.frontend.public.atl-paas.net # Atlassian 前端资源 CDN 域名（Jira 页面 UI 加载等）
+DOMAIN-SUFFIX,atl-paas.net,REJECT # Atlassian 云平台基础设施域名，用于前端资源分发与服务接入（如 Jira、Confluence）
+DOMAIN-SUFFIX,ds-cdn.prod-east.frontend.public.atl-paas.net,REJECT # Atlassian 前端资源 CDN 域名（Jira 页面 UI 加载等）
 
 # > 潜在远程控制或监听节点（SoftLayer）
-
-IP-CIDR,74.86.151.167 # 美国 SoftLayer 数据中心公网主机，开放 HTTPS 服务（443 端口），疑似运行端口映射或远程控制组件，存在潜在监听风险
+IP-CIDR,74.86.151.167,REJECT,no-resolve # 美国 SoftLayer 数据中心公网主机，开放 HTTPS 服务（443 端口），疑似运行端口映射或远程控制组件，存在潜在监听风险
 
 # > 中国电信
-
-IP-CIDR,59.82.121.221  # 疑似中国电信数据采集节点，用于行为监控
+IP-CIDR,59.82.121.221,REJECT,no-resolve # 疑似中国电信数据采集节点，用于行为监控
 
 
 
@@ -395,380 +296,94 @@ IP-CIDR,59.82.121.221  # 疑似中国电信数据采集节点，用于行为监�
 # - 分类：后门程序 / 远控连接 / 恶意通信基础设施
 # - 来源：全球威胁情报数据库 / 安全社区情报 / 通信行为抓包 / 自定义样本校验
 # - 特征：封锁具备反连、心跳、远程控制特征的通信节点，涵盖 RAT、Sliver、Metasploit 等常见后门工具所依赖的 C2 基础设施
-# - 用途：本规则集用于防御性安全研究，禁止用于任何非法用途
-# - 维护：https://github.com/Thoseyearsbrian/Aegis
-# - 更新时间：2025-11-04
 
 # > Telegram 后门通信域名
-
-DOMAIN-SUFFIX,ft.2x5.xyz # TG 植入后门控制通道
-DOMAIN-SUFFIX,s.2x5.xyz # 同组域名，用于命令回连
-DOMAIN-SUFFIX,aks.ugho.com # 控制服务器
-DOMAIN-SUFFIX,taobc.tv # 用于远程指令或日志上报
-
-DOMAIN-SUFFIX,topmicrosoftmarketing.com # 疑似仿冒微软营销域名，疑似用于钓鱼回连
-DOMAIN-SUFFIX,intanschools.py628fxjlk-gok67gvk2652.p.temp-site.link # 一次性临时域名，疑似远控或恶意落地页
-DOMAIN-SUFFIX,dscriy.chtq.net # chtq.net 下级域名，疑似恶意指令控制节点
-DOMAIN-SUFFIX,cybaq.chtq.net # 与上域名同源，疑似僵尸网络或APT测试指令服务
-DOMAIN-SUFFIX,ftisthebest.com # 高风险代理节点伪装域名，疑似后门通信域名（证书主机名不匹配，存在 C2 指向行为）
+DOMAIN-SUFFIX,ft.2x5.xyz,REJECT # TG 植入后门控制通道
+DOMAIN-SUFFIX,s.2x5.xyz,REJECT # 同组域名，用于命令回连
+DOMAIN-SUFFIX,aks.ugho.com,REJECT # 控制服务器
+DOMAIN-SUFFIX,taobc.tv,REJECT # 用于远程指令或日志上报
+DOMAIN-SUFFIX,topmicrosoftmarketing.com,REJECT # 疑似仿冒微软营销域名，疑似用于钓鱼回连
+DOMAIN-SUFFIX,intanschools.py628fxjlk-gok67gvk2652.p.temp-site.link,REJECT # 一次性临时域名，疑似远控或恶意落地页
+DOMAIN-SUFFIX,dscriy.chtq.net,REJECT # chtq.net 下级域名，疑似恶意指令控制节点
+DOMAIN-SUFFIX,cybaq.chtq.net,REJECT # 与上域名同源，疑似僵尸网络或APT测试指令服务
+DOMAIN-SUFFIX,ftisthebest.com,REJECT # 高风险代理节点伪装域名，疑似后门通信域名（证书主机名不匹配，存在 C2 指向行为）
 
 
 # > Botnet_Block.list（僵尸网络 / 控制器 / 扫描器规则集）
 # - 分类：僵尸网络控制器 / 横向移动节点 / 持续扫描源
 # - 来源：全球公开威胁情报平台 / 社区安全共享数据库 / 安全厂商披露信息
 # - 特征：封锁已被确认为 DDoS 肉鸡、Botnet 控制节点、命令与控制（C2）IP、批量扫描与横向移动源
-# - 用途：本规则集用于防御性安全研究，禁止用于任何非法用途
-# - 维护：https://github.com/Thoseyearsbrian/Aegis
-# - 更新时间：2025-11-04
+IP-CIDR,222.186.181.100/32,REJECT,no-resolve # UDP/443 长连，徐州段，C2 常用
+IP-CIDR,222.187.225.3/32,REJECT,no-resolve # 江苏已知恶意 C2 控制节点
+IP-CIDR,119.255.133.28/32,REJECT,no-resolve # CDN 被滥用，持续 HTTPS 长连
+IP-CIDR,119.255.133.16/32,REJECT,no-resolve # Kerberods 控制器节点
+IP-CIDR,221.228.217.0/24,REJECT,no-resolve # 多次 TIME_WAIT，疑似扫描器
+IP-CIDR,221.229.203.225/32,REJECT,no-resolve # 疑似被控肉鸡，活跃残留连接
+IP-CIDR,183.60.123.112/32,REJECT,no-resolve # 腾讯云段异常探测，UDP 高端口扫描
 
-IP-CIDR,222.186.181.100/32 # UDP/443 长连，徐州段，C2 常用
-IP-CIDR,222.187.225.3/32 # 江苏已知恶意 C2 控制节点
-IP-CIDR,119.255.133.28/32 # CDN 被滥用，持续 HTTPS 长连
-IP-CIDR,119.255.133.16/32 # Kerberods 控制器节点
-IP-CIDR,221.228.217.0/24 # 多次 TIME_WAIT，疑似扫描器
-IP-CIDR,221.229.203.225/32 # 疑似被控肉鸡，活跃残留连接
-IP-CIDR,183.60.123.112/32 # 腾讯云段异常探测，UDP 高端口扫描
-
-
-
-# > APT_Block.list（国际APT攻击组织域名/IP规则集）
-# - 分类：APT 攻击组织 / 网络间谍行为 / 国家级攻击源 / 威胁IOC拦截
-# - 来源：公开威胁情报平台 / 国家级攻击活动披露 / 安全研究社区IOC报告 / 实测补充分析
-# - 特征：涵盖 APT1 ~ APTxx 等组织使用的C2控制器、钓鱼跳转域、后门通信节点与攻击基础设施
-# - 命名：包含主流厂商命名与自定义编号，归属清晰，编号连续，注释规范
-# - 声明：所有情报信息基于公开披露，相关归属与内容不代表制表者立场
-# - 用途：本规则集用于防御性安全研究，禁止用于任何非法用途
-# - 维护：https://github.com/Thoseyearsbrian/Aegis
-# - 更新时间：2025-11-04
-
-# > APT1（中国 · 被 Mandiant 命名为 Comment Crew）
-
-IP-CIDR,108.61.246.56 # C2节点，Mandiant 报告披露
-IP-CIDR,63.141.241.186 # 控制服务器，上海相关基础设施，Mandiant 报告披露
-DOMAIN-SUFFIX,ma-omaha.com # 控制服务器，上海相关基础设施，Mandiant 报告披露
-
-# > APT2（中国 · 又名 Putter Panda）
-
-DOMAIN-SUFFIX,ctable.org # 可疑 C2 域名，由注册人 cpyy.chen@gmail.com 登记，CrowdStrike 报告披露
-DOMAIN-SUFFIX,gamemuster.com # 可疑 C2 域名，注册人为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,kyoceras.net # 被用于潜在控制通信，注册邮箱为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,nestlere.com # 可疑远控域名，注册人与前述一致，CrowdStrike 报告披露
-DOMAIN-SUFFIX,raylitoday.com # 用于钓鱼攻击或控制通信，注册人 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,renewgis.com # 涉及APT2活动域名，注册人为 cpyy.chen@gmail.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,siseau.com # 与 cpyy@qq.com 邮箱相关，注册人活动指向APT2，CrowdStrike 报告披露
-DOMAIN-SUFFIX,bmwauto.org # 登记邮箱为 cpyy@sina.com，疑似APT2控制节点，CrowdStrike 报告披露
-DOMAIN-SUFFIX,t008.net # 与APT2组织相关，注册人 cpyy@sina.com，CrowdStrike 报告披露
-DOMAIN-SUFFIX,vssigma.com # 注册人邮箱为 cpyy@sina.com，被APT2用于远控，CrowdStrike 报告披露
-
-# > APT3（中国 · 被 FireEye 命名为 UPS Team / Gothic Panda）
-
-IP-CIDR,96.44.136.115 # C2，早期使用 HTTPS 后门通信
-DOMAIN-SUFFIX,ups-backup.com # 使用的伪装 UPS 快递域名
-
-# > APT5 （中国· UNC2630 / Keyhole Panda / Manganese）
-
-IP-CIDR,165.232.136.220 # C2 之一，Citrix ADC 利用通道资料
-DOMAIN-SUFFIX,citrixadc-update.com # 伪造 Citrix ADC 域名用于漏洞利用链
-DOMAIN-SUFFIX,keyholepanda-tracker.net # Manganese / Keyhole Panda 列出的域名样例
-
-# > APT6 （中国 · 又名 “Ke3chang” 或 “MenuPass”）
-
-DOMAIN-SUFFIX,cdn.dropboxapi.com # 常用伪装 C2 通信
-IP-CIDR,185.53.178.8 # MenuPass C2，相关域名解析IP
-
-
-# > APT10 （中国 · FireEye 命名为 Stone Panda）
-
-DOMAIN-SUFFIX,update.icloudsync.net # APT10 钓鱼活动中伪装 Apple iCloud 域名
-IP-CIDR,45.77.173.179 # 用于远程命令控制的 VPS 地址
-DOMAIN-SUFFIX,microsoft-updates.org # 模拟 Windows 更新域名进行持久化连接
-DOMAIN-SUFFIX,cdn.office365updates.com # 投递恶意文档后用于回传数据的伪 CDN 域名
-IP-CIDR,103.112.45.200 # 活动中的 payload / 控制节点之一
-
-# > APT11 （中国 · 又名 Comment Crew / APT1 关联组）
-
-DOMAIN-SUFFIX,greenfurnishings.com # APT11 C2 域名，Mandiant 报告披露
-IP-CIDR,58.246.239.22 # APT11 控制器IP，疑似与“Comment Crew”关联
-
-# > APT12 （中国 · 被 CrowdStrike 命名为 Numbered Panda）
-
-DOMAIN-SUFFIX,globalnewswire.org # APT12 伪装新闻门户，用于钓鱼传播后门
-IP-CIDR,211.253.30.114 # APT12 远控服务通信IP，来源于攻击日志样本
-
-# > APT13 （中国 · 被命名为 KeyBoy）
-
-DOMAIN-SUFFIX,winserverupdater.com # C2 域名，常伪装系统更新
-IP-CIDR,178.238.232.202 # 控制节点，Unit42 报告披露
-
-# > APT14 （中国 · 被命名为 Naikon）
-
-DOMAIN-SUFFIX,oceaninfosys.net # 针对海事单位的 C2 域名
-IP-CIDR,74.208.4.200 # 回传数据节点，攻击样本中提取
-
-# > APT15（中国 · FireEye 命名为 Ke3chang / Secureworks 命名为 BRONZE PRESIDENT）
-
-IP-CIDR,122.10.84.147 # C2 控制器，使用 DNS 隧道进行隐蔽通信，FireEye 报告披露
-
-# > APT16 （中国 · FireEye 命名为 DeputyDog）
-
-DOMAIN-SUFFIX,washingtonpost.xyz # 钓鱼域名，针对日本政治目标,  FireEye 报告披露
-
-# > APT17 （中国 · CrowdStrike 命名为 DeputyDog）
-
-IP-CIDR,103.20.198.48 # C2 控制器，关联 Hacking Team 泄漏工具组件, CrowdStrike  报告披露
-
-# > APT18 （中国 · Mandiant 命名为 Dynamite Panda）
-
-IP-CIDR,61.160.224.211 # C2 控制器，攻击医疗行业，使用 Gh0st RAT，Mandiant 报告披露
-
-# > APT19 （中国 · FireEye 命名为 Codoso Team）
-
-DOMAIN-SUFFIX,service-android.net # C2 控制器，远控指令域名, FireEye  报告披露
-
-# > APT21 （中国 · 未正式命名）
-
-IP-CIDR,203.81.105.97 # APT21 疑似与 APT1 有交集，攻击政府机构
-
-# > APT27 （中国 · 命名为 Emissary Panda）
-
-DOMAIN-SUFFIX,update.saasvpn.com # C2 控制域名，用于 HyperBro 木马通信
-IP-CIDR,45.66.230.0/24 # 活动基础设施段，含远控与数据上传节点，关联 Bronze Union 行动
-
-# > APT30 （中国 · FireEye 命名为 APT30）
-
-DOMAIN-SUFFIX,mail-cabinet.org # 仿冒政府通信邮箱域名，用于钓鱼与初始投递
-IP-CIDR,43.254.217.0/24 # C2 控制段，关联 SHIPSHAPE 工具通信行为
-
-# > APT31 （中国 · 被命名为 Zirconium / Judgment Panda）
-
-DOMAIN-SUFFIX,globalservicecdn.com # CobaltStrike Beacon 通信伪装域名, Microsoft 报告披露
-IP-CIDR,103.41.124.0/24 # 使用的钓鱼和远控 IP 段
-
-# > APT40 （中国 · FireEye 命名为 Leviathan）
-
-DOMAIN-SUFFIX,research-collab.org # 针对海事与学术合作单位的攻击域名
-IP-CIDR,119.28.100.0/24 # 使用的 C2 与信息收集服务器, Recorded Future 报告披露
-
-# > APT41 （中国 · FireEye 命名为 Double Dragon）
-
-IP-CIDR,158.247.199.185 # C2，常用于 DNS TXT 隧道通信
-DOMAIN-SUFFIX,flnetupdate.com # 在 2020 年攻击医疗、教育行业时使用的伪装更新域名
-DOMAIN-SUFFIX,browser-update.org # 常用浏览器伪更新钓鱼域名, CrowdStrike 报告披露
-IP-CIDR,45.120.67.15 # 远控服务器IP，曾用于 Winnti 工具集
-
-DOMAIN-SUFFIX,storyonboard.net # 历史活动中使用的 C2 控制域名  
-DOMAIN-SUFFIX,tisone360.org # C2 域名，常与 Flash 漏洞利用及伪装组件相关  
-DOMAIN-SUFFIX,openofficev.info # 用于投递载荷与伪装更新的通信域名
-DOMAIN-SUFFIX,saytargetworld.net # 被用于历史攻击中的控制通信 
-IP-CIDR,23.111.184.119 # 新攻击活动中的 C2 控制器，Trellix 报告披露
-
-# > Evasive Panda（中国 · Avast 命名）# Nightdoor 木马使用的通信与下载服务器
-
-DOMAIN-SUFFIX,tibetpost.net # 被入侵网站，用作跳转或恶意组件托管  
-DOMAIN-SUFFIX,monlamit.com # 被入侵网站，作为攻击链的一部分  
-DOMAIN-SUFFIX,devicebug.com # update.devicebug.com 为 Nightdoor 后门的 C&C 控制服务器  
-IP-CIDR,188.208.141.204 # Nightdoor 木马下载组件服务器，活动记录于 2024 年初  
-
-# > Keydnap（macOS 平台后门 · 基于 Tor 的远控通信）
-
-DOMAIN-SUFFIX,g5wcesdfjzne7255.onion.to # Keydnap 后门通信域名  
-DOMAIN-SUFFIX,r2elajikcosf7zee.onion.to # Keydnap 后门通信域名  
-
-# > MustangPanda（中国 · Korplug 木马与下载服务器）
-
-DOMAIN-SUFFIX,locvnpt.com # 下载服务器，曾用于 2020 年 Recorded Future 报告中的攻击活动  
-DOMAIN-SUFFIX,upespr.com # 下载服务器  
-DOMAIN-SUFFIX,urmsec.com # 下载服务器  
-DOMAIN-SUFFIX,zyber-i.com # 下载服务器  
-IP-CIDR,43.254.218.42 # 下载服务器  
-IP-CIDR,45.131.179.179 # Korplug C&C 控制服务器  
-IP-CIDR,45.154.14.235 # upespr.com 域名对应下载服务器  
-IP-CIDR,92.118.188.78 # Korplug C&C 控制服务器  
-IP-CIDR,101.36.125.203 # Korplug C&C 控制服务器  
-IP-CIDR,103.56.53.120 # Korplug C&C 控制服务器  
-IP-CIDR,103.79.120.66 # locvnpt.com 域名对应下载服务器  
-IP-CIDR,107.178.71.211 # zyber-i.com 域名对应下载服务器  
-IP-CIDR,154.204.27.130 # Korplug C&C 控制服务器  
-IP-CIDR,154.204.27.181 # Korplug C&C 控制服务器  
-IP-CIDR,156.226.173.23 # urmsec.com 域名对应下载服务器  
-IP-CIDR,176.113.69.91 # Korplug C&C 控制服务器  
-IP-CIDR,185.207.153.208 # 下载服务器  
- 
-# > Ke3chang / Okrum（APT15 · 中国 · ESET 命名）  
-
-DOMAIN-SUFFIX,audioexp.com # Ke3chang 控制的恶意 C&C 域名（APT15 关联）  
-DOMAIN-SUFFIX,allionhealth.com # Ke3chang 使用的伪装医疗站点域名  
-DOMAIN-SUFFIX,amazonout.com # Ke3chang 控制的假冒 Amazon 子域，用于 C2  
-DOMAIN-SUFFIX,babytoy-online.com # Ke3chang 使用的多级子域名投递平台  
-DOMAIN-SUFFIX,beleimprensa.org # Ke3chang 使用的伪装葡语媒体站点域名  
-DOMAIN-SUFFIX,burgermap.org # Ke3chang 控制的恶意导航站点域名  
-DOMAIN-SUFFIX,compatsec.com # Ke3chang 使用的短链接型控制域名  
-DOMAIN-SUFFIX,deltimesweb.com # Ke3chang C&C 伪装新闻网站  
-DOMAIN-SUFFIX,europemis.com # Ke3chang 使用的多个子域伪装欧洲站点  
-DOMAIN-SUFFIX,freetaxbar.com # Ke3chang 用于伪装税务服务网站的域名  
-DOMAIN-SUFFIX,globaleducat.com # Okrum 阶段控制的 C&C 伪装教育类站点  
-DOMAIN-SUFFIX,hausblow.com # Ke3chang 使用的假冒建材网站域名  
-DOMAIN-SUFFIX,huntereim.com # Ke3chang 使用的伪装组织名控制域名  
-DOMAIN-SUFFIX,iniciohali.com # Ke3chang 投递或交互型域名  
-DOMAIN-SUFFIX,livehams.com # Ke3chang 假冒视频直播网站  
-DOMAIN-SUFFIX,miniaturizate.org # Ke3chang 控制的交互域名，使用西语掩护  
-DOMAIN-SUFFIX,mimepanel.org # Ke3chang 控制的伪装面板网站  
-DOMAIN-SUFFIX,nmsvillage.com # Ke3chang 使用多个子域的 C2 域名结构  
-DOMAIN-SUFFIX,premlist.com # Ke3chang 使用的投递交互型域名  
-DOMAIN-SUFFIX,privatedns.org # Ke3chang 控制的 DNS 假冒站点，用于绕过检测  
-DOMAIN-SUFFIX,sanpaulostat.com # Ke3chang 伪装州政府网站的控制域名  
-DOMAIN-SUFFIX,slovakmaps.com # Okrum 阶段伪装地理服务站点域名  
-DOMAIN-SUFFIX,soportesisco.com # Okrum 阶段假冒 Cisco 支持平台的域名  
-DOMAIN-SUFFIX,ufmsecret.org # Ke3chang 伪装教育或学术用途站点域名  
-DOMAIN-SUFFIX,zepotac.com # Ke3chang 使用的隐蔽式交互控制域名  
-DOMAIN-SUFFIX,menorustru.com # 孤立发现的 Ke3chang 关联 C2 域名，无公开指向子域  
-
-# > SparklingGoblin（中国· APT 组织 / 使用 SideWalk、Crosswalk 等自研 RAT）
-
-DOMAIN-SUFFIX,update.facebookint.workers.dev # SparklingGoblin 控制域名，用于 RAT 通信
-DOMAIN-SUFFIX,cdn.cloudfiare.workers.dev # SparklingGoblin 控制域名，伪装 Cloudflare 传输 RAT
-IP-CIDR,104.21.49.220 # SparklingGoblin 控制服务器 IP
-IP-CIDR,80.85.155.80 # SparklingGoblin 控制服务器 IP
-IP-CIDR,193.38.54.110 # SparklingGoblin 控制服务器 IP
-
-# > TA410（中国· APT 组织 / 多平台后门与 C&C 架构）
-
-DOMAIN-SUFFIX,cahe.microsofts.com # QuasarRAT 木马 C&C 控制域名
-DOMAIN-SUFFIX,ffca.caibi379.com # QuasarRAT 下载器 C&C 域名
-DOMAIN-SUFFIX,smtp.nsfwgo.com # Korplug（PlugX）远控木马 C&C 域名
-DOMAIN-SUFFIX,dlaxpcmghd.com # LookBack 木马 C&C 控制域名
-DOMAIN-SUFFIX,wwww.dlmum.com # FlowCloud 木马控制域名
-IP-CIDR,43.254.216.104 # TA410 早期投递服务器（Delivery Server）
-IP-CIDR,45.124.115.103 # LookBack / Delivery C&C 控制服务器
-IP-CIDR,161.82.181.4 # TA410 投递控制服务器
-IP-CIDR,43.254.219.153 # X4 后门 C&C 控制服务器
-IP-CIDR,154.223.141.36 # HTran 数据隧道 C&C 控制服务器
-IP-CIDR,103.139.2.93 # Tendyron 后门木马控制服务器
-IP-CIDR,185.225.19.17 # LookBack 木马控制服务器
-IP-CIDR,94.158.245.249 # LookBack 木马控制服务器
-IP-CIDR,5.252.179.227 # LookBack 木马控制服务器
-IP-CIDR,222.186.151.141 # FlowCloud 后门木马控制服务器
-IP-CIDR,47.111.22.65 # FlowCross 后门木马控制服务器
-IP-CIDR,114.55.109.199 # FlowCloud 后门木马控制服务器
-IP-CIDR,185.225.17.39 # LookBack 木马控制服务器
-
-# > Tick（中国 · Bronze Butler / 情报窃取与持久化攻击 / 多种自研后门工具）
-
-IP-CIDR,115.144.69.108 # ShadowPY 后门 C&C（伪装域名 travelasist.com）
-IP-CIDR,110.10.16.56 # Netboy 后门 C&C（伪装域名 mssql.waterglue.org）
-IP-CIDR,103.127.124.117 # 被恶意更新程序访问，用于密钥解密
-IP-CIDR,103.127.124.119 # ReVBShell A 版后门 C&C（伪装域名 slientship.com）
-IP-CIDR,103.127.124.76 # ReVBShell B 版后门 C&C
-IP-CIDR,58.230.118.78 # Ghostdown 后门服务器（伪装域名 oracle.eneygylakes.com）
-IP-CIDR,192.185.89.178 # 被 32 位恶意安装器访问，用于加载远程 payload
 
 # > 广告与追踪服务（Google Ads & Tracking）
-
-DOMAIN-SUFFIX,googleadservices.com # Google 广告服务接口
-DOMAIN-SUFFIX,googleadapis.l.google.com # Google API 服务域名（内部/广告相关 API 调用）
-DOMAIN-SUFFIX,mobileapptracking.com # Appsflyer 旗下归因分析平台域名（常用于广告 SDK，存在追踪用途）
-DOMAIN-SUFFIX,pagead2.googlesyndication.com # Google 展示广告 / 广告素材域
-DOMAIN-SUFFIX,googleadservices-cn.com # Google 中国广告服务接口
-DOMAIN-SUFFIX,googleads.g.doubleclick-cn.net # Google 在中国地区的 DoubleClick 子域
-DOMAIN-SUFFIX,googlesyndication.com # Google 广告 / 内容分发 + 追踪服务
-DOMAIN-SUFFIX,adservice.google.com # Google 广告服务接口 / 跳转域
-DOMAIN-SUFFIX,adservice.google.cn # Google 在中国的广告服务接口
-DOMAIN-SUFFIX,googleads.g.doubleclick.net # Google DoubleClick 子域广告投放
-DOMAIN-SUFFIX,googleads.g.doubleclick.com # Google 广告服务子域
-DOMAIN-SUFFIX,adtrafficquality.google # Google 广告质量评估域名,用于广告流量质量检测 
-DOMAIN-SUFFIX,googletagservices-cn.com # Google 广告标签服务（中国镜像）
-DOMAIN-SUFFIX,adservice.google.com.mt # Google 广告服务（马耳他地区）
-DOMAIN-SUFFIX,pagead.l.google.com # Google 广告服务子域（页面广告）
-DOMAIN-SUFFIX,partnerad.l.google.com # Google 合作广告平台（partner 广告）
-DOMAIN-SUFFIX,video-stats.video.google.com # Google 视频广告统计接口（YouTube 视频前贴广告统计）
-DOMAIN-SUFFIX,wintricksbanner.googlepages.com # Google Pages 网站上的广告内容托管
+DOMAIN-SUFFIX,googleadservices.com,REJECT # Google 广告服务接口
+DOMAIN-SUFFIX,googleadapis.l.google.com,REJECT # Google API 服务域名（内部/广告相关 API 调用）
+DOMAIN-SUFFIX,mobileapptracking.com,REJECT # Appsflyer 旗下归因分析平台域名（常用于广告 SDK，存在追踪用途）
+DOMAIN-SUFFIX,pagead2.googlesyndication.com,REJECT # Google 展示广告 / 广告素材域
+DOMAIN-SUFFIX,googleadservices-cn.com,REJECT # Google 中国广告服务接口
+DOMAIN-SUFFIX,googleads.g.doubleclick-cn.net,REJECT # Google 在中国地区的 DoubleClick 子域
+DOMAIN-SUFFIX,googlesyndication.com,REJECT # Google 广告 / 内容分发 + 追踪服务
+DOMAIN-SUFFIX,adservice.google.com,REJECT # Google 广告服务接口 / 跳转域
+DOMAIN-SUFFIX,adservice.google.cn,REJECT # Google 在中国的广告服务接口
+DOMAIN-SUFFIX,googleads.g.doubleclick.net,REJECT # Google DoubleClick 子域广告投放
+DOMAIN-SUFFIX,googleads.g.doubleclick.com,REJECT # Google 广告服务子域
+DOMAIN-SUFFIX,adtrafficquality.google,REJECT # Google 广告质量评估域名,用于广告流量质量检测 
+DOMAIN-SUFFIX,googletagservices-cn.com,REJECT # Google 广告标签服务（中国镜像）
+DOMAIN-SUFFIX,adservice.google.com.mt,REJECT # Google 广告服务（马耳他地区）
+DOMAIN-SUFFIX,pagead.l.google.com,REJECT # Google 广告服务子域（页面广告）
+DOMAIN-SUFFIX,partnerad.l.google.com,REJECT # Google 合作广告平台（partner 广告）
+DOMAIN-SUFFIX,video-stats.video.google.com,REJECT # Google 视频广告统计接口（YouTube 视频前贴广告统计）
+DOMAIN-SUFFIX,wintricksbanner.googlepages.com,REJECT # Google Pages 网站上的广告内容托管
 
 # > Apple 行为遥测服务
-
-# DOMAIN-SUFFIX,sylvan.apple.com # Apple iCloud 行为遥测服务
-# DOMAIN-SUFFIX,analytics.edge.apple # Apple 分析数据上报服务
-# DOMAIN-SUFFIX,feedbackws.apple.com # 用户反馈与错误日志上报
-# DOMAIN-SUFFIX,crashlytics.apple.com # 应用崩溃日志收集服务
-# DOMAIN-SUFFIX,supportmetrics.apple.com # 客服行为追踪服务
-# DOMAIN-SUFFIX,notes-analytics-events.apple.com # 备忘录分析事件接口
-# DOMAIN-SUFFIX,weather-analytics-events.apple.com # 天气应用分析事件接口
-# DOMAIN-SUFFIX,dns.apple.com # 网络状态探测域
-# DOMAIN-SUFFIX,imessage-analysis.apple.com # iMessage 行为分析域名
+# DOMAIN-SUFFIX,sylvan.apple.com,REJECT # Apple iCloud 行为遥测服务
+# DOMAIN-SUFFIX,analytics.edge.apple,REJECT # Apple 分析数据上报服务
+# DOMAIN-SUFFIX,feedbackws.apple.com,REJECT # 用户反馈与错误日志上报
+# DOMAIN-SUFFIX,crashlytics.apple.com,REJECT # 应用崩溃日志收集服务
+# DOMAIN-SUFFIX,supportmetrics.apple.com,REJECT # 客服行为追踪服务
+# DOMAIN-SUFFIX,notes-analytics-events.apple.com,REJECT # 备忘录分析事件接口
+# DOMAIN-SUFFIX,weather-analytics-events.apple.com,REJECT # 天气应用分析事件接口
+# DOMAIN-SUFFIX,dns.apple.com,REJECT # 网络状态探测域
+# DOMAIN-SUFFIX,imessage-analysis.apple.com,REJECT # iMessage 行为分析域名
 
 # > Google / Firebase / Crashlytics 相关行为指纹
-
-DOMAIN-SUFFIX,app-measurement.com # 指纹监听 + 流量分析回传
-DOMAIN-SUFFIX,config.app-measurement.com # Firebase GMP 远程配置域名，用于热更新/灰度控制
-DOMAIN-SUFFIX,firebaseinstallations.googleapis.com # Firebase 安装 ID（FID）初始化接口
-DOMAIN-SUFFIX,google-analytics.com # Google Analytics 通用网页行为统计域名
-DOMAIN-SUFFIX,analytics.google.com # Google Analytics GA4 数据上报域名
-DOMAIN-SUFFIX,firebase-settings.crashlytics.com # Crashlytics 崩溃报告配置拉取接口
-DOMAIN-SUFFIX,crashlyticsreports-pa.googleapis.com # Crashlytics 崩溃数据主动上传接口
-DOMAIN-SUFFIX,clientmetrics-pa.googleapis.com # Google 客户端指标收集（Telemetry）
-DOMAIN-SUFFIX,firebaselogging-pa.googleapis.com # Firebase 日志收集与上报服务
-DOMAIN-SUFFIX,firebasedynamiclinks.googleapis.com # Firebase 动态链接服务，常用于分享跳转追踪
-DOMAIN-SUFFIX,crashlytics.com # 被大量灰产 SDK 使用
-DOMAIN-SUFFIX,app-analytics-services.com # YouTube 应用行为统计接口，常用于用户操作数据收集
-DOMAIN-SUFFIX,s.youtube.com # YouTube 广告控制与追踪接口，用于广告推荐、点击记录与个性化订阅行为
-DOMAIN-SUFFIX,youtube-nocookie.com # YouTube 嵌入播放器的隐私增强模式域名，仍存在行为追踪功能，建议拦截
+DOMAIN-SUFFIX,app-measurement.com,REJECT # 指纹监听 + 流量分析回传
+DOMAIN-SUFFIX,config.app-measurement.com,REJECT # Firebase GMP 远程配置域名，用于热更新/灰度控制
+DOMAIN-SUFFIX,firebaseinstallations.googleapis.com,REJECT # Firebase 安装 ID（FID）初始化接口
+DOMAIN-SUFFIX,google-analytics.com,REJECT # Google Analytics 通用网页行为统计域名
+DOMAIN-SUFFIX,analytics.google.com,REJECT # Google Analytics GA4 数据上报域名
+DOMAIN-SUFFIX,firebase-settings.crashlytics.com,REJECT # Crashlytics 崩溃报告配置拉取接口
+DOMAIN-SUFFIX,crashlyticsreports-pa.googleapis.com,REJECT # Crashlytics 崩溃数据主动上传接口
+DOMAIN-SUFFIX,clientmetrics-pa.googleapis.com,REJECT # Google 客户端指标收集（Telemetry）
+DOMAIN-SUFFIX,firebaselogging-pa.googleapis.com,REJECT # Firebase 日志收集与上报服务
+DOMAIN-SUFFIX,firebasedynamiclinks.googleapis.com,REJECT # Firebase 动态链接服务，常用于分享跳转追踪
+DOMAIN-SUFFIX,crashlytics.com,REJECT # 被大量灰产 SDK 使用
+DOMAIN-SUFFIX,app-analytics-services.com,REJECT # YouTube 应用行为统计接口，常用于用户操作数据收集
+DOMAIN-SUFFIX,s.youtube.com,REJECT # YouTube 广告控制与追踪接口，用于广告推荐、点击记录与个性化订阅行为
+DOMAIN-SUFFIX,youtube-nocookie.com,REJECT # YouTube 嵌入播放器的隐私增强模式域名，仍存在行为追踪功能，建议拦截
 
 # > Microsoft 相关遥测与探测行为
-
-DOMAIN-SUFFIX,dns.msftncsi.com # Microsoft 网络连通性检查域，用于探测联网状态
-DOMAIN-SUFFIX,mobile.events.data.microsoft.com # VS Code / Windows / Office 遥测上传行为
-DOMAIN-SUFFIX,in.appcenter.ms  # Microsoft AppCenter 移动应用分析 SDK 域名，用于遥测统计与行为数据上报
-DOMAIN-SUFFIX,otelrules.svc.static.microsoft # 微软远程遥测服务域名，用于采集 OpenTelemetry 规则与应用遥测数据 
-DOMAIN-SUFFIX,officeci.azurewebsites.net # Microsoft Office Telemetry 数据上报接口，部署于 Azure Web 应用服务，可能用于 Beta/Insider 版本行为采集与测试反馈 
+DOMAIN-SUFFIX,dns.msftncsi.com,REJECT # Microsoft 网络连通性检查域，用于探测联网状态
+DOMAIN-SUFFIX,mobile.events.data.microsoft.com,REJECT # VS Code / Windows / Office 遥测上传行为
+DOMAIN-SUFFIX,in.appcenter.ms ,REJECT # Microsoft AppCenter 移动应用分析 SDK 域名，用于遥测统计与行为数据上报
+DOMAIN-SUFFIX,otelrules.svc.static.microsoft,REJECT # 微软远程遥测服务域名，用于采集 OpenTelemetry 规则与应用遥测数据 
+DOMAIN-SUFFIX,officeci.azurewebsites.net,REJECT # Microsoft Office Telemetry 数据上报接口，部署于 Azure Web 应用服务，可能用于 Beta/Insider 版本行为采集与测试反馈 
 
 # > 华为系行为分析与遥测接口
-
-DOMAIN-SUFFIX,hispace.hicloud.com # 华为 App 行为与更新统计接口
-DOMAIN-SUFFIX,logservice.hicloud.com # 崩溃日志与遥测上报服务
-DOMAIN-SUFFIX,metrics1.data.hicloud.com # HMS Core 行为数据统计接口
-DOMAIN-SUFFIX,config.hicloud.com # 配置下发与灰度测试控制接口
-DOMAIN-SUFFIX,push-api.cloud.huawei.com # 华为 Push 行为上报通道
+DOMAIN-SUFFIX,hispace.hicloud.com,REJECT # 华为 App 行为与更新统计接口
+DOMAIN-SUFFIX,logservice.hicloud.com,REJECT # 崩溃日志与遥测上报服务
+DOMAIN-SUFFIX,metrics1.data.hicloud.com,REJECT # HMS Core 行为数据统计接口
+DOMAIN-SUFFIX,config.hicloud.com,REJECT # 配置下发与灰度测试控制接口
+DOMAIN-SUFFIX,push-api.cloud.huawei.com,REJECT # 华为 Push 行为上报通道
 
 # > Amazon / Cloudflare / Sentry 行为分析服务
-
-DOMAIN-SUFFIX,sentry.cloudflare.com # 行为分析追踪系统
-DOMAIN-SUFFIX,o33249.ingest.us.sentry.io # Sentry 错误追踪与日志采集域名，用于 GPT 应用的异常报告上传
-DOMAIN-SUFFIX,browser-intake-datadoghq.com # Datadog 监控上报域名，GPT 应用用于收集前端性能指标与异常信息
-
-# > Ticketmaster 分析与广告服务（可选是否归入行为分析）
-
-DOMAIN-SUFFIX,analytics.ticketmaster.com # 用户行为分析与数据收集
-DOMAIN-SUFFIX,ads.ticketmaster.com # 广告与推广服务接口
-
-# > Cash App 广告与行为追踪（可移入其他模块）
-
-DOMAIN-SUFFIX,analytics.cash.app # 用户行为数据与分析系统
-DOMAIN-SUFFIX,ads.cash.app # 推广与广告平台接口
-
-# > SHEIN
-
-DOMAIN-SUFFIX,uberinternal.com # Uber 内部服务域（日志与行为上报）
-
-# > Coinbase 加密货币平台
-
-DOMAIN-SUFFIX,analytics.coinbase.com  # Coinbase 用户行为分析与打点服务
-
-# > Segment 行为追踪服务
-
-DOMAIN-SUFFIX,segment.io # 用户行为追踪服务，广泛嵌入于 App 与网页中，采集分析数据
-
-# > Adform 行为监听器
-
-DOMAIN-SUFFIX,track.adform.net # Adform：广告行为监听器
-
-# > 实验分流与行为测试平台
-
-DOMAIN-SUFFIX,default.exp-tas.com # 实验分流平台，可能进行 A/B 测试配置注入
-
-
-AND,((DOMAIN-KEYWORD,f-log), (DOMAIN-SUFFIX,grammarly.io))
-AND,((DOMAIN-KEYWORD,genuine), (DOMAIN-KEYWORD,autodesk))
-AND,((DOMAIN-SUFFIX,msa.cdn.mediaset.net), (DOMAIN-KEYWORD,adv0))
-AND,((DOMAIN-SUFFIX,prod.hosts.ooklaserver.net), (DOMAIN-KEYWORD,.ad.))
-AND,((NOT,((OR,((DOMAIN-SUFFIX,bilibili.com),(DOMAIN-SUFFIX,hdslb.com),(DOMAIN-SUFFIX,wo.cn),(DOMAIN-SUFFIX,biligame.com),(DOMAIN-SUFFIX,bilivideo.com),(DOMAIN-SUFFIX,biliapi.com),(DOMAIN-SUFFIX,biliapi.net),(DOMAIN-SUFFIX,biliintl.com),(DOMAIN-SUFFIX,bstarstatic.com),(DOMAIN-SUFFIX,akamaized.net))))),(USER-AGENT,bili*))
-AND,((OR,((DOMAIN-SUFFIX,gvt3.com), (DOMAIN-SUFFIX,gvt2.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,gvt0.com))), (DOMAIN-KEYWORD,beacon))
-URL-REGEX,^https:\/\/spclient\.wg\.spotify\.com\/ad-logic\/prefetch$
+DOMAIN-SUFFIX,sentry.cloudflare.com,REJECT # 行为分析追踪系统
+DOMAIN-SUFFIX,o33249.ingest.us.sentry.io,REJECT # Sentry 错误追踪与日志采集域名，用于 GPT 应用的异常报告上传
+DOMAIN-SUFFIX,browser-intake-datadoghq.com,REJECT # Datadog 监控上报域名，GPT 应用用于收集前端性能指标与异常信息
