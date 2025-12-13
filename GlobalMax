@@ -1,4 +1,3 @@
-#数据统计：9410
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0rz.tw
@@ -490,6 +489,7 @@ DOMAIN-SUFFIX,apple-relay.fastly-edge.com,extended-matching
 DOMAIN-SUFFIX,appmediagroup.com
 DOMAIN-SUFFIX,apps.evozi.com
 DOMAIN-SUFFIX,appsflyer.com
+DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,appshopper.com
 DOMAIN-SUFFIX,appsocks.net
 DOMAIN-SUFFIX,appspot.com
