@@ -2,17 +2,6 @@
 #!desc=常用软件去广告
 
 [URL Rewrite]
-# Alipay
-^https?:\/\/amdc\.alipay\.com\/s?query - reject
-^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
-^https?:\/\/110\.76\.8\.150\/squery - reject
-^https?:\/\/203\.209\.230\.39\/squery - reject
-^https?:\/\/203\.209\.245\.102\/squery - reject
-^https?:\/\/203\.209\.245\.158\/squery - reject
-^https?:\/\/203\.209\.247\.95\/squery - reject
-^https?:\/\/203\.209\.250\.41\/squery - reject
-^https?:\/\/203\.209\.250\.114\/squery - reject
-^https?:\/\/203\.209\.251\.147\/squery - reject
 
 # Bilibili
 # KEY_EXT_P2P_HTTPDNS_BILI_IP
