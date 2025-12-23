@@ -34,23 +34,6 @@
 ^http:\/\/103\.37\.155\.60\/fetch - reject
 # 腾讯DNS
 ^https?:\/\/119\.29\.29\.29\/d - reject
-# Pinduoduo
-^http:\/\/101\.35\.204\.35\/d - reject
-^http:\/\/101\.35\.212\.35\/d - reject
-^http:\/\/114\.110\.96\.26\/d - reject
-^http:\/\/114\.110\.97\.97\/d - reject
-# 拼多多
-URL-REGEX,^http:\/\/101\.35\.204\.35\/d,REJECT
-URL-REGEX,^http:\/\/101\.35\.212\.35\/d,REJECT
-URL-REGEX,^http:\/\/114\.110\.96\.26\/d,REJECT
-URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
-
-# 拼多多广告平台
-^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash - reject
-^https:\/\/video-dsp\.pddpic\.com\/market-dsp-video\/ - reject
-^https:\/\/t-dsp\.pinduoduo\.com\/dspcb\/i\/mrk_union - reject
-^https:\/\/images\.pinduoduo\.com\/mrk\/ - reject
-^https:\/\/images\.pinduoduo\.com\/marketing_api\/ - reject
 
 # 去章末广告
 ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ - reject
@@ -74,17 +57,6 @@ URL-REGEX,^http:\/\/114\.110\.97\.97\/d,REJECT
 ^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/.*?\/v\d\/(version|top_notice\?|advert\?position=[^2]+) - reject
 
 [Map Local]
-# > 小红书
-# 惊喜弹窗
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/surprisebox\/(get_style|open|submit_action) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https?:\/\/www\.xiaohongshu\.com\/api\/marketing\/box\/trigger\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-# 信息流
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/note\/guide\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/guide\/user_banner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https?:\/\/www\.xiaohongshu\.com\/api\/sns\/(v\d\/ads\/resource|v\d\/hey\/\w+\/hey_gallery) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-# 评论区图片水印 (实验功能可能无效)
-^https?:\/\/ci\.xiaohongshu\.com\/system_config\/watermark data-type=tiny-gif status-code=200
-
 
 # 美团 & 美团外卖
 ^https?:\/\/wmapi\.meituan\.com\/api\/v7\/(loadInfo|openscreen|startpicture)\? data-type=text data="{}" status-code=200
@@ -104,29 +76,7 @@ jingdong = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.actio
 # Reddit
 #移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js, requires-body=true
 
-# > 小红书
-# 搜索页
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/(banner_list|hot_list), script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/(hint|trending)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/notes\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-# 开屏广告
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/config\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-# 详情页,小部件
-xiaohongshu = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/note\/widgets, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-# 图片水印,视频水印
-xiaohongshu = type=http-response, pattern=^https?:\/\/(edith|rec|www)\.xiaohongshu\.com\/api\/sns\/v\d\/note\/(imagefeed|live_photo\/save), script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/(edith|rec|www)\.xiaohongshu\.com\/api\/sns\/v\d\/(followfeed|homefeed)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/(edith|rec|www)\.xiaohongshu\.com\/api\/sns\/(v2\/note\/feed|v3\/note\/videofeed)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-xiaohongshu = type=http-response, pattern=^https?:\/\/(edith|rec|www)\.xiaohongshu\.com\/api\/sns\/(v4\/note\/videofeed|v10\/note\/video\/save)\?, script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, max-size=-1, timeout=60
-# 评论区用户id置空 (实验功能可能无效)
-replaceBody = type=http-response, pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/note\/comment\/list, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/replace-body.js, requires-body=true, max-size=-1, timeout=30, argument=red_id-%3Efmz200
-
-# 微信跳过中间界面，支付宝链接、被封禁链接进行通知弹窗跳转，在微信中用快照显示被封禁的链接（可选），在微信中进行强制重定向（可选），群聊 / 扫码均可使用，可选项可在脚本 2、3 行更改，也可在 BoxJs 中更改。
-# 微信封禁页面 //weixin110.qq.com, security.wechat.com
-weixin110 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weixin110.js, requires-body=true, max-size=-1, timeout=60
-
 内容农场(www.google.com|com.hk) = type=http-response , pattern="^https?:\/\/(www\.google)(\.\w{2,4}){1,2}\/(search\?|\?sa=|\?FORM)(?!.*?(apps=))" , requires-body=1 , max-size=0 , script-path=https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adguard/Adblock4limbo.js , script-update-interval=0
 
 [MITM]
-hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, adim.pinduoduo.com, fbchina.flipchina.cn, weixin110.qq.com, security.wechat.com, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro amdc.alipay.com, acs.m.goofish.com, g-acs.m.goofish.com
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, video-dsp.pddpic.com, fbchina.flipchina.cn, api.m.jd.com, dns.jd.com, img.meituan.net, p*.meituan.net, s3plus.meituan.net, flowplus.meituan.net, acs.m.taobao.com, www.google.com.hk, www.google.com.hk, 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, appconf.mail.163.com, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
