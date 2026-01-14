@@ -145,7 +145,6 @@ IP-CIDR,0.0.0.0/8,ADlite
 IP-CIDR,224.0.0.0/4,ADlite
 
 # > 抖音 / 字节跳动相关行为指纹
-HOST-SUFFIX,mon.snssdk.com,ADlite
 HOST-SUFFIX,api5-normal-lf.amemv.com,ADlite
 HOST-SUFFIX,api5-normal-lq.amemv.com,ADlite
 HOST-SUFFIX,sf16-muse-va.ibytedtos.com,ADlite
@@ -339,4 +338,5 @@ HOST-SUFFIX,push-SUFFIX,push-api.cloud.huawei.com,ADlite
 HOST-SUFFIX,sentry.cloudflare.com,ADlite
 HOST-SUFFIX,o33249.ingest.us.sentry.io,ADlite
 HOST-SUFFIX,browser-intake-datadoghq.com,ADlite
+
 
