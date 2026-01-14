@@ -1,31 +1,3 @@
-HOST-KEYWORD,-ad.byteoversea.com,ADlite
-HOST-KEYWORD,-ad-sign.byteimg.com,ADlite
-HOST-KEYWORD,-analytics.bytescm.com,ADlite
-HOST-KEYWORD,asiad.byteactivity,ADlite
-HOST-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,ADlite
-HOST-KEYWORD,-fe-tos.pglstatp-toutiao.com,ADlite
-HOST-KEYWORD,log-api.pangolin-sdk-toutiao,ADlite
-HOST-KEYWORD,-short.bytetos.com,ADlite
-HOST-KEYWORD,video-cn.snssdk.com,ADlite
-HOST-SUFFIX,bds.snssdk.com,ADlite
-HOST-SUFFIX,dm.bytedance.com,ADlite
-HOST-SUFFIX,dm.pstatp.com,ADlite
-HOST-SUFFIX,dm.toutiao.com,ADlite
-HOST-SUFFIX,extlog.snssdk.com,ADlite
-HOST-SUFFIX,gromore.pangolin-sdk-toutiao.com,ADlite
-HOST-SUFFIX,is.snssdk.com,ADlite
-HOST-SUFFIX,log.snssdk.com,ADlite
-HOST-SUFFIX,mon.zijieapi.com,ADlite
-HOST-SUFFIX,mssdk.volces.com,ADlite
-HOST-SUFFIX,mssdk-bu.bytedance.com,ADlite
-HOST-SUFFIX,pangolin.snssdk.com,ADlite
-HOST-SUFFIX,s3a.pstatp.com,ADlite
-HOST-SUFFIX,sdfp.snssdk.com,ADlite
-HOST-SUFFIX,ssdk-sg.pangle.io,ADlite
-HOST-SUFFIX,toblog.ctobsnssdk.com,ADlite
-HOST-SUFFIX,tosv.boe.byted.org,ADlite
-HOST-SUFFIX,tosv.byted.org,ADlite
-
 # 哔哩哔哩
 HOST,httpdns.bilivideo.com,ADlite
 # KEY_EXT_P2P_HTTPDNS_BILI_IP
@@ -338,6 +310,7 @@ HOST-SUFFIX,push-SUFFIX,push-api.cloud.huawei.com,ADlite
 HOST-SUFFIX,sentry.cloudflare.com,ADlite
 HOST-SUFFIX,o33249.ingest.us.sentry.io,ADlite
 HOST-SUFFIX,browser-intake-datadoghq.com,ADlite
+
 
 
 
