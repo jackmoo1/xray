@@ -4,7 +4,7 @@
 #!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译
 
 [URL Rewrite]
-^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event))(\?(.*))?$ {{{https://stream.maasea.workers.dev}}}/$1?blockUpload={{{true}}}&blockImmersive={{{ture}}}&blockShorts={{{false}}}&captionLang={{{zh-CN}}}&lyricLang={{{off}}}&$4 307
+^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event))(\?(.*))?$ {{{https://stream.maasea.workers.dev}}}/$1?blockUpload={{{true}}}&blockImmersive={{{ture}}}&blockShorts={{{false}}}&captionLang={{{off}}}&lyricLang={{{off}}}&$4 307
 (^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.*) "https://init-stream.maasea.workers.dev/?url=$1" header
 
 [MITM]
