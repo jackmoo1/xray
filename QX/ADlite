@@ -151,7 +151,7 @@ HOST-SUFFIX,sf16-muse-va.ibytedtos.com,ADlite
 HOST-SUFFIX,ib.snssdk.com,ADlite
 HOST-SUFFIX,data.bytedance.net,ADlite
 HOST-SUFFIX,log-api.pangolin-sdk-toutiao.com,ADlite
-IP-CIDR,59.82.121.221,ADlite
+IP-CIDR,59.82.121.221/32,ADlite
 
 
 # > 小红书指纹与日志收集行为
@@ -189,7 +189,7 @@ HOST-SUFFIX,sdkapplog.51ping.com,ADlite
 HOST-SUFFIX,adashx4yt.m.taobao.com,ADlite
 HOST-SUFFIX,track.alicdn.com,ADlite
 HOST-SUFFIX,m-adash.cn-hangzhou.log.aliyuncs.com,ADlite
-IP-CIDR,114.80.179.230,ADlite
+IP-CIDR,114.80.179.230/32,ADlite
 # > 阿里系遥测接口
 
 HOST-SUFFIX,xlog.snssdk.com,ADlite
@@ -252,8 +252,8 @@ HOST-SUFFIX,atl-paas.net,ADlite
 HOST-SUFFIX,ds-cdn.prod-east.frontend.public.atl-paas.net,ADlite
 
 # > 潜在远程控制或监听节点（SoftLayer）
-IP-CIDR,74.86.151.167,ADlite
-IP-CIDR,59.82.121.221,ADlite
+IP-CIDR,74.86.151.167/32,ADlite
+IP-CIDR,59.82.121.221/32,ADlite
 
 
 # > Backdoor_Block.list（后门行为与恶意活动规则集）
@@ -338,5 +338,6 @@ HOST-SUFFIX,push-SUFFIX,push-api.cloud.huawei.com,ADlite
 HOST-SUFFIX,sentry.cloudflare.com,ADlite
 HOST-SUFFIX,o33249.ingest.us.sentry.io,ADlite
 HOST-SUFFIX,browser-intake-datadoghq.com,ADlite
+
 
 
