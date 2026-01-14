@@ -1,0 +1,354 @@
+HOST-KEYWORD,-ad.byteoversea.com,ADlite
+HOST-KEYWORD,-ad-sign.byteimg.com,ADlite
+HOST-KEYWORD,-analytics.bytescm.com,ADlite
+HOST-KEYWORD,asiad.byteactivity,ADlite
+HOST-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,ADlite
+HOST-KEYWORD,-fe-tos.pglstatp-toutiao.com,ADlite
+HOST-KEYWORD,log-api.pangolin-sdk-toutiao,ADlite
+HOST-KEYWORD,-short.bytetos.com,ADlite
+HOST-KEYWORD,video-cn.snssdk.com,ADlite
+HOST-SUFFIX,bds.snssdk.com,ADlite
+HOST-SUFFIX,dm.bytedance.com,ADlite
+HOST-SUFFIX,dm.pstatp.com,ADlite
+HOST-SUFFIX,dm.toutiao.com,ADlite
+HOST-SUFFIX,extlog.snssdk.com,ADlite
+HOST-SUFFIX,gromore.pangolin-sdk-toutiao.com,ADlite
+HOST-SUFFIX,is.snssdk.com,ADlite
+HOST-SUFFIX,log.snssdk.com,ADlite
+HOST-SUFFIX,mon.zijieapi.com,ADlite
+HOST-SUFFIX,mssdk.volces.com,ADlite
+HOST-SUFFIX,mssdk-bu.bytedance.com,ADlite
+HOST-SUFFIX,pangolin.snssdk.com,ADlite
+HOST-SUFFIX,s3a.pstatp.com,ADlite
+HOST-SUFFIX,sdfp.snssdk.com,ADlite
+HOST-SUFFIX,ssdk-sg.pangle.io,ADlite
+HOST-SUFFIX,toblog.ctobsnssdk.com,ADlite
+HOST-SUFFIX,tosv.boe.byted.org,ADlite
+HOST-SUFFIX,tosv.byted.org,ADlite
+
+
+
+# 哔哩哔哩
+HOST,httpdns.bilivideo.com,ADlite
+# KEY_EXT_P2P_HTTPDNS_BILI_IP
+IP-CIDR,47.101.175.206/32,ADlite
+IP-CIDR,47.100.123.169/32,ADlite
+IP-CIDR,120.46.169.234/32,ADlite
+IP-CIDR,121.36.72.124/32,ADlite
+# KEY_EXT_P2P_BILIDNS_CMCC_IP
+IP-CIDR,116.63.10.135/32,ADlite
+IP-CIDR,122.9.7.134/32,ADlite
+IP-CIDR,117.185.228.108/32,ADlite
+IP-CIDR,117.144.238.29/32,ADlite
+# KEY_EXT_P2P_BILIDNS_CT_IP
+IP-CIDR,122.9.13.79/32,ADlite
+IP-CIDR,122.9.15.129/32,ADlite
+IP-CIDR,101.91.140.224/32,ADlite
+IP-CIDR,101.91.140.124/32,ADlite
+# KEY_EXT_P2P_BILIDNS_CU_IP
+IP-CIDR,114.116.215.110/32,ADlite
+IP-CIDR,116.63.10.31/32,ADlite
+IP-CIDR,112.64.218.119/32,ADlite
+IP-CIDR,112.65.200.117/32,ADlite
+
+# 百度联盟 - 广告服务商
+HOST-SUFFIX,als.baidu.com,ADlite
+HOST-SUFFIX,bgg.baidu.com,ADlite
+HOST-SUFFIX,cpro.baidustatic.com,ADlite
+HOST-SUFFIX,feed-image.baidu.com,ADlite
+HOST-SUFFIX,mobads.baidu.com,ADlite
+HOST-SUFFIX,mobads-logs.baidu.com,ADlite
+HOST-SUFFIX,mobads-pre-config.cdn.bcebos.com,ADlite
+HOST-SUFFIX,nadvideo2.baidu.com,ADlite
+HOST-SUFFIX,pos.baidu.com,ADlite
+HOST-SUFFIX,union.baidu.cn,ADlite
+HOST-SUFFIX,union.baidu.com,ADlite
+HOST-SUFFIX,wn.pos.baidu.com,ADlite
+# 阿里巴巴
+HOST-SUFFIX,h-adashx.ut.taobao.com,ADlite
+HOST,httpdns.alicdn.com,ADlite
+# 阿里云
+HOST,httpdns-api.aliyuncs.com,ADlite
+HOST,httpdns-sc.aliyuncs.com,ADlite
+IP-CIDR,203.107.1.0/24,ADlite
+# 百度
+HOST,httpdns.baidu.com,ADlite
+HOST,httpsdns.baidu.com,ADlite
+HOST,httpdns.bcelive.com,ADlite
+IP-CIDR,180.76.76.200/32,ADlite
+# 百度智能云
+HOST,httpdns.baidubce.com,ADlite
+IP-CIDR,186.76.76.200/32,ADlite,ADlite
+# 友盟
+HOST-SUFFIX,aaid.umeng.com,ADlite
+HOST-SUFFIX,aspect-upush.umeng.com,ADlite
+HOST-SUFFIX,cnlogs.umeng.com,ADlite
+HOST-SUFFIX,deeplink.umeng.com,ADlite
+HOST-SUFFIX,errlog.umeng.com,ADlite
+HOST-SUFFIX,errnewlog.umeng.com,ADlite
+HOST-SUFFIX,log.umtrack.com,ADlite
+HOST-SUFFIX,plbslog.umeng.com,ADlite
+HOST-SUFFIX,ucc.umeng.com,ADlite
+HOST-SUFFIX,ulogs.umeng.com,ADlite
+HOST-SUFFIX,utoken.umeng.com,ADlite
+# 华为
+HOST,httpdns.c.cdnhwc2.com,ADlite
+HOST-SUFFIX,dsp-x.jd.com,ADlite
+HOST-SUFFIX,xlog.jd.com,ADlite
+HOST-SUFFIX,janapi.jd.com,ADlite
+# 京东
+HOST,dns.jd.com,ADlite
+IP-CIDR,101.124.19.122/32,ADlite,ADlite
+IP-CIDR6,2402:db40:5100:1011::5/128,ADlite,ADlite
+# 京东云
+IP-CIDR,103.224.222.208/32,ADlite,ADlite
+# 腾讯云
+IP-CIDR,119.29.29.98/32,ADlite,ADlite
+IP-CIDR,119.29.29.99/32,ADlite,ADlite
+URL-REGEX,^http:\/\/182\.254\.116\.116\/d,ADlite
+# 字节跳动
+HOST,httpdns.volcengineapi.com,ADlite
+HOST,dig.bdurl.net,ADlite
+HOST,dig.zjurl.cn,ADlite
+# 美团
+HOST,httpdns.meituan.com,ADlite
+HOST,httpdnsvip.meituan.com,ADlite
+IP-CIDR,202.90.108.13/32,ADlite,ADlite
+IP-CIDR,202.90.110.46/32,ADlite,ADlite
+#instagram
+HOST-SUFFIX,graph-fallback.instagram.com,ADlite
+HOST-SUFFIX,graph.instagram.com,ADlite
+# 工商银行
+HOST-SUFFIX,pageviewp.icbc.com.cn,ADlite
+HOST-SUFFIX,mall.icbc.com.cn,ADlite
+# 什么值得买
+HOST-SUFFIX,api.zuihuimai.com,ADlite
+# 微博 开屏广告
+HOST-SUFFIX,huodong.weibo.cn,ADlite
+HOST-SUFFIX,biz.weibo.com,ADlite
+# 微信
+HOST-SUFFIX,badjs.weixinbridge.com,ADlite
+HOST,dns.weixin.qq.com,ADlite
+HOST,dns.weixin.qq.com.cn,ADlite
+HOST,aedns.weixin.qq.com,ADlite
+HOST,dns.weixin.qq.com,ADlite
+HOST,dns.weixin.qq.com.cn,ADlite
+
+
+
+# 云闪付 开屏广告
+HOST-SUFFIX,ads.95516.com,ADlite
+HOST-SUFFIX,switch.cup.com.cn,ADlite
+#其它
+HOST-KEYWORD,safebrowsing,ADlite
+HOST-SUFFIX,ios.prod.cloud.netflix.com,ADlite
+HOST-SUFFIX,appboot.netflix.com,ADlite
+HOST-SUFFIX,ios.ngp.prod.cloud.netflix.com,ADlite
+# 阻止电报频繁请求
+IP-CIDR,0.0.0.0/8,ADlite
+IP-CIDR,224.0.0.0/4,ADlite
+
+# > 抖音 / 字节跳动相关行为指纹
+HOST-SUFFIX,mon.snssdk.com,ADlite
+HOST-SUFFIX,api5-normal-lf.amemv.com,ADlite
+HOST-SUFFIX,api5-normal-lq.amemv.com,ADlite
+HOST-SUFFIX,sf16-muse-va.ibytedtos.com,ADlite
+HOST-SUFFIX,ib.snssdk.com,ADlite
+HOST-SUFFIX,data.bytedance.net,ADlite
+HOST-SUFFIX,log-api.pangolin-sdk-toutiao.com,ADlite
+IP-CIDR,59.82.121.221,ADlite
+
+
+# > 小红书指纹与日志收集行为
+HOST-SUFFIX,log.xiaohongshu.com,ADlite
+HOST-SUFFIX,ark.xiaohongshu.com,ADlite
+HOST-SUFFIX,sns-web.xiaohongshu.com,ADlite
+HOST-SUFFIX,referee.xiaohongshu.com,ADlite
+
+
+# > 百度行为分析服务
+HOST-SUFFIX,hm.baidu.com,ADlite
+HOST-SUFFIX,tcbox.baidu.com,ADlite
+HOST-SUFFIX,log.re.baidu.com,ADlite
+HOST-SUFFIX,mbd.baidu.com,ADlite
+
+
+# 阿里巴巴,ADlite
+HOST-SUFFIX,ossgw.alicdn.com,ADlite
+HOST-SUFFIX,ems.youku.com,ADlite
+HOST-SUFFIX,hudong.alicdn.com,ADlite
+HOST-SUFFIX,et.tanx.com,ADlite
+HOST-SUFFIX,ut.taobao.com,ADlite
+HOST-SUFFIX,dns.alidns.com,ADlite
+HOST-SUFFIX,beacon-api.aliyuncs.com,ADlite
+HOST-SUFFIX,adash.man.aliyuncs.com,ADlite
+HOST-SUFFIX,applog.uc.cn,ADlite
+HOST-SUFFIX,adashx.m.taobao.com,ADlite
+HOST-SUFFIX,atanx.alicdn.com,ADlite
+HOST-SUFFIX,gdkj.gaodun.com,ADlite
+HOST-SUFFIX,arms-retcode.aliyuncs.com,ADlite
+HOST-SUFFIX,ynuf.alipay.com,ADlite
+HOST-SUFFIX,open-adash.alipay.com,ADlite
+HOST-SUFFIX,log.mmstat.com,ADlite
+HOST-SUFFIX,sdkapplog.51ping.com,ADlite
+HOST-SUFFIX,adashx4yt.m.taobao.com,ADlite
+HOST-SUFFIX,track.alicdn.com,ADlite
+HOST-SUFFIX,m-adash.cn-hangzhou.log.aliyuncs.com,ADlite
+IP-CIDR,114.80.179.230,ADlite
+# > 阿里系遥测接口
+
+HOST-SUFFIX,xlog.snssdk.com,ADlite
+HOST-SUFFIX,applog.uc.cn,ADlite
+HOST-SUFFIX,acjs.aliyun.com,ADlite
+HOST-SUFFIX,trace.aliyun.com,ADlite
+HOST-SUFFIX,spm.aliyun.com,ADlite
+HOST-SUFFIX,log-mmserver.alibaba.com,ADlite
+HOST-SUFFIX,dap.alipay.com,ADlite
+HOST-SUFFIX,log-api.pangolin-sdk-toutiao.com,ADlite
+HOST-SUFFIX,gm.mmstat.com,ADlite
+IP-CIDR,101.226.28.238,ADlite,ADlite
+IP-CIDR,119.42.231.59,ADlite,ADlite
+HOST-SUFFIX,nr-op.elemecdn.com,ADlite
+HOST-SUFFIX,loggw.alipay.com,ADlite
+
+# > 淘宝
+HOST-SUFFIX,agoodm.m.taobao.com,ADlite
+HOST-SUFFIX,ai.taobao.com,ADlite
+HOST-SUFFIX,api.waptest.taobao.com,ADlite
+HOST-SUFFIX,apoll.m.taobao.com,ADlite
+HOST-SUFFIX,re.m.taobao.com,ADlite
+HOST-SUFFIX,re.taobao.com,ADlite
+HOST-SUFFIX,temai.taobao.com,ADlite
+HOST-SUFFIX,unitacs.m.taobao.com,ADlite
+HOST-SUFFIX,w.m.taobao.com,ADlite
+HOST-KEYWORD,simba.taobao.com,ADlite
+
+
+
+
+
+# > 腾讯行为追踪与遥测服务（Tencent Behavior & Telemetry Services）
+HOST-SUFFIX,bugly.qq.com,ADlite
+HOST-SUFFIX,mta.qq.com,ADlite
+HOST-SUFFIX,beacon.qq.com,ADlite
+HOST-SUFFIX,tracking.qq.com,ADlite
+HOST-SUFFIX,log.tbs.qq.com,ADlite
+HOST-SUFFIX,tdid.qq.com,ADlite
+HOST-SUFFIX,sngdia.qq.com,ADlite
+HOST-SUFFIX,tajs.qq.com,ADlite
+HOST-SUFFIX,oth.eve.mdt.qq.com,ADlite
+HOST-SUFFIX,report.qq.com,ADlite
+HOST-SUFFIX,sdk.e.qq.com,ADlite
+HOST-SUFFIX,dldir1.qq.com,ADlite
+HOST-SUFFIX,report.servicewechat.com,ADlite
+HOST-SUFFIX,myqcloud.com,ADlite
+HOST-SUFFIX,wxapp.tc.qq.com,ADlite
+HOST-SUFFIX,miniapp.qq.com,ADlite
+HOST-SUFFIX,sandbox.api.qq.com,ADlite
+HOST-SUFFIX,inews.qq.com,ADlite
+
+
+# > Reddit # > Reddit 行为指纹与事件上报服务
+HOST-SUFFIX,events.redditmedia.com,ADlite
+
+
+HOST-SUFFIX,tool.chinaz.com,ADlite
+HOST-SUFFIX,csstools.chinaz.com,ADlite
+
+# > Atlassian 云平台域名（Jira / Confluence / Bitbucket 等服务）-可疑
+HOST-SUFFIX,atl-paas.net,ADlite
+HOST-SUFFIX,ds-cdn.prod-east.frontend.public.atl-paas.net,ADlite
+
+# > 潜在远程控制或监听节点（SoftLayer）
+IP-CIDR,74.86.151.167,ADlite
+
+
+IP-CIDR,59.82.121.221,ADlite
+
+
+
+# > Backdoor_Block.list（后门行为与恶意活动规则集）
+# - 分类：后门程序 / 远控连接 / 恶意通信基础设施
+# - 来源：全球威胁情报数据库 / 安全社区情报 / 通信行为抓包 / 自定义样本校验
+# - 特征：封锁具备反连、心跳、远程控制特征的通信节点，涵盖 RAT、Sliver、Metasploit 等常见后门工具所依赖的 C2 基础设施
+
+# > Telegram 后门通信域名
+HOST-SUFFIX,ft.2x5.xyz,ADlite
+HOST-SUFFIX,s.2x5.xyz,ADlite
+HOST-SUFFIX,aks.ugho.com,ADlite
+HOST-SUFFIX,taobc.tv,ADlite
+HOST-SUFFIX,topmicrosoftmarketing.com,ADlite
+HOST-SUFFIX,ntanschools.py628fxjlk-gok67gvk2652.p.temp-site.link,ADlite
+HOST-SUFFIX,dscriy.chtq.net,ADlite
+HOST-SUFFIX,cybaq.chtq.net,ADlite
+HOST-SUFFIX,ftisthebest.com,ADlite
+
+
+# > Botnet_Block.list（僵尸网络 / 控制器 / 扫描器规则集）
+# - 分类：僵尸网络控制器 / 横向移动节点 / 持续扫描源
+# - 来源：全球公开威胁情报平台 / 社区安全共享数据库 / 安全厂商披露信息
+# - 特征：封锁已被确认为 DDoS 肉鸡、Botnet 控制节点、命令与控制（C2）IP、批量扫描与横向移动源
+IP-CIDR,222.186.181.100/32,ADlite
+IP-CIDR,222.187.225.3/32,ADlite
+IP-CIDR,119.255.133.28/32,ADlite
+IP-CIDR,119.255.133.16/32,ADlite
+IP-CIDR,221.228.217.0/24,ADlite
+IP-CIDR,221.229.203.225/32,ADlite
+IP-CIDR,183.60.123.112/32,ADlite
+
+
+
+HOST-SUFFIX,googleadservices.com,ADlite
+HOST-SUFFIX,googleadapis.l.google.com,ADlite
+HOST-SUFFIX,mobileapptracking.com,ADlite
+HOST-SUFFIX,pagead2.googlesyndication.com,ADlite
+HOST-SUFFIX,googleadservices-cn.com,ADlite
+HOST-SUFFIX,googleads.g.doubleclick-cn.net,ADlite
+HOST-SUFFIX,googlesyndication.com,ADlite
+HOST-SUFFIX,adservice.google.com,ADlite
+HOST-SUFFIX,adservice.google.cn,ADlite
+HOST-SUFFIX,googleads.g.doubleclick.net,ADlite
+HOST-SUFFIX,googleads.g.doubleclick.com,ADlite
+HOST-SUFFIX,adtrafficquality.google,ADlite
+HOST-SUFFIX,googletagservices-cn.com,ADlite
+HOST-SUFFIX,adservice.google.com.mt,ADlite
+HOST-SUFFIX,pagead.l.google.com,ADlite
+HOST-SUFFIX,partnerad.l.google.com,ADlite
+HOST-SUFFIX,video-stats.video.google.com,ADlite
+HOST-SUFFIX,wintricksbanner.googlepages.com,ADlite
+
+
+# > Google / Firebase / Crashlytics 相关行为指纹
+HOST-SUFFIX,app-measurement.com,ADlite
+HOST-SUFFIX,config.app-measurement.com,ADlite
+HOST-SUFFIX,firebaseinstallations.googleapis.com,ADlite
+HOST-SUFFIX,google-analytics.com,ADlite
+HOST-SUFFIX,analytics.google.com,ADlite
+HOST-SUFFIX,firebase-settings.crashlytics.com,ADlite
+HOST-SUFFIX,crashlyticsreports-pa.googleapis.com,ADlite
+HOST-SUFFIX,clientmetrics-pa.googleapis.com,ADlite
+HOST-SUFFIX,firebaselogging-pa.googleapis.com,ADlite
+HOST-SUFFIX,firebasedynamiclinks.googleapis.com,ADlite
+HOST-SUFFIX,crashlytics.com,ADlite
+HOST-SUFFIX,app-analytics-services.com,ADlite
+HOST-SUFFIX,s.youtube.com,ADlite
+HOST-SUFFIX,youtube-nocookie.com,ADlite
+
+# > Microsoft 相关遥测与探测行为
+HOST-SUFFIX,dns.msftncsi.com,ADlite
+HOST-SUFFIX,mobile.events.data.microsoft.com,ADlite
+HOST-SUFFIX,in.appcenter.ms,ADlite
+HOST-SUFFIX,otelrules.svc.static.microsoft,ADlite
+HOST-SUFFIX,officeci.azurewebsites.net,ADlite
+
+# > 华为系行为分析与遥测接口
+HOST-SUFFIX,hispace.hicloud.com,ADlite
+HOST-SUFFIX,logservice.hicloud.com,ADlite
+HOST-SUFFIX,metrics1.data.hicloud.com,ADlite
+HOST-SUFFIX,config.hicloud.com,ADlite
+HOST-SUFFIX,push-SUFFIX,push-api.cloud.huawei.com,ADlite
+
+# > Amazon / Cloudflare / Sentry 行为分析服务
+HOST-SUFFIX,sentry.cloudflare.com,ADlite
+HOST-SUFFIX,o33249.ingest.us.sentry.io,ADlite
+HOST-SUFFIX,browser-intake-datadoghq.com,ADlite
