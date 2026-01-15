@@ -6,7 +6,6 @@
 #!category=🍟 Fries
 
 [dns]
-prefer-doh3
 # > Encrypted DNS
 address = /dns.google/8.8.8.8
 address = /cloudflare-dns.com/104.16.249.249
