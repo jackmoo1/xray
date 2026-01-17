@@ -3479,6 +3479,7 @@ HOST-SUFFIX,hizbuttahrir.org,GlobalMax
 HOST-SUFFIX,hizb-ut-tahrir.org,GlobalMax
 HOST-SUFFIX,hjclub.info,GlobalMax
 HOST-SUFFIX,hjd2048.com,GlobalMax
+HOST-SUFFIX,hjf5e.com,GlobalMax
 HOST-SUFFIX,hk,GlobalMax
 HOST-SUFFIX,hk.file.myqcloud.com,GlobalMax
 HOST-SUFFIX,hk.frienddy.com,GlobalMax
@@ -9561,3 +9562,4 @@ USER-AGENT,Surge/*,GlobalMax
 USER-AGENT,TikTok*,GlobalMax
 USER-AGENT,Viu*,GlobalMax
 USER-AGENT,YouTube*,GlobalMax
+
