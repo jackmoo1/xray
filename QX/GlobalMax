@@ -9547,10 +9547,6 @@ IP-CIDR,91.108.56.0/23,GlobalMax
 IP-CIDR,91.108.8.0/22,GlobalMax
 IP-CIDR,95.161.64.0/20,GlobalMax
 IP-CIDR,95.161.76.100/31,GlobalMax
-PROCESS-NAME,com.spotify.music,GlobalMax
-PROCESS-NAME,nekox.messenger,GlobalMax
-PROCESS-NAME,org.telegram.messenger,GlobalMax
-PROCESS-NAME,telegram-desktop,GlobalMax
 USER-AGENT,*FindMyiPhone?,GlobalMax
 USER-AGENT,AppleNews*,GlobalMax
 USER-AGENT,AppleTV*,GlobalMax
@@ -9562,4 +9558,5 @@ USER-AGENT,Surge/*,GlobalMax
 USER-AGENT,TikTok*,GlobalMax
 USER-AGENT,Viu*,GlobalMax
 USER-AGENT,YouTube*,GlobalMax
+
 
