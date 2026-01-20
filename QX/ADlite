@@ -52,7 +52,6 @@ HOST,ads.snapchat.com,ADlite
 HOST,ads.viber.com,ADlite
 HOST,ads.yahoo.com,ADlite
 HOST,ads.yahoo.de,ADlite
-HOST,ads.youtube.com,ADlite
 HOST,adsapi.snapchat.com,ADlite
 HOST,ads-d.viber.com,ADlite
 HOST,adsdk.vivo.com.cn,ADlite
@@ -713,7 +712,6 @@ HOST-SUFFIX,run.haireig.com,ADlite
 HOST-SUFFIX,ry51w.cn,ADlite
 HOST-SUFFIX,s.2x5.xyz,ADlite
 HOST-SUFFIX,s.csyfe.com,ADlite
-HOST-SUFFIX,s.youtube.com,ADlite
 HOST-SUFFIX,s10.histats.com,ADlite
 HOST-SUFFIX,s96.cnzz.com,ADlite
 HOST-SUFFIX,sandbox.api.qq.com,ADlite
@@ -971,3 +969,4 @@ IP-CIDR,61.160.200.252/32,ADlite
 IP-CIDR,61.174.50.214/32,ADlite
 IP-CIDR,74.86.151.167/32,ADlite
 URL-REGEX,^http:\/\/182\.254\.116\.116\/d,ADlite
+
