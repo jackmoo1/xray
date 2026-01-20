@@ -290,6 +290,7 @@ HOST-SUFFIX,adash.man.aliyuncs.com,ADlite
 HOST-SUFFIX,adashx.m.taobao.com,ADlite
 HOST-SUFFIX,adashx4yt.m.taobao.com,ADlite
 HOST-SUFFIX,addthis.com,ADlite
+HOST-SUFFIX,adjust.com,ADlite
 HOST-SUFFIX,ad-nex.com,ADlite
 HOST-SUFFIX,ads.95516.com,ADlite
 HOST-SUFFIX,ads.exosrv.com,ADlite
@@ -969,4 +970,5 @@ IP-CIDR,61.160.200.252/32,ADlite
 IP-CIDR,61.174.50.214/32,ADlite
 IP-CIDR,74.86.151.167/32,ADlite
 URL-REGEX,^http:\/\/182\.254\.116\.116\/d,ADlite
+
 
