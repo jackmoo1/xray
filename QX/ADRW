@@ -1,0 +1,94 @@
+#!name=重写去广告
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!homepage=https://github.com/fmz200/wool_scripts
+#############################################
+
+
+#Youtube
+# 响应体
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch) url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/refs/heads/master/Script/Youtube/youtube.response.js
+# 播放页广告
+^https:\/\/rr[\w-]+\.googlevideo\.com\/initplayback\? url reject-dict
+
+# 微信跳过中间界面，支付宝链接、被封禁链接进行通知弹窗跳转，在微信中用快照显示被封禁的链接（可选），在微信中进行强制重定向（可选），群聊 / 扫码均可使用，可选项可在脚本 2、3 行更改，也可在 BoxJs 中更改。
+^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\? url script-response-body https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js
+
+#淘宝
+host-suffix, apoll.m.taobao.com, reject
+host-suffix, h-adashx.ut.taobao.com, reject
+host-suffix, w.m.taobao.com, reject
+host, tunion-api.m.taobao.com, reject
+host-suffix, re.m.taobao.com, reject
+host-suffix, agoodm.m.taobao.com, reject
+host-suffix, ai.taobao.com, reject
+host-suffix, api.waptest.taobao.com, reject
+host-suffix, dsp.simba.taobao.com, reject
+host-suffix, fav.simba.taobao.com, reject
+host-suffix, m.simba.taobao.com, reject
+host-suffix, mclick.simba.taobao.com, reject
+host-suffix, re.taobao.com, reject
+host-suffix, redirect.simba.taobao.com, reject
+host-suffix, simba.m.taobao.com, reject
+host-suffix, srd.simba.taobao.com, reject
+host-suffix, temai.taobao.com, reject
+host-suffix, textlink.simba.taobao.com, reject
+host-suffix, unitacs.m.taobao.com, reject
+host-suffix, acs4baichuan.m.taobao.com, reject
+host-suffix, adashbc.ut.taobao.com, reject
+host-suffix, adash-c.ut.taobao.com, reject
+host-suffix, adashxgc.ut.taobao.com, reject
+host-suffix, adashx4yt.m.taobao.com, reject
+host-suffix, tunion-api.m.taobao.com, reject
+host-suffix, tns.simba.taobao.com, reject
+host-suffix, click.mz.simba.taobao.com, reject
+host-suffix, click.simba.taobao.com, reject
+host-suffix, click.tz.simba.taobao.com, reject
+host-suffix, stat.simba.taobao.com, reject
+host-suffix, m-adash.m.taobao.com, reject
+host-suffix, adashbc.m.taobao.com, reject
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/.+?etao_advertise url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimusic\.common\.mobileservice\.startinit url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.etao\.noah\.query\/.+tao_splash url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome url reject-dict
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources url reject-dict
+^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(volvo\.secondfloor\.getconfig|wireless\.home\.newface\.awesome\.get) url reject-dict
+^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get) url script-response-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js
+^https?:\/\/poplayer\.template\.alibaba\.com\/\w+\.json url script-response-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/myBlockAds.js
+
+#拼多多
+^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash url reject
+^https?:\/\/api\.pinduoduo\.com\/api\/aquarius\/hungary\/global\/homepage\? url reject-dict
+# 多多买菜 开屏广告
+^https?:\/\/mobile\.yangkeduo\.com\/proxy\/api\/api\/express\/post\/waybill\/red_packet\/goods_list$ url response-body "list":\[.+\] response-body "list":[]
+
+#美团&美团外卖
+^https?:\/\/wmapi\.meituan\.com\/api\/v7\/(loadInfo|openscreen|startpicture)\? url reject-dict
+^https?:\/\/(s3plus|flowplus)\.meituan\.net\/v\d\/\w+\/linglong\/\w+\.(gif|jpg|mp4) url reject-img
+^https?:\/\/img\.meituan\.net\/bizad\/bizad_brandCpt_\d+\.jpg url reject-img
+^https?:\/\/img\.meituan\.net\/goodsawardpic\/[a-f0-9]+\.png\.webp url reject-img
+^https?:\/\/s3plus\.meituan\.net\/ocean-blk-index\/index\/blk_conf_73\.json url reject-dict
+^https?:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$ url reject-dict
+^http:\/\/59\.82\.113\.10\/amdc\/mobileDispatch\?appkey=213807& url reject-dict
+# 美团订单详情页更多推荐
+^https?:\/\/apimobile\.meituan\.com\/group\/v1\/recommend\/unity\/recommends url reject-dict
+
+#百度地图
+host, afd.baidu.com, reject
+host, afdconf.baidu.com, reject
+host, httpdns.baidubce.com, reject
+host, lc.map.baidu.com, reject
+^https?:\/\/dss0\.bdstatic\.com\/-0U0bnSm1A5BphGlnYG\/ url reject-200
+^https?:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) url reject
+^https?:\/\/tb1\.bdstatic\.com\/tb\/cms\/ngmis\/adsense\/*.jpg url reject
+^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump url reject-img
+^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg url reject-200
+^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png url reject-img
+^https?:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads url script-response-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/baidumap.js
+
+
+
+hostname = rr*.googlevideo.com, youtubei.googleapis.com, weixin110.qq.com, security.wechat.com, acs.m.taobao.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com, api.pinduoduo.com, api.yangkeduo.com, mobile.yangkeduo.com, img.meituan.net, s3plus.meituan.net, flowplus.meituan.net, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com
