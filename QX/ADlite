@@ -812,7 +812,6 @@ HOST-SUFFIX,wss.haoyundmn.com,ADlite
 HOST-SUFFIX,wuzbhjpvsf.com,ADlite
 HOST-SUFFIX,www.govshenzhen.cn,ADlite
 HOST-SUFFIX,wx16999.com,ADlite
-HOST-SUFFIX,wxapp.tc.qq.com,ADlite
 HOST-SUFFIX,x2sfa.javgg.eu,ADlite
 HOST-SUFFIX,xchmai.com,ADlite
 HOST-SUFFIX,xd3r.javgg.eu,ADlite
@@ -970,5 +969,6 @@ IP-CIDR,61.160.200.252/32,ADlite
 IP-CIDR,61.174.50.214/32,ADlite
 IP-CIDR,74.86.151.167/32,ADlite
 URL-REGEX,^http:\/\/182\.254\.116\.116\/d,ADlite
+
 
 
