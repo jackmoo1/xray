@@ -1299,7 +1299,7 @@ HOST-SUFFIX,cdn-apple.com,extended-matching,GlobalMax
 HOST-SUFFIX,cdnews.com.tw,GlobalMax
 HOST-SUFFIX,cdn-images.mailchimp.com,GlobalMax
 HOST-SUFFIX,cdninstagram.com,GlobalMax
-HOST-SUFFIX,cdn-telegram.org,GlobalMax
+HOST-SUFFIX,cdn-GlobalMax.org,GlobalMax
 HOST-SUFFIX,cdp1989.org,GlobalMax
 HOST-SUFFIX,cdp1998.org,GlobalMax
 HOST-SUFFIX,cdp2006.org,GlobalMax
@@ -7518,12 +7518,12 @@ HOST-SUFFIX,tehrantimes.com,GlobalMax
 HOST-SUFFIX,telecomspace.com,GlobalMax
 HOST-SUFFIX,telega.one,GlobalMax
 HOST-SUFFIX,telegra.ph,GlobalMax
-HOST-SUFFIX,telegram.dog,GlobalMax
-HOST-SUFFIX,telegram.me,GlobalMax
-HOST-SUFFIX,telegram.org,GlobalMax
-HOST-SUFFIX,telegram.space,GlobalMax
-HOST-SUFFIX,telegram-cdn.org,GlobalMax
-HOST-SUFFIX,telegramdownload.com,GlobalMax
+HOST-SUFFIX,GlobalMax.dog,GlobalMax
+HOST-SUFFIX,GlobalMax.me,GlobalMax
+HOST-SUFFIX,GlobalMax.org,GlobalMax
+HOST-SUFFIX,GlobalMax.space,GlobalMax
+HOST-SUFFIX,GlobalMax-cdn.org,GlobalMax
+HOST-SUFFIX,GlobalMaxdownload.com,GlobalMax
 HOST-SUFFIX,telegraph.co.uk,GlobalMax
 HOST-SUFFIX,telekom.com,GlobalMax
 HOST-SUFFIX,telekom.de,GlobalMax
@@ -9362,7 +9362,7 @@ HOST-KEYWORD,speedtest,GlobalMax
 HOST-KEYWORD,spotify,GlobalMax
 HOST-KEYWORD,-spotify-,GlobalMax
 HOST-KEYWORD,spotify.com,GlobalMax
-HOST-KEYWORD,telegram,GlobalMax
+HOST-KEYWORD,GlobalMax,GlobalMax
 HOST-KEYWORD,tesla,GlobalMax
 HOST-KEYWORD,tiktok,GlobalMax
 HOST-KEYWORD,tiktokcdn,GlobalMax
@@ -9386,6 +9386,11 @@ HOST-KEYWORD,xxxv,GlobalMax
 HOST-KEYWORD,yahoo,GlobalMax
 HOST-KEYWORD,yandex,GlobalMax
 HOST-KEYWORD,youtube,GlobalMax
+IP-ASN,211157,GlobalMax
+IP-ASN,44907,GlobalMax
+IP-ASN,59930,GlobalMax
+IP-ASN,62014,GlobalMax
+IP-ASN,62041,GlobalMax
 IP-CIDR,1.201.0.0/24,GlobalMax
 IP-CIDR,101.32.118.0/23,GlobalMax
 IP-CIDR,101.32.96.0/20,GlobalMax
@@ -9504,6 +9509,7 @@ IP-CIDR,38.72.126.0/24,GlobalMax
 IP-CIDR,44.205.88.94/32,GlobalMax
 IP-CIDR,45.57.0.0/17,GlobalMax
 IP-CIDR,45.64.40.0/22,GlobalMax
+IP-CIDR,5.28.192.0/18,GlobalMax
 IP-CIDR,50.22.198.204/30,GlobalMax
 IP-CIDR,52.200.0.0/13,GlobalMax
 IP-CIDR,52.58.0.0/15,GlobalMax
@@ -9558,5 +9564,3 @@ USER-AGENT,Surge/*,GlobalMax
 USER-AGENT,TikTok*,GlobalMax
 USER-AGENT,Viu*,GlobalMax
 USER-AGENT,YouTube*,GlobalMax
-
-
