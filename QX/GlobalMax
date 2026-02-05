@@ -6384,6 +6384,7 @@ HOST-SUFFIX,qualcomm.fr,GlobalMax
 HOST-SUFFIX,qualysapi.qcpp1.net,GlobalMax
 HOST-SUFFIX,quannengshen.org,GlobalMax
 HOST-SUFFIX,quantumbooter.net,GlobalMax
+HOST-SUFFIX,quantumult.app,GlobalMax
 HOST-SUFFIX,quay.io,GlobalMax
 HOST-SUFFIX,questvisual.com,GlobalMax
 HOST-SUFFIX,quicktime.com,GlobalMax
@@ -9599,3 +9600,4 @@ USER-AGENT,Surge/*,GlobalMax
 USER-AGENT,TikTok*,GlobalMax
 USER-AGENT,Viu*,GlobalMax
 USER-AGENT,YouTube*,GlobalMax
+
