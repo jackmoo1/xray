@@ -64,6 +64,7 @@ HOST-SUFFIX,azuremigrate.download.prss.microsoft.com,Direct
 HOST-SUFFIX,azuremigratetest.download.prss.microsoft.com,Direct
 HOST-SUFFIX,azurestackhub.download.prss.microsoft.com,Direct
 HOST-SUFFIX,azurestackhubuat.download.prss.microsoft.com,Direct
+HOST-SUFFIX,microsoft.com
 HOST-SUFFIX,azuretouch.net,Direct
 HOST-SUFFIX,azurew.com,Direct
 HOST-SUFFIX,azureyun.com,Direct
