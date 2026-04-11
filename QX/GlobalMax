@@ -10261,7 +10261,7 @@ HOST-SUFFIX,gspe1-ssl.ls.apple.com,extended-matching
 HOST-SUFFIX,gsrc.io
 HOST-SUFFIX,gssw.ac.uk
 HOST-SUFFIX,gstatic.cn
-HOST-SUFFIX,gstatic.com
+#HOST-SUFFIX,gstatic.com
 HOST-SUFFIX,gstatic-cn.com
 HOST-SUFFIX,gsuite.com
 HOST-SUFFIX,gt536.top
