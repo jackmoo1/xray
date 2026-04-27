@@ -75,4 +75,4 @@ IP-CIDR, 180.96.2.114/32, reject
 ^https?:\/\/.+\.byteimg\.com\/ad-app-package url reject
 ^https?:\/\/.+\.byteimg\.com\/web\.business\.image url reject
 
-hostname = rr*.googlevideo.com, youtubei.googleapis.com, weixin110.qq.com, security.wechat.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com, www.google.cn, www.g.cn, www.google.com, www.google.com.hk, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, *default.ixigua.com
+hostname = rr*.googlevideo.com, youtubei.googleapis.com, weixin110.qq.com, security.wechat.com, dss0.bdstatic.com, tb1.bdstatic.com, tb2.bdstatic.com, ss0.bdstatic.com, gss0.bdstatic.com, newclient.map.baidu.com, www.google.cn, www.g.cn, www.google.com.hk, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, *default.ixigua.com
