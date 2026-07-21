@@ -1,10 +1,13 @@
 HOST,a.ppy.sh
 HOST,a4e8s8k3.map2.ssl.hwcdn.net
 HOST,ai.google.dev
+HOST,ai.meta.com
 HOST,alkalicore-pa.clients6.google.com
 HOST,alkalimakersuite-pa.clients6.google.com
 HOST,antigravity.googleapis.com
 HOST,antigravity-pa.googleapis.com
+HOST,api.msn.com
+HOST,api.statsig.com
 HOST,api.swiftgram.app
 HOST,api.viu.now.com
 HOST,api.waqi.info
@@ -20,6 +23,7 @@ HOST,appleworldwidedeveloper.hb-api.omtrdc.net
 HOST,appleworldwidedeveloper.sc.omtrdc.net
 HOST,aqi.aqicn.org
 HOST,asahishimbun.sc.omtrdc.net
+HOST,assets.msn.com
 HOST,assets.ppy.sh
 HOST,assets1.xboxlive.com
 HOST,assets2.xboxlive.com
@@ -32,6 +36,7 @@ HOST,beck-online.beck.de
 HOST,bingsettingssearch.trafficmanager.net
 HOST,blizzard.nefficient.co.kr
 HOST,brightcove.imgix.net
+HOST,browser-intake-datadoghq.com
 HOST,bybit.ada.support
 HOST,c.ppy.sh
 HOST,cbsi.live.ott.irdeto.com
@@ -47,6 +52,9 @@ HOST,cloudcode-pa.googleapis.com
 HOST,clubhouse.pubnubapi.com
 HOST,community.oneplus.com
 HOST,configuration-lb.ls-apple.com.akadns.net
+HOST,copilotprodattachments.blob.core.windows.net
+HOST,copilot-proxy.githubusercontent.com
+HOST,copilot-workspace.githubnext.com
 HOST,courier-push-apple.com.akadns.net
 HOST,crl.microsoft.com
 HOST,crl.versign.net
@@ -70,6 +78,8 @@ HOST,dtlgalleryint.cloudapp.net
 HOST,ea.tt.omtrdc.net
 HOST,ecapi-pchome.cdn.hinet.net
 HOST,elib.maruzen.co.jp
+HOST,gateway.bingviz.microsoft.net
+HOST,gateway.bingviz.microsoftapp.net
 HOST,gspe1-ssl.ls.apple.com
 HOST,hamivideo.hinet.net
 HOST,hammerandchisel.ssl.zendesk.com
@@ -82,6 +92,7 @@ HOST,homebrew.bintray.com
 HOST,hulu.playback.edge.bamgrid.com
 HOST,i.jeded.com
 HOST,imperial.insendi.com
+HOST,in.appcenter.ms
 HOST,ingest.apple-studies.com
 HOST,js-cdn.music.apple.com
 HOST,lastfm.freetls.fastly.net
@@ -136,7 +147,10 @@ HOST,ocsp.microsoft.com
 HOST,onekey.zendesk.com
 HOST,oneocsp.microsoft.com
 HOST,ood.opsource.net
+HOST,openai-api.arkoselabs.com
+HOST,openaiassets.blob.core.windows.net
 HOST,openaicom.imgix.net
+HOST,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
 HOST,openaicomproductionae4b.blob.core.windows.net
 HOST,osu.ppy.sh
 HOST,packages.microsoft.com
@@ -146,6 +160,7 @@ HOST,poshtestgallery.cloudapp.net
 HOST,practivate.adobe
 HOST,practivate.adobe.newoa
 HOST,practivate.adobe.ntp
+HOST,production-openaicom-storage.azureedge.net
 HOST,public-us-pingsx.api.clonoth.com
 HOST,push-apple.com.akadns.net
 HOST,pvr-hamivideo.cdn.hinet.net
@@ -175,14 +190,17 @@ HOST,rtm.tnt-ea.com
 HOST,sa78gs.wpc.edgecastcdn.net
 HOST,sandbox.itunes.apple.com
 HOST,scc.ott.hinet.net
+HOST,self.events.data.microsoft.com
 HOST,ssl-lvlt.cdn.ea.com
 HOST,standchartbank.sc.omtrdc.net
 HOST,standchartbank.tt.omtrdc.net
+HOST,static.cloudflareinsights.com
 HOST,static-hamivideo.cdn.hinet.net
 HOST,steamcloudsweden.blob.core.windows.net
 HOST,st-ok.cdn-vk.ru
 HOST,st-ok-pts.cdn-vk.ru
 HOST,straitsx-826709081262441084-b790f87a2ae6fd417434295.freshchat.com
+HOST,sydney.bing.com
 HOST,t21.nikkei.co.jp
 HOST,t21ipau.nikkei.co.jp
 HOST,teamviewer.com.cdn.cloudflare.net
@@ -1129,7 +1147,9 @@ HOST-SUFFIX,ahtranny.com
 HOST-SUFFIX,ahua.ac.uk
 HOST-SUFFIX,ahvideosexe.com
 HOST-SUFFIX,ai.binwang.me
+HOST-SUFFIX,ai.com
 HOST-SUFFIX,ai.dev
+HOST-SUFFIX,ai.google.dev
 HOST-SUFFIX,ai.studio
 HOST-SUFFIX,ai3sd.ac.uk
 HOST-SUFFIX,ai7995.site
@@ -1343,6 +1363,7 @@ HOST-SUFFIX,alfera.in
 HOST-SUFFIX,alfera.my
 HOST-SUFFIX,alforattv.net
 HOST-SUFFIX,alfredapp.com
+HOST-SUFFIX,algolia.net
 HOST-SUFFIX,alhayat.com
 HOST-SUFFIX,alhs.link
 HOST-SUFFIX,alhs.xyz
@@ -1690,6 +1711,7 @@ HOST-SUFFIX,anti1984.com
 HOST-SUFFIX,antichristendom.com
 HOST-SUFFIX,anticipate.ac.uk
 HOST-SUFFIX,antigravity.google
+HOST-SUFFIX,antigravity.google.com
 HOST-SUFFIX,antigravity-unleash.goog
 HOST-SUFFIX,antiquity.ac.uk
 HOST-SUFFIX,antislavery.ac.uk
@@ -1746,6 +1768,7 @@ HOST-SUFFIX,ap-hongkong.tencentcos.com
 HOST-SUFFIX,api.acaisbest.shop
 HOST-SUFFIX,api.ai
 HOST-SUFFIX,api.linksalpha.com
+HOST-SUFFIX,api.microsoftapp.net
 HOST-SUFFIX,api.mixpanel.com
 HOST-SUFFIX,api.nebula-emby.com
 HOST-SUFFIX,api.news
@@ -1755,6 +1778,7 @@ HOST-SUFFIX,api.pureapk.com
 HOST-SUFFIX,api.recaptcha.net
 HOST-SUFFIX,api.revenuecat.com
 HOST-SUFFIX,api.sprig.com
+HOST-SUFFIX,api.statsig.com
 HOST-SUFFIX,api.steampowered.com
 HOST-SUFFIX,api2.amplitude.com
 HOST-SUFFIX,apiary.io
@@ -2405,6 +2429,7 @@ HOST-SUFFIX,atlassian.com
 HOST-SUFFIX,atlassian.net
 HOST-SUFFIX,atlassian-dev.net
 HOST-SUFFIX,atl-paas.net
+HOST-SUFFIX,atmeta.com
 HOST-SUFFIX,atnext.com
 HOST-SUFFIX,atom.io
 HOST-SUFFIX,atos.net
@@ -3402,6 +3427,7 @@ HOST-SUFFIX,bingagencyawards.com
 HOST-SUFFIX,bingapistatistics.com
 HOST-SUFFIX,bingparachute.com
 HOST-SUFFIX,bingsandbox.com
+HOST-SUFFIX,bing-shopping.microsoft-falcon.io
 HOST-SUFFIX,bingvisualsearch.com
 HOST-SUFFIX,bingworld.com
 HOST-SUFFIX,bingx.com
@@ -4817,6 +4843,7 @@ HOST-SUFFIX,cgst.edu
 HOST-SUFFIX,ch.shvoong.com
 HOST-SUFFIX,ch9.ms
 HOST-SUFFIX,chace.ac.uk
+HOST-SUFFIX,challenges.cloudflare.com
 HOST-SUFFIX,championshipseriesleague.com
 HOST-SUFFIX,change.org
 HOST-SUFFIX,changeip.name
@@ -4853,6 +4880,7 @@ HOST-SUFFIX,chat.openai.com
 HOST-SUFFIX,chatango.com
 HOST-SUFFIX,chatgpt.com
 HOST-SUFFIX,chatgpt.livekit.cloud
+HOST-SUFFIX,chatgpt.site
 HOST-SUFFIX,chatgptvideo.xyz
 HOST-SUFFIX,chatgptvideob.buzz
 HOST-SUFFIX,chatnook.com
@@ -5199,6 +5227,7 @@ HOST-SUFFIX,clickedu.co.uk
 HOST-SUFFIX,clickserve.cc-dt.com
 HOST-SUFFIX,click-url.com
 HOST-SUFFIX,clien.net
+HOST-SUFFIX,client-api.arkoselabs.com
 HOST-SUFFIX,cliffcollege.ac.uk
 HOST-SUFFIX,climatechangewales.ac.uk
 HOST-SUFFIX,climate-lab-book.ac.uk
@@ -7437,6 +7466,7 @@ HOST-SUFFIX,edgehilluniversity.ac.uk
 HOST-SUFFIX,edgehotelschool.ac.uk
 HOST-SUFFIX,edgekey.net
 HOST-SUFFIX,edgemeplease.com
+HOST-SUFFIX,edgeservices.bing.com
 HOST-SUFFIX,edhcc.ac.uk
 HOST-SUFFIX,edicypages.com
 HOST-SUFFIX,edifhe.ac.uk
@@ -8051,6 +8081,7 @@ HOST-SUFFIX,evchk.wikia.com
 HOST-SUFFIX,evchk.wikia.org
 HOST-SUFFIX,evemodels.com
 HOST-SUFFIX,even.stream
+HOST-SUFFIX,events.statsigapi.net
 HOST-SUFFIX,events-gateway.ncdev.site
 HOST-SUFFIX,eventsinfocus.org
 HOST-SUFFIX,everia.club
@@ -8564,6 +8595,7 @@ HOST-SUFFIX,feacbooke.com
 HOST-SUFFIX,feacebook.com
 HOST-SUFFIX,feanonlinear.com
 HOST-SUFFIX,featurecam.com
+HOST-SUFFIX,featuregates.org
 HOST-SUFFIX,fecbbok.com
 HOST-SUFFIX,fecbooc.com
 HOST-SUFFIX,fecbook.com
@@ -8827,6 +8859,7 @@ HOST-SUFFIX,flog.tw
 HOST-SUFFIX,floorp.app
 HOST-SUFFIX,floppy-tits.com
 HOST-SUFFIX,flow.dev
+HOST-SUFFIX,flow.google
 HOST-SUFFIX,flow.org
 HOST-SUFFIX,flowfront.com
 HOST-SUFFIX,flowfront.net
@@ -9619,6 +9652,7 @@ HOST-SUFFIX,gemfury.com
 HOST-SUFFIX,gemini.com
 HOST-SUFFIX,gemini.google
 HOST-SUFFIX,gemini.google.com
+HOST-SUFFIX,gemini.gstatic.com
 HOST-SUFFIX,gen.lib.rus.ec
 HOST-SUFFIX,gen2.ac.uk
 HOST-SUFFIX,gendai.net
@@ -10195,6 +10229,7 @@ HOST-SUFFIX,grimsby.ac.uk
 HOST-SUFFIX,grimsbytec.ac.uk
 HOST-SUFFIX,grindr.com
 HOST-SUFFIX,grok.com
+HOST-SUFFIX,grok.x.com
 HOST-SUFFIX,grokipedia.com
 HOST-SUFFIX,grooby.com
 HOST-SUFFIX,groq.com
@@ -13509,6 +13544,7 @@ HOST-SUFFIX,latinaabuse.com
 HOST-SUFFIX,latinacoochies.com
 HOST-SUFFIX,latinmommas.com
 HOST-SUFFIX,latticedata.com
+HOST-SUFFIX,launchdarkly.com
 HOST-SUFFIX,launchpad.net
 HOST-SUFFIX,launchpad.wang
 HOST-SUFFIX,launchpadcontent.net
@@ -13807,8 +13843,8 @@ HOST-SUFFIX,lilhumpers.com
 HOST-SUFFIX,liliav.com
 HOST-SUFFIX,lilith-soft.com
 HOST-SUFFIX,limavady.ac.uk
-HOST-SUFFIX,limbopro.xyz
 HOST-SUFFIX,limbopro.com
+HOST-SUFFIX,limbopro.xyz
 HOST-SUFFIX,lime.ac.uk
 HOST-SUFFIX,limedia.tw
 HOST-SUFFIX,limelight.com
@@ -17479,6 +17515,7 @@ HOST-SUFFIX,o365weve-ppe.com
 HOST-SUFFIX,o3o.ca
 HOST-SUFFIX,oaa-anaes.ac.uk
 HOST-SUFFIX,oaistatic.com
+HOST-SUFFIX,oaistatsig.com
 HOST-SUFFIX,oaiusercontent.com
 HOST-SUFFIX,oakhill.ac.uk
 HOST-SUFFIX,oaklands.ac.uk
@@ -17502,6 +17539,7 @@ HOST-SUFFIX,objectarx.com
 HOST-SUFFIX,obs.ac.uk
 HOST-SUFFIX,observable.net
 HOST-SUFFIX,observechina.net
+HOST-SUFFIX,observeit.net
 HOST-SUFFIX,obsrvbl.com
 HOST-SUFFIX,obutsumania.com
 HOST-SUFFIX,obutu.com
@@ -17747,6 +17785,9 @@ HOST-SUFFIX,open.ac.uk
 HOST-SUFFIX,open.com.hk
 HOST-SUFFIX,open.firstory.me
 HOST-SUFFIX,openai.com
+HOST-SUFFIX,openai.com.cdn.cloudflare.net
+HOST-SUFFIX,openaiapi-site.azureedge.net
+HOST-SUFFIX,openaicom.imgix.net
 HOST-SUFFIX,openallweb.com
 HOST-SUFFIX,openamt.com
 HOST-SUFFIX,openapiplatform.com
@@ -20638,6 +20679,7 @@ HOST-SUFFIX,seevpn.com
 HOST-SUFFIX,seezone.net
 HOST-SUFFIX,sefton.ac.uk
 HOST-SUFFIX,sefton-acl.ac.uk
+HOST-SUFFIX,segment.io
 HOST-SUFFIX,sego8.cc
 HOST-SUFFIX,sego8.co
 HOST-SUFFIX,sego8.xyz
@@ -27325,6 +27367,7 @@ HOST-KEYWORD,bridgestone
 HOST-KEYWORD,business
 HOST-KEYWORD,calgon
 HOST-KEYWORD,canon
+HOST-KEYWORD,chatgpt-async-webps-prod
 HOST-KEYWORD,cheap
 HOST-KEYWORD,dalailama
 HOST-KEYWORD,dettol
@@ -27372,6 +27415,7 @@ HOST-KEYWORD,netflixdnstest
 HOST-KEYWORD,nicegram
 HOST-KEYWORD,nike
 HOST-KEYWORD,onedrive
+HOST-KEYWORD,openai
 HOST-KEYWORD,paypal
 HOST-KEYWORD,pinterest
 HOST-KEYWORD,porn
@@ -27405,7 +27449,9 @@ HOST-KEYWORD,xxx
 HOST-KEYWORD,yahoo
 HOST-KEYWORD,yandex
 HOST-KEYWORD,youtube
+IP-ASN,14061,no-resolve
 IP-ASN,211157
+IP-ASN,401518,no-resolve
 IP-ASN,44907
 IP-ASN,59930
 IP-ASN,62014
@@ -27493,6 +27539,7 @@ IP-CIDR,185.9.188.0/22
 IP-CIDR,192.173.64.0/18
 IP-CIDR,198.38.96.0/19
 IP-CIDR,198.45.48.0/20
+IP-CIDR,199.47.142.0/23,no-resolve
 IP-CIDR,203.104.103.0/24
 IP-CIDR,203.104.128.0/19
 IP-CIDR,203.104.128.0/20
@@ -27514,6 +27561,7 @@ IP-CIDR,220.181.174.162/32
 IP-CIDR,220.181.174.226/32
 IP-CIDR,220.181.174.34/32
 IP-CIDR,23.246.0.0/18
+IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,27.0.236.0/22
 IP-CIDR,3.123.36.126/32
 IP-CIDR,3.136.94.196/32
@@ -27544,6 +27592,7 @@ IP-CIDR,54.235.23.242/32
 IP-CIDR,54.242.0.0/15
 IP-CIDR,54.93.0.0/16
 IP-CIDR,64.120.128.0/17
+IP-CIDR,64.23.132.171/32,no-resolve
 IP-CIDR,66.197.128.0/17
 IP-CIDR,66.220.144.0/20
 IP-CIDR,67.220.91.15/32
