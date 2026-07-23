@@ -6,28 +6,53 @@
 
 
 #番茄小说
-host, i-lq.snssdk.com, reject
-host, dig.bdurl.net, reject
 host, activity-ag.awemeughun.com, reject
-host, mcs.snssdk.com, reject
-host, tnc3-alisc1.snssdk.com, reject
-host, security-lq.snssdk.com, reject
-host, tnc3-aliec2.snssdk.com, reject
-#host, is.snssdk.com, reject
-#host, i.snssdk.com, reject
-host, v6-novelapp.ixigua.com, reject
-host-suffix, novelapp.ixigua.com, reject
-host-suffix, default.ixigua.com, reject
-host, msync-im1-vip6-std.easemob.com, reject
 host, apd-pcdnwxlogin.teg.tencent-cloud.net, reject
 host, api.iegadp.qq.com, reject
+host, dig.bdurl.net, reject
+host, i-lq.snssdk.com, reject
+host, mcs.snssdk.com, reject
+host, msync-im1-vip6-std.easemob.com, reject
+host, security-lq.snssdk.com, reject
+host, tnc3-aliec2.snssdk.com, reject
+host, tnc3-alisc1.snssdk.com, reject
+host, v6-novelapp.ixigua.com, reject
 host-suffix, byteorge.com, reject
-IP-CIDR, 49.71.37.101/32, reject
-IP-CIDR, 117.71.105.23/32, reject
-IP-CIDR, 218.94.207.205/32, reject
-IP-CIDR, 117.92.229.188/32, reject
+host-suffix, default.ixigua.com, reject
+host-suffix, novelapp.ixigua.com, reject
+host-suffix,bds.snssdk.com
+host-suffix,dm.bytedance.com
+host-suffix,dm.pstatp.com
+host-suffix,dm.toutiao.com
+host-suffix,extlog.snssdk.com
+host-suffix,gromore.pangolin-sdk-toutiao.com
+host-suffix,is.snssdk.com
+host-suffix,log.snssdk.com
+host-suffix,mon.zijieapi.com
+host-suffix,mssdk.volces.com
+host-suffix,mssdk-bu.bytedance.com
+host-suffix,pangolin.snssdk.com
+host-suffix,s3a.pstatp.com
+host-suffix,sdfp.snssdk.com
+host-suffix,ssdk-sg.pangle.io
+host-suffix,toblog.ctobsnssdk.com
+host-suffix,tosv.boe.byted.org
+host-suffix,tosv.byted.org
+host-keyword,-ad.byteoversea.com
+host-keyword,-ad-sign.byteimg.com
+host-keyword,-analytics.bytescm.com
+host-keyword,asiad.byteactivity
+host-keyword,-be-pack-sign.pglstatp-toutiao.com
+host-keyword,-fe-tos.pglstatp-toutiao.com
+host-keyword,log-api.pangolin-sdk-toutiao
+host-keyword,-short.bytetos.com
+host-keyword,video-cn.snssdk.com
 IP-CIDR, 101.36.166.16/32, reject
+IP-CIDR, 117.71.105.23/32, reject
+IP-CIDR, 117.92.229.188/32, reject
 IP-CIDR, 180.96.2.114/32, reject
+IP-CIDR, 218.94.207.205/32, reject
+IP-CIDR, 49.71.37.101/32, reject
 
 # 去章末广告
 ^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ url reject
