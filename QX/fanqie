@@ -44,7 +44,7 @@ host-keyword,-analytics.bytescm.com, reject
 host-keyword,asiad.byteactivity, reject
 host-keyword,-be-pack-sign.pglstatp-toutiao.com, reject
 host-keyword,-fe-tos.pglstatp-toutiao.com, reject
-host-keyword,log-api.pangolin-sdk-toutiao reject
+host-keyword,log-api.pangolin-sdk-toutiao, reject
 host-keyword,-short.bytetos.com, reject
 host-keyword,video-cn.snssdk.com, reject
 IP-CIDR, 101.36.166.16/32, reject
