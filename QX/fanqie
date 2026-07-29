@@ -20,33 +20,33 @@ host, v6-novelapp.ixigua.com, reject
 host-suffix, byteorge.com, reject
 host-suffix, default.ixigua.com, reject
 host-suffix, novelapp.ixigua.com, reject
-host-suffix,bds.snssdk.com, reject
-host-suffix,dm.bytedance.com, reject
-host-suffix,dm.pstatp.com, reject
-host-suffix,dm.toutiao.com, reject
-host-suffix,extlog.snssdk.com, reject
-host-suffix,gromore.pangolin-sdk-toutiao.com, reject
-host-suffix,is.snssdk.com, reject
-host-suffix,log.snssdk.com, reject
-host-suffix,mon.zijieapi.com, reject
-host-suffix,mssdk.volces.com, reject
-host-suffix,mssdk-bu.bytedance.com, reject
-host-suffix,pangolin.snssdk.com, reject
-host-suffix,s3a.pstatp.com, reject
-host-suffix,sdfp.snssdk.com, reject
-host-suffix,ssdk-sg.pangle.io, reject
-host-suffix,toblog.ctobsnssdk.com, reject
-host-suffix,tosv.boe.byted.org, reject
-host-suffix,tosv.byted.org, reject
-host-keyword,-ad.byteoversea.com, reject
-host-keyword,-ad-sign.byteimg.com, reject
-host-keyword,-analytics.bytescm.com, reject
-host-keyword,asiad.byteactivity, reject
-host-keyword,-be-pack-sign.pglstatp-toutiao.com, reject
-host-keyword,-fe-tos.pglstatp-toutiao.com, reject
-host-keyword,log-api.pangolin-sdk-toutiao, reject
-host-keyword,-short.bytetos.com, reject
-host-keyword,video-cn.snssdk.com, reject
+host-suffix, bds.snssdk.com, reject
+host-suffix, dm.bytedance.com, reject
+host-suffix, dm.pstatp.com, reject
+host-suffix, dm.toutiao.com, reject
+host-suffix, extlog.snssdk.com, reject
+host-suffix, gromore.pangolin-sdk-toutiao.com, reject
+host-suffix, is.snssdk.com, reject
+host-suffix, log.snssdk.com, reject
+host-suffix, mon.zijieapi.com, reject
+host-suffix, mssdk.volces.com, reject
+host-suffix, mssdk-bu.bytedance.com, reject
+host-suffix, pangolin.snssdk.com, reject
+host-suffix, s3a.pstatp.com, reject
+host-suffix, sdfp.snssdk.com, reject
+host-suffix, ssdk-sg.pangle.io, reject
+host-suffix, toblog.ctobsnssdk.com, reject
+host-suffix, tosv.boe.byted.org, reject
+host-suffix, tosv.byted.org, reject
+host-keyword, -ad.byteoversea.com, reject
+host-keyword, -ad-sign.byteimg.com, reject
+host-keyword, -analytics.bytescm.com, reject
+host-keyword, asiad.byteactivity, reject
+host-keyword, -be-pack-sign.pglstatp-toutiao.com, reject
+host-keyword, -fe-tos.pglstatp-toutiao.com, reject
+host-keyword, log-api.pangolin-sdk-toutiao, reject
+host-keyword, -short.bytetos.com, reject
+host-keyword, video-cn.snssdk.com, reject
 IP-CIDR, 101.36.166.16/32, reject
 IP-CIDR, 117.71.105.23/32, reject
 IP-CIDR, 117.92.229.188/32, reject
