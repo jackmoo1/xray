@@ -1,0 +1,15 @@
+name: "技术推送"
+description: "咨询推送"
+scriptings:
+  - generic:
+      name: "技术推送"
+      # 若放在本地，可填写脚本文件名（如 t66y-widget.js）；若在远程可填脚本 URL
+      script_url: https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/t66y_widget.js
+      timeout: 20
+
+widgets:
+  - name: "技术推送"
+    script_name: "技术推送"
+    env:
+      # 是否随机读取帖子 (true / false)
+      IS_RANDOM: "false"
