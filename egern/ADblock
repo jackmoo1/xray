@@ -887,12 +887,6 @@ domain_set:
 - zhihu-web-analytics.zhihu.com
 - zjres-ad.kajicam.com
 - zxid-m.mobileservice.cn
-domain_keyword_set:
-- -ad.sm.cn
-- -ad.video.yximgs.com
-- -ad.wtzw.com
-- -be-pack-sign.pglstatp-toutiao.com
-- -normal.zijieapi.com
 domain_suffix_set:
 - 1rtb.com
 - a.market.xiaomi.com
@@ -905,3 +899,9 @@ domain_suffix_set:
 - vlion.cn
 - yfanads.com
 - zhangyuyidong.cn
+domain_keyword_set:
+- -ad.sm.cn
+- -ad.video.yximgs.com
+- -ad.wtzw.com
+- -be-pack-sign.pglstatp-toutiao.com
+- -normal.zijieapi.com
