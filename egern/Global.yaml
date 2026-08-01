@@ -27515,13 +27515,6 @@ ip_cidr_set:
   - 95.161.64.0/20
   - 95.161.76.100/31
 user_agent_set:
-  - '*FindMyiPhone?'
-  - AppleNews*
-  - AppleTV*
-  - com.apple.news*
-  - com.apple.trustd*
-  - com.apple.tv*
-  - Surge/*
   - TikTok*
   - Viu*
   - YouTube*
