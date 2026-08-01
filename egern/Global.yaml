@@ -569,7 +569,6 @@ domain_suffix_set:
   - 4ksex.me
   - 4kup.net
   - 4mydomain.com
-  - 4myDOMAIN.com
   - 4myminicard.com
   - 4pcdn.org
   - 4pig.com
@@ -1153,7 +1152,6 @@ domain_suffix_set:
   - ai.binwang.me
   - ai.com
   - ai.dev
-  - ai.google.dev
   - ai.studio
   - ai3sd.ac.uk
   - ai7995.site
@@ -1782,7 +1780,6 @@ domain_suffix_set:
   - api.recaptcha.net
   - api.revenuecat.com
   - api.sprig.com
-  - api.statsig.com
   - api.steampowered.com
   - api2.amplitude.com
   - apiary.io
@@ -1895,8 +1892,6 @@ domain_suffix_set:
   - apple.com.tr
   - apple.com.tw
   - apple.com.uy
-  - apple.comscoreresearch.com
-  - apple.comscoreresearch.com
   - apple.cz
   - apple.de
   - apple.dk
@@ -1923,7 +1918,6 @@ domain_suffix_set:
   - apple.my
   - apple.net
   - apple.net.gr
-  - apple.news
   - apple.news
   - apple.nl
   - apple.no
@@ -1985,7 +1979,6 @@ domain_suffix_set:
   - apple-darwin.net
   - apple-darwin.org
   - apple-dns.com
-  - apple-dns.net
   - apple-dns.net
   - appleenews.com
   - apple-enews.com
@@ -2081,8 +2074,6 @@ domain_suffix_set:
   - applepremiumresellers.com.au
   - applereach.com
   - applereach.net
-  - apple-relay.apple.com
-  - apple-relay.fastly-edge.com
   - applescreensavers.com
   - applescript.info
   - appleshare.info
@@ -2195,7 +2186,6 @@ domain_suffix_set:
   - apuc-scot.ac.uk
   - apyle.com
   - aqdlt.net
-  - aqi.aqicn.org
   - aqmen.ac.uk
   - aquinas.ac.uk
   - ar.hao123.com
@@ -2503,7 +2493,6 @@ domain_suffix_set:
   - audiobeatsau.com
   - audionow.com
   - audio-ssl.itunes.apple.com
-  - audio-ssl.itunes.apple.com
   - aue.ac.uk
   - auee.ac.uk
   - aukcar.ac.uk
@@ -2703,7 +2692,6 @@ domain_suffix_set:
   - ayshdade.info
   - ayshdee.xyz
   - ayudanintendo.com
-  - az764295.vo.msecnd.net
   - azadiradio.com
   - azadliq.org
   - azathabar.com
@@ -3580,7 +3568,6 @@ domain_suffix_set:
   - blizzardgearstore.com
   - blms.ac.uk
   - blob.core.windows.net
-  - blobstore.apple.com
   - blobstore.apple.com
   - blockcast.it
   - blockchain.com
@@ -4678,7 +4665,6 @@ domain_suffix_set:
   - cdmatech.com
   - cdn.ac.uk
   - cdn.angruo.com
-  - cdn.apple-cloudkit.com
   - cdn.arstechnica.net
   - cdn.assets.lfpcontent.com
   - cdn.helixstudios.net
@@ -4691,9 +4677,6 @@ domain_suffix_set:
   - cdn.statically.io
   - cdn1.lp.saboom.com
   - cdn77.com
-  - cdn77.org
-  - cdn-apple.com
-  - cdn-apple.com
   - cdnblackmyth.club
   - cdnews.com.tw
   - cdn-GlobalMax.org
@@ -5264,7 +5247,6 @@ domain_suffix_set:
   - cloud.cupronickel.goog
   - cloud.dify.ai
   - cloud.mail.ru
-  - cloud.oracle.com
   - cloudburstresearch.com
   - cloudc.one
   - cloudchoose.com
@@ -6062,7 +6044,6 @@ domain_suffix_set:
   - cvr.ac.uk
   - cvs.ac.uk
   - cvu.ac.uk
-  - cvws.icloud-content.com
   - cw.com.tw
   - cwa.ac.uk
   - cwb.gov.tw
@@ -6604,8 +6585,6 @@ domain_suffix_set:
   - devcon.org
   - developebp.ac.uk
   - developer.allizom.org
-  - developer.apple.com
-  - developer.microsoft.com
   - developer-advisor.com
   - developers.box.net
   - developria.com
@@ -6615,7 +6594,6 @@ domain_suffix_set:
   - deviantclip.com
   - device-manager.us
   - devilsfilm.com
-  - devimages-cdn.apple.com
   - devin.ai
   - devio.us
   - devm2m.com
@@ -6624,7 +6602,6 @@ domain_suffix_set:
   - devopsms.com
   - devpn.com
   - devsitetest.how
-  - devstreaming-cdn.apple.com
   - dev-theguardian.com
   - devv.ai
   - dewcol.ac.uk
@@ -6679,7 +6656,6 @@ domain_suffix_set:
   - difangwenge.org
   - dify.ai
   - digicert.co.jp
-  - digicert.com
   - digicert.com
   - digicert.eu
   - digicert-cn.com
@@ -6903,7 +6879,6 @@ domain_suffix_set:
   - docs.com
   - docs.new
   - docs.rs
-  - docs-assets.developer.apple.com
   - doctor-videos.com
   - doctorvoice.org
   - documentforce.com
@@ -10122,7 +10097,6 @@ domain_suffix_set:
   - g-queen.com
   - gqzmnav.cc
   - gr8domain.biz
-  - gr8DOMAIN.biz
   - gr8name.biz
   - grabpussy.com
   - grace.ac.uk
@@ -10251,7 +10225,6 @@ domain_suffix_set:
   - gsmd.ac.uk
   - gsmlondon.ac.uk
   - gsp.target.com
-  - gspe1-ssl.ls.apple.com
   - gsrc.io
   - gssw.ac.uk
   - gstatic.cn
@@ -10988,12 +10961,7 @@ domain_suffix_set:
   - hlcollege.ac.uk
   - hlg.ac.uk
   - hlnsc.ac.uk
-  - hls.itunes.apple.com
-  - hls.itunes.apple.com
-  - hls-amt.itunes.apple.com
-  - hls-amt.itunes.apple.com
   - hlsp1.pw
-  - hls-svod.itunes.apple.com
   - hm.com
   - hmd.site
   - hmfby.com
@@ -11114,12 +11082,10 @@ domain_suffix_set:
   - horsedick.net
   - horsedicks.net
   - horsemecum.com
-  - DOMAIN.club.tw
   - DOMAIN.livekit.cloud
   - DOMAINborneo.org
   - DOMAINing.co.uk
   - DOMAINloc.com
-  - DOMAINtoday.com.au
   - hot2048.com
   - hotair.com
   - hot-arab-films.com
@@ -11617,7 +11583,6 @@ domain_suffix_set:
   - hyu2.com
   - hzmn.net
   - i.111666.best
-  - i.jeded.com
   - i.lithium.com
   - i.org
   - i1.hk
@@ -12923,7 +12888,6 @@ domain_suffix_set:
   - js.revsci.net
   - jsati.com
   - jsatmobile.com
-  - js-cdn.music.apple.com
   - jsdelivr.com
   - jsdelivr.net
   - jshell.net
@@ -13899,7 +13863,6 @@ domain_suffix_set:
   - linkagecollege.ac.uk
   - linkedin.at
   - linkedin.com
-  - linkedin.sc.omtrdc.net
   - linkideo.com
   - linkinglondon.ac.uk
   - linkjunkies.com
@@ -14058,13 +14021,11 @@ domain_suffix_set:
   - localbitcoins.com
   - localbitcoinschain.com
   - localdomain.ws
-  - localDOMAIN.ws
   - localizejs.com
   - localizestatus.com
   - localpresshk.com
   - localxlist.org
   - locate.ac.uk
-  - location.microsoft.com
   - lockestek.com
   - lockssalliance.ac.uk
   - logbot.net
@@ -14669,15 +14630,9 @@ domain_suffix_set:
   - mash.to
   - mashaalradio.com
   - mashable.com
-  - mask.apple-dns.net
-  - mask.icloud.com
   - mask.me
-  - mask-api.fe.apple-dns.net
-  - mask-api.icloud.com
   - maskedip.com
   - maskedsingerfox.com
-  - mask-h2.icloud.com
-  - mask-t.apple-dns.net
   - massage-in-taipei.com
   - massagerepublic.com
   - masseffect.com
@@ -14841,7 +14796,6 @@ domain_suffix_set:
   - mdialog.com
   - mdn.allizom.net
   - mdn.dev
-  - mdn.mozillademos.org
   - mdn.mozit.cloud
   - mdnkids.com
   - mdnplay.dev
@@ -15907,7 +15861,6 @@ domain_suffix_set:
   - mscassessment.ac.uk
   - mschallenge2018.com
   - mscos.ac.uk
-  - mscrl.microsoft.com
   - msdn.com
   - msec.ac.uk
   - msflj.vip
@@ -16720,13 +16673,11 @@ domain_suffix_set:
   - newsamerica.com
   - newsancai.com
   - newsapi.com.au
-  - news-assets.apple.com
   - newsblur.com
   - newscareers.co.uk
   - newscdn.com.au
   - newschinacomment.org
   - newschristmasshopping.com
-  - news-client.apple.com
   - newscn.org
   - newscommercial.co.uk
   - newsconcierge.com.au
@@ -16734,9 +16685,7 @@ domain_suffix_set:
   - newscorpaustralia.com
   - newsdetox.ca
   - newsdh.com
-  - news-edge.apple.com
   - newsensations.com
-  - news-events.apple.com
   - newsextv.com
   - newsexwap.com
   - newsfeed.com
@@ -17169,7 +17118,6 @@ domain_suffix_set:
   - npa.go.jp
   - npa.gov.tw
   - npcrdc.ac.uk
-  - np-edge.itunes.apple.com
   - nphcardiac-research.ac.uk
   - npm.ac.uk
   - npm.community
@@ -17791,7 +17739,6 @@ domain_suffix_set:
   - openai.com
   - openai.com.cdn.cloudflare.net
   - openaiapi-site.azureedge.net
-  - openaicom.imgix.net
   - openallweb.com
   - openamt.com
   - openapiplatform.com
@@ -18263,7 +18210,6 @@ domain_suffix_set:
   - pcgamestorrents.com
   - pchome.com.tw
   - pchomeec.tw
-  - pchomeonline.com.tw
   - pchomepay.com.tw
   - pcij.org
   - pcl.ac.uk
@@ -18638,7 +18584,6 @@ domain_suffix_set:
   - playboy.com.uk
   - playboyplus.com
   - playcover.io
-  - play-edge.itunes.apple.com
   - player.fm
   - playerjs.io
   - playfab.com
@@ -20143,7 +20088,6 @@ domain_suffix_set:
   - rti.org.tw
   - rti.tw
   - rtings.com
-  - rtm.tnt-ea.com
   - rtycminnesota.org
   - ruanyifeng.com
   - rua-project.ac.uk
@@ -20242,7 +20186,6 @@ domain_suffix_set:
   - safa.ac.uk
   - safebooru.org
   - safebrowsing.apple
-  - safebrowsing.apple
   - safecampuscommunities.ac.uk
   - safechat.com
   - safeguarddefenders.com
@@ -20305,7 +20248,6 @@ domain_suffix_set:
   - samsungosp.com
   - samsungqbe.com
   - samsungrs.com
-  - sandbox.itunes.apple.com
   - sandisk.ae
   - sandisk.co.jp
   - sandisk.co.kr
@@ -22625,7 +22567,6 @@ domain_suffix_set:
   - sxyprn.com
   - sybj91.one
   - sycolleges.ac.uk
-  - sydney.bing.com
   - sydneytoday.com
   - syfec.ac.uk
   - syfor.click
@@ -22982,8 +22923,6 @@ domain_suffix_set:
   - terrapeak.com
   - terrlficdates.com
   - testa.ac.uk
-  - testflight.apple.com
-  - testflight.apple.com
   - test-ipv6.alpinedc.ch
   - test-ipv6.arauc.br
   - test-ipv6.belwue.net
@@ -23960,8 +23899,6 @@ domain_suffix_set:
   - tuvpn.com
   - tuzaijidi.com
   - tv.apple.com
-  - tv.apple.com
-  - tv.applemusic.com
   - tv.com
   - tv.jtbc.joins.com
   - tvants.com
@@ -24615,7 +24552,6 @@ domain_suffix_set:
   - utcreading.ac.uk
   - utdstc.com
   - utopianpal.com
-  - uts-api.itunes.apple.com
   - uug22.com
   - uug23.com
   - uug25.com
@@ -25741,7 +25677,6 @@ domain_suffix_set:
   - wibes.ru
   - wicn.ac.uk
   - widevine.com
-  - widgets.stripst.com
   - widnesandruncornsixthformcollege.ac.uk
   - widnesruncorn.ac.uk
   - widnessixthformcollege.ac.uk
@@ -26771,7 +26706,6 @@ domain_suffix_set:
   - yswet.com
   - ysx-mm.com
   - yt.be
-  - yt3.ggpht.com
   - ytht.net
   - ytimg.com
   - ytn.co.kr
@@ -27067,7 +27001,6 @@ domain_suffix_set:
   - bing.com
   - market.xiaomi.com
   - ssl.fastly.net
-  - ucanews.com
   - 1xyz
   - 101.com
   - 18.org
@@ -27082,18 +27015,15 @@ domain_suffix_set:
   - anonimo.es
   - banking.ac.uk
   - -cdn.org
-  - change.org
   - channel.hk
   - citynews.be
   - clothesstore.com
   - comments.org
   - culturalvisitinghub.ac.uk
   - decoding.com
-  - democrats.org
   - dialogue.net
   - digitaltimes.net
   - dns.com
-  - download.com
   - economicreview.com
   - edu.org
   - elections.org
@@ -27203,7 +27133,6 @@ domain_suffix_set:
   - voicesonline.org
   - vonline.com
   - vplans.com
-  - vpn.net
   - vpomise.com
   - vpromise.com
   - vpromotions.com
