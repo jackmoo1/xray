@@ -1,9 +1,4 @@
-#数据统计：52
-domain_keyword_set:
-  - colab
-  - developerprofiles
-  - generativelanguage
-  - openai
+#AI/TikTok
 domain_suffix_set:
   - ai.com
   - ai.google.dev
@@ -52,3 +47,35 @@ domain_suffix_set:
   - stripe.com
   - turn.livekit.cloud
   - x.ai
+  domain_keyword_set:
+  - colab
+  - developerprofiles
+  - generativelanguage
+  - openai
+  domain_suffix_set:
+  - bytedapm.com
+  - bytegecko-i18n.com
+  - byteoversea.com
+  - capcut.com
+  - capcutapi.com
+  - capcutvod.com
+  - ibytedtos.com
+  - ibyteimg.com
+  - ipstatp.com
+  - isnssdk.com
+  - lf16-effectcdn.byteeffecttos-g.com
+  - lf16-pkgcdn.pitaya-clientai.com
+  - muscdn.com
+  - pangle.io
+  - sgpstatp.com
+  - sgsnssdk.com
+  - tiktok.com
+  - tik-tokapi.com
+  - tiktokcdn.com
+  - tiktok-row.net
+  - tiktokv.com
+  - ttwebview.com
+domain_keyword_set:
+  - musical.ly
+  - tiktok
+  - tiktokcdn
