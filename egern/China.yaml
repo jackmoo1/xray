@@ -1,10 +1,13 @@
 domain_set:
   - api.smoot.apple.com
+  - assets1.xboxlive.com
+  - assets2.xboxlive.com
   - captive.apple.com
   - configuration.apple.com
   - gs-loc.apple.com
   - k128-mzstatic.gslb.ksyuncdn.com
   - lcdn-registration.apple.com
+  - login.microsoftonline.com
   - reserve-prime.apple.com
   - seed-sequoia.siri.apple.com
   - sequoia.apple.com
@@ -120,6 +123,7 @@ domain_suffix_set:
   - 189qas.com
   - 1905.com
   - 19yxw.com
+  - 1drv.ms
   - 1-fss24-s0.streamhoster.com
   - 1hdru-hls-otcnet.cdnvideo.ru
   - 1huizhan.com
@@ -432,6 +436,8 @@ domain_suffix_set:
   - abercrombie.com
   - abhouses.com
   - acadn.com
+  - account.live.com
+  - account.microsoft.com
   - acctdns.com
   - acctdns.net
   - acetaffy.club
@@ -591,6 +597,7 @@ domain_suffix_set:
   - alt8-mtalk.google.com
   - amap.com
   - amapauto.com
+  - amc.com
   - amd.com
   - amemv.com
   - amp-api-edge.apps.apple.com
@@ -957,6 +964,7 @@ domain_suffix_set:
   - bojianger.com
   - bokecc.com
   - booking.com
+  - booktrading.com
   - boosj.com
   - bootcdn.net
   - bootcss.com
@@ -1017,6 +1025,7 @@ domain_suffix_set:
   - c1a3.com
   - cabbagebox.com
   - cabdirect.org
+  - cache.net
   - caigoutong.net
   - caihongjia.com
   - caijingwu.com
@@ -1090,6 +1099,7 @@ domain_suffix_set:
   - ceblease.com
   - cecdc.com
   - cecport.com
+  - -ceec-cooperation.com
   - ceeunion.com
   - centanet.com
   - cerambath.org
@@ -1110,6 +1120,7 @@ domain_suffix_set:
   - chaindd.com
   - chainnode.com
   - chaipip.com
+  - -chair.com
   - changanfunds.com
   - changba.com
   - changdunovel.com
@@ -1130,50 +1141,6 @@ domain_suffix_set:
   - checkzeit.com
   - cheng.xin
   - cheyisou.com
-  - mintel.com
-  - amc.com
-  - booktrading.com
-  - cache.net
-  - -ceec-cooperation.com
-  - -chair.com
-  - chugui.com
-  - dongchu.com
-  - expressair.com
-  - fph.com
-  - hr.com
-  - kaoyan.com
-  - lawedu.com
-  - lions.com
-  - mobile.com
-  - mobileltd.com
-  - musicbusinessnews.com
-  - mwh.com
-  - -nengyuan.com
-  - netcenter.com
-  - news.com
-  - pay.com
-  - play.store
-  - pp.net
-  - pubmed.net
-  - sspp.com
-  - telecom.com.cn
-  - telecomglobal.com
-  - telecom-h.com
-  - translation.net
-  - unicom.cn
-  - unicom.com
-  - unicom.com.hk
-  - unicomglobal.com
-  - unix.net
-  - uos.com
-  - weiyu.com
-  - wutong.com
-  - xiv.com
-  - xiv.net
-  - xiv.org
-  - z.com
-  - z.net
-  - zns.com
   - chinesemooc.org
   - chiphell.com
   - chndoi.com
@@ -1190,6 +1157,7 @@ domain_suffix_set:
   - chuansong.me
   - chuansongme.com
   - chugou360.com
+  - chugui.com
   - chuimg.com
   - chunbo.com
   - chunboimg.com
@@ -1665,6 +1633,7 @@ domain_suffix_set:
   - dongao.com
   - dongchedi.com
   - dongchediapp.com
+  - dongchu.com
   - dongguantoday.com
   - dongting.com
   - dooo.ng
@@ -1846,6 +1815,7 @@ domain_suffix_set:
   - excelhome.net
   - exmailgz.com
   - exoticaz.to
+  - expressair.com
   - expreview.com
   - extfans.com
   - eyepetizer.net
@@ -1953,6 +1923,7 @@ domain_suffix_set:
   - foxwho.com
   - foxwq.com
   - foxzld.com
+  - fph.com
   - fqjob.net
   - fqnovel.com
   - fqnovelpic.com
@@ -2293,6 +2264,7 @@ domain_suffix_set:
   - houyuantuan.com
   - howbuy.com
   - hpearx.com
+  - hr.com
   - hrbbcf.com
   - hrtsea.com
   - hr-welink.com
@@ -2746,6 +2718,7 @@ domain_suffix_set:
   - kanzhun.com
   - kaola.com
   - kaopu001.com
+  - kaoyan.com
   - karagarga.in
   - karger.com
   - kaspersky-labs.com
@@ -2849,6 +2822,7 @@ domain_suffix_set:
   - larsonlimited.com
   - lascn.net
   - lasmasas.com
+  - lawedu.com
   - lawxp.com
   - lawyee.org
   - lazada.com
@@ -2921,6 +2895,7 @@ domain_suffix_set:
   - linkvans.com
   - linsn.com
   - linuxidc.com
+  - lions.com
   - liqucn.com
   - lishuichayuan.com
   - littlefoxgroup.com
@@ -2970,6 +2945,7 @@ domain_suffix_set:
   - lofter.com
   - log.aliyuncs.com
   - log.mmstat.com
+  - login.live.com
   - logiseasy.com
   - loli.net
   - longhoo.net
@@ -3126,6 +3102,9 @@ domain_suffix_set:
   - miaoshoucdn.com
   - miaostreet.com
   - micro-game-client.com
+  - microsoft.cn
+  - microsoft.com
+  - microsoftstore.com
   - midasbuy.com
   - midea.com
   - miercn.com
@@ -3151,6 +3130,7 @@ domain_suffix_set:
   - mingyuanyun.com
   - minhangshi.com
   - minitiao.com
+  - mintel.com
   - mipcdn.com
   - mipengine.com
   - mipplan.com
@@ -3177,6 +3157,8 @@ domain_suffix_set:
   - mob.com
   - mobike.com
   - mobile.ccdntech.com
+  - mobile.com
+  - mobileltd.com
   - mobmore.com
   - moecat.best
   - moegirl.org.cn
@@ -3246,12 +3228,14 @@ domain_suffix_set:
   - music.qq.com
   - music.tc.qq.com
   - musical.ly
+  - musicbusinessnews.com
   - mutalisk.vipfengfei.com
   - muwai.com
   - muyewx.com
   - muzhiwan.com
   - mvod.itunes.apple.com
   - mvtianshanlr.com
+  - mwh.com
   - mxhichina.com
   - my4399.com
   - myalirtc.com
@@ -3301,8 +3285,10 @@ domain_suffix_set:
   - neffkb.com
   - neihandiantai.com
   - neixin.cn
+  - -nengyuan.com
   - neohytung.com
   - netbian.com
+  - netcenter.com
   - netease.com
   - netease.im
   - netease-inc.com
@@ -3315,6 +3301,7 @@ domain_suffix_set:
   - newasp.net
   - newbandeng.com
   - newcoder.com
+  - news.com
   - newupbank.com
   - newvod.ahbbtv.com
   - newyx.net
@@ -3502,6 +3489,7 @@ domain_suffix_set:
   - papocket.com
   - paragon.com
   - passthepopcorn.me
+  - pay.com
   - pc6.com
   - pcauto.com.cn
   - pcbeta.com
@@ -3557,6 +3545,7 @@ domain_suffix_set:
   - play.kankanlive.com
   - play.scrstv.com
   - play.sngdxsn.com
+  - play.store
   - player.200877926.top
   - player.ioioz.com
   - playstation.com
@@ -3572,6 +3561,7 @@ domain_suffix_set:
   - popincdn.com
   - pornbits.net
   - powerapp.io
+  - pp.net
   - pphimalayanrt.com
   - pplive.com
   - pps.tv
@@ -3593,6 +3583,7 @@ domain_suffix_set:
   - pubghelper.com
   - pubgtool.com
   - public-trust.com
+  - pubmed.net
   - pubyun.com
   - pubyun.net
   - pull.hnedutv.com
@@ -3953,6 +3944,7 @@ domain_suffix_set:
   - smartisan.com
   - smartmidea.com
   - smartmidea.net
+  - s-microsoft.com
   - smogfly.cloud
   - sms.imagetasks.com
   - smtcdns.com
@@ -4023,6 +4015,7 @@ domain_suffix_set:
   - sslibrary.com
   - sspai.com
   - ssports.com
+  - sspp.com
   - st.dl.bscstorage.net
   - st.dl.eccdnx.com
   - st.dl.pinyuncloud.com
@@ -4188,6 +4181,9 @@ domain_suffix_set:
   - techo.chat
   - tefscloud.com
   - tefscloud.net
+  - telecom.com.cn
+  - telecomglobal.com
+  - telecom-h.com
   - teleows.com
   - temaiapi.com
   - temyee.com
@@ -4317,6 +4313,7 @@ domain_suffix_set:
   - tracup.com
   - tradaquan.com
   - trafficmanager.net
+  - translation.net
   - travelsky.com
   - trellocdn.com
   - trfgvb.com
@@ -4419,6 +4416,10 @@ domain_suffix_set:
   - unaming.net
   - uni6rtmp.tulix.tv
   - uni-bielefeld.de
+  - unicom.cn
+  - unicom.com
+  - unicom.com.hk
+  - unicomglobal.com
   - unicompayment.com
   - unicomtest.com
   - uning.com
@@ -4427,15 +4428,18 @@ domain_suffix_set:
   - unionpayintl.com
   - unionpaysecure.com
   - uniontech.com
+  - unix.net
   - unrealengine.com
   - uoj.ac
   - uoko.com
   - uonline-sh.com
   - uonline-sh.net
+  - uos.com
   - upai.com
   - upaiyun.com
   - upcdn.net
   - update.googleapis.com
+  - update.microsoft.com
   - updates.cdn-apple.com
   - updates-http.cdn-apple.com
   - upe.net
@@ -4600,6 +4604,7 @@ domain_suffix_set:
   - weixing.com
   - weixinsxy.com
   - weiyangx.com
+  - weiyu.com
   - weiyun.com
   - weizhiyundong.list
   - welltrend-edu.com
@@ -4703,6 +4708,7 @@ domain_suffix_set:
   - wuming.com
   - wunderlist.com
   - wusuobuneng.org
+  - wutong.com
   - wuximediaglobal.com
   - wuxizazhi.com
   - wuxizazhi.net
@@ -4806,6 +4812,9 @@ domain_suffix_set:
   - xiu8.com
   - xiucai.com
   - xiumi.us
+  - xiv.com
+  - xiv.net
+  - xiv.org
   - xiziwang.net
   - xjietiao.com
   - xjoycity.com
@@ -5047,6 +5056,8 @@ domain_suffix_set:
   - yzlngi.com
   - yzsnen.com
   - yzyxgame.com
+  - z.com
+  - z.net
   - z28j.com
   - zaifan.com
   - zampda.net
@@ -5152,6 +5163,7 @@ domain_suffix_set:
   - zmzapi.com
   - zmzapi.net
   - zmzfile.com
+  - zns.com
   - zofund.com
   - zol.com.cn
   - zol-img.com.cn
@@ -5209,9 +5221,9 @@ domain_keyword_set:
   - bfzycdn.com
   - bilibili
   - buy.itunes.apple.com
+  - cache
   - ccgslb
   - cdnhwc
-  - cache
   - -cn.apple.com
   - cnki.net
   - ctc.qzs.qzone.qq.com
@@ -5234,6 +5246,7 @@ domain_keyword_set:
   - lanzou
   - live.
   - microsoft
+  - microsoft-store
   - moke
   - o.lencr.org
   - officecdn
