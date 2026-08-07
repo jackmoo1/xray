@@ -1,4 +1,3 @@
-no_resolve: true
 domain_set:
   - 1500020991.vodplayer.wxamedia.com
   - 1500022744.vodplayer.wxamedia.com
@@ -21,7 +20,6 @@ domain_set:
   - ad.cctv.com
   - ad.cyapi.cn
   - ad.doubleclick.net
-  - ad.gameley.com
   - ad.hpplay.cn
   - ad.iot.360.cn
   - ad.jia.360.cn
@@ -94,14 +92,6 @@ domain_set:
   - ads.v3mh.com
   - ads.youtube.com
   - ads.zhinengxiyifang.cn
-  - ads3-normal-hl.zijieapi.com
-  - ads3-normal-lf.zijieapi.com
-  - ads3-normal-lq.zijieapi.com
-  - ads3-normal.zijieapi.com
-  - ads5-normal-hl.zijieapi.com
-  - ads5-normal-lf.zijieapi.com
-  - ads5-normal-lq.zijieapi.com
-  - ads5-normal.zijieapi.com
   - adsdk.vivo.com.cn
   - adse.test.ximalaya.com
   - adse.wsa.ximalaya.com
