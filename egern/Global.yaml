@@ -26,8 +26,6 @@ domain_set:
   - asahishimbun.sc.omtrdc.net
   - assets.msn.com
   - assets.ppy.sh
-  - assets1.xboxlive.com
-  - assets2.xboxlive.com
   - az416426.vo.msecnd.net
   - az668014.vo.msecnd.net
   - az764295.vo.msecnd.net
@@ -104,7 +102,6 @@ domain_set:
   - linkedin.sc.omtrdc.net
   - live-patreon-marketing.pantheonsite.io
   - location.microsoft.com
-  - login.microsoftonline.com
   - m1.ppy.sh
   - mask.apple-dns.net
   - mask.icloud.com
@@ -381,7 +378,6 @@ domain_suffix_set:
   - 1classtube.com
   - 1degree.com.au
   - 1drv.com
-  - 1drv.ms
   - 1dumb.com
   - 1e100.net
   - 1eew.com
@@ -15126,7 +15122,6 @@ domain_suffix_set:
   - microsoftsiteselection.com
   - microsoftsqlserver.com
   - microsoftstart.com
-  - microsoftstore.com
   - microsoftstore.com.hk
   - microsoftstream.com
   - microsoftteams.com
@@ -21436,7 +21431,6 @@ domain_suffix_set:
   - smh.com.au
   - smhric.org
   - smi.ac.uk
-  - s-microsoft.com
   - smith.edu
   - smithinst.ac.uk
   - sml.ac.uk
@@ -26998,7 +26992,6 @@ domain_suffix_set:
   - zzitube.com
   - zzux.com
   - zzycdz.com
-  - bing.com
   - market.xiaomi.com
   - ssl.fastly.net
   - 1xyz
