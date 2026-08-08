@@ -27261,11 +27261,11 @@ domain_keyword_set:
   - yandex
   - youtube
 asn_set:
-  - IP-ASN,62041
-  - IP-ASN,62014
-  - IP-ASN,59930
-  - IP-ASN,44907
-  - IP-ASN,211157
+  - ‘AS62041’
+  - ‘AS62014‘
+  - ’AS59930’
+  - ‘AS44907‘
+  - ’AS211157’
 ip_cidr_set:
   - 1.201.0.0/24
   - 101.32.118.0/23
