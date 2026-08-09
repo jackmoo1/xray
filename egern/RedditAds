@@ -1,0 +1,8 @@
+#!name=RedditAds
+#!desc=RedditAds
+
+[Script]
+reddit = type=http-response, pattern=^https?:\/\/gql-fed\.reddit\.com\/$, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/reddit.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% gql-fed.reddit.com
