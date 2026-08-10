@@ -1,3 +1,5 @@
+// NetworkRadar Pro v2.4 UI Link Analysis Edition
+// Detection core preserved from v2.3
 /**
  * Egern「网络诊断雷达」
  *
@@ -1686,7 +1688,7 @@ export default async function (ctx) {
       [
         sectionTitle(
           "point.3.connected.trianglepath.dotted",
-          "当前链路",
+          "当前代理",
           row(
             [
               pill(NODE_PROTOCOL, C.purple, C.purpleSoft),
@@ -1812,9 +1814,9 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 165,
+        height: 150,
         padding: [5, 6],
-        gap: 3
+        gap: 2
       }
     );
   }
@@ -2175,8 +2177,8 @@ export default async function (ctx) {
           serviceCard("AI 解锁检测", "sparkles", ai, C.purple)
         ],
         {
-          height: 145,
-          gap: 6,
+          height: 132,
+          gap: 5,
           alignItems: "start"
         }
       ),
@@ -2184,9 +2186,9 @@ export default async function (ctx) {
       footer()
     ],
     {
-      height: 420,
-      padding: [8, 8],
-      gap: 6
+      height: 400,
+      padding: [7, 7],
+      gap: 5
     }
   );
 
