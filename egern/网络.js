@@ -346,7 +346,7 @@ export default async function (ctx) {
     try {
       const response = await ctx.http.get(
         url,
-        serviceRequestOptions(effectivePolicy)
+        serviceRequestOptions(servicePolicy)
       );
 
       return {
@@ -1686,7 +1686,7 @@ export default async function (ctx) {
       [
         sectionTitle(
           "point.3.connected.trianglepath.dotted",
-          "当前代理",
+          "当前链路",
           row(
             [
               pill(NODE_PROTOCOL, C.purple, C.purpleSoft),
@@ -1812,9 +1812,9 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 150,
-        padding: [6, 8],
-        gap: 5
+        height: 165,
+        padding: [5, 6],
+        gap: 3
       }
     );
   }
@@ -2167,16 +2167,7 @@ export default async function (ctx) {
     [
       header(),
 
-      row(
-        [
-          proxyCard()
-        ],
-        {
-          height: 110,
-          gap: 6,
-          alignItems: "start"
-        }
-      ),
+      proxyCard(),
 
       row(
         [
@@ -2193,7 +2184,7 @@ export default async function (ctx) {
       footer()
     ],
     {
-      height: 372,
+      height: 420,
       padding: [8, 8],
       gap: 6
     }
