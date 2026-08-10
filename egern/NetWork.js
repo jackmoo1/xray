@@ -60,7 +60,8 @@ export default async function (ctx) {
   const WIDTH_SCALE = SCREEN_W / 440;
   const HEIGHT_SCALE = SCREEN_H / 956;
   const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
+  // 文字文本整体扩大 1.5 倍
+  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045) * 1.5;
 
   const CURRENT_PROXY = getCurrentProxyInfo(ctx);
   const NODE_PROTOCOL =
@@ -3769,217 +3770,47 @@ function purityScore(exit) {
 
   const proxyCount = Number(evidence.proxyCount || 0);
   const vpnCount = Number(evidence.vpnCount || 0);
-  const torCount = Number(evidence.torCount || 0);
-  const abuserCount = Number(evidence.abuserCount || 0);
-  const riskValue = Number(flags.risk);
 
-  const proxyVpnEvidenceCount = proxyCount + vpnCount;
+  if (proxyCount > 0) score -= 10;
+  if (vpnCount > 0) score -= 10;
 
-  if (torCount > 0 || flags.tor) {
-    score -= 55;
-  }
-
-  if (abuserCount > 0 || flags.abuser) {
-    score -= 35;
-  }
-
-  if (proxyVpnEvidenceCount >= 2) {
-    score -= 30;
-  } else if (proxyVpnEvidenceCount === 1) {
-    score -= 16;
-  }
-
-  if (Number.isFinite(riskValue)) {
-    if (riskValue >= 80) {
-      score -= 25;
-    } else if (riskValue >= 70) {
-      score -= 20;
-    } else if (riskValue >= 40) {
-      score -= 10;
-    } else if (riskValue >= 20) {
-      score -= 4;
-    }
-  }
-
-  if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) {
-    score -= 8;
-  }
-
-  if (
-    kind === "住宅 IP" &&
-    !flags.proxy &&
-    !flags.vpn &&
-    !flags.tor &&
-    !flags.abuser
-  ) {
-    score += 3;
-  }
-
-  if (
-    kind === "移动网络" &&
-    !flags.proxy &&
-    !flags.vpn &&
-    !flags.tor &&
-    !flags.abuser
-  ) {
-    score += 3;
-  }
-
-  score = Math.max(0, Math.min(100, Math.round(score)));
-
-  return {
-    score: score,
-    risk: 100 - score,
-    evidence: evidence
-  };
+  return { score: Math.max(0, Math.min(100, score)) };
 }
 
 function riskLevel(exit, purity) {
-  const flags = (exit && exit.flags) || {};
-  const evidence = flags.evidence || {};
-  const score = Number(purity && purity.score);
-  const riskValue = Number(flags.risk);
-
-  const proxyVpnEvidenceCount =
-    Number(evidence.proxyCount || 0) +
-    Number(evidence.vpnCount || 0);
-
-  if (
-    flags.tor ||
-    Number(evidence.torCount || 0) > 0 ||
-    flags.abuser ||
-    Number(evidence.abuserCount || 0) > 0 ||
-    riskValue >= 85 ||
-    score < 45 ||
-    (
-      proxyVpnEvidenceCount >= 2 &&
-      (
-        score < 60 ||
-        riskValue >= 70
-      )
-    )
-  ) {
-    return "高风险";
-  }
-
-  if (
-    score < 75 ||
-    riskValue >= 40 ||
-    proxyVpnEvidenceCount >= 1 ||
-    flags.datacenter ||
-    flags.hosting
-  ) {
-    return "中风险";
-  }
-
-  return "低风险";
-}
-
-/* === 补全的辅助工具函数 === */
-
-function clean(val) {
-  if (val === null || val === undefined) return "";
-  return String(val).trim();
-}
-
-function pick() {
-  for (let i = 0; i < arguments.length; i++) {
-    const v = clean(arguments[i]);
-    if (v) return v;
-  }
-  return "";
-}
-
-function getAt(obj, path) {
-  if (!obj || typeof obj !== "object") return undefined;
-  const parts = path.split(".");
-  let cur = obj;
-  for (let i = 0; i < parts.length; i++) {
-    if (cur === null || cur === undefined) return undefined;
-    cur = cur[parts[i]];
-  }
-  return cur;
-}
-
-function clamp(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-}
-
-function numberInRange(val, min, max, fallback) {
-  const num = Number(val);
-  if (isNaN(num)) return fallback;
-  return clamp(num, min, max);
-}
-
-function truthy(val) {
-  if (typeof val === "boolean") return val;
-  if (typeof val === "number") return val > 0;
-  if (typeof val === "string") {
-    const s = val.trim().toLowerCase();
-    return s === "true" || s === "1" || s === "yes";
-  }
-  return false;
-}
-
-function randomAlphaNum(len) {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let res = "";
-  for (let i = 0; i < len; i++) {
-    res += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return res;
+  if (purity.score >= 75) return "低风险";
+  if (purity.score >= 45) return "中风险";
+  return "高风险";
 }
 
 function detectScheme(ctx) {
-  return ctx && ctx.colorScheme === "dark" ? "dark" : "light";
+  const scheme = clean(getAt(ctx, "scheme"));
+  return scheme === "dark" ? "dark" : "light";
 }
 
-function resolveAdaptiveColor(col, scheme) {
-  if (!col) return "#000000";
-  if (typeof col === "string") return col;
-  return scheme === "dark" ? col.dark : col.light;
-}
-
-function getScreenMetric(ctx, field) {
-  return ctx && ctx.display && ctx.display[field] ? ctx.display[field] : null;
-}
-
-function timeLabel(date) {
-  const h = String(date.getHours()).padStart(2, "0");
-  const m = String(date.getMinutes()).padStart(2, "0");
-  return h + ":" + m;
-}
-
-function dateLabel(date) {
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return m + "-" + d;
-}
-
-function countryCode(val) {
-  const c = clean(val).toUpperCase();
-  return c.length === 2 ? c : "";
-}
-
-function flag(code) {
-  const cc = countryCode(code);
-  if (!cc) return "";
-  const codePoints = cc
-    .toUpperCase()
-    .split("")
-    .map(char => 127397 + char.charCodeAt(0));
-  return String.fromCodePoint(...codePoints);
+function resolveAdaptiveColor(colorObj, scheme) {
+  if (!colorObj || typeof colorObj !== "object") return colorObj;
+  return scheme === "dark" ? colorObj.dark : colorObj.light;
 }
 
 function shortISP(isp) {
-  const raw = clean(isp);
-  if (!raw) return "未知组织";
-  return raw.length > 12 ? raw.slice(0, 12) + "..." : raw;
+  const text = clean(isp);
+  if (!text) return "未知组织";
+  if (text.length <= 12) return text;
+  return text.slice(0, 10) + "..";
 }
 
 function gatewayLabel(gw) {
-  if (!gw || gw === "未获取") return "未知";
-  return gw;
+  const text = clean(gw);
+  if (!text) return "未获取";
+  return text;
+}
+
+function toneColor(tone, C) {
+  if (tone === "green") return C.green;
+  if (tone === "amber") return C.amber;
+  if (tone === "red") return C.red;
+  return C.text;
 }
 
 function detectNAT(localIP, exitIP) {
@@ -3987,38 +3818,104 @@ function detectNAT(localIP, exitIP) {
     return { label: "未知", tone: "amber" };
   }
   if (localIP === exitIP) {
-    return { label: "公网IP", tone: "green" };
+    return { label: "公网", tone: "green" };
   }
-  return { label: "NAT型", tone: "blue" };
+  return { label: "对称", tone: "amber" };
 }
 
 function detectDNSProvider(dnsServers) {
   if (!dnsServers || dnsServers.length === 0) {
-    return { full: "系统默认 DNS", short: "系统" };
+    return { full: "系统默认", short: "系统" };
   }
-  const primary = dnsServers[0];
-  const matched = providerFromText(primary);
-  if (matched.short) return matched;
-  return { full: primary, short: primary };
-}
-
-function toneColor(tone, C) {
-  if (tone === "green") return C.green;
-  if (tone === "amber") return C.amber;
-  if (tone === "red") return C.red;
-  if (tone === "blue") return C.blue;
-  return C.purple;
+  const ip = dnsServers[0];
+  if (ip.startsWith("1.1.1.1")) return { full: "Cloudflare", short: "CF" };
+  if (ip.startsWith("8.8.8.8")) return { full: "Google", short: "谷歌" };
+  if (ip.startsWith("223.5.5.5")) return { full: "AliDNS", short: "阿里" };
+  if (ip.startsWith("119.29.29.29")) return { full: "DNSPod", short: "腾讯" };
+  return { full: ip, short: ip };
 }
 
 function parseTrace(text) {
   const result = {};
-  if (!text) return result;
-  const lines = text.split("\n");
-  lines.forEach(line => {
+  const lines = (text || "").split("\n");
+  lines.forEach(function (line) {
     const parts = line.split("=");
     if (parts.length === 2) {
       result[parts[0].trim()] = parts[1].trim();
     }
   });
   return result;
+}
+
+function countryCode(value) {
+  const text = clean(value).toUpperCase();
+  if (/^[A-Z]{2}$/.test(text)) return text;
+  return "";
+}
+
+function flag(code) {
+  const cc = countryCode(code);
+  if (!cc) return "";
+  return String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+}
+
+function clean(value) {
+  if (value === null || value === undefined) return "";
+  return String(value).trim();
+}
+
+function pick() {
+  for (let index = 0; index < arguments.length; index += 1) {
+    const value = clean(arguments[index]);
+    if (value) return value;
+  }
+  return "";
+}
+
+function getAt(object, path) {
+  if (!object || typeof object !== "object") return undefined;
+  const parts = String(path).split(".");
+  let curr = object;
+  for (let index = 0; index < parts.length; index += 1) {
+    if (curr === null || curr === undefined) return undefined;
+    curr = curr[parts[index]];
+  }
+  return curr;
+}
+
+function truthy(value) {
+  if (typeof value === "boolean") return value;
+  const text = clean(value).toLowerCase();
+  return text === "1" || text === "true" || text === "yes";
+}
+
+function numberInRange(val, min, max, fallback) {
+  const num = Number(val);
+  if (!Number.isFinite(num)) return fallback;
+  return Math.min(Math.max(num, min), max);
+}
+
+function clamp(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+function randomAlphaNum(len) {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let res = "";
+  for (let i = 0; i < len; i += 1) {
+    res += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return res;
+}
+
+function timeLabel(d) {
+  const h = String(d.getHours()).padStart(2, "0");
+  const m = String(d.getMinutes()).padStart(2, "0");
+  return h + ":" + m;
+}
+
+function dateLabel(d) {
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return m + "-" + day;
 }
