@@ -1,7 +1,6 @@
-// NetworkRadar Pro v2.4 UI Link Analysis Edition
-// Detection core preserved from v2.3
 /**
  * Egern「网络诊断雷达」
+ * NetworkRadar Pro v2.5 UI优化版
  *
  * 环境变量：
  * - POLICY：最高优先级。指定后，出口、延迟、UDP/QUIC、流媒体、AI 全部统一走 POLICY
@@ -1814,9 +1813,9 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 150,
+        height: 165,
         padding: [5, 6],
-        gap: 2
+        gap: 3
       }
     );
   }
@@ -2064,7 +2063,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 145,
+        height: 132,
         padding: [5, 6],
         gap: 5
       }
@@ -2177,8 +2176,8 @@ export default async function (ctx) {
           serviceCard("AI 解锁检测", "sparkles", ai, C.purple)
         ],
         {
-          height: 132,
-          gap: 5,
+          height: 145,
+          gap: 6,
           alignItems: "start"
         }
       ),
@@ -2187,7 +2186,7 @@ export default async function (ctx) {
     ],
     {
       height: 400,
-      padding: [7, 7],
+      padding: [6, 6],
       gap: 5
     }
   );
