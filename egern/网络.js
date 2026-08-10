@@ -1,6 +1,5 @@
 /**
  * Egern「网络诊断雷达」
- * NetworkRadar Pro v2.5 UI优化版
  *
  * 环境变量：
  * - POLICY：最高优先级。指定后，出口、延迟、UDP/QUIC、流媒体、AI 全部统一走 POLICY
@@ -10,18 +9,9 @@
  * - YS=0 或不设置：不打码
  * - XY：手动指定协议，例如 VLESS / Trojan / HY2 / AnyTLS
  * - XY 未设置：继续按原逻辑从 Egern 上下文 / 节点元数据 / 节点名尝试识别
- * - CHECK_MODE：smart（默认）/ direct；direct 仅作为直连基线，不代表绕过 Egern DNS 解锁后的节点原生能力
- * - SOURCE=0：隐藏服务检测来源标签；默认显示“策略出口/当前规则”
  *
  * 策略优先级：
  * POLICY ＞ LMT / AI ＞ 单服务内置候选策略名匹配 ＞ 不指定 policy
- *
- * 单服务匹配逻辑：
- * - POLICY 为空，LMT/AI 也为空时，每个服务单独使用自己的候选策略名表
- * - 每个服务在本轮刷新中只匹配一次
- * - 匹配成功后缓存本轮结果
- * - 匹配不到时该服务不传 policy，走 Widget 默认请求方式
- * - 服务小国旗来自该服务实际使用策略的出口地区，不再复用顶部当前代理出口
  */
 
 export default async function (ctx) {
@@ -36,13 +26,10 @@ export default async function (ctx) {
   const MASK_IP = clean(env.YS) === "1";
   const FORCE_PROTOCOL = clean(env.XY);
 
-  const TIMEOUT = 4000;
-  const POLICY_PROBE_TIMEOUT = 1600;
+  const TIMEOUT = 4500;
+  const POLICY_PROBE_TIMEOUT = 1800;
   const POLICY_PROBE_BATCH_SIZE = 6;
-  const CHECK_MODE = clean(env.CHECK_MODE).toLowerCase() || "smart";
-  const SHOW_DIAGNOSTIC_SOURCE = clean(env.SOURCE) !== "0";
   const REFRESH_MINUTES = 15;
-  const FORCE_LOCAL_MAINLAND = true;
 
   const servicePolicyCache = {};
   const policyProbeCache = {};
@@ -65,22 +52,13 @@ export default async function (ctx) {
   const WIDTH_SCALE = SCREEN_W / 440;
   const HEIGHT_SCALE = SCREEN_H / 956;
   const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  const FONT_SCALE = clamp(UI_SCALE * 1.14, 1.0, 1.16);
+  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
 
   const CURRENT_PROXY = getCurrentProxyInfo(ctx);
   const NODE_PROTOCOL =
     protocolFromXY(FORCE_PROTOCOL) ||
     CURRENT_PROXY.protocol ||
     "未暴露";
-  const NODE_NAME = clean(CURRENT_PROXY.name) || "当前节点";
-
-  const MAINLAND_LATENCY_URLS = [
-    "http://connect.rom.miui.com/generate_204",
-    "http://wifi.vivo.com.cn/generate_204",
-    "https://www.baidu.com/favicon.ico",
-    "https://www.qq.com/favicon.ico",
-    "https://www.aliyun.com/favicon.ico"
-  ];
 
   const GLOBAL_PROXY_LATENCY_URLS = [
     "https://cp.cloudflare.com/generate_204",
@@ -121,40 +99,6 @@ export default async function (ctx) {
     "perplexity"
   ];
 
-  const device = ctx.device || {};
-  const wifi = device.wifi || {};
-  const ipv4 = device.ipv4 || {};
-  const ipv6 = device.ipv6 || {};
-
-  const dnsServers = Array.isArray(device.dnsServers)
-    ? device.dnsServers.filter(Boolean)
-    : [];
-
-  let networkName = getLocalNetworkName(device);
-
-  const localIP =
-    clean(
-      pick(
-        ipv4.address,
-        wifi.ip,
-        wifi.ipAddress,
-        device.ipAddress,
-        device.ip
-      )
-    ) || "未获取";
-
-  const gateway =
-    clean(
-      pick(
-        ipv4.gateway,
-        wifi.gateway,
-        device.gateway
-      )
-    ) || "未获取";
-
-  const hasIPv4 = Boolean(clean(localIP)) && localIP !== "未获取";
-  const hasIPv6 = Boolean(clean(pick(ipv6.address, device.ipv6Address)));
-  const baseDNS = detectDNSProvider(dnsServers);
   const now = new Date();
 
   function S(value) {
@@ -226,23 +170,6 @@ export default async function (ctx) {
     return Object.assign(options, extra || {});
   }
 
-  function directRequestOptions(extra) {
-    return Object.assign(
-      {
-        timeout: TIMEOUT,
-        redirect: "follow",
-        credentials: "omit",
-        policy: "DIRECT",
-        headers: {
-          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)",
-          Accept: "application/json,text/plain,text/html,*/*",
-          "Cache-Control": "no-cache"
-        }
-      },
-      extra || {}
-    );
-  }
-
   function serviceRequestOptions(policy, extra) {
     const options = {
       timeout: TIMEOUT,
@@ -288,23 +215,6 @@ export default async function (ctx) {
   async function getJSON(url) {
     try {
       const response = await ctx.http.get(url, requestOptions());
-      return {
-        ok: response.status >= 200 && response.status < 400,
-        status: response.status,
-        data: await response.json()
-      };
-    } catch (_) {
-      return {
-        ok: false,
-        status: 0,
-        data: null
-      };
-    }
-  }
-
-  async function getJSONDirect(url) {
-    try {
-      const response = await ctx.http.get(url, directRequestOptions());
       return {
         ok: response.status >= 200 && response.status < 400,
         status: response.status,
@@ -580,25 +490,37 @@ export default async function (ctx) {
   }
 
   async function getExit() {
-    const urls = [
-      "https://api.ipapi.is/?_=" + Date.now(),
-      "https://ipwho.is/?lang=zh-CN&_=" + Date.now()
+    const baseResults = await Promise.all([
+      getJSON("https://api.ipapi.is/?_=" + Date.now()),
+      getJSON(
+        "http://ip-api.com/json/?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname,proxy,hosting,mobile&_=" +
+          Date.now()
+      ),
+      getJSON("https://ipwho.is/?lang=zh-CN&_=" + Date.now()),
+      getJSON("https://ipinfo.io/json?_=" + Date.now())
+    ]);
+
+    const sourceNames = [
+      "ipapi.is",
+      "ip-api",
+      "ipwho.is",
+      "ipinfo"
     ];
 
     const candidates = [];
 
-    for (let index = 0; index < urls.length; index += 1) {
-      const result = await getJSON(urls[index]);
-      if (!result.ok || !result.data) continue;
+    for (let index = 0; index < baseResults.length; index += 1) {
+      if (!baseResults[index].ok || !baseResults[index].data) {
+        continue;
+      }
 
       const parsed = parseExitSource(
-        result.data,
-        index === 0 ? "ipapi.is" : "ipwho.is"
+        baseResults[index].data,
+        sourceNames[index]
       );
 
       if (parsed.ip) {
         candidates.push(parsed);
-        if (candidates.length > 1 && candidates[0].ip === parsed.ip) break;
       }
     }
 
@@ -626,242 +548,10 @@ export default async function (ctx) {
     return merged;
   }
 
-  async function getLocalExit() {
-    const results = await Promise.all([
-      getJSONDirect(
-        "http://ip-api.com/json/?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname&_=" +
-          Date.now()
-      ),
-      getJSONDirect("https://ipwho.is/?lang=zh-CN&_=" + Date.now()),
-      getJSONDirect("https://api.ipapi.is/?_=" + Date.now())
-    ]);
-
-    for (let index = 0; index < results.length; index += 1) {
-      const parsed = parseLocalExit(
-        results[index].data,
-        FORCE_LOCAL_MAINLAND
-      );
-
-      if (results[index].ok && parsed.ip) {
-        if (FORCE_LOCAL_MAINLAND && parsed.countryCode !== "CN") {
-          return {
-            ip: parsed.ip,
-            city: "",
-            region: "",
-            country: "中国",
-            countryCode: "CN",
-            isp: parsed.isp || "",
-            org: parsed.org || "",
-            asname: parsed.asname || "",
-            as: parsed.as || "",
-            label: "中国大陆"
-          };
-        }
-
-        return parsed;
-      }
-    }
-
-    return {
-      ip: "",
-      city: "",
-      region: "",
-      country: "中国",
-      countryCode: "CN",
-      isp: "",
-      org: "",
-      asname: "",
-      as: "",
-      label: "中国大陆"
-    };
-  }
-
-  async function getDNSVerified() {
-    const results = [await probeEDNSResolver()];
-
-    const valid = results.filter(function (item) {
-      return item && item.ok && item.ip;
-    });
-
-    if (valid.length === 0) {
-      return {
-        ok: false,
-        full: "",
-        short: "",
-        ip: "",
-        geo: "",
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
-    }
-
-    const primary = valid[0];
-
-    const providerByText = providerFromText(
-      [
-        primary.geo,
-        primary.ip,
-        primary.isp,
-        primary.org,
-        primary.asname,
-        primary.as
-      ].join(" ")
-    );
-
-    if (providerByText.short) {
-      return {
-        ok: true,
-        full: providerByText.full,
-        short: providerByText.short,
-        ip: primary.ip,
-        geo: primary.geo,
-        isp: primary.isp,
-        org: primary.org,
-        asname: primary.asname,
-        as: primary.as
-      };
-    }
-
-    const providerByIP = detectDNSProvider([primary.ip]);
-
-    if (providerByIP.short && !isWeakDNSLabel(providerByIP.short)) {
-      return {
-        ok: true,
-        full: providerByIP.full,
-        short: providerByIP.short,
-        ip: primary.ip,
-        geo: primary.geo,
-        isp: primary.isp,
-        org: primary.org,
-        asname: primary.asname,
-        as: primary.as
-      };
-    }
-
-    const ispLabel = compactDNSProviderName(
-      primary.isp ||
-      primary.org ||
-      primary.asname ||
-      primary.as ||
-      primary.geo
-    );
-
-    return {
-      ok: true,
-      full: primary.isp || primary.org || primary.asname || primary.geo || "未知 DNS",
-      short: ispLabel,
-      ip: primary.ip,
-      geo: primary.geo,
-      isp: primary.isp,
-      org: primary.org,
-      asname: primary.asname,
-      as: primary.as
-    };
-  }
-
-  async function probeEDNSResolver() {
-    const host = randomAlphaNum(32) + ".edns.ip-api.com";
-
-    const result = await getJSONDirect(
-      "http://" + host + "/json?_=" + Date.now()
-    );
-
-    if (!result.ok || !result.data) {
-      return {
-        ok: false,
-        ip: "",
-        geo: "",
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
-    }
-
-    const dns = result.data.dns || {};
-    const ip = clean(dns.ip);
-    const geo = clean(dns.geo);
-
-    if (!ip) {
-      return {
-        ok: false,
-        ip: "",
-        geo: geo,
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
-    }
-
-    const info = await getDNSResolverInfo(ip);
-
-    return {
-      ok: true,
-      ip: ip,
-      geo: geo,
-      isp: info.isp,
-      org: info.org,
-      asname: info.asname,
-      as: info.as
-    };
-  }
-
-  async function getDNSResolverInfo(ip) {
-    const target = clean(ip);
-
-    if (!target) {
-      return {
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
-    }
-
-    const result = await getJSONDirect(
-      "http://ip-api.com/json/" +
-        encodeURIComponent(target) +
-        "?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname&_=" +
-        Date.now()
-    );
-
-    if (!result.ok || !result.data || result.data.status === "fail") {
-      return {
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
-    }
-
-    return {
-      isp: clean(result.data.isp),
-      org: clean(result.data.org),
-      asname: clean(result.data.asname),
-      as: clean(result.data.as)
-    };
-  }
-
   async function getProxyLatency() {
     const measured = await measureLatencySet(
       GLOBAL_PROXY_LATENCY_URLS,
       false
-    );
-
-    return {
-      ok: measured.ok,
-      ms: measured.ms,
-      target: measured.target
-    };
-  }
-
-  async function getLocalLatency() {
-    const measured = await measureLatencySet(
-      MAINLAND_LATENCY_URLS,
-      true
     );
 
     return {
@@ -907,9 +597,7 @@ export default async function (ctx) {
     const startedAt = Date.now();
 
     try {
-      const response = direct
-        ? await ctx.http.get(url, directRequestOptions())
-        : await ctx.http.get(url, requestOptions());
+      const response = await ctx.http.get(url, requestOptions());
 
       return {
         ok: response.status >= 200 && response.status < 400,
@@ -949,7 +637,7 @@ export default async function (ctx) {
   }
 
   async function getQuic() {
-    const urls = QUIC_TRACE_URLS.slice(0, 2).map(function (url) {
+    const urls = QUIC_TRACE_URLS.map(function (url) {
       return url + "?_=" + Date.now() + randomAlphaNum(5);
     });
 
@@ -999,16 +687,8 @@ export default async function (ctx) {
     };
   }
 
-  function serviceSourceLabel(servicePolicy) {
-    if (!SHOW_DIAGNOSTIC_SOURCE) return "";
-    if (servicePolicy) return "策略出口";
-    if (CHECK_MODE === "direct") return "直连基线";
-    return "当前规则";
-  }
-
   async function testService(id, name, kind, color, url, servicePolicy) {
-    const effectivePolicy = CHECK_MODE === "direct" ? "DIRECT" : servicePolicy;
-    const serviceExitPromise = getPolicyExit(effectivePolicy);
+    const serviceExitPromise = getPolicyExit(servicePolicy);
 
     if (!url) {
       const emptyExit = await serviceExitPromise;
@@ -1019,10 +699,9 @@ export default async function (ctx) {
         kind: kind,
         color: color,
         ok: false,
-        policy: effectivePolicy || "",
+        policy: servicePolicy || "",
         countryCode: emptyExit.countryCode || "",
         country: emptyExit.country || "",
-        sourceLabel: serviceSourceLabel(effectivePolicy),
         exit: emptyExit
       };
     }
@@ -1046,10 +725,9 @@ export default async function (ctx) {
       kind: kind,
       color: color,
       ok: result.ok,
-      policy: effectivePolicy || "",
+      policy: servicePolicy || "",
       countryCode: serviceExit.countryCode || "",
       country: serviceExit.country || "",
-      sourceLabel: serviceSourceLabel(effectivePolicy),
       exit: serviceExit
     };
   }
@@ -1057,28 +735,20 @@ export default async function (ctx) {
   const [
     mediaPolicyMap,
     aiPolicyMap
-  ] = CHECK_MODE === "direct"
-    ? [{}, {}]
-    : await Promise.all([
-        resolveServicePolicyMap(MEDIA_SERVICE_IDS, "lmt"),
-        resolveServicePolicyMap(AI_SERVICE_IDS, "ai")
-      ]);
+  ] = await Promise.all([
+    resolveServicePolicyMap(MEDIA_SERVICE_IDS, "lmt"),
+    resolveServicePolicyMap(AI_SERVICE_IDS, "ai")
+  ]);
 
   const [
     exit,
-    localExit,
-    verifiedDNS,
     proxyLatency,
-    localLatency,
     quic,
     media,
     ai
   ] = await Promise.all([
     getExit(),
-    getLocalExit(),
-    getDNSVerified(),
     getProxyLatency(),
-    getLocalLatency(),
     getQuic(),
 
     Promise.all([
@@ -1100,27 +770,6 @@ export default async function (ctx) {
     ])
   ]);
 
-  const carrierByDirectISP = carrierFromISP(
-    [
-      localExit.isp,
-      localExit.org,
-      localExit.asname,
-      localExit.as
-    ].join(" ")
-  );
-
-  if (!networkName && carrierByDirectISP) {
-    networkName = carrierByDirectISP;
-  }
-
-  if (!networkName) {
-    networkName = "移动数据";
-  }
-
-  const dns = chooseDNSProvider(baseDNS, verifiedDNS);
-  const dnsLabel = dnsTinyLabel(dns.short || dns.full);
-  const localArea = localExit.label || "中国大陆";
-  const nat = detectNAT(localIP, exit.ip);
   const purity = purityScore(exit);
   const risk = riskLevel(exit, purity);
 
@@ -1128,11 +777,6 @@ export default async function (ctx) {
     ? proxyLatency.ms <= 220 ? C.green : C.amber
     : C.red;
 
-  const localLatencyColor = localLatency.ok
-    ? localLatency.ms <= 220 ? C.green : C.amber
-    : C.red;
-
-  const natColor = toneColor(nat.tone, C);
   const quicColor = toneColor(quic.tone, C);
 
   const purityColor =
@@ -1251,7 +895,7 @@ export default async function (ctx) {
   function pill(value, tone, fill, extra) {
     return row(
       [
-        text(value, 6.8, "semibold", tone, {
+        text(value, 6, "semibold", tone, {
           maxLines: 1,
           minScale: 0.72,
           textAlign: "center"
@@ -1271,15 +915,15 @@ export default async function (ctx) {
   function proxyTagLine(value, tone, fill) {
     return row(
       [
-        text(value, 5.4, "semibold", tone, {
+        text(value, 4.7, "semibold", tone, {
           maxLines: 1,
           minScale: 0.42,
           textAlign: "center"
         })
       ],
       {
-        width: 40,
-        height: 8.4,
+        width: 37,
+        height: 7.2,
         padding: [0.7, 2.5],
         backgroundColor: fill,
         borderRadius: 4.8,
@@ -1295,7 +939,7 @@ export default async function (ctx) {
         proxyTagLine(tagTwo, toneTwo, fillTwo)
       ],
       {
-        width: 42,
+        width: 39,
         gap: 1,
         alignItems: "start"
       }
@@ -1325,7 +969,7 @@ export default async function (ctx) {
   function sectionTitle(symbol, title, right, tone) {
     const children = [
       image(symbol, tone, 11, 11),
-      text(title, 11, "semibold", C.text, {
+      text(title, 10, "semibold", C.text, {
         maxLines: 1
       })
     ];
@@ -1340,9 +984,9 @@ export default async function (ctx) {
 
   function metricBox(symbol, label, value, tone, extra) {
     const options = extra || {};
-    const valueSize = options.valueSize || 7.0;
+    const valueSize = options.valueSize || 6.1;
     const valueMinScale = options.valueMinScale || 0.35;
-    const labelSize = options.labelSize || 5.8;
+    const labelSize = options.labelSize || 5;
     const labelMinScale = options.labelMinScale || 0.72;
 
     return col(
@@ -1370,7 +1014,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 27,
+        height: 24,
         padding: [0, 0],
         gap: 0,
         alignItems: "center"
@@ -1501,115 +1145,6 @@ export default async function (ctx) {
     );
   }
 
-  function localCard() {
-    return card(
-      [
-        sectionTitle(
-          "wifi",
-          "本地网络",
-          image("globe.asia.australia.fill", C.blue, 12, 12),
-          C.blue
-        ),
-
-        row(
-          [
-            iconBox("wifi", C.blue, C.blueSoft, 42),
-
-            col(
-              [
-                row(
-                  [
-                    text(networkName, 11, "semibold", C.text, {
-                      flex: 1,
-                      maxLines: 1,
-                      minScale: 0.68
-                    }),
-
-                    pill("已连接", C.green, C.greenSoft, {
-                      padding: [1, 4]
-                    })
-                  ],
-                  { gap: 3 }
-                ),
-
-                text(displayIP(localIP), 8, "medium", C.subtext, {
-                  maxLines: 1,
-                  minScale: 0.72
-                }),
-
-                row(
-                  [
-                    text(flag(localExit.countryCode) || "🇨🇳", 8, "regular", C.text),
-
-                    text(localArea, 7, "medium", C.muted, {
-                      maxLines: 1,
-                      minScale: 0.72
-                    })
-                  ],
-                  { gap: 2 }
-                )
-              ],
-              {
-                flex: 1,
-                gap: 1
-              }
-            )
-          ],
-          { gap: 6 }
-        ),
-
-        row(
-          [
-            metricBox(
-              "router.fill",
-              "网关",
-              gatewayLabel(displayIP(gateway)),
-              C.blue,
-              {
-                valueSize: 5.4,
-                valueMinScale: 0.28
-              }
-            ),
-
-            metricBox(
-              "clock",
-              "直连延迟",
-              localLatency.ok ? localLatency.ms + "ms" : "失败",
-              localLatencyColor
-            ),
-
-            metricBox(
-              "network",
-              "IPV4/IPV6",
-              (hasIPv4 ? "✓" : "×") + "/" + (hasIPv6 ? "✓" : "×"),
-              hasIPv4 && hasIPv6
-                ? C.green
-                : hasIPv4
-                  ? C.amber
-                  : C.red
-            ),
-
-            metricBox(
-              "cloud.fill",
-              "DNS",
-              dnsLabel,
-              C.purple,
-              {
-                valueSize: 5.4,
-                valueMinScale: 0.28
-              }
-            )
-          ],
-          { gap: 2 }
-        )
-      ],
-      {
-        flex: 1,
-        height: 100
-      }
-    );
-  }
-
   function flagBox() {
     return row(
       [
@@ -1686,17 +1221,11 @@ export default async function (ctx) {
       [
         sectionTitle(
           "point.3.connected.trianglepath.dotted",
-          "当前代理",
-          row(
-            [
-              pill(NODE_PROTOCOL, C.purple, C.purpleSoft),
-              pill(
-                proxyLatency.ok ? "连接正常" : "检测失败",
-                proxyLatency.ok ? C.green : C.red,
-                proxyLatency.ok ? C.greenSoft : C.redSoft
-              )
-            ],
-            { gap: 2 }
+          "当前代理与节点网络",
+          pill(
+            proxyLatency.ok ? "连接正常" : "检测失败",
+            proxyLatency.ok ? C.green : C.red,
+            proxyLatency.ok ? C.greenSoft : C.redSoft
           ),
           C.purple
         ),
@@ -1709,20 +1238,9 @@ export default async function (ctx) {
               [
                 row(
                   [
-                    text("节点", 6.4, "medium", C.muted),
-                    text(NODE_NAME, 8.4, "semibold", C.text, {
-                      flex: 1,
-                      maxLines: 1,
-                      minScale: 0.58
-                    })
-                  ],
-                  { gap: 3 }
-                ),
-
-                row(
-                  [
                     text(flag(exit.countryCode) || "🌐", 7, "regular", C.text),
-                    text("落地 · " + city, 8.2, "semibold", C.text, {
+
+                    text(city, 9.2, "semibold", C.text, {
                       flex: 1,
                       maxLines: 1,
                       minScale: 0.55
@@ -1735,6 +1253,16 @@ export default async function (ctx) {
                   maxLines: 1,
                   minScale: 0.62
                 }),
+
+                row(
+                  [
+                    text(displayIP(exit.ip), 7, "medium", C.muted, {
+                      maxLines: 1,
+                      minScale: 0.65
+                    })
+                  ],
+                  { gap: 2 }
+                ),
 
                 proxyTagRows(
                   tagOne,
@@ -1779,13 +1307,6 @@ export default async function (ctx) {
             ),
 
             metricBox(
-              "circle.hexagongrid.fill",
-              "NAT",
-              nat.label,
-              natColor
-            ),
-
-            metricBox(
               "paperplane.fill",
               "UDP/QUIC",
               quic.value,
@@ -1812,7 +1333,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 165,
+        height: 100,
         padding: [5, 6],
         gap: 3
       }
@@ -1943,7 +1464,7 @@ export default async function (ctx) {
 
         col(
           [
-            text(item.name, 8, "semibold", C.text, {
+            text(item.name, 7, "semibold", C.text, {
               maxLines: 1,
               minScale: 0.66
             }),
@@ -1952,28 +1473,22 @@ export default async function (ctx) {
               [
                 text(
                   serviceRegionLabel,
-                  6,
+                  5,
                   "medium",
                   C.subtext,
-                  { maxLines: 1 }
+                  {
+                    maxLines: 1
+                  }
                 ),
-
-                text(
-                  item.sourceLabel || "",
-                  5.2,
-                  "medium",
-                  C.muted,
-                  { maxLines: 1, minScale: 0.65 }
-                ),
-
-                spacer(),
 
                 text(
                   item.ok ? "OK" : "失败",
-                  6.4,
+                  5.6,
                   "semibold",
                   statusColor,
-                  { maxLines: 1 }
+                  {
+                    maxLines: 1
+                  }
                 )
               ],
               { gap: 2 }
@@ -1987,7 +1502,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 34,
+        height: 31,
         padding: [4, 4],
         gap: 4,
         backgroundColor: C.tileBg,
@@ -2007,7 +1522,7 @@ export default async function (ctx) {
             compactServiceTile(items[1])
           ],
           {
-            height: 34,
+            height: 31,
             gap: 5
           }
         ),
@@ -2018,7 +1533,7 @@ export default async function (ctx) {
             compactServiceTile(items[3])
           ],
           {
-            height: 34,
+            height: 31,
             gap: 5
           }
         ),
@@ -2029,14 +1544,14 @@ export default async function (ctx) {
             compactServiceTile(items[5])
           ],
           {
-            height: 34,
+            height: 31,
             gap: 5
           }
         )
       ],
       {
         flex: 1,
-        height: 109,
+        height: 101,
         gap: 4
       }
     );
@@ -2062,7 +1577,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 132,
+        height: 133,
         padding: [5, 6],
         gap: 5
       }
@@ -2078,11 +1593,11 @@ export default async function (ctx) {
 
             col(
               [
-                text(label, 6.8, "medium", C.muted, {
+                text(label, 6, "medium", C.muted, {
                   maxLines: 1
                 }),
 
-                text(value, 8, "semibold", tone, {
+                text(value, 7, "semibold", tone, {
                   maxLines: 1,
                   minScale: 0.64
                 })
@@ -2148,7 +1663,7 @@ export default async function (ctx) {
             )
           ],
           {
-            height: 34,
+            height: 30,
             padding: [0, 0],
             gap: 0,
             alignItems: "center"
@@ -2156,7 +1671,7 @@ export default async function (ctx) {
         )
       ],
       {
-        height: 44,
+        height: 40,
         padding: [4, 5],
         gap: 0
       }
@@ -2167,7 +1682,16 @@ export default async function (ctx) {
     [
       header(),
 
-      proxyCard(),
+      row(
+        [
+          proxyCard()
+        ],
+        {
+          height: 100,
+          gap: 6,
+          alignItems: "start"
+        }
+      ),
 
       row(
         [
@@ -2175,7 +1699,7 @@ export default async function (ctx) {
           serviceCard("AI 解锁检测", "sparkles", ai, C.purple)
         ],
         {
-          height: 145,
+          height: 133,
           gap: 6,
           alignItems: "start"
         }
@@ -2184,9 +1708,9 @@ export default async function (ctx) {
       footer()
     ],
     {
-      height: 400,
-      padding: [6, 6],
-      gap: 5
+      height: 342,
+      padding: [8, 8],
+      gap: 6
     }
   );
 
@@ -2714,211 +2238,6 @@ function dedupeCandidates(values) {
   });
 
   return output;
-}
-
-function getLocalNetworkName(device) {
-  const wifi = (device && device.wifi) || {};
-  const cellular = (device && device.cellular) || {};
-
-  const wifiName = firstMeaningful(
-    wifi.ssid,
-    wifi.name,
-    wifi.networkName,
-    getAt(device, "network.ssid"),
-    getAt(device, "wifiSSID")
-  );
-
-  if (wifiName) {
-    return wifiName;
-  }
-
-  const carrierName = firstMeaningful(
-    cellular.carrier,
-    cellular.carrierName,
-    cellular.operator,
-    cellular.operatorName,
-    cellular.network,
-    cellular.networkName,
-    cellular.provider,
-    cellular.serviceProvider,
-
-    getAt(device, "carrier"),
-    getAt(device, "carrierName"),
-    getAt(device, "operator"),
-    getAt(device, "operatorName"),
-    getAt(device, "network.carrier"),
-    getAt(device, "network.carrierName"),
-    getAt(device, "network.operator"),
-    getAt(device, "telephony.carrier"),
-    getAt(device, "telephony.carrierName"),
-    getAt(device, "cellularProvider")
-  );
-
-  if (carrierName) {
-    return normalizeCarrierName(carrierName);
-  }
-
-  const code = firstMeaningful(
-    cellular.mccmnc,
-    cellular.mccMnc,
-    cellular.plmn,
-    cellular.operatorCode,
-    getAt(device, "network.mccmnc"),
-    getAt(device, "network.plmn"),
-    getAt(device, "telephony.mccmnc")
-  );
-
-  const byCode = carrierByMCCMNC(code);
-
-  if (byCode) {
-    return byCode;
-  }
-
-  const mcc = firstMeaningful(
-    cellular.mcc,
-    cellular.mobileCountryCode,
-    getAt(device, "network.mcc"),
-    getAt(device, "telephony.mobileCountryCode")
-  );
-
-  const mnc = firstMeaningful(
-    cellular.mnc,
-    cellular.mobileNetworkCode,
-    getAt(device, "network.mnc"),
-    getAt(device, "telephony.mobileNetworkCode")
-  );
-
-  const byMccMnc = carrierByMCCMNC(clean(mcc) + clean(mnc));
-
-  if (byMccMnc) {
-    return byMccMnc;
-  }
-
-  return "";
-}
-
-function firstMeaningful() {
-  for (let index = 0; index < arguments.length; index += 1) {
-    const value = clean(arguments[index]);
-
-    if (isMeaningful(value)) {
-      return value;
-    }
-  }
-
-  return "";
-}
-
-function isMeaningful(value) {
-  const v = clean(value);
-  const lower = v.toLowerCase();
-
-  if (!v) return false;
-  if (v === "--") return false;
-  if (v === "-") return false;
-  if (v === "—") return false;
-  if (lower === "null") return false;
-  if (lower === "undefined") return false;
-  if (lower === "unknown") return false;
-  if (lower === "unknow") return false;
-  if (lower === "none") return false;
-  if (lower === "n/a") return false;
-  if (lower === "wifi") return false;
-  if (lower === "wlan") return false;
-  if (lower === "5g") return false;
-  if (lower === "4g") return false;
-  if (lower === "lte") return false;
-  if (lower === "nr") return false;
-
-  return true;
-}
-
-function normalizeCarrierName(value) {
-  const raw = clean(value);
-  const lower = raw.toLowerCase();
-
-  if (!raw) return "";
-
-  if (
-    raw.includes("中国移动") ||
-    lower.includes("china mobile") ||
-    lower.includes("cmcc") ||
-    lower.includes("cmnet") ||
-    lower.includes("cmi")
-  ) {
-    return "中国移动";
-  }
-
-  if (
-    raw.includes("中国联通") ||
-    lower.includes("china unicom") ||
-    lower.includes("unicom") ||
-    lower.includes("cucc")
-  ) {
-    return "中国联通";
-  }
-
-  if (
-    raw.includes("中国电信") ||
-    lower.includes("china telecom") ||
-    lower.includes("chinanet") ||
-    lower.includes("telecom") ||
-    lower.includes("ctc")
-  ) {
-    return "中国电信";
-  }
-
-  if (
-    raw.includes("中国广电") ||
-    lower.includes("china broadnet") ||
-    lower.includes("cbn") ||
-    lower.includes("broadnet") ||
-    lower.includes("broadcasting network")
-  ) {
-    return "中国广电";
-  }
-
-  return raw;
-}
-
-function carrierFromISP(value) {
-  return normalizeCarrierName(value);
-}
-
-function carrierByMCCMNC(value) {
-  const code = clean(value).replace(/\D/g, "");
-
-  const mobile = [
-    "46000",
-    "46002",
-    "46004",
-    "46007",
-    "46008"
-  ];
-
-  const unicom = [
-    "46001",
-    "46006",
-    "46009"
-  ];
-
-  const telecom = [
-    "46003",
-    "46005",
-    "46011",
-    "46012"
-  ];
-
-  const broadnet = [
-    "46015"
-  ];
-
-  if (mobile.includes(code)) return "中国移动";
-  if (unicom.includes(code)) return "中国联通";
-  if (telecom.includes(code)) return "中国电信";
-  if (broadnet.includes(code)) return "中国广电";
-
-  return "";
 }
 
 function maskIP(value) {
@@ -3750,479 +3069,112 @@ function numberOrNull(value) {
   return parsed;
 }
 
-function parseLocalExit(data, forceLocalMainland) {
-  if (!data || typeof data !== "object") {
-    return {};
+function purityScore(exit) {
+  const flags = (exit && exit.flags) || {};
+  const evidence = flags.evidence || {};
+  const kind = clean(exit && exit.kind);
+
+  let score;
+
+  if (kind === "住宅 IP") {
+    score = 92;
+  } else if (kind === "移动网络") {
+    score = 92;
+  } else if (kind === "教育网络" || kind === "企业网络") {
+    score = 88;
+  } else if (kind === "商业机房") {
+    score = 78;
+  } else {
+    score = 72;
   }
 
-  const ip = clean(
-    pick(
-      data.query,
-      data.ip,
-      data.ip_address,
-      getAt(data, "location.ip")
-    )
-  );
+  const proxyCount = Number(evidence.proxyCount || 0);
+  const vpnCount = Number(evidence.vpnCount || 0);
+  const torCount = Number(evidence.torCount || 0);
+  const abuserCount = Number(evidence.abuserCount || 0);
+  const riskValue = Number(flags.risk);
 
-  if (!ip) {
-    return {};
+  const proxyVpnEvidenceCount = proxyCount + vpnCount;
+
+  if (torCount > 0 || flags.tor) {
+    score -= 55;
   }
 
-  const countryCodeValue = countryCode(
-    pick(
-      data.countryCode,
-      data.country_code,
-      getAt(data, "location.country_code")
-    )
-  );
+  if (abuserCount > 0 || flags.abuser) {
+    score -= 35;
+  }
 
-  const country = clean(
-    pick(
-      data.country,
-      data.country_name,
-      getAt(data, "location.country")
-    )
-  );
+  if (proxyVpnEvidenceCount >= 2) {
+    score -= 30;
+  } else if (proxyVpnEvidenceCount === 1) {
+    score -= 16;
+  }
 
-  const region = clean(
-    pick(
-      data.regionName,
-      data.region,
-      getAt(data, "location.region")
-    )
-  );
+  if (Number.isFinite(riskValue)) {
+    if (riskValue >= 80) {
+      score -= 25;
+    } else if (riskValue >= 70) {
+      score -= 20;
+    } else if (riskValue >= 40) {
+      score -= 10;
+    } else if (riskValue >= 20) {
+      score -= 4;
+    }
+  }
 
-  const city = clean(
-    pick(
-      data.city,
-      getAt(data, "location.city")
-    )
-  );
+  if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) {
+    score -= 8;
+  }
 
-  const isChina =
-    countryCodeValue === "CN" ||
-    country.includes("中国") ||
-    forceLocalMainland;
+  if (
+    kind === "住宅 IP" &&
+    !flags.proxy &&
+    !flags.vpn &&
+    !flags.tor &&
+    !flags.abuser
+  ) {
+    score += 3;
+  }
 
-  const label = isChina
-    ? mainlandAreaLabel(region, city)
-    : formatLocalArea(countryCodeValue, country, region, city);
+  if (
+    kind === "移动网络" &&
+    !flags.proxy &&
+    !flags.vpn &&
+    !flags.tor &&
+    !flags.abuser
+  ) {
+    score += 3;
+  }
+
+  score = Math.max(0, Math.min(100, Math.round(score)));
 
   return {
-    ip: ip,
-    country: isChina ? "中国" : country,
-    countryCode: isChina ? "CN" : countryCodeValue,
-    region: region,
-    city: city,
-    isp: clean(pick(data.isp, data.org, data.organization)),
-    org: clean(data.org),
-    asname: clean(data.asname),
-    as: clean(data.as),
-    label: label
+    score: score,
+    risk: 100 - score,
+    evidence: evidence
   };
 }
 
-function mainlandAreaLabel(region, city) {
-  const label = formatLocalArea("CN", "中国", region, city);
-
-  if (!label || label === "中国") {
-    return "中国大陆";
-  }
-
-  return label;
-}
-
-function formatLocalArea(countryCodeValue, country, region, city) {
-  const cc = countryCode(countryCodeValue);
-  let r = clean(region);
-  let c = clean(city);
-
-  r = r
-    .replace(/省$/g, "")
-    .replace(/市$/g, "")
-    .replace(/壮族自治区$/g, "")
-    .replace(/回族自治区$/g, "")
-    .replace(/维吾尔自治区$/g, "")
-    .replace(/自治区$/g, "");
-
-  c = c.replace(/市$/g, "");
-
-  if (cc === "CN" || country.includes("中国")) {
-    if (["北京", "上海", "天津", "重庆"].includes(r)) {
-      return r;
-    }
-
-    if (r && c && r !== c) {
-      return r + c;
-    }
-
-    return c || r || "中国";
-  }
-
-  if (c && r && c !== r) {
-    return r + " " + c;
-  }
-
-  return c || r || country || "直连地区未知";
-}
-
-function providerFromText(value) {
-  const text = clean(value).toLowerCase();
-
-  if (!text) {
-    return { full: "", short: "" };
-  }
-
-  if (text.includes("cloudflare")) return { full: "Cloudflare DNS", short: "CF" };
-  if (text.includes("google")) return { full: "Google DNS", short: "谷歌" };
-  if (text.includes("quad9")) return { full: "Quad9 DNS", short: "Q9" };
-  if (text.includes("opendns") || text.includes("cisco")) return { full: "OpenDNS", short: "Open" };
-  if (text.includes("adguard")) return { full: "AdGuard DNS", short: "AdG" };
-  if (text.includes("nextdns")) return { full: "NextDNS", short: "Next" };
-  if (text.includes("cleanbrowsing")) return { full: "CleanBrowsing DNS", short: "Clean" };
-  if (text.includes("dns.sb")) return { full: "DNS.SB", short: "DNS.SB" };
-  if (text.includes("mullvad")) return { full: "Mullvad DNS", short: "Mull" };
-  if (text.includes("control d") || text.includes("controld")) return { full: "Control D DNS", short: "CtrlD" };
-
-  if (
-    text.includes("alidns") ||
-    text.includes("alibaba") ||
-    text.includes("aliyun") ||
-    text.includes("alicloud") ||
-    text.includes("alibaba cloud")
-  ) {
-    return { full: "AliDNS", short: "阿里" };
-  }
-
-  if (
-    text.includes("dnspod") ||
-    text.includes("tencent") ||
-    text.includes("tencent cloud")
-  ) {
-    return { full: "DNSPod", short: "腾讯" };
-  }
-
-  if (
-    text.includes("baidu") ||
-    text.includes("baidudns")
-  ) {
-    return { full: "Baidu DNS", short: "百度" };
-  }
-
-  if (
-    text.includes("360") ||
-    text.includes("qihoo")
-  ) {
-    return { full: "360 DNS", short: "360" };
-  }
-
-  if (
-    text.includes("114dns") ||
-    text.includes("114 dns") ||
-    text.includes("114.114")
-  ) {
-    return { full: "114DNS", short: "114" };
-  }
-
-  if (
-    text.includes("chinanet") ||
-    text.includes("china telecom") ||
-    text.includes("telecom") ||
-    text.includes("ctc") ||
-    text.includes("中国电信") ||
-    text.includes("电信")
-  ) {
-    return { full: "中国电信 DNS", short: "电信" };
-  }
-
-  if (
-    text.includes("china mobile") ||
-    text.includes("cmcc") ||
-    text.includes("cmnet") ||
-    text.includes("cmi") ||
-    text.includes("中国移动") ||
-    text.includes("移动")
-  ) {
-    return { full: "中国移动 DNS", short: "移动" };
-  }
-
-  if (
-    text.includes("china unicom") ||
-    text.includes("unicom") ||
-    text.includes("cucc") ||
-    text.includes("中国联通") ||
-    text.includes("联通")
-  ) {
-    return { full: "中国联通 DNS", short: "联通" };
-  }
-
-  return { full: "", short: "" };
-}
-
-function detectDNSProvider(servers) {
-  const list = Array.isArray(servers) ? servers : [];
-
-  for (let i = 0; i < list.length; i += 1) {
-    const item = clean(list[i]);
-    const matched = providerFromText(item);
-
-    if (matched.short) {
-      return matched;
-    }
-
-    if (item.includes("1.1.1.1") || item.includes("1.0.0.1")) {
-      return { full: "Cloudflare DNS", short: "CF" };
-    }
-    if (item.includes("8.8.8.8") || item.includes("8.8.4.4")) {
-      return { full: "Google DNS", short: "谷歌" };
-    }
-    if (item.includes("223.5.5.5") || item.includes("223.6.6.6")) {
-      return { full: "AliDNS", short: "阿里" };
-    }
-    if (item.includes("119.29.29.29")) {
-      return { full: "DNSPod", short: "腾讯" };
-    }
-    if (item.includes("114.114.114.114")) {
-      return { full: "114DNS", short: "114" };
-    }
-  }
-
-  return { full: "系统 DNS", short: "系统" };
-}
-
-function chooseDNSProvider(base, verified) {
-  if (verified && verified.ok && verified.short) {
-    return verified;
-  }
-  return base;
-}
-
-function dnsTinyLabel(value) {
-  const text = clean(value);
-  if (!text) return "系统";
-  if (text.length <= 4) return text;
-
-  const matched = providerFromText(text);
-  if (matched.short) return matched.short;
-
-  return text.substring(0, 4);
-}
-
-function isWeakDNSLabel(value) {
-  const v = clean(value).toLowerCase();
-  return v === "系统" || v === "未知" || v === "dns" || v === "net";
-}
-
-function compactDNSProviderName(value) {
-  const raw = clean(value);
-  const matched = providerFromText(raw);
-
-  if (matched.short) {
-    return matched.short;
-  }
-
-  return raw.substring(0, 6);
-}
-
-function detectNAT(local, exit) {
-  if (!local || local === "未获取" || !exit || exit === "未识别") {
-    return { label: "未知", tone: "amber" };
-  }
-
-  if (local === exit) {
-    return { label: "公网", tone: "green" };
-  }
-
-  return { label: "NAT", tone: "green" };
-}
-
-function purityScore(exit) {
-  if (!exit || !exit.ip || exit.ip === "未识别") {
-    return { score: 0 };
-  }
-
-  let score = 100;
-  const flags = exit.flags || {};
-
-  if (flags.datacenter || flags.hosting || flags.cloud) score -= 35;
-  if (flags.proxy) score -= 20;
-  if (flags.vpn) score -= 15;
-  if (flags.tor) score -= 30;
-  if (flags.abuser) score -= 25;
-
-  if (flags.residential) score += 15;
-  if (flags.mobile) score += 10;
-
-  if (flags.risk !== null && flags.risk !== undefined) {
-    const riskVal = Number(flags.risk) || 0;
-    score -= Math.round(riskVal * 0.4);
-  }
-
-  score = Math.max(0, Math.min(100, score));
-  return { score: score };
-}
-
 function riskLevel(exit, purity) {
-  if (!exit || !exit.ip || exit.ip === "未识别") {
-    return "未知";
-  }
-
-  const score = purity ? purity.score : 50;
-
-  if (score >= 75) return "低风险";
-  if (score >= 45) return "中风险";
+  const score = purity ? purity.score : 0;
+  if (score >= 80) return "低风险";
+  if (score >= 50) return "中风险";
   return "高风险";
 }
 
-function shortISP(value) {
-  const raw = clean(value);
-  if (!raw || raw === "未知组织") return "未知厂商";
+/* 辅助与通用工具函数 */
 
-  if (raw.length > 12) {
-    return raw.substring(0, 11) + "…";
-  }
-
-  return raw;
-}
-
-function gatewayLabel(value) {
-  const raw = clean(value);
-  if (!raw || raw === "未获取") return "未获取";
-  return raw;
-}
-
-function countryCode(value) {
-  const raw = clean(value).toUpperCase();
-  if (raw.length === 2 && /^[A-Z]{2}$/.test(raw)) {
-    return raw;
-  }
-  return "";
-}
-
-function flag(code) {
-  const c = countryCode(code);
-  if (!c) return "";
-
-  const first = c.charCodeAt(0) + 127397;
-  const second = c.charCodeAt(1) + 127397;
-
-  return String.fromCodePoint(first, second);
-}
-
-function timeLabel(date) {
-  const d = date || new Date();
-  const hours = String(d.getHours()).padStart(2, "0");
-  const minutes = String(d.getMinutes()).padStart(2, "0");
-  return hours + ":" + minutes;
-}
-
-function dateLabel(date) {
-  const d = date || new Date();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return month + "/" + day;
-}
-
-function detectScheme(ctx) {
-  if (ctx && ctx.colorScheme) {
-    return ctx.colorScheme;
-  }
-  return "dark";
-}
-
-function resolveAdaptiveColor(color, scheme) {
-  if (!color) return "#000000";
-  if (typeof color === "string") return color;
-
-  if (typeof color === "object") {
-    if (scheme === "light" && color.light) {
-      return color.light;
-    }
-    if (color.dark) {
-      return color.dark;
-    }
-  }
-
-  return "#000000";
-}
-
-function toneColor(tone, paletteObj) {
-  if (tone === "green") return paletteObj.green;
-  if (tone === "amber") return paletteObj.amber;
-  if (tone === "red") return paletteObj.red;
-  return paletteObj.muted;
-}
-
-function parseTrace(text) {
-  const lines = String(text || "").split("\n");
-  const result = {};
-
-  lines.forEach(function (line) {
-    const parts = line.split("=");
-    if (parts.length >= 2) {
-      const key = clean(parts[0]);
-      const value = clean(parts.slice(1).join("="));
-      if (key) {
-        result[key] = value;
-      }
-    }
-  });
-
-  return result;
-}
-
-function randomAlphaNum(length) {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let out = "";
-  for (let i = 0; i < length; i += 1) {
-    out += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return out;
-}
-
-function clean(value) {
-  if (value === null || value === undefined) return "";
-  return String(value).trim();
+function clean(v) {
+  if (v === null || v === undefined) return "";
+  return String(v).trim();
 }
 
 function pick() {
-  for (let i = 0; i < arguments.length; i += 1) {
-    const val = clean(arguments[i]);
-    if (val) return val;
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] !== undefined && arguments[i] !== null && arguments[i] !== "") {
+      return arguments[i];
+    }
   }
   return "";
 }
-
-function getAt(obj, path) {
-  if (!obj || typeof obj !== "object") return undefined;
-  const parts = String(path).split(".");
-  let cur = obj;
-
-  for (let i = 0; i < parts.length; i += 1) {
-    if (cur === null || cur === undefined) return undefined;
-    cur = cur[parts[i]];
-  }
-
-  return cur;
-}
-
-function truthy(val) {
-  if (typeof val === "boolean") return val;
-  if (typeof val === "number") return val > 0;
-  const s = clean(val).toLowerCase();
-  return s === "true" || s === "1" || s === "yes";
-}
-
-function clamp(val, min, max) {
-  return Math.max(min, Math.min(max, val));
-}
-
-function numberInRange(val, min, max, fallback) {
-  const num = Number(val);
-  if (!Number.isFinite(num)) return fallback;
-  return clamp(num, min, max);
-}
-
-function getScreenMetric(ctx, key) {
-  return getAt(ctx, "screen." + key) || getAt(ctx, "device.screen." + key);
-}
+```[cite: 1]
