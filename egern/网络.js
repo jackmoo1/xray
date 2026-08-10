@@ -1686,7 +1686,7 @@ export default async function (ctx) {
       [
         sectionTitle(
           "point.3.connected.trianglepath.dotted",
-          "当前链路",
+          "当前代理",
           row(
             [
               pill(NODE_PROTOCOL, C.purple, C.purpleSoft),
@@ -1812,9 +1812,9 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 110,
-        padding: [5, 6],
-        gap: 3
+        height: 150,
+        padding: [6, 8],
+        gap: 5
       }
     );
   }
@@ -2169,7 +2169,6 @@ export default async function (ctx) {
 
       row(
         [
-          localCard(),
           proxyCard()
         ],
         {
