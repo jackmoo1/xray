@@ -1,18 +1,10 @@
 /**
- * Egern「网络诊断雷达」V2.0
- *
- * 新增功能：
- * - 节点→落地→DNS 链路图
- * - 解锁来源分析（节点/落地/DNS 评分）
- * - 历史测速记录与延迟趋势图
- * - 纯净评分趋势图
- *
- * 环境变量（与 V1 完全兼容）：
- * - POLICY：最高优先级策略
- * - LMT：流媒体策略（POLICY 为空时生效）
- * - AI：AI 策略（POLICY 为空时生效）
- * - YS=1：IP 隐私打码（影响链路图中的 IP 显示）
- * - XY：手动指定协议
+ * Egern「网络诊断雷达」V2.1 - 稳定版
+ * 
+ * 兼容性修复：
+ * - 移除 ctx.storage，改为内存缓存
+ * - 移除 scrollView，使用固定高度 col
+ * - 增强错误处理，确保更新正常
  */
 
 export default async function (ctx) {
@@ -31,25 +23,10 @@ export default async function (ctx) {
   const POLICY_PROBE_TIMEOUT = 1800;
   const POLICY_PROBE_BATCH_SIZE = 6;
   const REFRESH_MINUTES = 15;
-  const MAX_HISTORY = 20; // 保留最近 20 条记录
 
-  const servicePolicyCache = {};
-  const policyProbeCache = {};
-  const policyExitCache = {};
-
-  // ---------- 屏幕适配 ----------
-  const SCREEN_W = numberInRange(
-    pick(getScreenMetric(ctx, "width"), 440),
-    320, 900, 440
-  );
-  const SCREEN_H = numberInRange(
-    pick(getScreenMetric(ctx, "height"), 956),
-    568, 1400, 956
-  );
-  const WIDTH_SCALE = SCREEN_W / 440;
-  const HEIGHT_SCALE = SCREEN_H / 956;
-  const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
+  // 内存缓存（用于趋势图，非持久化）
+  let historyLatencyCache = [];
+  let historyScoreCache = [];
 
   // ---------- 设备信息 ----------
   const device = ctx.device || {};
@@ -57,22 +34,6 @@ export default async function (ctx) {
   const ipv4 = device.ipv4 || {};
   const localIP = clean(pick(ipv4.address, wifi.ip, wifi.ipAddress, device.ipAddress, device.ip)) || "未获取";
   const now = new Date();
-
-  // ---------- 存储辅助 ----------
-  async function loadHistory(key) {
-    try {
-      const raw = await ctx.storage.get(key);
-      return raw ? JSON.parse(raw) : [];
-    } catch (_) {
-      return [];
-    }
-  }
-
-  async function saveHistory(key, data) {
-    try {
-      await ctx.storage.set(key, JSON.stringify(data));
-    } catch (_) {}
-  }
 
   // ---------- 缩放与样式 ----------
   function S(value) {
@@ -102,6 +63,14 @@ export default async function (ctx) {
   function uiColor(value) {
     return resolveAdaptiveColor(value, SCHEME);
   }
+
+  // ---------- 屏幕适配 ----------
+  const SCREEN_W = numberInRange(pick(getScreenMetric(ctx, "width"), 440), 320, 900, 440);
+  const SCREEN_H = numberInRange(pick(getScreenMetric(ctx, "height"), 956), 568, 1400, 956);
+  const WIDTH_SCALE = SCREEN_W / 440;
+  const HEIGHT_SCALE = SCREEN_H / 956;
+  const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
+  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
 
   // ---------- 通用请求 ----------
   function baseRequestOptions(extra) {
@@ -191,37 +160,35 @@ export default async function (ctx) {
     }
   }
 
-  // ---------- DNS 检测（恢复） ----------
+  // ---------- DNS 检测 ----------
   async function getDNSVerified() {
-    // 尝试通过 EDNS 探测 DNS 提供商
-    const host = randomAlphaNum(32) + ".edns.ip-api.com";
-    const result = await getJSON("http://" + host + "/json?_=" + Date.now(), {
-      timeout: 3000,
-      policy: "DIRECT",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)",
-        Accept: "application/json,text/plain,*/*",
-        "Cache-Control": "no-cache"
-      }
-    });
-    if (!result.ok || !result.data) {
+    try {
+      const host = randomAlphaNum(32) + ".edns.ip-api.com";
+      const result = await getJSON("http://" + host + "/json?_=" + Date.now(), {
+        timeout: 3000,
+        policy: "DIRECT",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)",
+          Accept: "application/json,text/plain,*/*",
+          "Cache-Control": "no-cache"
+        }
+      });
+      if (!result.ok || !result.data) return { ok: false, full: "未知 DNS", short: "未知", ip: "" };
+      const dns = result.data.dns || {};
+      const ip = clean(dns.ip);
+      const geo = clean(dns.geo);
+      if (!ip) return { ok: false, full: "未知 DNS", short: "未知", ip: "" };
+      const provider = providerFromText(geo + " " + ip);
+      return {
+        ok: true,
+        full: provider.full || geo || ip,
+        short: provider.short || "未知",
+        ip: ip,
+        geo: geo
+      };
+    } catch (_) {
       return { ok: false, full: "未知 DNS", short: "未知", ip: "" };
     }
-    const dns = result.data.dns || {};
-    const ip = clean(dns.ip);
-    const geo = clean(dns.geo);
-    if (!ip) {
-      return { ok: false, full: "未知 DNS", short: "未知", ip: "" };
-    }
-    // 根据 IP 或 geo 判断提供商
-    const provider = providerFromText(geo + " " + ip);
-    return {
-      ok: true,
-      full: provider.full || geo || ip,
-      short: provider.short || "未知",
-      ip: ip,
-      geo: geo
-    };
   }
 
   function providerFromText(value) {
@@ -242,7 +209,11 @@ export default async function (ctx) {
     return { full: "", short: "" };
   }
 
-  // ---------- 策略出口 IP ----------
+  // ---------- 策略相关 ----------
+  const servicePolicyCache = {};
+  const policyProbeCache = {};
+  const policyExitCache = {};
+
   async function getPolicyExit(policy) {
     const targetPolicy = clean(policy);
     const key = targetPolicy || "__DEFAULT__";
@@ -288,7 +259,6 @@ export default async function (ctx) {
     };
   }
 
-  // ---------- 策略探测 ----------
   async function probePolicy(policy) {
     const name = clean(policy);
     if (!name) return false;
@@ -352,30 +322,34 @@ export default async function (ctx) {
     return map;
   }
 
-  // ---------- 出口信息获取 ----------
+  // ---------- 出口信息 ----------
   async function getExit() {
-    const sources = await Promise.all([
-      getJSON("https://api.ipapi.is/?_=" + Date.now()),
-      getJSON("http://ip-api.com/json/?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname,proxy,hosting,mobile&_=" + Date.now()),
-      getJSON("https://ipwho.is/?lang=zh-CN&_=" + Date.now()),
-      getJSON("https://ipinfo.io/json?_=" + Date.now())
-    ]);
-    const sourceNames = ["ipapi.is", "ip-api", "ipwho.is", "ipinfo"];
-    const candidates = [];
-    for (let i = 0; i < sources.length; i++) {
-      if (!sources[i].ok || !sources[i].data) continue;
-      const parsed = parseExitSource(sources[i].data, sourceNames[i]);
-      if (parsed.ip) candidates.push(parsed);
-    }
-    let merged = mergeExitSources(candidates);
-    if (!merged.ip || merged.ip === "未识别") {
+    try {
+      const sources = await Promise.all([
+        getJSON("https://api.ipapi.is/?_=" + Date.now()),
+        getJSON("http://ip-api.com/json/?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname,proxy,hosting,mobile&_=" + Date.now()),
+        getJSON("https://ipwho.is/?lang=zh-CN&_=" + Date.now()),
+        getJSON("https://ipinfo.io/json?_=" + Date.now())
+      ]);
+      const sourceNames = ["ipapi.is", "ip-api", "ipwho.is", "ipinfo"];
+      const candidates = [];
+      for (let i = 0; i < sources.length; i++) {
+        if (!sources[i].ok || !sources[i].data) continue;
+        const parsed = parseExitSource(sources[i].data, sourceNames[i]);
+        if (parsed.ip) candidates.push(parsed);
+      }
+      let merged = mergeExitSources(candidates);
+      if (!merged.ip || merged.ip === "未识别") {
+        return { ip: "未识别", city: "出口检测失败", region: "", country: "", countryCode: "", isp: "未知组织", kind: "未知网络", flags: {} };
+      }
+      const proxyCheck = await getProxyCheck(merged.ip);
+      if (proxyCheck && proxyCheck.ip) {
+        merged = mergeExitSources([merged, proxyCheck]);
+      }
+      return merged;
+    } catch (_) {
       return { ip: "未识别", city: "出口检测失败", region: "", country: "", countryCode: "", isp: "未知组织", kind: "未知网络", flags: {} };
     }
-    const proxyCheck = await getProxyCheck(merged.ip);
-    if (proxyCheck && proxyCheck.ip) {
-      merged = mergeExitSources([merged, proxyCheck]);
-    }
-    return merged;
   }
 
   async function getProxyCheck(ip) {
@@ -583,16 +557,20 @@ export default async function (ctx) {
 
   // ---------- 延迟测量 ----------
   async function getProxyLatency() {
-    const urls = [
-      "https://cp.cloudflare.com/generate_204",
-      "https://www.gstatic.com/generate_204",
-      "https://www.google.com/generate_204",
-      "https://www.cloudflare.com/favicon.ico"
-    ];
-    const results = await Promise.all(urls.map(url => latencyProbe(url)));
-    const passed = results.filter(r => r.ok && r.ms > 0).sort((a, b) => a.ms - b.ms);
-    if (passed.length === 0) return { ok: false, ms: 0, target: "" };
-    return { ok: true, ms: passed[0].ms, target: passed[0].url };
+    try {
+      const urls = [
+        "https://cp.cloudflare.com/generate_204",
+        "https://www.gstatic.com/generate_204",
+        "https://www.google.com/generate_204",
+        "https://www.cloudflare.com/favicon.ico"
+      ];
+      const results = await Promise.all(urls.map(url => latencyProbe(url)));
+      const passed = results.filter(r => r.ok && r.ms > 0).sort((a, b) => a.ms - b.ms);
+      if (passed.length === 0) return { ok: false, ms: 0, target: "" };
+      return { ok: true, ms: passed[0].ms, target: passed[0].url };
+    } catch (_) {
+      return { ok: false, ms: 0, target: "" };
+    }
   }
 
   async function latencyProbe(url) {
@@ -607,28 +585,32 @@ export default async function (ctx) {
 
   // ---------- QUIC 检测 ----------
   async function getQuic() {
-    const urls = [
-      "https://cloudflare-quic.com/cdn-cgi/trace",
-      "https://cloudflare.com/cdn-cgi/trace",
-      "https://www.cloudflare.com/cdn-cgi/trace",
-      "https://one.one.one.one/cdn-cgi/trace",
-      "https://1.1.1.1/cdn-cgi/trace"
-    ].map(url => url + "?_=" + Date.now() + randomAlphaNum(5));
-    const results = await Promise.all(urls.map(url => getText(url)));
-    let hasH3 = false, hasReachable = false;
-    for (let i = 0; i < results.length; i++) {
-      const item = results[i];
-      if (!item || !item.ok) continue;
-      hasReachable = true;
-      const trace = parseTrace(item.text);
-      const protocol = clean(trace.http).toLowerCase();
-      if (protocol === "h3" || protocol === "http3" || protocol === "http/3" || protocol.includes("h3") || protocol.includes("http/3")) {
-        hasH3 = true;
-        break;
+    try {
+      const urls = [
+        "https://cloudflare-quic.com/cdn-cgi/trace",
+        "https://cloudflare.com/cdn-cgi/trace",
+        "https://www.cloudflare.com/cdn-cgi/trace",
+        "https://one.one.one.one/cdn-cgi/trace",
+        "https://1.1.1.1/cdn-cgi/trace"
+      ].map(url => url + "?_=" + Date.now() + randomAlphaNum(5));
+      const results = await Promise.all(urls.map(url => getText(url)));
+      let hasH3 = false, hasReachable = false;
+      for (let i = 0; i < results.length; i++) {
+        const item = results[i];
+        if (!item || !item.ok) continue;
+        hasReachable = true;
+        const trace = parseTrace(item.text);
+        const protocol = clean(trace.http).toLowerCase();
+        if (protocol === "h3" || protocol === "http3" || protocol === "http/3" || protocol.includes("h3") || protocol.includes("http/3")) {
+          hasH3 = true;
+          break;
+        }
       }
+      if (hasH3) return { value: "✓/✓", tone: "green" };
+      return { value: "×/×", tone: hasReachable ? "amber" : "red" };
+    } catch (_) {
+      return { value: "×/×", tone: "red" };
     }
-    if (hasH3) return { value: "✓/✓", tone: "green" };
-    return { value: "×/×", tone: hasReachable ? "amber" : "red" };
   }
 
   function parseTrace(text) {
@@ -645,52 +627,60 @@ export default async function (ctx) {
     return result;
   }
 
-  // ---------- 单个服务检测 ----------
+  // ---------- 服务检测 ----------
   async function testService(id, name, kind, color, url, servicePolicy) {
-    const serviceExitPromise = getPolicyExit(servicePolicy);
-    if (!url) {
-      const emptyExit = await serviceExitPromise;
-      return { id, name, kind, color, ok: false, policy: servicePolicy || "", countryCode: emptyExit.countryCode || "", country: emptyExit.country || "", exit: emptyExit };
+    try {
+      const serviceExitPromise = getPolicyExit(servicePolicy);
+      if (!url) {
+        const emptyExit = await serviceExitPromise;
+        return { id, name, kind, color, ok: false, policy: servicePolicy || "", countryCode: emptyExit.countryCode || "", country: emptyExit.country || "", exit: emptyExit };
+      }
+      const separator = url.includes("?") ? "&" : "?";
+      const [result, serviceExit] = await Promise.all([
+        getServiceStatus(url + separator + "_=" + Date.now(), servicePolicy),
+        serviceExitPromise
+      ]);
+      return { id, name, kind, color, ok: result.ok, policy: servicePolicy || "", countryCode: serviceExit.countryCode || "", country: serviceExit.country || "", exit: serviceExit };
+    } catch (_) {
+      return { id, name, kind, color, ok: false, policy: servicePolicy || "", countryCode: "", country: "", exit: {} };
     }
-    const separator = url.includes("?") ? "&" : "?";
-    const [result, serviceExit] = await Promise.all([
-      getServiceStatus(url + separator + "_=" + Date.now(), servicePolicy),
-      serviceExitPromise
-    ]);
-    return { id, name, kind, color, ok: result.ok, policy: servicePolicy || "", countryCode: serviceExit.countryCode || "", country: serviceExit.country || "", exit: serviceExit };
   }
 
   // ---------- 纯净评分 ----------
   function purityScore(exit) {
-    const flags = (exit && exit.flags) || {};
-    const evidence = flags.evidence || {};
-    const kind = clean(exit && exit.kind);
-    let score = 72;
-    if (kind === "住宅 IP" || kind === "移动网络") score = 92;
-    else if (kind === "教育网络" || kind === "企业网络") score = 88;
-    else if (kind === "商业机房") score = 78;
+    try {
+      const flags = (exit && exit.flags) || {};
+      const evidence = flags.evidence || {};
+      const kind = clean(exit && exit.kind);
+      let score = 72;
+      if (kind === "住宅 IP" || kind === "移动网络") score = 92;
+      else if (kind === "教育网络" || kind === "企业网络") score = 88;
+      else if (kind === "商业机房") score = 78;
 
-    const proxyCount = Number(evidence.proxyCount || 0);
-    const vpnCount = Number(evidence.vpnCount || 0);
-    const torCount = Number(evidence.torCount || 0);
-    const abuserCount = Number(evidence.abuserCount || 0);
-    const riskValue = Number(flags.risk);
-    const proxyVpnEvidenceCount = proxyCount + vpnCount;
+      const proxyCount = Number(evidence.proxyCount || 0);
+      const vpnCount = Number(evidence.vpnCount || 0);
+      const torCount = Number(evidence.torCount || 0);
+      const abuserCount = Number(evidence.abuserCount || 0);
+      const riskValue = Number(flags.risk);
+      const proxyVpnEvidenceCount = proxyCount + vpnCount;
 
-    if (torCount > 0 || flags.tor) score -= 55;
-    if (abuserCount > 0 || flags.abuser) score -= 35;
-    if (proxyVpnEvidenceCount >= 2) score -= 30;
-    else if (proxyVpnEvidenceCount === 1) score -= 16;
-    if (Number.isFinite(riskValue)) {
-      if (riskValue >= 80) score -= 25;
-      else if (riskValue >= 70) score -= 20;
-      else if (riskValue >= 40) score -= 10;
-      else if (riskValue >= 20) score -= 4;
+      if (torCount > 0 || flags.tor) score -= 55;
+      if (abuserCount > 0 || flags.abuser) score -= 35;
+      if (proxyVpnEvidenceCount >= 2) score -= 30;
+      else if (proxyVpnEvidenceCount === 1) score -= 16;
+      if (Number.isFinite(riskValue)) {
+        if (riskValue >= 80) score -= 25;
+        else if (riskValue >= 70) score -= 20;
+        else if (riskValue >= 40) score -= 10;
+        else if (riskValue >= 20) score -= 4;
+      }
+      if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) score -= 8;
+      if ((kind === "住宅 IP" || kind === "移动网络") && !flags.proxy && !flags.vpn && !flags.tor && !flags.abuser) score += 3;
+      score = Math.max(0, Math.min(100, Math.round(score)));
+      return { score, risk: 100 - score, evidence };
+    } catch (_) {
+      return { score: 0, risk: 100, evidence: {} };
     }
-    if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) score -= 8;
-    if ((kind === "住宅 IP" || kind === "移动网络") && !flags.proxy && !flags.vpn && !flags.tor && !flags.abuser) score += 3;
-    score = Math.max(0, Math.min(100, Math.round(score)));
-    return { score, risk: 100 - score, evidence };
   }
 
   function riskLevel(exit, purity) {
@@ -979,7 +969,7 @@ export default async function (ctx) {
     return output;
   }
 
-  // ============ UI 构建（V2.0 新版） ============
+  // ============ UI 构建 ============
   function merge(base, extra) {
     return scaleStyle(Object.assign({}, base || {}, extra || {}));
   }
@@ -1084,7 +1074,7 @@ export default async function (ctx) {
         col([
           row([
             text("网络诊断雷达", 11, "bold", C.text, { maxLines: 1, minScale: 0.72 }),
-            pill("V2.0", C.purple, C.purpleSoft, { padding: [1, 4] })
+            pill("V2.1", C.purple, C.purpleSoft, { padding: [1, 4] })
           ], { gap: 3, alignItems: "center" }),
           text("Egern · 全链路状态检测", 6, "medium", C.muted, { maxLines: 1, minScale: 0.78 })
         ], { flex: 1, gap: 0 })
@@ -1115,19 +1105,16 @@ export default async function (ctx) {
     return card([
       sectionTitle("link", "节点 → 落地 → DNS", null, C.blue),
       row([
-        // 节点
         col([
           text("节点", 5, "medium", C.muted),
           text(nodeName || "未识别", 8, "semibold", C.text, { maxLines: 1, minScale: 0.6 })
         ], { width: 55, gap: 1 }),
         text("→", 12, "regular", C.muted),
-        // 落地
         col([
           text("落地", 5, "medium", C.muted),
           text(exitLabel, 8, "semibold", C.text, { maxLines: 1, minScale: 0.6 })
         ], { width: 55, gap: 1 }),
         text("→", 12, "regular", C.muted),
-        // DNS
         col([
           text("DNS", 5, "medium", C.muted),
           text(dnsShort, 8, "semibold", C.text, { maxLines: 1, minScale: 0.6 })
@@ -1138,15 +1125,12 @@ export default async function (ctx) {
 
   // ---------- 解锁来源分析卡片 ----------
   function sourceAnalysisCard(mediaResults, aiResults, exitInfo, dnsInfo) {
-    // 计算各项得分
     const allServices = [...mediaResults, ...aiResults];
     const total = allServices.length;
     const okCount = allServices.filter(s => s.ok).length;
     const nodeScore = Math.round((okCount / total) * 100);
-    // 落地得分基于纯净评分（转换为 0-100）
     const purity = purityScore(exitInfo);
     const landScore = purity.score;
-    // DNS 得分：根据提供商给分
     const dnsProvider = dnsInfo.short || "";
     let dnsScore = 50;
     if (["CF", "谷歌", "Open", "AdG", "Q9", "Next"].includes(dnsProvider)) dnsScore = 95;
@@ -1180,7 +1164,7 @@ export default async function (ctx) {
     ], { flex: 1, height: 60, padding: [4, 6], gap: 2 });
   }
 
-  // ---------- 服务卡片（精简展示，显示所有服务） ----------
+  // ---------- 服务卡片 ----------
   function serviceCompactCard(title, symbol, items, tone) {
     const passed = items.filter(item => item.ok).length;
     const itemRows = items.map(item => {
@@ -1199,33 +1183,31 @@ export default async function (ctx) {
   }
 
   // ---------- 历史测速卡片 ----------
-  function historyLatencyCard(history) {
-    const recent = history.slice(0, 5); // 最近5条
-    const rows = recent.map(item => {
-      const time = new Date(item.time);
-      const timeStr = timeLabel(time);
-      return row([
-        text(timeStr, 5, "medium", C.muted, { width: 25 }),
-        spacer(),
-        text(item.ms + "ms", 6, "semibold", C.text)
-      ], { height: 11, gap: 2 });
-    });
-    // 趋势图
-    const chartSVG = latencyTrendSVG(history, C);
+  function historyLatencyCard(latencyData) {
+    // 只显示最近一条（因为无持久化），但保留趋势图（用当前值）
+    const current = latencyData.length > 0 ? latencyData[0] : { time: Date.now(), ms: 0 };
+    const timeStr = timeLabel(new Date(current.time));
+    const msText = current.ms > 0 ? current.ms + "ms" : "无数据";
+    // 趋势图（用当前点）
+    const chartSVG = latencyTrendSVG(latencyData, C);
     return card([
       sectionTitle("clock.arrow.circlepath", "历史测速", null, C.green),
-      col(rows, { gap: 1 }),
-      svgImage(chartSVG, 220, 30, { borderRadius: 6 })
-    ], { flex: 1, height: 85, padding: [4, 6], gap: 3 });
+      row([
+        text(timeStr, 5, "medium", C.muted, { width: 25 }),
+        spacer(),
+        text(msText, 6, "semibold", C.text)
+      ], { height: 11 }),
+      svgImage(chartSVG, 220, 25, { borderRadius: 6 })
+    ], { flex: 1, height: 60, padding: [4, 6], gap: 2 });
   }
 
-  function latencyTrendSVG(history, C) {
-    const data = history.slice(0, 20).reverse(); // 时间从旧到新
-    const values = data.map(d => d.ms);
+  function latencyTrendSVG(data, C) {
+    const values = data.map(d => d.ms).slice(0, 20).reverse();
+    if (values.length === 0) values.push(0);
     const maxVal = Math.max(100, ...values);
     const minVal = Math.min(0, ...values);
     const range = maxVal - minVal || 1;
-    const width = 200, height = 30;
+    const width = 200, height = 25;
     const padding = 2;
     const plotW = width - padding * 2;
     const plotH = height - padding * 2;
@@ -1241,20 +1223,20 @@ export default async function (ctx) {
   }
 
   // ---------- 评分趋势卡片 ----------
-  function historyScoreCard(history) {
-    const chartSVG = scoreTrendSVG(history, C);
+  function historyScoreCard(scoreData) {
+    const chartSVG = scoreTrendSVG(scoreData, C);
     return card([
       sectionTitle("chart.line.uptrend.xyaxis", "评分趋势", null, C.amber),
-      svgImage(chartSVG, 220, 30, { borderRadius: 6 })
-    ], { flex: 1, height: 48, padding: [4, 6], gap: 2 });
+      svgImage(chartSVG, 220, 25, { borderRadius: 6 })
+    ], { flex: 1, height: 42, padding: [4, 6], gap: 2 });
   }
 
-  function scoreTrendSVG(history, C) {
-    const data = history.slice(0, 20).reverse();
-    const values = data.map(d => d.score);
+  function scoreTrendSVG(data, C) {
+    const values = data.map(d => d.score).slice(0, 20).reverse();
+    if (values.length === 0) values.push(0);
     const maxVal = 100;
     const minVal = 0;
-    const width = 200, height = 30;
+    const width = 200, height = 25;
     const padding = 2;
     const plotW = width - padding * 2;
     const plotH = height - padding * 2;
@@ -1269,7 +1251,7 @@ export default async function (ctx) {
       '</svg>';
   }
 
-  // ---------- 底部信息 ----------
+  // ---------- 底部 ----------
   function footer(exit, purity, risk) {
     const purityColor = purity.score >= 75 ? C.green : purity.score >= 45 ? C.amber : C.red;
     const riskColor = risk === "低风险" ? C.green : risk === "中风险" ? C.amber : C.red;
@@ -1300,11 +1282,7 @@ export default async function (ctx) {
   }
 
   // ============ 主流程 ============
-  // 1. 加载历史数据
-  const historyLatency = await loadHistory("historyLatency");
-  const historyScore = await loadHistory("historyScore");
-
-  // 2. 获取策略映射
+  // 1. 获取策略映射
   const mediaPolicyMap = await resolveServicePolicyMap(
     ["netflix", "disney", "spotify", "tiktok", "youtube", "prime"], "lmt"
   );
@@ -1312,7 +1290,7 @@ export default async function (ctx) {
     ["chatgpt", "claude", "gemini", "deepseek", "grok", "perplexity"], "ai"
   );
 
-  // 3. 并发执行核心检测
+  // 2. 并发执行核心检测
   const [exit, dnsInfo, proxyLatency, quic, media, ai] = await Promise.all([
     getExit(),
     getDNSVerified(),
@@ -1336,48 +1314,36 @@ export default async function (ctx) {
     ])
   ]);
 
-  // 4. 计算指标
+  // 3. 计算指标
   const nat = detectNAT(localIP, exit.ip);
   const purity = purityScore(exit);
   const risk = riskLevel(exit, purity);
-  const proxyLatencyColor = proxyLatency.ok ? (proxyLatency.ms <= 220 ? C.green : C.amber) : C.red;
-
-  // 5. 更新历史数据（追加当前值）
-  const currentLatency = proxyLatency.ok ? proxyLatency.ms : 0;
-  const currentScore = purity.score;
-  if (currentLatency > 0) {
-    historyLatency.unshift({ time: Date.now(), ms: currentLatency });
-    if (historyLatency.length > MAX_HISTORY) historyLatency.pop();
-    await saveHistory("historyLatency", historyLatency);
-  }
-  historyScore.unshift({ time: Date.now(), score: currentScore });
-  if (historyScore.length > MAX_HISTORY) historyScore.pop();
-  await saveHistory("historyScore", historyScore);
-
-  // 6. 获取当前节点名称
   const nodeName = CURRENT_PROXY.name || "未识别";
 
-  // 7. 构建 UI（使用 scrollView 支持滚动）
-  const dashboard = {
-    type: "scrollView",
-    padding: S(8),
-    gap: 6,
-    backgroundColor: C.root,
-    children: [
-      header(),
-      linkCard(nodeName, exit, dnsInfo),
-      sourceAnalysisCard(media, ai, exit, dnsInfo),
-      row([
-        serviceCompactCard("流媒体解锁", "play.rectangle.fill", media, C.blue),
-        serviceCompactCard("AI 解锁检测", "sparkles", ai, C.purple)
-      ], { height: 100, gap: 6, alignItems: "start" }),
-      row([
-        historyLatencyCard(historyLatency),
-        historyScoreCard(historyScore)
-      ], { height: 85, gap: 6, alignItems: "start" }),
-      footer(exit, purity, risk)
-    ]
-  };
+  // 4. 更新内存历史（仅保存本次数据，用于趋势图展示）
+  const currentLatency = proxyLatency.ok ? proxyLatency.ms : 0;
+  const currentScore = purity.score;
+  // 添加到缓存（简单起见，只保留当前值，并构造一个趋势点）
+  historyLatencyCache = [{ time: Date.now(), ms: currentLatency }];
+  historyScoreCache = [{ time: Date.now(), score: currentScore }];
+  // 可以扩展为保存多次（但组件刷新后丢失，这里仅演示）
+
+  // 5. 构建 UI（固定高度 480，无滚动）
+  const WIDGET_HEIGHT = 480;
+  const dashboard = col([
+    header(),
+    linkCard(nodeName, exit, dnsInfo),
+    sourceAnalysisCard(media, ai, exit, dnsInfo),
+    row([
+      serviceCompactCard("流媒体解锁", "play.rectangle.fill", media, C.blue),
+      serviceCompactCard("AI 解锁检测", "sparkles", ai, C.purple)
+    ], { height: 100, gap: 6, alignItems: "start" }),
+    row([
+      historyLatencyCard(historyLatencyCache),
+      historyScoreCard(historyScoreCache)
+    ], { height: 62, gap: 6, alignItems: "start" }),
+    footer(exit, purity, risk)
+  ], { padding: [8, 8], gap: 6 });
 
   return {
     type: "widget",
@@ -1385,11 +1351,19 @@ export default async function (ctx) {
     gap: 0,
     backgroundColor: C.root,
     refreshAfter: new Date(Date.now() + REFRESH_MINUTES * 60 * 1000).toISOString(),
-    children: [dashboard]
+    children: [
+      {
+        type: "stack",
+        direction: "column",
+        width: SCREEN_W - 16,
+        height: WIDGET_HEIGHT,
+        children: [dashboard]
+      }
+    ]
   };
 }
 
-// ---------- 调色板（保持不变） ----------
+// ---------- 调色板 ----------
 function palette() {
   const adaptive = (light, dark) => ({ light, dark });
   return {
