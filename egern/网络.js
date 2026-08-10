@@ -1,5 +1,5 @@
 /**
- * Egern「网络诊断雷达」- 优化精简版
+ * Egern「网络诊断雷达」- 优化精简版1
  *
  * 环境变量：
  * - POLICY：最高优先级，统一指定策略
@@ -10,6 +10,35 @@
  */
 
 export default async function (ctx) {
+  // 捕获一切意外错误，防止 Widget 崩溃卡死
+  try {
+    return await mainLogic(ctx);
+  } catch (error) {
+    // 兜底异常处理：返回错误提示组件
+    const C = palette();
+    return {
+      type: "widget",
+      padding: 8,
+      gap: 0,
+      backgroundColor: C.root,
+      refreshAfter: new Date(Date.now() + 120 * 1000).toISOString(),
+      children: [
+        {
+          type: "stack",
+          direction: "column",
+          alignItems: "start",
+          padding: [8, 8],
+          children: [
+            { type: "text", text: "⚠️ 脚本刷新失败", font: { size: 12, weight: "bold" }, textColor: C.red },
+            { type: "text", text: "错误: " + (error.message || "未知异常"), font: { size: 8 }, textColor: C.muted, maxLines: 2 }
+          ]
+        }
+      ]
+    };
+  }
+}
+
+async function mainLogic(ctx) {
   const env = ctx.env || {};
   const C = palette();
   const SCHEME = detectScheme(ctx);
@@ -540,12 +569,13 @@ export default async function (ctx) {
     }
   }
 
-  // ---------- DNS 策略延迟测量 ----------
+  // ---------- DNS 策略延迟测量（安全增强版） ----------
   async function getDNSLatency() {
     const url = "https://1.1.1.1/cdn-cgi/trace";
     const start = Date.now();
     try {
-      await ctx.http.get(url, { timeout: 3000 });
+      // 单独设置简短超时，避免影响主瀑布流
+      await ctx.http.get(url, { timeout: 2000 });
       return Math.max(1, Date.now() - start);
     } catch {
       return 0;
