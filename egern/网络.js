@@ -47,7 +47,6 @@ export default async function (ctx) {
   const servicePolicyCache = {};
   const policyProbeCache = {};
   const policyExitCache = {};
-  const requestMemo = {};
 
   const SCREEN_W = numberInRange(
     pick(getScreenMetric(ctx, "width"), 440),
@@ -3957,833 +3956,273 @@ function providerFromText(value) {
     return { full: "中国联通 DNS", short: "联通" };
   }
 
-  if (
-    text.includes("cernet") ||
-    text.includes("china education") ||
-    text.includes("education network") ||
-    text.includes("中国教育") ||
-    text.includes("教育网")
-  ) {
-    return { full: "中国教育网 DNS", short: "教育" };
-  }
-
-  if (
-    text.includes("great wall broadband") ||
-    text.includes("gwbn") ||
-    text.includes("长城宽带")
-  ) {
-    return { full: "长城宽带 DNS", short: "长宽" };
-  }
-
-  if (
-    text.includes("drpeng") ||
-    text.includes("鹏博士")
-  ) {
-    return { full: "鹏博士 DNS", short: "鹏博" };
-  }
-
   return { full: "", short: "" };
 }
 
-function compactDNSProviderName(value) {
-  const text = clean(value);
+function detectDNSProvider(servers) {
+  const list = Array.isArray(servers) ? servers : [];
 
-  if (!text) {
-    return "未知";
+  for (let i = 0; i < list.length; i += 1) {
+    const item = clean(list[i]);
+    const matched = providerFromText(item);
+
+    if (matched.short) {
+      return matched;
+    }
+
+    if (item.includes("1.1.1.1") || item.includes("1.0.0.1")) {
+      return { full: "Cloudflare DNS", short: "CF" };
+    }
+    if (item.includes("8.8.8.8") || item.includes("8.8.4.4")) {
+      return { full: "Google DNS", short: "谷歌" };
+    }
+    if (item.includes("223.5.5.5") || item.includes("223.6.6.6")) {
+      return { full: "AliDNS", short: "阿里" };
+    }
+    if (item.includes("119.29.29.29")) {
+      return { full: "DNSPod", short: "腾讯" };
+    }
+    if (item.includes("114.114.114.114")) {
+      return { full: "114DNS", short: "114" };
+    }
   }
 
-  const provider = providerFromText(text);
-
-  if (provider.short) {
-    return provider.short;
-  }
-
-  const lower = text.toLowerCase();
-
-  if (lower.includes("telecom")) return "电信";
-  if (lower.includes("mobile")) return "移动";
-  if (lower.includes("unicom")) return "联通";
-  if (lower.includes("education")) return "教育";
-  if (lower.includes("cloudflare")) return "CF";
-  if (lower.includes("google")) return "谷歌";
-  if (lower.includes("oracle")) return "Oracle";
-  if (lower.includes("amazon") || lower.includes("aws")) return "AWS";
-  if (lower.includes("microsoft") || lower.includes("azure")) return "Azure";
-
-  const cleaned = text
-    .replace(/^as\d+\s*/i, "")
-    .replace(/co\.,?\s*ltd\.?/ig, "")
-    .replace(/company/ig, "")
-    .replace(/limited/ig, "")
-    .replace(/inc\.?/ig, "")
-    .replace(/llc/ig, "")
-    .replace(/corporation/ig, "")
-    .replace(/network/ig, "")
-    .replace(/communications?/ig, "")
-    .replace(/internet/ig, "")
-    .replace(/technology/ig, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (!cleaned) {
-    return "未知";
-  }
-
-  if (/[\u4e00-\u9fa5]/.test(cleaned)) {
-    return cleaned.slice(0, 4);
-  }
-
-  const first = cleaned.split(/[ ,，/|()]+/).filter(Boolean)[0];
-
-  if (!first) {
-    return "未知";
-  }
-
-  return first.length > 6
-    ? first.slice(0, 6)
-    : first;
+  return { full: "系统 DNS", short: "系统" };
 }
 
-function chooseDNSProvider(baseDNS, verifiedDNS) {
-  const base = baseDNS || {
-    full: "",
-    short: ""
-  };
-
-  const verified = verifiedDNS || {
-    ok: false,
-    full: "",
-    short: "",
-    ip: "",
-    geo: "",
-    isp: "",
-    org: "",
-    asname: "",
-    as: ""
-  };
-
-  const verifiedProvider = providerFromText(
-    [
-      verified.full,
-      verified.short,
-      verified.geo,
-      verified.ip,
-      verified.isp,
-      verified.org,
-      verified.asname,
-      verified.as
-    ].join(" ")
-  );
-
-  if (verifiedProvider.short) {
-    return verifiedProvider;
+function chooseDNSProvider(base, verified) {
+  if (verified && verified.ok && verified.short) {
+    return verified;
   }
-
-  if (verified.ok && verified.short && !isWeakDNSLabel(verified.short)) {
-    return {
-      full: verified.full || verified.short,
-      short: dnsTinyLabel(verified.short)
-    };
-  }
-
-  const baseProvider = providerFromText(
-    [
-      base.full,
-      base.short
-    ].join(" ")
-  );
-
-  if (baseProvider.short) {
-    return baseProvider;
-  }
-
-  if (base.short && !isWeakDNSLabel(base.short)) {
-    return {
-      full: base.full,
-      short: dnsTinyLabel(base.short)
-    };
-  }
-
-  if (verified.ok && verified.ip) {
-    return {
-      full: verified.ip,
-      short: compactDNSProviderName(
-        verified.isp ||
-        verified.org ||
-        verified.asname ||
-        verified.as ||
-        verified.geo ||
-        verified.ip
-      )
-    };
-  }
-
-  return {
-    full: "未知 DNS",
-    short: "未知"
-  };
-}
-
-function isWeakDNSLabel(value) {
-  return [
-    "",
-    "系统",
-    "网关",
-    "自定义",
-    "自定",
-    "未知",
-    "IPv6"
-  ].includes(clean(value));
+  return base;
 }
 
 function dnsTinyLabel(value) {
-  const name = clean(value);
-  const provider = providerFromText(name);
+  const text = clean(value);
+  if (!text) return "系统";
+  if (text.length <= 4) return text;
 
-  if (provider.short) {
-    return provider.short;
+  const matched = providerFromText(text);
+  if (matched.short) return matched.short;
+
+  return text.substring(0, 4);
+}
+
+function isWeakDNSLabel(value) {
+  const v = clean(value).toLowerCase();
+  return v === "系统" || v === "未知" || v === "dns" || v === "net";
+}
+
+function compactDNSProviderName(value) {
+  const raw = clean(value);
+  const matched = providerFromText(raw);
+
+  if (matched.short) {
+    return matched.short;
   }
 
-  const map = {
-    "Cloudflare": "CF",
-    "Cloudflare DNS": "CF",
-    "CF": "CF",
-    "Google": "谷歌",
-    "Google DNS": "谷歌",
-    "谷歌": "谷歌",
-    "AliDNS": "阿里",
-    "Ali": "阿里",
-    "阿里": "阿里",
-    "DNSPod": "腾讯",
-    "Pod": "腾讯",
-    "腾讯": "腾讯",
-    "OpenDNS": "Open",
-    "Open": "Open",
-    "AdGuard": "AdG",
-    "AdG": "AdG",
-    "Quad9": "Q9",
-    "Q9": "Q9",
-    "114DNS": "114",
-    "114": "114",
-    "NextDNS": "Next",
-    "Next": "Next",
-    "中国电信 DNS": "电信",
-    "电信": "电信",
-    "中国移动 DNS": "移动",
-    "移动": "移动",
-    "中国联通 DNS": "联通",
-    "联通": "联通",
-    "中国教育网 DNS": "教育",
-    "教育": "教育",
-    "网关 DNS": "网关",
-    "网关": "网关",
-    "系统": "系统",
-    "自定义": "自定",
-    "自定": "自定",
-    "未知": "未知",
-    "IPv6": "IPv6"
-  };
+  return raw.substring(0, 6);
+}
 
-  if (map[name]) {
-    return map[name];
+function detectNAT(local, exit) {
+  if (!local || local === "未获取" || !exit || exit === "未识别") {
+    return { label: "未知", tone: "amber" };
   }
 
-  if (name.length <= 4) {
-    return name;
+  if (local === exit) {
+    return { label: "公网", tone: "green" };
   }
 
-  return "未知";
+  return { label: "NAT", tone: "green" };
 }
 
 function purityScore(exit) {
-  const flags = (exit && exit.flags) || {};
-  const evidence = flags.evidence || {};
-  const kind = clean(exit && exit.kind);
-
-  let score;
-
-  if (kind === "住宅 IP") {
-    score = 92;
-  } else if (kind === "移动网络") {
-    score = 92;
-  } else if (kind === "教育网络" || kind === "企业网络") {
-    score = 88;
-  } else if (kind === "商业机房") {
-    score = 78;
-  } else {
-    score = 72;
+  if (!exit || !exit.ip || exit.ip === "未识别") {
+    return { score: 0 };
   }
 
-  const proxyCount = Number(evidence.proxyCount || 0);
-  const vpnCount = Number(evidence.vpnCount || 0);
-  const torCount = Number(evidence.torCount || 0);
-  const abuserCount = Number(evidence.abuserCount || 0);
-  const riskValue = Number(flags.risk);
+  let score = 100;
+  const flags = exit.flags || {};
 
-  const proxyVpnEvidenceCount = proxyCount + vpnCount;
+  if (flags.datacenter || flags.hosting || flags.cloud) score -= 35;
+  if (flags.proxy) score -= 20;
+  if (flags.vpn) score -= 15;
+  if (flags.tor) score -= 30;
+  if (flags.abuser) score -= 25;
 
-  if (torCount > 0 || flags.tor) {
-    score -= 55;
+  if (flags.residential) score += 15;
+  if (flags.mobile) score += 10;
+
+  if (flags.risk !== null && flags.risk !== undefined) {
+    const riskVal = Number(flags.risk) || 0;
+    score -= Math.round(riskVal * 0.4);
   }
 
-  if (abuserCount > 0 || flags.abuser) {
-    score -= 35;
-  }
-
-  if (proxyVpnEvidenceCount >= 2) {
-    score -= 30;
-  } else if (proxyVpnEvidenceCount === 1) {
-    score -= 16;
-  }
-
-  if (Number.isFinite(riskValue)) {
-    if (riskValue >= 80) {
-      score -= 25;
-    } else if (riskValue >= 70) {
-      score -= 20;
-    } else if (riskValue >= 40) {
-      score -= 10;
-    } else if (riskValue >= 20) {
-      score -= 4;
-    }
-  }
-
-  if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) {
-    score -= 8;
-  }
-
-  if (
-    kind === "住宅 IP" &&
-    !flags.proxy &&
-    !flags.vpn &&
-    !flags.tor &&
-    !flags.abuser
-  ) {
-    score += 3;
-  }
-
-  if (
-    kind === "移动网络" &&
-    !flags.proxy &&
-    !flags.vpn &&
-    !flags.tor &&
-    !flags.abuser
-  ) {
-    score += 3;
-  }
-
-  score = Math.max(0, Math.min(100, Math.round(score)));
-
-  return {
-    score: score,
-    risk: 100 - score,
-    evidence: evidence
-  };
+  score = Math.max(0, Math.min(100, score));
+  return { score: score };
 }
 
 function riskLevel(exit, purity) {
-  const flags = (exit && exit.flags) || {};
-  const evidence = flags.evidence || {};
-  const score = Number(purity && purity.score);
-  const riskValue = Number(flags.risk);
-
-  const proxyVpnEvidenceCount =
-    Number(evidence.proxyCount || 0) +
-    Number(evidence.vpnCount || 0);
-
-  if (
-    flags.tor ||
-    Number(evidence.torCount || 0) > 0 ||
-    flags.abuser ||
-    Number(evidence.abuserCount || 0) > 0 ||
-    riskValue >= 85 ||
-    score < 45 ||
-    (
-      proxyVpnEvidenceCount >= 2 &&
-      (
-        score < 60 ||
-        riskValue >= 70
-      )
-    )
-  ) {
-    return "高风险";
-  }
-
-  if (
-    score < 75 ||
-    flags.datacenter ||
-    flags.hosting ||
-    flags.cloud ||
-    proxyVpnEvidenceCount > 0 ||
-    riskValue >= 40
-  ) {
-    return "中风险";
-  }
-
-  return "低风险";
-}
-
-function toneColor(tone, colors) {
-  if (tone === "green") return colors.green;
-  if (tone === "red") return colors.red;
-  return colors.amber;
-}
-
-function parseIPv4(ip) {
-  const parts = clean(ip).split(".");
-  if (parts.length !== 4) return null;
-
-  const values = parts.map(Number);
-
-  if (
-    values.some(function (value) {
-      return !Number.isInteger(value) || value < 0 || value > 255;
-    })
-  ) {
-    return null;
-  }
-
-  return values;
-}
-
-function isPrivateIPv4(ip) {
-  const parts = parseIPv4(ip);
-  if (!parts) return false;
-
-  return (
-    parts[0] === 10 ||
-    (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) ||
-    (parts[0] === 192 && parts[1] === 168)
-  );
-}
-
-function isCGNATIPv4(ip) {
-  const parts = parseIPv4(ip);
-  return Boolean(
-    parts &&
-    parts[0] === 100 &&
-    parts[1] >= 64 &&
-    parts[1] <= 127
-  );
-}
-
-function isPublicIPv4(ip) {
-  const parts = parseIPv4(ip);
-
-  return Boolean(
-    parts &&
-    !isPrivateIPv4(ip) &&
-    !isCGNATIPv4(ip) &&
-    parts[0] !== 0 &&
-    parts[0] !== 127 &&
-    parts[0] < 224 &&
-    !(parts[0] === 169 && parts[1] === 254)
-  );
-}
-
-function detectNAT(localIP, exitIP) {
-  if (isCGNATIPv4(localIP)) {
-    return {
-      label: "CGNAT",
-      tone: "amber"
-    };
-  }
-
-  if (
-    isPrivateIPv4(localIP) &&
-    isPublicIPv4(exitIP)
-  ) {
-    return {
-      label: "Open",
-      tone: "green"
-    };
-  }
-
-  if (isPublicIPv4(localIP)) {
-    return {
-      label: "Open",
-      tone: "green"
-    };
-  }
-
-  if (isPrivateIPv4(localIP)) {
-    return {
-      label: "NAT",
-      tone: "amber"
-    };
-  }
-
-  return {
-    label: "未知",
-    tone: "red"
-  };
-}
-
-function detectDNSProvider(addresses) {
-  const list = Array.isArray(addresses)
-    ? addresses.map(clean).filter(Boolean)
-    : [clean(addresses)].filter(Boolean);
-
-  if (list.length === 0) {
-    return {
-      full: "系统 DNS",
-      short: "系统"
-    };
-  }
-
-  const providers = [
-    {
-      full: "Cloudflare DNS",
-      short: "CF",
-      values: [
-        "1.1.1.1",
-        "1.0.0.1",
-        "2606:4700:4700::1111",
-        "2606:4700:4700::1001",
-        "2606:4700:4700::64",
-        "2606:4700:4700::6400"
-      ]
-    },
-    {
-      full: "Google DNS",
-      short: "谷歌",
-      values: [
-        "8.8.8.8",
-        "8.8.4.4",
-        "2001:4860:4860::8888",
-        "2001:4860:4860::8844"
-      ]
-    },
-    {
-      full: "Quad9 DNS",
-      short: "Q9",
-      values: [
-        "9.9.9.9",
-        "149.112.112.112",
-        "2620:fe::fe",
-        "2620:fe::9"
-      ]
-    },
-    {
-      full: "OpenDNS",
-      short: "Open",
-      values: [
-        "208.67.222.222",
-        "208.67.220.220",
-        "2620:119:35::35",
-        "2620:119:53::53"
-      ]
-    },
-    {
-      full: "AdGuard DNS",
-      short: "AdG",
-      values: [
-        "94.140.14.14",
-        "94.140.15.15",
-        "94.140.14.15",
-        "94.140.15.16",
-        "2a10:50c0::ad1:ff",
-        "2a10:50c0::ad2:ff"
-      ]
-    },
-    {
-      full: "AliDNS",
-      short: "阿里",
-      values: [
-        "223.5.5.5",
-        "223.6.6.6",
-        "2400:3200::1",
-        "2400:3200:baba::1"
-      ]
-    },
-    {
-      full: "DNSPod",
-      short: "腾讯",
-      values: [
-        "119.29.29.29",
-        "119.28.28.28",
-        "2402:4e00::"
-      ]
-    },
-    {
-      full: "114DNS",
-      short: "114",
-      values: [
-        "114.114.114.114",
-        "114.114.115.115",
-        "240c::6666",
-        "240c::6644"
-      ]
-    },
-    {
-      full: "NextDNS",
-      short: "Next",
-      values: [
-        "45.90.28.",
-        "45.90.30.",
-        "2a07:a8c0:"
-      ]
-    }
-  ];
-
-  for (let i = 0; i < list.length; i += 1) {
-    const raw = normalizeDNS(list[i]);
-
-    for (let p = 0; p < providers.length; p += 1) {
-      const provider = providers[p];
-
-      for (let v = 0; v < provider.values.length; v += 1) {
-        const value = provider.values[v].toLowerCase();
-
-        if (raw === value || raw.startsWith(value)) {
-          return provider;
-        }
-      }
-    }
-  }
-
-  for (let i = 0; i < list.length; i += 1) {
-    const raw = normalizeDNS(list[i]);
-
-    if (
-      raw.startsWith("fe80:") ||
-      isPrivateIPv4(raw)
-    ) {
-      return {
-        full: "本地网关 DNS",
-        short: "网关"
-      };
-    }
-  }
-
-  return {
-    full: "自定义 DNS",
-    short: "自定义"
-  };
-}
-
-function normalizeDNS(value) {
-  return clean(value)
-    .toLowerCase()
-    .replace(/^\[/, "")
-    .replace(/\]$/, "")
-    .replace(/%.*$/, "");
-}
-
-function gatewayLabel(value) {
-  const gateway = clean(value);
-  if (!gateway || gateway === "未获取") return "—";
-  return gateway;
-}
-
-function shortISP(value) {
-  const isp = clean(value);
-
-  if (!isp || isp === "未知组织") {
+  if (!exit || !exit.ip || exit.ip === "未识别") {
     return "未知";
   }
 
-  if (isp.length <= 12) {
-    return isp;
+  const score = purity ? purity.score : 50;
+
+  if (score >= 75) return "低风险";
+  if (score >= 45) return "中风险";
+  return "高风险";
+}
+
+function shortISP(value) {
+  const raw = clean(value);
+  if (!raw || raw === "未知组织") return "未知厂商";
+
+  if (raw.length > 12) {
+    return raw.substring(0, 11) + "…";
   }
 
-  const words = isp.split(/\s+/);
+  return raw;
+}
 
-  if (words.length > 1) {
-    return words[0];
+function gatewayLabel(value) {
+  const raw = clean(value);
+  if (!raw || raw === "未获取") return "未获取";
+  return raw;
+}
+
+function countryCode(value) {
+  const raw = clean(value).toUpperCase();
+  if (raw.length === 2 && /^[A-Z]{2}$/.test(raw)) {
+    return raw;
+  }
+  return "";
+}
+
+function flag(code) {
+  const c = countryCode(code);
+  if (!c) return "";
+
+  const first = c.charCodeAt(0) + 127397;
+  const second = c.charCodeAt(1) + 127397;
+
+  return String.fromCodePoint(first, second);
+}
+
+function timeLabel(date) {
+  const d = date || new Date();
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+  return hours + ":" + minutes;
+}
+
+function dateLabel(date) {
+  const d = date || new Date();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return month + "/" + day;
+}
+
+function detectScheme(ctx) {
+  if (ctx && ctx.colorScheme) {
+    return ctx.colorScheme;
+  }
+  return "dark";
+}
+
+function resolveAdaptiveColor(color, scheme) {
+  if (!color) return "#000000";
+  if (typeof color === "string") return color;
+
+  if (typeof color === "object") {
+    if (scheme === "light" && color.light) {
+      return color.light;
+    }
+    if (color.dark) {
+      return color.dark;
+    }
   }
 
-  return isp.slice(0, 11) + "…";
+  return "#000000";
+}
+
+function toneColor(tone, paletteObj) {
+  if (tone === "green") return paletteObj.green;
+  if (tone === "amber") return paletteObj.amber;
+  if (tone === "red") return paletteObj.red;
+  return paletteObj.muted;
+}
+
+function parseTrace(text) {
+  const lines = String(text || "").split("\n");
+  const result = {};
+
+  lines.forEach(function (line) {
+    const parts = line.split("=");
+    if (parts.length >= 2) {
+      const key = clean(parts[0]);
+      const value = clean(parts.slice(1).join("="));
+      if (key) {
+        result[key] = value;
+      }
+    }
+  });
+
+  return result;
 }
 
 function randomAlphaNum(length) {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
   let out = "";
-
-  for (let index = 0; index < length; index += 1) {
-    out += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < length; i += 1) {
+    out += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-
   return out;
 }
 
-function timeLabel(date) {
-  return (
-    String(date.getHours()).padStart(2, "0") +
-    ":" +
-    String(date.getMinutes()).padStart(2, "0")
-  );
-}
-
-function dateLabel(date) {
-  const weekday = ["日", "一", "二", "三", "四", "五", "六"][date.getDay()];
-
-  return (
-    String(date.getMonth() + 1).padStart(2, "0") +
-    "/" +
-    String(date.getDate()).padStart(2, "0") +
-    " 周" +
-    weekday
-  );
-}
-
-function getScreenMetric(ctx, key) {
-  const candidates = [
-    getAt(ctx, "screen." + key),
-    getAt(ctx, "device.screen." + key),
-    getAt(ctx, "device.screenSize." + key)
-  ];
-
-  try {
-    if (typeof screen !== "undefined" && screen && Number(screen[key]) > 0) {
-      candidates.push(screen[key]);
-    }
-  } catch (_) {}
-
-  for (let index = 0; index < candidates.length; index += 1) {
-    const value = Number(candidates[index]);
-
-    if (Number.isFinite(value) && value > 0) {
-      return value;
-    }
-  }
-
-  return "";
-}
-
-function detectScheme(ctx) {
-  const raw = clean(
-    pick(
-      ctx.colorScheme,
-      ctx.appearance,
-      ctx.theme,
-      ctx.widgetColorScheme
-    )
-  ).toLowerCase();
-
-  if (
-    raw.includes("dark") ||
-    raw.includes("深") ||
-    raw === "2"
-  ) {
-    return "dark";
-  }
-
-  return "light";
-}
-
-function resolveAdaptiveColor(value, scheme) {
-  if (typeof value === "string") {
-    return value;
-  }
-
-  if (value && typeof value === "object") {
-    return scheme === "dark"
-      ? clean(value.dark) || clean(value.light)
-      : clean(value.light) || clean(value.dark);
-  }
-
-  return "";
-}
-
 function clean(value) {
-  return String(
-    value === undefined || value === null ? "" : value
-  ).trim();
-}
-
-function clamp(value, min, max) {
-  const number = Number(value);
-
-  if (!Number.isFinite(number)) {
-    return min;
-  }
-
-  return Math.max(min, Math.min(max, number));
-}
-
-function numberInRange(value, min, max, fallback) {
-  const parsed = Number(value);
-
-  if (!Number.isFinite(parsed)) {
-    return fallback;
-  }
-
-  return Math.max(min, Math.min(max, Math.round(parsed)));
+  if (value === null || value === undefined) return "";
+  return String(value).trim();
 }
 
 function pick() {
-  for (let index = 0; index < arguments.length; index += 1) {
-    const value = arguments[index];
-
-    if (
-      value !== undefined &&
-      value !== null &&
-      clean(value) !== ""
-    ) {
-      return value;
-    }
+  for (let i = 0; i < arguments.length; i += 1) {
+    const val = clean(arguments[i]);
+    if (val) return val;
   }
-
   return "";
 }
 
-function getAt(object, path) {
-  const keys = String(path).split(".");
-  let current = object;
+function getAt(obj, path) {
+  if (!obj || typeof obj !== "object") return undefined;
+  const parts = String(path).split(".");
+  let cur = obj;
 
-  for (let index = 0; index < keys.length; index += 1) {
-    if (
-      !current ||
-      typeof current !== "object" ||
-      !(keys[index] in current)
-    ) {
-      return "";
-    }
-
-    current = current[keys[index]];
+  for (let i = 0; i < parts.length; i += 1) {
+    if (cur === null || cur === undefined) return undefined;
+    cur = cur[parts[i]];
   }
 
-  return current === undefined || current === null
-    ? ""
-    : current;
+  return cur;
 }
 
-function truthy(value) {
-  return value === true ||
-    value === 1 ||
-    ["true", "1", "yes", "y"].includes(
-      clean(value).toLowerCase()
-    );
+function truthy(val) {
+  if (typeof val === "boolean") return val;
+  if (typeof val === "number") return val > 0;
+  const s = clean(val).toLowerCase();
+  return s === "true" || s === "1" || s === "yes";
 }
 
-function parseTrace(value) {
-  const output = {};
-
-  String(value || "")
-    .split(/\r?\n/)
-    .forEach(function (line) {
-      const position = line.indexOf("=");
-
-      if (position > 0) {
-        output[line.slice(0, position).trim()] =
-          line.slice(position + 1).trim();
-      }
-    });
-
-  return output;
+function clamp(val, min, max) {
+  return Math.max(min, Math.min(max, val));
 }
 
-function countryCode(value) {
-  const code = clean(value).toUpperCase();
-  return /^[A-Z]{2}$/.test(code) ? code : "";
+function numberInRange(val, min, max, fallback) {
+  const num = Number(val);
+  if (!Number.isFinite(num)) return fallback;
+  return clamp(num, min, max);
 }
 
-function flag(value) {
-  const code = countryCode(value);
-  if (!code) return "";
-  return (
-    String.fromCodePoint(code.charCodeAt(0) + 127397) +
-    String.fromCodePoint(code.charCodeAt(1) + 127397)
-  );
+function getScreenMetric(ctx, key) {
+  return getAt(ctx, "screen." + key) || getAt(ctx, "device.screen." + key);
 }
