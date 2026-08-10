@@ -30,6 +30,7 @@ export default async function (ctx) {
   const POLICY_PROBE_TIMEOUT = 1800;
   const POLICY_PROBE_BATCH_SIZE = 6;
   const REFRESH_MINUTES = 15;
+  const FORCE_LOCAL_MAINLAND = true;
 
   const servicePolicyCache = {};
   const policyProbeCache = {};
@@ -59,6 +60,14 @@ export default async function (ctx) {
     protocolFromXY(FORCE_PROTOCOL) ||
     CURRENT_PROXY.protocol ||
     "未暴露";
+
+  const MAINLAND_LATENCY_URLS = [
+    "http://connect.rom.miui.com/generate_204",
+    "http://wifi.vivo.com.cn/generate_204",
+    "https://www.baidu.com/favicon.ico",
+    "https://www.qq.com/favicon.ico",
+    "https://www.aliyun.com/favicon.ico"
+  ];
 
   const GLOBAL_PROXY_LATENCY_URLS = [
     "https://cp.cloudflare.com/generate_204",
@@ -99,6 +108,40 @@ export default async function (ctx) {
     "perplexity"
   ];
 
+  const device = ctx.device || {};
+  const wifi = device.wifi || {};
+  const ipv4 = device.ipv4 || {};
+  const ipv6 = device.ipv6 || {};
+
+  const dnsServers = Array.isArray(device.dnsServers)
+    ? device.dnsServers.filter(Boolean)
+    : [];
+
+  let networkName = getLocalNetworkName(device);
+
+  const localIP =
+    clean(
+      pick(
+        ipv4.address,
+        wifi.ip,
+        wifi.ipAddress,
+        device.ipAddress,
+        device.ip
+      )
+    ) || "未获取";
+
+  const gateway =
+    clean(
+      pick(
+        ipv4.gateway,
+        wifi.gateway,
+        device.gateway
+      )
+    ) || "未获取";
+
+  const hasIPv4 = Boolean(clean(localIP)) && localIP !== "未获取";
+  const hasIPv6 = Boolean(clean(pick(ipv6.address, device.ipv6Address)));
+  const baseDNS = detectDNSProvider(dnsServers);
   const now = new Date();
 
   function S(value) {
@@ -170,6 +213,23 @@ export default async function (ctx) {
     return Object.assign(options, extra || {});
   }
 
+  function directRequestOptions(extra) {
+    return Object.assign(
+      {
+        timeout: TIMEOUT,
+        redirect: "follow",
+        credentials: "omit",
+        policy: "DIRECT",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)",
+          Accept: "application/json,text/plain,text/html,*/*",
+          "Cache-Control": "no-cache"
+        }
+      },
+      extra || {}
+    );
+  }
+
   function serviceRequestOptions(policy, extra) {
     const options = {
       timeout: TIMEOUT,
@@ -215,6 +275,23 @@ export default async function (ctx) {
   async function getJSON(url) {
     try {
       const response = await ctx.http.get(url, requestOptions());
+      return {
+        ok: response.status >= 200 && response.status < 400,
+        status: response.status,
+        data: await response.json()
+      };
+    } catch (_) {
+      return {
+        ok: false,
+        status: 0,
+        data: null
+      };
+    }
+  }
+
+  async function getJSONDirect(url) {
+    try {
+      const response = await ctx.http.get(url, directRequestOptions());
       return {
         ok: response.status >= 200 && response.status < 400,
         status: response.status,
@@ -548,10 +625,245 @@ export default async function (ctx) {
     return merged;
   }
 
+  async function getLocalExit() {
+    const results = await Promise.all([
+      getJSONDirect(
+        "http://ip-api.com/json/?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname&_=" +
+          Date.now()
+      ),
+      getJSONDirect("https://ipwho.is/?lang=zh-CN&_=" + Date.now()),
+      getJSONDirect("https://api.ipapi.is/?_=" + Date.now())
+    ]);
+
+    for (let index = 0; index < results.length; index += 1) {
+      const parsed = parseLocalExit(
+        results[index].data,
+        FORCE_LOCAL_MAINLAND
+      );
+
+      if (results[index].ok && parsed.ip) {
+        if (FORCE_LOCAL_MAINLAND && parsed.countryCode !== "CN") {
+          return {
+            ip: parsed.ip,
+            city: "",
+            region: "",
+            country: "中国",
+            countryCode: "CN",
+            isp: parsed.isp || "",
+            org: parsed.org || "",
+            asname: parsed.asname || "",
+            as: parsed.as || "",
+            label: "中国大陆"
+          };
+        }
+
+        return parsed;
+      }
+    }
+
+    return {
+      ip: "",
+      city: "",
+      region: "",
+      country: "中国",
+      countryCode: "CN",
+      isp: "",
+      org: "",
+      asname: "",
+      as: "",
+      label: "中国大陆"
+    };
+  }
+
+  async function getDNSVerified() {
+    const results = await Promise.all([
+      probeEDNSResolver(),
+      probeEDNSResolver()
+    ]);
+
+    const valid = results.filter(function (item) {
+      return item && item.ok && item.ip;
+    });
+
+    if (valid.length === 0) {
+      return {
+        ok: false,
+        full: "",
+        short: "",
+        ip: "",
+        geo: "",
+        isp: "",
+        org: "",
+        asname: "",
+        as: ""
+      };
+    }
+
+    const primary = valid[0];
+
+    const providerByText = providerFromText(
+      [
+        primary.geo,
+        primary.ip,
+        primary.isp,
+        primary.org,
+        primary.asname,
+        primary.as
+      ].join(" ")
+    );
+
+    if (providerByText.short) {
+      return {
+        ok: true,
+        full: providerByText.full,
+        short: providerByText.short,
+        ip: primary.ip,
+        geo: primary.geo,
+        isp: primary.isp,
+        org: primary.org,
+        asname: primary.asname,
+        as: primary.as
+      };
+    }
+
+    const providerByIP = detectDNSProvider([primary.ip]);
+
+    if (providerByIP.short && !isWeakDNSLabel(providerByIP.short)) {
+      return {
+        ok: true,
+        full: providerByIP.full,
+        short: providerByIP.short,
+        ip: primary.ip,
+        geo: primary.geo,
+        isp: primary.isp,
+        org: primary.org,
+        asname: primary.asname,
+        as: primary.as
+      };
+    }
+
+    const ispLabel = compactDNSProviderName(
+      primary.isp ||
+      primary.org ||
+      primary.asname ||
+      primary.as ||
+      primary.geo
+    );
+
+    return {
+      ok: true,
+      full: primary.isp || primary.org || primary.asname || primary.geo || "未知 DNS",
+      short: ispLabel,
+      ip: primary.ip,
+      geo: primary.geo,
+      isp: primary.isp,
+      org: primary.org,
+      asname: primary.asname,
+      as: primary.as
+    };
+  }
+
+  async function probeEDNSResolver() {
+    const host = randomAlphaNum(32) + ".edns.ip-api.com";
+
+    const result = await getJSONDirect(
+      "http://" + host + "/json?_=" + Date.now()
+    );
+
+    if (!result.ok || !result.data) {
+      return {
+        ok: false,
+        ip: "",
+        geo: "",
+        isp: "",
+        org: "",
+        asname: "",
+        as: ""
+      };
+    }
+
+    const dns = result.data.dns || {};
+    const ip = clean(dns.ip);
+    const geo = clean(dns.geo);
+
+    if (!ip) {
+      return {
+        ok: false,
+        ip: "",
+        geo: geo,
+        isp: "",
+        org: "",
+        asname: "",
+        as: ""
+      };
+    }
+
+    const info = await getDNSResolverInfo(ip);
+
+    return {
+      ok: true,
+      ip: ip,
+      geo: geo,
+      isp: info.isp,
+      org: info.org,
+      asname: info.asname,
+      as: info.as
+    };
+  }
+
+  async function getDNSResolverInfo(ip) {
+    const target = clean(ip);
+
+    if (!target) {
+      return {
+        isp: "",
+        org: "",
+        asname: "",
+        as: ""
+      };
+    }
+
+    const result = await getJSONDirect(
+      "http://ip-api.com/json/" +
+        encodeURIComponent(target) +
+        "?lang=zh-CN&fields=status,message,query,country,countryCode,regionName,city,isp,org,as,asname&_=" +
+        Date.now()
+    );
+
+    if (!result.ok || !result.data || result.data.status === "fail") {
+      return {
+        isp: "",
+        org: "",
+        asname: "",
+        as: ""
+      };
+    }
+
+    return {
+      isp: clean(result.data.isp),
+      org: clean(result.data.org),
+      asname: clean(result.data.asname),
+      as: clean(result.data.as)
+    };
+  }
+
   async function getProxyLatency() {
     const measured = await measureLatencySet(
       GLOBAL_PROXY_LATENCY_URLS,
       false
+    );
+
+    return {
+      ok: measured.ok,
+      ms: measured.ms,
+      target: measured.target
+    };
+  }
+
+  async function getLocalLatency() {
+    const measured = await measureLatencySet(
+      MAINLAND_LATENCY_URLS,
+      true
     );
 
     return {
@@ -597,7 +909,9 @@ export default async function (ctx) {
     const startedAt = Date.now();
 
     try {
-      const response = await ctx.http.get(url, requestOptions());
+      const response = direct
+        ? await ctx.http.get(url, directRequestOptions())
+        : await ctx.http.get(url, requestOptions());
 
       return {
         ok: response.status >= 200 && response.status < 400,
@@ -742,13 +1056,19 @@ export default async function (ctx) {
 
   const [
     exit,
+    localExit,
+    verifiedDNS,
     proxyLatency,
+    localLatency,
     quic,
     media,
     ai
   ] = await Promise.all([
     getExit(),
+    getLocalExit(),
+    getDNSVerified(),
     getProxyLatency(),
+    getLocalLatency(),
     getQuic(),
 
     Promise.all([
@@ -770,6 +1090,27 @@ export default async function (ctx) {
     ])
   ]);
 
+  const carrierByDirectISP = carrierFromISP(
+    [
+      localExit.isp,
+      localExit.org,
+      localExit.asname,
+      localExit.as
+    ].join(" ")
+  );
+
+  if (!networkName && carrierByDirectISP) {
+    networkName = carrierByDirectISP;
+  }
+
+  if (!networkName) {
+    networkName = "移动数据";
+  }
+
+  const dns = chooseDNSProvider(baseDNS, verifiedDNS);
+  const dnsLabel = dnsTinyLabel(dns.short || dns.full);
+  const localArea = localExit.label || "中国大陆";
+  const nat = detectNAT(localIP, exit.ip);
   const purity = purityScore(exit);
   const risk = riskLevel(exit, purity);
 
@@ -777,6 +1118,11 @@ export default async function (ctx) {
     ? proxyLatency.ms <= 220 ? C.green : C.amber
     : C.red;
 
+  const localLatencyColor = localLatency.ok
+    ? localLatency.ms <= 220 ? C.green : C.amber
+    : C.red;
+
+  const natColor = toneColor(nat.tone, C);
   const quicColor = toneColor(quic.tone, C);
 
   const purityColor =
@@ -1145,6 +1491,116 @@ export default async function (ctx) {
     );
   }
 
+  // ------------------------- 本地网络卡片（已弃用，保留但不使用） -------------------------
+  function localCard() {
+    return card(
+      [
+        sectionTitle(
+          "wifi",
+          "本地网络",
+          image("globe.asia.australia.fill", C.blue, 12, 12),
+          C.blue
+        ),
+
+        row(
+          [
+            iconBox("wifi", C.blue, C.blueSoft, 42),
+
+            col(
+              [
+                row(
+                  [
+                    text(networkName, 11, "semibold", C.text, {
+                      flex: 1,
+                      maxLines: 1,
+                      minScale: 0.68
+                    }),
+
+                    pill("已连接", C.green, C.greenSoft, {
+                      padding: [1, 4]
+                    })
+                  ],
+                  { gap: 3 }
+                ),
+
+                text(displayIP(localIP), 8, "medium", C.subtext, {
+                  maxLines: 1,
+                  minScale: 0.72
+                }),
+
+                row(
+                  [
+                    text(flag(localExit.countryCode) || "🇨🇳", 8, "regular", C.text),
+
+                    text(localArea, 7, "medium", C.muted, {
+                      maxLines: 1,
+                      minScale: 0.72
+                    })
+                  ],
+                  { gap: 2 }
+                )
+              ],
+              {
+                flex: 1,
+                gap: 1
+              }
+            )
+          ],
+          { gap: 6 }
+        ),
+
+        row(
+          [
+            metricBox(
+              "router.fill",
+              "网关",
+              gatewayLabel(displayIP(gateway)),
+              C.blue,
+              {
+                valueSize: 5.4,
+                valueMinScale: 0.28
+              }
+            ),
+
+            metricBox(
+              "clock",
+              "直连延迟",
+              localLatency.ok ? localLatency.ms + "ms" : "失败",
+              localLatencyColor
+            ),
+
+            metricBox(
+              "network",
+              "IPV4/IPV6",
+              (hasIPv4 ? "✓" : "×") + "/" + (hasIPv6 ? "✓" : "×"),
+              hasIPv4 && hasIPv6
+                ? C.green
+                : hasIPv4
+                  ? C.amber
+                  : C.red
+            ),
+
+            metricBox(
+              "cloud.fill",
+              "DNS",
+              dnsLabel,
+              C.purple,
+              {
+                valueSize: 5.4,
+                valueMinScale: 0.28
+              }
+            )
+          ],
+          { gap: 2 }
+        )
+      ],
+      {
+        flex: 1,
+        height: 100
+      }
+    );
+  }
+
   function flagBox() {
     return row(
       [
@@ -1221,7 +1677,7 @@ export default async function (ctx) {
       [
         sectionTitle(
           "point.3.connected.trianglepath.dotted",
-          "当前代理与节点网络",
+          "当前代理",
           pill(
             proxyLatency.ok ? "连接正常" : "检测失败",
             proxyLatency.ok ? C.green : C.red,
@@ -1253,16 +1709,6 @@ export default async function (ctx) {
                   maxLines: 1,
                   minScale: 0.62
                 }),
-
-                row(
-                  [
-                    text(displayIP(exit.ip), 7, "medium", C.muted, {
-                      maxLines: 1,
-                      minScale: 0.65
-                    })
-                  ],
-                  { gap: 2 }
-                ),
 
                 proxyTagRows(
                   tagOne,
@@ -1307,6 +1753,13 @@ export default async function (ctx) {
             ),
 
             metricBox(
+              "circle.hexagongrid.fill",
+              "NAT",
+              nat.label,
+              natColor
+            ),
+
+            metricBox(
               "paperplane.fill",
               "UDP/QUIC",
               quic.value,
@@ -1333,7 +1786,7 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        height: 100,
+        // 移除固定高度，让内容自适应
         padding: [5, 6],
         gap: 3
       }
@@ -1678,21 +2131,12 @@ export default async function (ctx) {
     );
   }
 
+  // ---------- 主面板布局 ----------
+  // 修改：移除本地网络卡片，仅保留代理卡片
   const dashboard = col(
     [
       header(),
-
-      row(
-        [
-          proxyCard()
-        ],
-        {
-          height: 100,
-          gap: 6,
-          alignItems: "start"
-        }
-      ),
-
+      proxyCard(),   // 直接显示代理卡片，不再与本地网络并排
       row(
         [
           serviceCard("流媒体解锁", "play.rectangle.fill", media, C.blue),
@@ -1704,11 +2148,10 @@ export default async function (ctx) {
           alignItems: "start"
         }
       ),
-
       footer()
     ],
     {
-      height: 342,
+      // 移除固定高度，让内容自动撑开
       padding: [8, 8],
       gap: 6
     }
@@ -2238,6 +2681,211 @@ function dedupeCandidates(values) {
   });
 
   return output;
+}
+
+function getLocalNetworkName(device) {
+  const wifi = (device && device.wifi) || {};
+  const cellular = (device && device.cellular) || {};
+
+  const wifiName = firstMeaningful(
+    wifi.ssid,
+    wifi.name,
+    wifi.networkName,
+    getAt(device, "network.ssid"),
+    getAt(device, "wifiSSID")
+  );
+
+  if (wifiName) {
+    return wifiName;
+  }
+
+  const carrierName = firstMeaningful(
+    cellular.carrier,
+    cellular.carrierName,
+    cellular.operator,
+    cellular.operatorName,
+    cellular.network,
+    cellular.networkName,
+    cellular.provider,
+    cellular.serviceProvider,
+
+    getAt(device, "carrier"),
+    getAt(device, "carrierName"),
+    getAt(device, "operator"),
+    getAt(device, "operatorName"),
+    getAt(device, "network.carrier"),
+    getAt(device, "network.carrierName"),
+    getAt(device, "network.operator"),
+    getAt(device, "telephony.carrier"),
+    getAt(device, "telephony.carrierName"),
+    getAt(device, "cellularProvider")
+  );
+
+  if (carrierName) {
+    return normalizeCarrierName(carrierName);
+  }
+
+  const code = firstMeaningful(
+    cellular.mccmnc,
+    cellular.mccMnc,
+    cellular.plmn,
+    cellular.operatorCode,
+    getAt(device, "network.mccmnc"),
+    getAt(device, "network.plmn"),
+    getAt(device, "telephony.mccmnc")
+  );
+
+  const byCode = carrierByMCCMNC(code);
+
+  if (byCode) {
+    return byCode;
+  }
+
+  const mcc = firstMeaningful(
+    cellular.mcc,
+    cellular.mobileCountryCode,
+    getAt(device, "network.mcc"),
+    getAt(device, "telephony.mobileCountryCode")
+  );
+
+  const mnc = firstMeaningful(
+    cellular.mnc,
+    cellular.mobileNetworkCode,
+    getAt(device, "network.mnc"),
+    getAt(device, "telephony.mobileNetworkCode")
+  );
+
+  const byMccMnc = carrierByMCCMNC(clean(mcc) + clean(mnc));
+
+  if (byMccMnc) {
+    return byMccMnc;
+  }
+
+  return "";
+}
+
+function firstMeaningful() {
+  for (let index = 0; index < arguments.length; index += 1) {
+    const value = clean(arguments[index]);
+
+    if (isMeaningful(value)) {
+      return value;
+    }
+  }
+
+  return "";
+}
+
+function isMeaningful(value) {
+  const v = clean(value);
+  const lower = v.toLowerCase();
+
+  if (!v) return false;
+  if (v === "--") return false;
+  if (v === "-") return false;
+  if (v === "—") return false;
+  if (lower === "null") return false;
+  if (lower === "undefined") return false;
+  if (lower === "unknown") return false;
+  if (lower === "unknow") return false;
+  if (lower === "none") return false;
+  if (lower === "n/a") return false;
+  if (lower === "wifi") return false;
+  if (lower === "wlan") return false;
+  if (lower === "5g") return false;
+  if (lower === "4g") return false;
+  if (lower === "lte") return false;
+  if (lower === "nr") return false;
+
+  return true;
+}
+
+function normalizeCarrierName(value) {
+  const raw = clean(value);
+  const lower = raw.toLowerCase();
+
+  if (!raw) return "";
+
+  if (
+    raw.includes("中国移动") ||
+    lower.includes("china mobile") ||
+    lower.includes("cmcc") ||
+    lower.includes("cmnet") ||
+    lower.includes("cmi")
+  ) {
+    return "中国移动";
+  }
+
+  if (
+    raw.includes("中国联通") ||
+    lower.includes("china unicom") ||
+    lower.includes("unicom") ||
+    lower.includes("cucc")
+  ) {
+    return "中国联通";
+  }
+
+  if (
+    raw.includes("中国电信") ||
+    lower.includes("china telecom") ||
+    lower.includes("chinanet") ||
+    lower.includes("telecom") ||
+    lower.includes("ctc")
+  ) {
+    return "中国电信";
+  }
+
+  if (
+    raw.includes("中国广电") ||
+    lower.includes("china broadnet") ||
+    lower.includes("cbn") ||
+    lower.includes("broadnet") ||
+    lower.includes("broadcasting network")
+  ) {
+    return "中国广电";
+  }
+
+  return raw;
+}
+
+function carrierFromISP(value) {
+  return normalizeCarrierName(value);
+}
+
+function carrierByMCCMNC(value) {
+  const code = clean(value).replace(/\D/g, "");
+
+  const mobile = [
+    "46000",
+    "46002",
+    "46004",
+    "46007",
+    "46008"
+  ];
+
+  const unicom = [
+    "46001",
+    "46006",
+    "46009"
+  ];
+
+  const telecom = [
+    "46003",
+    "46005",
+    "46011",
+    "46012"
+  ];
+
+  const broadnet = [
+    "46015"
+  ];
+
+  if (mobile.includes(code)) return "中国移动";
+  if (unicom.includes(code)) return "中国联通";
+  if (telecom.includes(code)) return "中国电信";
+  if (broadnet.includes(code)) return "中国广电";
+
+  return "";
 }
 
 function maskIP(value) {
@@ -3069,6 +3717,450 @@ function numberOrNull(value) {
   return parsed;
 }
 
+function parseLocalExit(data, forceLocalMainland) {
+  if (!data || typeof data !== "object") {
+    return {};
+  }
+
+  const ip = clean(
+    pick(
+      data.query,
+      data.ip,
+      data.ip_address,
+      getAt(data, "location.ip")
+    )
+  );
+
+  if (!ip) {
+    return {};
+  }
+
+  const countryCodeValue = countryCode(
+    pick(
+      data.countryCode,
+      data.country_code,
+      getAt(data, "location.country_code")
+    )
+  );
+
+  const country = clean(
+    pick(
+      data.country,
+      data.country_name,
+      getAt(data, "location.country")
+    )
+  );
+
+  const region = clean(
+    pick(
+      data.regionName,
+      data.region,
+      getAt(data, "location.region")
+    )
+  );
+
+  const city = clean(
+    pick(
+      data.city,
+      getAt(data, "location.city")
+    )
+  );
+
+  const isChina =
+    countryCodeValue === "CN" ||
+    country.includes("中国") ||
+    forceLocalMainland;
+
+  const label = isChina
+    ? mainlandAreaLabel(region, city)
+    : formatLocalArea(countryCodeValue, country, region, city);
+
+  return {
+    ip: ip,
+    country: isChina ? "中国" : country,
+    countryCode: isChina ? "CN" : countryCodeValue,
+    region: region,
+    city: city,
+    isp: clean(pick(data.isp, data.org, data.organization)),
+    org: clean(data.org),
+    asname: clean(data.asname),
+    as: clean(data.as),
+    label: label
+  };
+}
+
+function mainlandAreaLabel(region, city) {
+  const label = formatLocalArea("CN", "中国", region, city);
+
+  if (!label || label === "中国") {
+    return "中国大陆";
+  }
+
+  return label;
+}
+
+function formatLocalArea(countryCodeValue, country, region, city) {
+  const cc = countryCode(countryCodeValue);
+  let r = clean(region);
+  let c = clean(city);
+
+  r = r
+    .replace(/省$/g, "")
+    .replace(/市$/g, "")
+    .replace(/壮族自治区$/g, "")
+    .replace(/回族自治区$/g, "")
+    .replace(/维吾尔自治区$/g, "")
+    .replace(/自治区$/g, "");
+
+  c = c.replace(/市$/g, "");
+
+  if (cc === "CN" || country.includes("中国")) {
+    if (["北京", "上海", "天津", "重庆"].includes(r)) {
+      return r;
+    }
+
+    if (r && c && r !== c) {
+      return r + c;
+    }
+
+    return c || r || "中国";
+  }
+
+  if (c && r && c !== r) {
+    return r + " " + c;
+  }
+
+  return c || r || country || "直连地区未知";
+}
+
+function providerFromText(value) {
+  const text = clean(value).toLowerCase();
+
+  if (!text) {
+    return { full: "", short: "" };
+  }
+
+  if (text.includes("cloudflare")) return { full: "Cloudflare DNS", short: "CF" };
+  if (text.includes("google")) return { full: "Google DNS", short: "谷歌" };
+  if (text.includes("quad9")) return { full: "Quad9 DNS", short: "Q9" };
+  if (text.includes("opendns") || text.includes("cisco")) return { full: "OpenDNS", short: "Open" };
+  if (text.includes("adguard")) return { full: "AdGuard DNS", short: "AdG" };
+  if (text.includes("nextdns")) return { full: "NextDNS", short: "Next" };
+  if (text.includes("cleanbrowsing")) return { full: "CleanBrowsing DNS", short: "Clean" };
+  if (text.includes("dns.sb")) return { full: "DNS.SB", short: "DNS.SB" };
+  if (text.includes("mullvad")) return { full: "Mullvad DNS", short: "Mull" };
+  if (text.includes("control d") || text.includes("controld")) return { full: "Control D DNS", short: "CtrlD" };
+
+  if (
+    text.includes("alidns") ||
+    text.includes("alibaba") ||
+    text.includes("aliyun") ||
+    text.includes("alicloud") ||
+    text.includes("alibaba cloud")
+  ) {
+    return { full: "AliDNS", short: "阿里" };
+  }
+
+  if (
+    text.includes("dnspod") ||
+    text.includes("tencent") ||
+    text.includes("tencent cloud")
+  ) {
+    return { full: "DNSPod", short: "腾讯" };
+  }
+
+  if (
+    text.includes("baidu") ||
+    text.includes("baidudns")
+  ) {
+    return { full: "Baidu DNS", short: "百度" };
+  }
+
+  if (
+    text.includes("360") ||
+    text.includes("qihoo")
+  ) {
+    return { full: "360 DNS", short: "360" };
+  }
+
+  if (
+    text.includes("114dns") ||
+    text.includes("114 dns") ||
+    text.includes("114.114")
+  ) {
+    return { full: "114DNS", short: "114" };
+  }
+
+  if (
+    text.includes("chinanet") ||
+    text.includes("china telecom") ||
+    text.includes("telecom") ||
+    text.includes("ctc") ||
+    text.includes("中国电信") ||
+    text.includes("电信")
+  ) {
+    return { full: "中国电信 DNS", short: "电信" };
+  }
+
+  if (
+    text.includes("china mobile") ||
+    text.includes("cmcc") ||
+    text.includes("cmnet") ||
+    text.includes("cmi") ||
+    text.includes("中国移动") ||
+    text.includes("移动")
+  ) {
+    return { full: "中国移动 DNS", short: "移动" };
+  }
+
+  if (
+    text.includes("china unicom") ||
+    text.includes("unicom") ||
+    text.includes("cucc") ||
+    text.includes("中国联通") ||
+    text.includes("联通")
+  ) {
+    return { full: "中国联通 DNS", short: "联通" };
+  }
+
+  if (
+    text.includes("cernet") ||
+    text.includes("china education") ||
+    text.includes("education network") ||
+    text.includes("中国教育") ||
+    text.includes("教育网")
+  ) {
+    return { full: "中国教育网 DNS", short: "教育" };
+  }
+
+  if (
+    text.includes("great wall broadband") ||
+    text.includes("gwbn") ||
+    text.includes("长城宽带")
+  ) {
+    return { full: "长城宽带 DNS", short: "长宽" };
+  }
+
+  if (
+    text.includes("drpeng") ||
+    text.includes("鹏博士")
+  ) {
+    return { full: "鹏博士 DNS", short: "鹏博" };
+  }
+
+  return { full: "", short: "" };
+}
+
+function compactDNSProviderName(value) {
+  const text = clean(value);
+
+  if (!text) {
+    return "未知";
+  }
+
+  const provider = providerFromText(text);
+
+  if (provider.short) {
+    return provider.short;
+  }
+
+  const lower = text.toLowerCase();
+
+  if (lower.includes("telecom")) return "电信";
+  if (lower.includes("mobile")) return "移动";
+  if (lower.includes("unicom")) return "联通";
+  if (lower.includes("education")) return "教育";
+  if (lower.includes("cloudflare")) return "CF";
+  if (lower.includes("google")) return "谷歌";
+  if (lower.includes("oracle")) return "Oracle";
+  if (lower.includes("amazon") || lower.includes("aws")) return "AWS";
+  if (lower.includes("microsoft") || lower.includes("azure")) return "Azure";
+
+  const cleaned = text
+    .replace(/^as\d+\s*/i, "")
+    .replace(/co\.,?\s*ltd\.?/ig, "")
+    .replace(/company/ig, "")
+    .replace(/limited/ig, "")
+    .replace(/inc\.?/ig, "")
+    .replace(/llc/ig, "")
+    .replace(/corporation/ig, "")
+    .replace(/network/ig, "")
+    .replace(/communications?/ig, "")
+    .replace(/internet/ig, "")
+    .replace(/technology/ig, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!cleaned) {
+    return "未知";
+  }
+
+  if (/[\u4e00-\u9fa5]/.test(cleaned)) {
+    return cleaned.slice(0, 4);
+  }
+
+  const first = cleaned.split(/[ ,，/|()]+/).filter(Boolean)[0];
+
+  if (!first) {
+    return "未知";
+  }
+
+  return first.length > 6
+    ? first.slice(0, 6)
+    : first;
+}
+
+function chooseDNSProvider(baseDNS, verifiedDNS) {
+  const base = baseDNS || {
+    full: "",
+    short: ""
+  };
+
+  const verified = verifiedDNS || {
+    ok: false,
+    full: "",
+    short: "",
+    ip: "",
+    geo: "",
+    isp: "",
+    org: "",
+    asname: "",
+    as: ""
+  };
+
+  const verifiedProvider = providerFromText(
+    [
+      verified.full,
+      verified.short,
+      verified.geo,
+      verified.ip,
+      verified.isp,
+      verified.org,
+      verified.asname,
+      verified.as
+    ].join(" ")
+  );
+
+  if (verifiedProvider.short) {
+    return verifiedProvider;
+  }
+
+  if (verified.ok && verified.short && !isWeakDNSLabel(verified.short)) {
+    return {
+      full: verified.full || verified.short,
+      short: dnsTinyLabel(verified.short)
+    };
+  }
+
+  const baseProvider = providerFromText(
+    [
+      base.full,
+      base.short
+    ].join(" ")
+  );
+
+  if (baseProvider.short) {
+    return baseProvider;
+  }
+
+  if (base.short && !isWeakDNSLabel(base.short)) {
+    return {
+      full: base.full,
+      short: dnsTinyLabel(base.short)
+    };
+  }
+
+  if (verified.ok && verified.ip) {
+    return {
+      full: verified.ip,
+      short: compactDNSProviderName(
+        verified.isp ||
+        verified.org ||
+        verified.asname ||
+        verified.as ||
+        verified.geo ||
+        verified.ip
+      )
+    };
+  }
+
+  return {
+    full: "未知 DNS",
+    short: "未知"
+  };
+}
+
+function isWeakDNSLabel(value) {
+  return [
+    "",
+    "系统",
+    "网关",
+    "自定义",
+    "自定",
+    "未知",
+    "IPv6"
+  ].includes(clean(value));
+}
+
+function dnsTinyLabel(value) {
+  const name = clean(value);
+  const provider = providerFromText(name);
+
+  if (provider.short) {
+    return provider.short;
+  }
+
+  const map = {
+    "Cloudflare": "CF",
+    "Cloudflare DNS": "CF",
+    "CF": "CF",
+    "Google": "谷歌",
+    "Google DNS": "谷歌",
+    "谷歌": "谷歌",
+    "AliDNS": "阿里",
+    "Ali": "阿里",
+    "阿里": "阿里",
+    "DNSPod": "腾讯",
+    "Pod": "腾讯",
+    "腾讯": "腾讯",
+    "OpenDNS": "Open",
+    "Open": "Open",
+    "AdGuard": "AdG",
+    "AdG": "AdG",
+    "Quad9": "Q9",
+    "Q9": "Q9",
+    "114DNS": "114",
+    "114": "114",
+    "NextDNS": "Next",
+    "Next": "Next",
+    "中国电信 DNS": "电信",
+    "电信": "电信",
+    "中国移动 DNS": "移动",
+    "移动": "移动",
+    "中国联通 DNS": "联通",
+    "联通": "联通",
+    "中国教育网 DNS": "教育",
+    "教育": "教育",
+    "网关 DNS": "网关",
+    "网关": "网关",
+    "系统": "系统",
+    "自定义": "自定",
+    "自定": "自定",
+    "未知": "未知",
+    "IPv6": "IPv6"
+  };
+
+  if (map[name]) {
+    return map[name];
+  }
+
+  if (name.length <= 4) {
+    return name;
+  }
+
+  return "未知";
+}
+
 function purityScore(exit) {
   const flags = (exit && exit.flags) || {};
   const evidence = flags.evidence || {};
@@ -3171,10 +4263,132 @@ function clean(v) {
 
 function pick() {
   for (let i = 0; i < arguments.length; i++) {
-    if (arguments[i] !== undefined && arguments[i] !== null && arguments[i] !== "") {
-      return arguments[i];
-    }
+    const v = clean(arguments[i]);
+    if (v) return v;
   }
   return "";
 }
-```[cite: 1]
+
+function getAt(obj, path) {
+  if (!obj || typeof obj !== "object") return undefined;
+  const parts = path.split(".");
+  let cur = obj;
+  for (let i = 0; i < parts.length; i++) {
+    if (cur === null || cur === undefined) return undefined;
+    cur = cur[parts[i]];
+  }
+  return cur;
+}
+
+function truthy(v) {
+  if (typeof v === "boolean") return v;
+  if (typeof v === "number") return v > 0;
+  const s = clean(v).toLowerCase();
+  return s === "true" || s === "1" || s === "yes";
+}
+
+function countryCode(v) {
+  const c = clean(v).toUpperCase();
+  return c.length === 2 ? c : "";
+}
+
+function flag(code) {
+  const cc = countryCode(code);
+  if (!cc) return "";
+  return String.fromCodePoint(...[...cc].map(c => 127397 + c.charCodeAt(0)));
+}
+
+function detectNAT(localIP, exitIP) {
+  if (!localIP || !exitIP || localIP === "未获取" || exitIP === "未识别") {
+    return { label: "未知", tone: "amber" };
+  }
+  if (localIP === exitIP) {
+    return { label: "公网IP", tone: "green" };
+  }
+  return { label: "NAT型", tone: "blue" };
+}
+
+function toneColor(tone, C) {
+  if (tone === "green") return C.green;
+  if (tone === "amber") return C.amber;
+  if (tone === "blue") return C.blue;
+  if (tone === "purple") return C.purple;
+  return C.red;
+}
+
+function shortISP(v) {
+  const s = clean(v);
+  if (!s) return "未知组织";
+  return s.length > 12 ? s.slice(0, 10) + "..." : s;
+}
+
+function timeLabel(date) {
+  const h = String(date.getHours()).padStart(2, "0");
+  const m = String(date.getMinutes()).padStart(2, "0");
+  return h + ":" + m;
+}
+
+function dateLabel(date) {
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+  return m + "月" + d + "日";
+}
+
+function gatewayLabel(v) {
+  const s = clean(v);
+  if (!s || s === "未获取") return "未知网关";
+  return s;
+}
+
+function detectScheme(ctx) {
+  return getAt(ctx, "scheme") || getAt(ctx, "colorScheme") || "dark";
+}
+
+function resolveAdaptiveColor(colorObj, scheme) {
+  if (!colorObj || typeof colorObj !== "object") return colorObj;
+  return scheme === "light" ? colorObj.light : colorObj.dark;
+}
+
+function getScreenMetric(ctx, key) {
+  return getAt(ctx, "screen." + key) || getAt(ctx, "device.screen." + key);
+}
+
+function numberInRange(v, min, max, fallback) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, n));
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, v));
+}
+
+function randomAlphaNum(len) {
+  let result = "";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < len; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function parseTrace(text) {
+  const lines = (text || "").split("\n");
+  const result = {};
+  lines.forEach(line => {
+    const eqIdx = line.indexOf("=");
+    if (eqIdx > 0) {
+      const k = line.slice(0, eqIdx).trim();
+      const v = line.slice(eqIdx + 1).trim();
+      result[k] = v;
+    }
+  });
+  return result;
+}
+
+function detectDNSProvider(servers) {
+  if (!servers || servers.length === 0) {
+    return { full: "系统默认 DNS", short: "系统" };
+  }
+  return providerFromText(servers.join(" "));
+}
