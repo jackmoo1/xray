@@ -12,13 +12,6 @@
  *
  * 策略优先级：
  * POLICY ＞ LMT / AI ＞ 单服务内置候选策略名匹配 ＞ 不指定 policy
- *
- * 单服务匹配逻辑：
- * - POLICY 为空，LMT/AI 也为空时，每个服务单独使用自己的候选策略名表
- * - 每个服务在本轮刷新中只匹配一次
- * - 匹配成功后缓存本轮结果
- * - 匹配不到时该服务不传 policy，走 Widget 默认请求方式
- * - 服务小国旗来自该服务实际使用策略的出口地区，不再复用顶部当前代理出口
  */
 
 export default async function (ctx) {
@@ -60,8 +53,7 @@ export default async function (ctx) {
   const WIDTH_SCALE = SCREEN_W / 440;
   const HEIGHT_SCALE = SCREEN_H / 956;
   const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  // 文字文本整体扩大 1.5 倍
-  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045) * 1.5;
+  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
 
   const CURRENT_PROXY = getCurrentProxyInfo(ctx);
   const NODE_PROTOCOL =
@@ -998,13 +990,13 @@ export default async function (ctx) {
 
     if (hasH3) {
       return {
-        value: "HTTP/3",
+        value: "✓/✓",
         tone: "green"
       };
     }
 
     return {
-      value: hasReachable ? "HTTP/2" : "不可用",
+      value: "×/×",
       tone: hasReachable ? "amber" : "red"
     };
   }
@@ -1402,7 +1394,7 @@ export default async function (ctx) {
                   }
                 ),
 
-                text("Egern  全面网络状态检测", 6, "medium", C.muted, {
+                text("Egern · 全面网络状态检测", 6, "medium", C.muted, {
                   maxLines: 1,
                   minScale: 0.78
                 })
@@ -1537,7 +1529,7 @@ export default async function (ctx) {
 
                 row(
                   [
-                    text(flag(localExit.countryCode) || "", 8, "regular", C.text),
+                    text(flag(localExit.countryCode) || "🇨🇳", 8, "regular", C.text),
 
                     text(localArea, 7, "medium", C.muted, {
                       maxLines: 1,
@@ -1579,7 +1571,7 @@ export default async function (ctx) {
             metricBox(
               "network",
               "IPV4/IPV6",
-              (hasIPv4 ? "4" : "-") + "/" + (hasIPv6 ? "6" : "-"),
+              (hasIPv4 ? "✓" : "×") + "/" + (hasIPv6 ? "✓" : "×"),
               hasIPv4 && hasIPv6
                 ? C.green
                 : hasIPv4
@@ -1611,7 +1603,7 @@ export default async function (ctx) {
   function flagBox() {
     return row(
       [
-        text(flag(exit.countryCode) || "", 22, "regular", C.text, {
+        text(flag(exit.countryCode) || "🌐", 22, "regular", C.text, {
           maxLines: 1,
           textAlign: "center"
         })
@@ -1701,7 +1693,7 @@ export default async function (ctx) {
               [
                 row(
                   [
-                    text(flag(exit.countryCode) || "", 7, "regular", C.text),
+                    text(flag(exit.countryCode) || "🌐", 7, "regular", C.text),
 
                     text(city, 9.2, "semibold", C.text, {
                       flex: 1,
@@ -2262,45 +2254,415 @@ function servicePolicyCandidates(serviceId, category) {
   const type = clean(category).toLowerCase();
 
   const commonLMT = [
-    "LMT", "流媒体", "流媒体解锁", "流媒体服务", "流媒体策略", "流媒体节点",
-    "全球流媒体", "国际流媒体", "国外流媒体", "海外流媒体", "全球媒体", "国际媒体",
-    "国外媒体", "海外媒体", "媒体", "媒体服务", "媒体解锁", "影音", "影音娱乐",
-    "影音解锁", "视频", "视频服务", "视频解锁", "串流", "串流媒体", "串流媒體",
-    "流媒體", "解锁", "解鎖", "国际解锁", "海外解锁", "Global Media",
-    "International Media", "Overseas Media", "Media", "Media Unlock", "Unlock Media",
-    "Streaming", "Streaming Media", "Streaming Unlock", "Global Streaming",
-    "International Streaming", "Overseas Streaming", "Proxy Media", "Stream", "Video",
-    "Video Streaming", "TV", "Movie", "Movies", "Entertainment", "NETFLIX", "Netflix",
-    "Disney", "Disney+", "YouTube", "Spotify", "Prime", "Prime Video", "TikTok", "HBO",
-    "Max", "Hulu", "Apple TV", "Apple TV+", "Emby", "Plex", "動畫瘋", "动画疯",
-    "Bahamut", "Bilibili 港澳台", "哔哩哔哩港澳台", "港台番剧", "港台"
+    "LMT",
+    "流媒体",
+    "流媒体解锁",
+    "流媒体服务",
+    "流媒体策略",
+    "流媒体节点",
+    "全球流媒体",
+    "国际流媒体",
+    "国外流媒体",
+    "海外流媒体",
+    "全球媒体",
+    "国际媒体",
+    "国外媒体",
+    "海外媒体",
+    "媒体",
+    "媒体服务",
+    "媒体解锁",
+    "影音",
+    "影音娱乐",
+    "影音解锁",
+    "视频",
+    "视频服务",
+    "视频解锁",
+    "串流",
+    "串流媒体",
+    "串流媒體",
+    "流媒體",
+    "解锁",
+    "解鎖",
+    "国际解锁",
+    "海外解锁",
+    "Global Media",
+    "International Media",
+    "Overseas Media",
+    "Media",
+    "Media Unlock",
+    "Unlock Media",
+    "Streaming",
+    "Streaming Media",
+    "Streaming Unlock",
+    "Global Streaming",
+    "International Streaming",
+    "Overseas Streaming",
+    "Proxy Media",
+    "Stream",
+    "Video",
+    "Video Streaming",
+    "TV",
+    "Movie",
+    "Movies",
+    "Entertainment",
+    "NETFLIX",
+    "Netflix",
+    "Disney",
+    "Disney+",
+    "YouTube",
+    "Spotify",
+    "Prime",
+    "Prime Video",
+    "TikTok",
+    "HBO",
+    "Max",
+    "Hulu",
+    "Apple TV",
+    "Apple TV+",
+    "Emby",
+    "Plex",
+    "動畫瘋",
+    "动画疯",
+    "Bahamut",
+    "Bilibili 港澳台",
+    "哔哩哔哩港澳台",
+    "港台番剧",
+    "港台",
+    "🎬 流媒体",
+    "📺 流媒体",
+    "🎥 流媒体",
+    "🎞 流媒体",
+    "🍿 流媒体",
+    "🎬 Streaming",
+    "📺 Streaming",
+    "🎥 Streaming",
+    "🎬 Media",
+    "📺 Media",
+    "🍿 Media"
   ];
 
   const commonAI = [
-    "AI", "Ai", "ai", "人工智能", "人工智能服务", "AI服务", "AI 服务", "AI解锁",
-    "AI 解锁", "AI平台", "AI 平台", "AI工具", "AI 工具", "AI策略", "AI 策略",
-    "AI节点", "AI 节点", "AI專用", "AI专用", "AI国外", "AI海外", "全球AI", "国际AI",
-    "国外AI", "海外AI", "AIGC", "AGI", "LLM", "OpenAI", "Open AI", "ChatGPT",
-    "Chat GPT", "GPT", "GPT4", "GPT-4", "GPT-5", "Claude", "Anthropic", "Gemini",
-    "Google AI", "Bard", "DeepSeek", "Grok", "xAI", "XAI", "Perplexity", "Copilot",
-    "Microsoft Copilot", "Poe", "Notion AI", "Midjourney", "Sora", "Cursor",
-    "AI Proxy", "AI Services", "AI Unlock", "AI Global", "Global AI",
-    "International AI", "Overseas AI", "Proxy AI"
+    "AI",
+    "Ai",
+    "ai",
+    "人工智能",
+    "人工智能服务",
+    "AI服务",
+    "AI 服务",
+    "AI解锁",
+    "AI 解锁",
+    "AI平台",
+    "AI 平台",
+    "AI工具",
+    "AI 工具",
+    "AI策略",
+    "AI 策略",
+    "AI节点",
+    "AI 节点",
+    "AI專用",
+    "AI专用",
+    "AI国外",
+    "AI海外",
+    "全球AI",
+    "国际AI",
+    "国外AI",
+    "海外AI",
+    "AIGC",
+    "AGI",
+    "LLM",
+    "OpenAI",
+    "Open AI",
+    "ChatGPT",
+    "Chat GPT",
+    "GPT",
+    "GPT4",
+    "GPT-4",
+    "GPT-5",
+    "Claude",
+    "Anthropic",
+    "Gemini",
+    "Google AI",
+    "Bard",
+    "DeepSeek",
+    "Grok",
+    "xAI",
+    "XAI",
+    "Perplexity",
+    "Copilot",
+    "Microsoft Copilot",
+    "Poe",
+    "Notion AI",
+    "Midjourney",
+    "Sora",
+    "Cursor",
+    "AI Proxy",
+    "AI Services",
+    "AI Unlock",
+    "AI Global",
+    "Global AI",
+    "International AI",
+    "Overseas AI",
+    "Proxy AI",
+    "🤖 AI",
+    "✨ AI",
+    "🧠 AI",
+    "🤖 人工智能",
+    "✨ 人工智能",
+    "🧠 人工智能"
   ];
 
   const serviceMap = {
-    netflix: ["Netflix", "NETFLIX", "NetFlix", "NF", "奈飞", "奈飛", "网飞", "網飛", "Netflix 解锁", "Netflix Unlock", "NF解锁"],
-    disney: ["Disney+", "Disney", "Disney Plus", "DisneyPlus", "D+", "DPlus", "迪士尼", "迪士尼+", "Disney 解锁", "Disney Unlock"],
-    spotify: ["Spotify", "SPOTIFY", "声破天", "聲破天", "Spotify 解锁", "Spotify Unlock", "Spotify Premium", "音乐", "Music"],
-    tiktok: ["TikTok", "Tik Tok", "TIKTOK", "TK", "抖音国际版", "抖音國際版", "国际抖音", "TikTok 解锁", "TikTok Unlock"],
-    youtube: ["YouTube", "Youtube", "YOUTUBE", "YT", "油管", "YouTube 解锁", "YouTube Unlock", "YouTube Premium", "YT Premium", "Google"],
-    prime: ["Prime", "Prime Video", "PrimeVideo", "Amazon Prime", "Amazon Video", "Amazon", "亚马逊视频", "Prime 解锁"],
-    chatgpt: ["ChatGPT", "Chat GPT", "OpenAI", "Open AI", "GPT", "GPT4", "GPT-4", "GPT5", "OpenAI 解锁", "ChatGPT 解锁"],
-    claude: ["Claude", "Anthropic", "Claude AI", "Claude 解锁", "Claude Unlock", "Anthropic 解锁"],
-    gemini: ["Gemini", "Google AI", "Bard", "Google Bard", "Gemini 解锁", "Gemini Unlock", "Google"],
-    deepseek: ["DeepSeek", "Deepseek", "DEEPSEEK", "深度求索", "DeepSeek 解锁", "DeepSeek Unlock"],
-    grok: ["Grok", "grok", "GROK", "xAI", "XAI", "X AI", "Grok 解锁", "Grok Unlock", "xAI 解锁"],
-    perplexity: ["Perplexity", "PERPLEXITY", "Perplexity AI", "Perplexity 解锁", "Perplexity Unlock", "PPLX"]
+    netflix: [
+      "Netflix",
+      "NETFLIX",
+      "NetFlix",
+      "NF",
+      "奈飞",
+      "奈飛",
+      "网飞",
+      "網飛",
+      "Netflix 解锁",
+      "Netflix 解鎖",
+      "Netflix Unlock",
+      "Netflix 专用",
+      "Netflix 專用",
+      "Netflix节点",
+      "Netflix 節点",
+      "NF解锁",
+      "NF 解锁",
+      "NF Unlock",
+      "Netflix/Disney",
+      "Netflix & Disney",
+      "Netflix Disney",
+      "奈飞节点",
+      "奈飞解锁",
+      "🎬 Netflix",
+      "🎥 Netflix",
+      "🍿 Netflix"
+    ],
+
+    disney: [
+      "Disney+",
+      "Disney",
+      "Disney Plus",
+      "DisneyPlus",
+      "D+",
+      "DPlus",
+      "迪士尼",
+      "迪士尼+",
+      "Disney 解锁",
+      "Disney+ 解锁",
+      "Disney Unlock",
+      "DisneyPlus 解锁",
+      "Disney 专用",
+      "Disney 專用",
+      "Disney 节点",
+      "Disney 節点",
+      "Disney+ 节点",
+      "Disney+ 節点",
+      "🎬 Disney+",
+      "🏰 Disney+",
+      "🎥 Disney"
+    ],
+
+    spotify: [
+      "Spotify",
+      "SPOTIFY",
+      "声破天",
+      "聲破天",
+      "Spotify 解锁",
+      "Spotify Unlock",
+      "Spotify Premium",
+      "Spotify 专用",
+      "Spotify 專用",
+      "Spotify 节点",
+      "Spotify 節点",
+      "音乐",
+      "音樂",
+      "Music",
+      "🎵 Spotify",
+      "🎧 Spotify"
+    ],
+
+    tiktok: [
+      "TikTok",
+      "Tik Tok",
+      "TIKTOK",
+      "TK",
+      "抖音国际版",
+      "抖音國際版",
+      "国际抖音",
+      "國際抖音",
+      "TikTok 解锁",
+      "TikTok Unlock",
+      "TikTok 专用",
+      "TikTok 專用",
+      "TikTok 节点",
+      "TikTok 節点",
+      "🎵 TikTok",
+      "🎬 TikTok"
+    ],
+
+    youtube: [
+      "YouTube",
+      "Youtube",
+      "YOUTUBE",
+      "YT",
+      "油管",
+      "YouTube 解锁",
+      "YouTube Unlock",
+      "YouTube Premium",
+      "YouTube Music",
+      "YT Premium",
+      "YT 解锁",
+      "YT Unlock",
+      "Google",
+      "Google YouTube",
+      "谷歌",
+      "谷歌服务",
+      "谷歌服務",
+      "Google Services",
+      "Google Service",
+      "🎬 YouTube",
+      "📺 YouTube",
+      "▶️ YouTube"
+    ],
+
+    prime: [
+      "Prime",
+      "Prime Video",
+      "PrimeVideo",
+      "Amazon Prime",
+      "Amazon Video",
+      "Amazon",
+      "亚马逊视频",
+      "亞馬遜視頻",
+      "亚马逊",
+      "亞馬遜",
+      "Prime 解锁",
+      "Prime Unlock",
+      "Prime Video 解锁",
+      "Prime Video Unlock",
+      "Prime 专用",
+      "Prime 專用",
+      "Prime 节点",
+      "Prime 節点",
+      "🎬 Prime",
+      "📺 Prime"
+    ],
+
+    chatgpt: [
+      "ChatGPT",
+      "Chat GPT",
+      "OpenAI",
+      "Open AI",
+      "GPT",
+      "GPT4",
+      "GPT-4",
+      "GPT5",
+      "GPT-5",
+      "OpenAI 解锁",
+      "ChatGPT 解锁",
+      "OpenAI Unlock",
+      "ChatGPT Unlock",
+      "OpenAI 专用",
+      "OpenAI 專用",
+      "ChatGPT 专用",
+      "ChatGPT 專用",
+      "OpenAI 节点",
+      "ChatGPT 节点",
+      "🤖 ChatGPT",
+      "🤖 OpenAI",
+      "✨ ChatGPT"
+    ],
+
+    claude: [
+      "Claude",
+      "Anthropic",
+      "Claude AI",
+      "Claude 解锁",
+      "Claude Unlock",
+      "Anthropic 解锁",
+      "Anthropic Unlock",
+      "Claude 专用",
+      "Claude 專用",
+      "Claude 节点",
+      "Claude 節点",
+      "🤖 Claude",
+      "🧠 Claude"
+    ],
+
+    gemini: [
+      "Gemini",
+      "Google AI",
+      "Bard",
+      "Google Bard",
+      "Gemini 解锁",
+      "Gemini Unlock",
+      "Google AI 解锁",
+      "Google AI Unlock",
+      "Gemini 专用",
+      "Gemini 專用",
+      "Gemini 节点",
+      "Gemini 節点",
+      "Google",
+      "谷歌",
+      "谷歌 AI",
+      "🤖 Gemini",
+      "✨ Gemini"
+    ],
+
+    deepseek: [
+      "DeepSeek",
+      "Deepseek",
+      "DEEPSEEK",
+      "深度求索",
+      "DeepSeek 解锁",
+      "DeepSeek Unlock",
+      "DeepSeek 专用",
+      "DeepSeek 專用",
+      "DeepSeek 节点",
+      "DeepSeek 節点",
+      "🤖 DeepSeek",
+      "🧠 DeepSeek"
+    ],
+
+    grok: [
+      "Grok",
+      "grok",
+      "GROK",
+      "xAI",
+      "XAI",
+      "X AI",
+      "Grok 解锁",
+      "Grok Unlock",
+      "xAI 解锁",
+      "xAI Unlock",
+      "Grok 专用",
+      "Grok 專用",
+      "Grok 节点",
+      "Grok 節点",
+      "X",
+      "Twitter AI",
+      "🤖 Grok",
+      "✨ Grok"
+    ],
+
+    perplexity: [
+      "Perplexity",
+      "PERPLEXITY",
+      "Perplexity AI",
+      "Perplexity 解锁",
+      "Perplexity Unlock",
+      "Perplexity 专用",
+      "Perplexity 專用",
+      "Perplexity 节点",
+      "Perplexity 節点",
+      "PPLX",
+      "PPLX AI",
+      "🤖 Perplexity",
+      "🔎 Perplexity"
+    ]
   };
 
   const serviceCandidates = serviceMap[id] || [];
@@ -2356,6 +2718,7 @@ function getLocalNetworkName(device) {
     cellular.networkName,
     cellular.provider,
     cellular.serviceProvider,
+
     getAt(device, "carrier"),
     getAt(device, "carrierName"),
     getAt(device, "operator"),
@@ -2428,8 +2791,21 @@ function isMeaningful(value) {
   const lower = v.toLowerCase();
 
   if (!v) return false;
-  if (v === "--" || v === "-" || v === "") return false;
-  if (["null", "undefined", "unknown", "unknow", "none", "n/a", "wifi", "wlan", "5g", "4g", "lte", "nr"].includes(lower)) return false;
+  if (v === "--") return false;
+  if (v === "-") return false;
+  if (v === "—") return false;
+  if (lower === "null") return false;
+  if (lower === "undefined") return false;
+  if (lower === "unknown") return false;
+  if (lower === "unknow") return false;
+  if (lower === "none") return false;
+  if (lower === "n/a") return false;
+  if (lower === "wifi") return false;
+  if (lower === "wlan") return false;
+  if (lower === "5g") return false;
+  if (lower === "4g") return false;
+  if (lower === "lte") return false;
+  if (lower === "nr") return false;
 
   return true;
 }
@@ -2440,19 +2816,42 @@ function normalizeCarrierName(value) {
 
   if (!raw) return "";
 
-  if (raw.includes("中国移动") || lower.includes("china mobile") || lower.includes("cmcc") || lower.includes("cmnet") || lower.includes("cmi")) {
+  if (
+    raw.includes("中国移动") ||
+    lower.includes("china mobile") ||
+    lower.includes("cmcc") ||
+    lower.includes("cmnet") ||
+    lower.includes("cmi")
+  ) {
     return "中国移动";
   }
 
-  if (raw.includes("中国联通") || lower.includes("china unicom") || lower.includes("unicom") || lower.includes("cucc")) {
+  if (
+    raw.includes("中国联通") ||
+    lower.includes("china unicom") ||
+    lower.includes("unicom") ||
+    lower.includes("cucc")
+  ) {
     return "中国联通";
   }
 
-  if (raw.includes("中国电信") || lower.includes("china telecom") || lower.includes("chinanet") || lower.includes("telecom") || lower.includes("ctc")) {
+  if (
+    raw.includes("中国电信") ||
+    lower.includes("china telecom") ||
+    lower.includes("chinanet") ||
+    lower.includes("telecom") ||
+    lower.includes("ctc")
+  ) {
     return "中国电信";
   }
 
-  if (raw.includes("中国广电") || lower.includes("china broadnet") || lower.includes("cbn") || lower.includes("broadnet") || lower.includes("broadcasting network")) {
+  if (
+    raw.includes("中国广电") ||
+    lower.includes("china broadnet") ||
+    lower.includes("cbn") ||
+    lower.includes("broadnet") ||
+    lower.includes("broadcasting network")
+  ) {
     return "中国广电";
   }
 
@@ -2466,10 +2865,30 @@ function carrierFromISP(value) {
 function carrierByMCCMNC(value) {
   const code = clean(value).replace(/\D/g, "");
 
-  const mobile = ["46000", "46002", "46004", "46007", "46008"];
-  const unicom = ["46001", "46006", "46009"];
-  const telecom = ["46003", "46005", "46011", "46012"];
-  const broadnet = ["46015"];
+  const mobile = [
+    "46000",
+    "46002",
+    "46004",
+    "46007",
+    "46008"
+  ];
+
+  const unicom = [
+    "46001",
+    "46006",
+    "46009"
+  ];
+
+  const telecom = [
+    "46003",
+    "46005",
+    "46011",
+    "46012"
+  ];
+
+  const broadnet = [
+    "46015"
+  ];
 
   if (mobile.includes(code)) return "中国移动";
   if (unicom.includes(code)) return "中国联通";
@@ -2482,7 +2901,7 @@ function carrierByMCCMNC(value) {
 function maskIP(value) {
   const raw = clean(value);
 
-  if (!raw || raw === "未获取" || raw === "" || raw === "-") {
+  if (!raw || raw === "未获取" || raw === "—" || raw === "-") {
     return raw;
   }
 
@@ -2492,7 +2911,10 @@ function maskIP(value) {
   }
 
   if (raw.includes(".")) {
-    return raw.replace(/(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}/g, "$1.$2.*.*");
+    return raw.replace(
+      /(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}/g,
+      "$1.$2.*.*"
+    );
   }
 
   if (raw.includes(":")) {
@@ -3770,152 +4192,213 @@ function purityScore(exit) {
 
   const proxyCount = Number(evidence.proxyCount || 0);
   const vpnCount = Number(evidence.vpnCount || 0);
+  const torCount = Number(evidence.torCount || 0);
+  const abuserCount = Number(evidence.abuserCount || 0);
+  const riskValue = Number(flags.risk);
 
-  if (proxyCount > 0) score -= 10;
-  if (vpnCount > 0) score -= 10;
+  const proxyVpnEvidenceCount = proxyCount + vpnCount;
 
-  return { score: Math.max(0, Math.min(100, score)) };
+  if (torCount > 0 || flags.tor) {
+    score -= 55;
+  }
+
+  if (abuserCount > 0 || flags.abuser) {
+    score -= 35;
+  }
+
+  if (proxyVpnEvidenceCount >= 2) {
+    score -= 30;
+  } else if (proxyVpnEvidenceCount === 1) {
+    score -= 16;
+  }
+
+  if (Number.isFinite(riskValue)) {
+    if (riskValue >= 80) {
+      score -= 25;
+    } else if (riskValue >= 70) {
+      score -= 20;
+    } else if (riskValue >= 40) {
+      score -= 10;
+    } else if (riskValue >= 20) {
+      score -= 4;
+    }
+  }
+
+  if (kind === "商业机房" || flags.datacenter || flags.hosting || flags.cloud) {
+    score -= 8;
+  }
+
+  if (
+    kind === "住宅 IP" &&
+    !flags.proxy &&
+    !flags.vpn &&
+    !flags.tor &&
+    !flags.abuser
+  ) {
+    score += 3;
+  }
+
+  if (
+    kind === "移动网络" &&
+    !flags.proxy &&
+    !flags.vpn &&
+    !flags.tor &&
+    !flags.abuser
+  ) {
+    score += 3;
+  }
+
+  score = Math.max(0, Math.min(100, Math.round(score)));
+
+  return {
+    score: score,
+    risk: 100 - score,
+    evidence: evidence
+  };
 }
 
 function riskLevel(exit, purity) {
-  if (purity.score >= 75) return "低风险";
-  if (purity.score >= 45) return "中风险";
+  const score = purity ? purity.score : 0;
+  if (score >= 80) return "低风险";
+  if (score >= 50) return "中风险";
   return "高风险";
 }
 
-function detectScheme(ctx) {
-  const scheme = clean(getAt(ctx, "scheme"));
-  return scheme === "dark" ? "dark" : "light";
+/* 辅助与通用工具函数 */
+
+function clean(v) {
+  if (v === null || v === undefined) return "";
+  return String(v).trim();
 }
 
-function resolveAdaptiveColor(colorObj, scheme) {
-  if (!colorObj || typeof colorObj !== "object") return colorObj;
-  return scheme === "dark" ? colorObj.dark : colorObj.light;
-}
-
-function shortISP(isp) {
-  const text = clean(isp);
-  if (!text) return "未知组织";
-  if (text.length <= 12) return text;
-  return text.slice(0, 10) + "..";
-}
-
-function gatewayLabel(gw) {
-  const text = clean(gw);
-  if (!text) return "未获取";
-  return text;
-}
-
-function toneColor(tone, C) {
-  if (tone === "green") return C.green;
-  if (tone === "amber") return C.amber;
-  if (tone === "red") return C.red;
-  return C.text;
-}
-
-function detectNAT(localIP, exitIP) {
-  if (!localIP || localIP === "未获取" || !exitIP || exitIP === "未识别") {
-    return { label: "未知", tone: "amber" };
+function pick() {
+  for (let i = 0; i < arguments.length; i++) {
+    const v = clean(arguments[i]);
+    if (v) return v;
   }
-  if (localIP === exitIP) {
-    return { label: "公网", tone: "green" };
-  }
-  return { label: "对称", tone: "amber" };
-}
-
-function detectDNSProvider(dnsServers) {
-  if (!dnsServers || dnsServers.length === 0) {
-    return { full: "系统默认", short: "系统" };
-  }
-  const ip = dnsServers[0];
-  if (ip.startsWith("1.1.1.1")) return { full: "Cloudflare", short: "CF" };
-  if (ip.startsWith("8.8.8.8")) return { full: "Google", short: "谷歌" };
-  if (ip.startsWith("223.5.5.5")) return { full: "AliDNS", short: "阿里" };
-  if (ip.startsWith("119.29.29.29")) return { full: "DNSPod", short: "腾讯" };
-  return { full: ip, short: ip };
-}
-
-function parseTrace(text) {
-  const result = {};
-  const lines = (text || "").split("\n");
-  lines.forEach(function (line) {
-    const parts = line.split("=");
-    if (parts.length === 2) {
-      result[parts[0].trim()] = parts[1].trim();
-    }
-  });
-  return result;
-}
-
-function countryCode(value) {
-  const text = clean(value).toUpperCase();
-  if (/^[A-Z]{2}$/.test(text)) return text;
   return "";
+}
+
+function getAt(obj, path) {
+  if (!obj || typeof obj !== "object") return undefined;
+  const parts = path.split(".");
+  let cur = obj;
+  for (let i = 0; i < parts.length; i++) {
+    if (cur === null || cur === undefined) return undefined;
+    cur = cur[parts[i]];
+  }
+  return cur;
+}
+
+function truthy(v) {
+  if (typeof v === "boolean") return v;
+  if (typeof v === "number") return v > 0;
+  const s = clean(v).toLowerCase();
+  return s === "true" || s === "1" || s === "yes";
+}
+
+function countryCode(v) {
+  const c = clean(v).toUpperCase();
+  return c.length === 2 ? c : "";
 }
 
 function flag(code) {
   const cc = countryCode(code);
   if (!cc) return "";
-  return String.fromCodePoint(...[...cc].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+  return String.fromCodePoint(...[...cc].map(c => 127397 + c.charCodeAt(0)));
 }
 
-function clean(value) {
-  if (value === null || value === undefined) return "";
-  return String(value).trim();
-}
-
-function pick() {
-  for (let index = 0; index < arguments.length; index += 1) {
-    const value = clean(arguments[index]);
-    if (value) return value;
+function detectNAT(localIP, exitIP) {
+  if (!localIP || !exitIP || localIP === "未获取" || exitIP === "未识别") {
+    return { label: "未知", tone: "amber" };
   }
-  return "";
-}
-
-function getAt(object, path) {
-  if (!object || typeof object !== "object") return undefined;
-  const parts = String(path).split(".");
-  let curr = object;
-  for (let index = 0; index < parts.length; index += 1) {
-    if (curr === null || curr === undefined) return undefined;
-    curr = curr[parts[index]];
+  if (localIP === exitIP) {
+    return { label: "公网IP", tone: "green" };
   }
-  return curr;
+  return { label: "NAT型", tone: "blue" };
 }
 
-function truthy(value) {
-  if (typeof value === "boolean") return value;
-  const text = clean(value).toLowerCase();
-  return text === "1" || text === "true" || text === "yes";
+function toneColor(tone, C) {
+  if (tone === "green") return C.green;
+  if (tone === "amber") return C.amber;
+  if (tone === "blue") return C.blue;
+  if (tone === "purple") return C.purple;
+  return C.red;
 }
 
-function numberInRange(val, min, max, fallback) {
-  const num = Number(val);
-  if (!Number.isFinite(num)) return fallback;
-  return Math.min(Math.max(num, min), max);
+function shortISP(v) {
+  const s = clean(v);
+  if (!s) return "未知组织";
+  return s.length > 12 ? s.slice(0, 10) + "..." : s;
 }
 
-function clamp(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-}
-
-function randomAlphaNum(len) {
-  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let res = "";
-  for (let i = 0; i < len; i += 1) {
-    res += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return res;
-}
-
-function timeLabel(d) {
-  const h = String(d.getHours()).padStart(2, "0");
-  const m = String(d.getMinutes()).padStart(2, "0");
+function timeLabel(date) {
+  const h = String(date.getHours()).padStart(2, "0");
+  const m = String(date.getMinutes()).padStart(2, "0");
   return h + ":" + m;
 }
 
-function dateLabel(d) {
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return m + "-" + day;
+function dateLabel(date) {
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+  return m + "月" + d + "日";
+}
+
+function gatewayLabel(v) {
+  const s = clean(v);
+  if (!s || s === "未获取") return "未知网关";
+  return s;
+}
+
+function detectScheme(ctx) {
+  return getAt(ctx, "scheme") || getAt(ctx, "colorScheme") || "dark";
+}
+
+function resolveAdaptiveColor(colorObj, scheme) {
+  if (!colorObj || typeof colorObj !== "object") return colorObj;
+  return scheme === "light" ? colorObj.light : colorObj.dark;
+}
+
+function getScreenMetric(ctx, key) {
+  return getAt(ctx, "screen." + key) || getAt(ctx, "device.screen." + key);
+}
+
+function numberInRange(v, min, max, fallback) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, n));
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, v));
+}
+
+function randomAlphaNum(len) {
+  let result = "";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < len; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function parseTrace(text) {
+  const lines = (text || "").split("\n");
+  const result = {};
+  lines.forEach(line => {
+    const eqIdx = line.indexOf("=");
+    if (eqIdx > 0) {
+      const k = line.slice(0, eqIdx).trim();
+      const v = line.slice(eqIdx + 1).trim();
+      result[k] = v;
+    }
+  });
+  return result;
+}
+
+function detectDNSProvider(servers) {
+  if (!servers || servers.length === 0) {
+    return { full: "系统默认 DNS", short: "系统" };
+  }
+  return providerFromText(servers.join(" "));
 }
