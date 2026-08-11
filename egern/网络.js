@@ -1,19 +1,12 @@
 /**
- * Egern「网络诊断雷达 Pro 优化版」
- *
- * 优化：保持原始刷新架构，压缩显示区域，增强稳定性
+ * Egern「网络诊断雷达」- 优化版（完整）
  *
  * 环境变量：
- * - POLICY：最高优先级。指定后，出口、延迟、UDP/QUIC、流媒体、AI 全部统一走 POLICY
- * - LMT：流媒体检测策略组。POLICY 为空时生效
- * - AI：AI 检测策略组。POLICY 为空时生效
- * - YS=1：显示 IP 的地方启用隐私打码，例如 123.123.123.123 -> 123.123.*.*
- * - YS=0 或不设置：不打码
- * - XY：手动指定协议，例如 VLESS / Trojan / HY2 / AnyTLS
- * - XY 未设置：继续按原逻辑从 Egern 上下文 / 节点元数据 / 节点名尝试识别
- *
- * 策略优先级：
- * POLICY ＞ LMT / AI ＞ 单服务内置候选策略名匹配 ＞ 不指定 policy
+ * - POLICY：最高优先级策略
+ * - LMT：流媒体检测策略组（POLICY 为空时生效）
+ * - AI：AI 检测策略组（POLICY 为空时生效）
+ * - YS=1/true/yes：启用 IP 隐私打码
+ * - XY：手动指定协议（如 VLESS / Trojan / HY2 / AnyTLS）
  */
 
 export default async function (ctx) {
@@ -25,11 +18,11 @@ export default async function (ctx) {
   const POLICY_LABEL = POLICY || "默认规则";
   const LMT_POLICY = clean(env.LMT);
   const AI_POLICY = clean(env.AI);
-  const MASK_IP = clean(env.YS) === "1";
+  const MASK_IP = envBool(env.YS);
   const FORCE_PROTOCOL = clean(env.XY);
 
-  const TIMEOUT = 4500;
-  const POLICY_PROBE_TIMEOUT = 1800;
+  const TIMEOUT = 3000;
+  const POLICY_PROBE_TIMEOUT = 1500;
   const POLICY_PROBE_BATCH_SIZE = 6;
   const REFRESH_MINUTES = 15;
   const FORCE_LOCAL_MAINLAND = true;
@@ -113,7 +106,6 @@ export default async function (ctx) {
   const device = ctx.device || {};
   const wifi = device.wifi || {};
   const ipv4 = device.ipv4 || {};
-  const ipv6 = device.ipv6 || {};
 
   const dnsServers = Array.isArray(device.dnsServers)
     ? device.dnsServers.filter(Boolean)
@@ -142,9 +134,14 @@ export default async function (ctx) {
     ) || "未获取";
 
   const hasIPv4 = Boolean(clean(localIP)) && localIP !== "未获取";
-  const hasIPv6 = Boolean(clean(pick(ipv6.address, device.ipv6Address)));
   const baseDNS = detectDNSProvider(dnsServers);
   const now = new Date();
+
+  // ---------- 辅助函数 ----------
+  function envBool(value) {
+    const v = clean(value).toLowerCase();
+    return v === "1" || v === "true" || v === "yes";
+  }
 
   function S(value) {
     if (typeof value !== "number") return value;
@@ -196,6 +193,22 @@ export default async function (ctx) {
     return resolveAdaptiveColor(value, SCHEME);
   }
 
+  // ---------- 网络请求（带重试） ----------
+  async function fetchWithRetry(url, options, retries = 2) {
+    let lastError;
+    for (let i = 0; i <= retries; i++) {
+      try {
+        return await ctx.http.get(url, options);
+      } catch (e) {
+        lastError = e;
+        if (i < retries) {
+          await new Promise(r => setTimeout(r, 300 * (i + 1)));
+        }
+      }
+    }
+    throw lastError;
+  }
+
   function requestOptions(extra) {
     const options = {
       timeout: TIMEOUT,
@@ -245,7 +258,6 @@ export default async function (ctx) {
     };
 
     const targetPolicy = clean(policy);
-
     if (targetPolicy) {
       options.policy = targetPolicy;
     }
@@ -266,7 +278,6 @@ export default async function (ctx) {
     };
 
     const targetPolicy = clean(policy);
-
     if (targetPolicy) {
       options.policy = targetPolicy;
     }
@@ -276,43 +287,34 @@ export default async function (ctx) {
 
   async function getJSON(url) {
     try {
-      const response = await ctx.http.get(url, requestOptions());
+      const response = await fetchWithRetry(url, requestOptions());
       return {
         ok: response.status >= 200 && response.status < 400,
         status: response.status,
         data: await response.json()
       };
     } catch (_) {
-      return {
-        ok: false,
-        status: 0,
-        data: null
-      };
+      return { ok: false, status: 0, data: null };
     }
   }
 
   async function getJSONDirect(url) {
     try {
-      const response = await ctx.http.get(url, directRequestOptions());
+      const response = await fetchWithRetry(url, directRequestOptions());
       return {
         ok: response.status >= 200 && response.status < 400,
         status: response.status,
         data: await response.json()
       };
     } catch (_) {
-      return {
-        ok: false,
-        status: 0,
-        data: null
-      };
+      return { ok: false, status: 0, data: null };
     }
   }
 
   async function getText(url) {
     const startedAt = Date.now();
-
     try {
-      const response = await ctx.http.get(url, requestOptions());
+      const response = await fetchWithRetry(url, requestOptions());
       return {
         ok: response.status >= 200 && response.status < 400,
         status: response.status,
@@ -331,13 +333,11 @@ export default async function (ctx) {
 
   async function getServiceStatus(url, servicePolicy) {
     const startedAt = Date.now();
-
     try {
-      const response = await ctx.http.get(
+      const response = await fetchWithRetry(
         url,
         serviceRequestOptions(servicePolicy)
       );
-
       return {
         ok: response.status >= 200 && response.status < 500,
         status: response.status,
@@ -352,6 +352,7 @@ export default async function (ctx) {
     }
   }
 
+  // ---------- 核心业务逻辑 ----------
   async function getPolicyExit(policy) {
     const targetPolicy = clean(policy);
     const key = targetPolicy || "__DEFAULT__";
@@ -377,12 +378,9 @@ export default async function (ctx) {
               })
             );
 
-            if (response.status < 200 || response.status >= 400) {
-              continue;
-            }
+            if (response.status < 200 || response.status >= 400) continue;
 
             const parsed = parsePolicyExit(await response.json());
-
             if (parsed && parsed.countryCode) {
               return parsed;
             }
@@ -468,13 +466,9 @@ export default async function (ctx) {
 
   async function probePolicy(policy) {
     const name = clean(policy);
-
-    if (!name) {
-      return false;
-    }
+    if (!name) return false;
 
     const key = name.toLowerCase();
-
     if (!policyProbeCache[key]) {
       policyProbeCache[key] = (async function () {
         const urls = POLICY_PROBE_URLS.map(function (url) {
@@ -487,13 +481,11 @@ export default async function (ctx) {
               urls[index],
               policyProbeRequestOptions(name)
             );
-
             if (response.status >= 200 && response.status < 500) {
               return true;
             }
           } catch (_) {}
         }
-
         return false;
       })();
     }
@@ -560,7 +552,6 @@ export default async function (ctx) {
     );
 
     const map = {};
-
     entries.forEach(function (entry) {
       map[entry[0]] = entry[1];
     });
@@ -619,7 +610,6 @@ export default async function (ctx) {
     }
 
     const proxyCheck = await getProxyCheck(merged.ip);
-
     if (proxyCheck && proxyCheck.ip) {
       merged = mergeExitSources([merged, proxyCheck]);
     }
@@ -678,16 +668,9 @@ export default async function (ctx) {
   }
 
   async function getDNSVerified() {
-    const results = await Promise.all([
-      probeEDNSResolver(),
-      probeEDNSResolver()
-    ]);
-
-    const valid = results.filter(function (item) {
-      return item && item.ok && item.ip;
-    });
-
-    if (valid.length === 0) {
+    // 优化：只探测一次
+    const result = await probeEDNSResolver();
+    if (!result || !result.ok || !result.ip) {
       return {
         ok: false,
         full: "",
@@ -701,16 +684,14 @@ export default async function (ctx) {
       };
     }
 
-    const primary = valid[0];
-
     const providerByText = providerFromText(
       [
-        primary.geo,
-        primary.ip,
-        primary.isp,
-        primary.org,
-        primary.asname,
-        primary.as
+        result.geo,
+        result.ip,
+        result.isp,
+        result.org,
+        result.asname,
+        result.as
       ].join(" ")
     );
 
@@ -719,49 +700,48 @@ export default async function (ctx) {
         ok: true,
         full: providerByText.full,
         short: providerByText.short,
-        ip: primary.ip,
-        geo: primary.geo,
-        isp: primary.isp,
-        org: primary.org,
-        asname: primary.asname,
-        as: primary.as
+        ip: result.ip,
+        geo: result.geo,
+        isp: result.isp,
+        org: result.org,
+        asname: result.asname,
+        as: result.as
       };
     }
 
-    const providerByIP = detectDNSProvider([primary.ip]);
-
+    const providerByIP = detectDNSProvider([result.ip]);
     if (providerByIP.short && !isWeakDNSLabel(providerByIP.short)) {
       return {
         ok: true,
         full: providerByIP.full,
         short: providerByIP.short,
-        ip: primary.ip,
-        geo: primary.geo,
-        isp: primary.isp,
-        org: primary.org,
-        asname: primary.asname,
-        as: primary.as
+        ip: result.ip,
+        geo: result.geo,
+        isp: result.isp,
+        org: result.org,
+        asname: result.asname,
+        as: result.as
       };
     }
 
     const ispLabel = compactDNSProviderName(
-      primary.isp ||
-      primary.org ||
-      primary.asname ||
-      primary.as ||
-      primary.geo
+      result.isp ||
+      result.org ||
+      result.asname ||
+      result.as ||
+      result.geo
     );
 
     return {
       ok: true,
-      full: primary.isp || primary.org || primary.asname || primary.geo || "未知 DNS",
+      full: result.isp || result.org || result.asname || result.geo || "未知 DNS",
       short: ispLabel,
-      ip: primary.ip,
-      geo: primary.geo,
-      isp: primary.isp,
-      org: primary.org,
-      asname: primary.asname,
-      as: primary.as
+      ip: result.ip,
+      geo: result.geo,
+      isp: result.isp,
+      org: result.org,
+      asname: result.asname,
+      as: result.as
     };
   }
 
@@ -815,14 +795,8 @@ export default async function (ctx) {
 
   async function getDNSResolverInfo(ip) {
     const target = clean(ip);
-
     if (!target) {
-      return {
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
+      return { isp: "", org: "", asname: "", as: "" };
     }
 
     const result = await getJSONDirect(
@@ -833,12 +807,7 @@ export default async function (ctx) {
     );
 
     if (!result.ok || !result.data || result.data.status === "fail") {
-      return {
-        isp: "",
-        org: "",
-        asname: "",
-        as: ""
-      };
+      return { isp: "", org: "", asname: "", as: "" };
     }
 
     return {
@@ -1048,6 +1017,7 @@ export default async function (ctx) {
     };
   }
 
+  // ---------- 主流程 ----------
   const [
     mediaPolicyMap,
     aiPolicyMap
@@ -1137,6 +1107,7 @@ export default async function (ctx) {
     risk === "中风险" ? C.amber :
     C.red;
 
+  // ---------- UI 构建 ----------
   function merge(base, extra) {
     return scaleStyle(Object.assign({}, base || {}, extra || {}));
   }
@@ -1493,7 +1464,6 @@ export default async function (ctx) {
     );
   }
 
-  // ------------------------- 本地网络卡片（已弃用，保留但不使用） -------------------------
   function localCard() {
     return card(
       [
@@ -1573,13 +1543,9 @@ export default async function (ctx) {
 
             metricBox(
               "network",
-              "IPV4/IPV6",
-              (hasIPv4 ? "✓" : "×") + "/" + (hasIPv6 ? "✓" : "×"),
-              hasIPv4 && hasIPv6
-                ? C.green
-                : hasIPv4
-                  ? C.amber
-                  : C.red
+              "IPv4",
+              hasIPv4 ? "✓" : "×",
+              hasIPv4 ? C.green : C.red
             ),
 
             metricBox(
@@ -1788,7 +1754,6 @@ export default async function (ctx) {
       ],
       {
         flex: 1,
-        // 移除固定高度，让内容自适应
         padding: [5, 6],
         gap: 3
       }
@@ -2133,12 +2098,11 @@ export default async function (ctx) {
     );
   }
 
-  // ---------- 主面板布局 ----------
-  // 优化：仅展示代理核心信息，保留后台检测能力
+  // 主界面（不再包含本地网络卡片）
   const dashboard = col(
     [
       header(),
-      proxyCard(),   // 直接显示代理卡片，不再与本地网络并排
+      proxyCard(),
       row(
         [
           serviceCard("流媒体解锁", "play.rectangle.fill", media, C.blue),
@@ -2153,7 +2117,6 @@ export default async function (ctx) {
       footer()
     ],
     {
-      // 优化：自适应布局，提升不同屏幕显示兼容性
       padding: [8, 8],
       gap: 6
     }
@@ -2173,6 +2136,8 @@ export default async function (ctx) {
     ]
   };
 }
+
+// ===================== 辅助函数（保持不变，但移除 IPv6 相关） =====================
 
 function palette() {
   const adaptive = (light, dark) => ({
@@ -2909,13 +2874,7 @@ function maskIP(value) {
     );
   }
 
-  if (raw.includes(":")) {
-    const parts = raw.split(":").filter(Boolean);
-    if (parts.length >= 2) {
-      return parts[0] + ":" + parts[1] + ":****:****";
-    }
-  }
-
+  // IPv6 部分已移除，保留原样（但实际不会调用）
   return raw;
 }
 
