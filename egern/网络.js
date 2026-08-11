@@ -1,20 +1,11 @@
 /**
- * Egern「网络诊断雷达」- 优化精简版1
- *
- * 环境变量：
- * - POLICY：最高优先级，统一指定策略
- * - LMT：流媒体检测策略（POLICY 为空时生效）
- * - AI：AI 检测策略（POLICY 为空时生效）
- * - YS=1：IP 隐私打码（本版已不再显示 IP，保留无影响）
- * - XY：手动指定协议，如 VLESS / Trojan / HY2 / AnyTLS
+ * Egern「网络诊断雷达」- 修复完整版
  */
 
 export default async function (ctx) {
-  // 捕获一切意外错误，防止 Widget 崩溃卡死
   try {
     return await mainLogic(ctx);
   } catch (error) {
-    // 兜底异常处理：返回错误提示组件
     const C = palette();
     return {
       type: "widget",
@@ -79,7 +70,7 @@ async function mainLogic(ctx) {
     CURRENT_PROXY.protocol ||
     "未暴露";
 
-  // ---------- 本地 IP（仅用于 NAT 检测） ----------
+  // ---------- 本地 IP ----------
   const device = ctx.device || {};
   const wifi = device.wifi || {};
   const ipv4 = device.ipv4 || {};
@@ -206,7 +197,7 @@ async function mainLogic(ctx) {
     }
   }
 
-  // ---------- 策略出口 IP 查询（缓存） ----------
+  // ---------- 策略出口 IP 查询 ----------
   async function getPolicyExit(policy) {
     const targetPolicy = clean(policy);
     const key = targetPolicy || "__DEFAULT__";
@@ -316,7 +307,7 @@ async function mainLogic(ctx) {
     return map;
   }
 
-  // ---------- 出口信息获取（合并多个源） ----------
+  // ---------- 出口信息获取 ----------
   async function getExit() {
     const sources = await Promise.all([
       getJSON("https://api.ipapi.is/?_=" + Date.now()),
@@ -569,12 +560,11 @@ async function mainLogic(ctx) {
     }
   }
 
-  // ---------- DNS 策略延迟测量（安全增强版） ----------
+  // ---------- DNS 延迟测量 ----------
   async function getDNSLatency() {
     const url = "https://1.1.1.1/cdn-cgi/trace";
     const start = Date.now();
     try {
-      // 单独设置简短超时，避免影响主瀑布流
       await ctx.http.get(url, { timeout: 2000 });
       return Math.max(1, Date.now() - start);
     } catch {
@@ -775,7 +765,6 @@ async function mainLogic(ctx) {
     return "";
   }
 
-  // 辅助判断（仅用于提取代理名时过滤无效值）
   function isMeaningful(v) {
     const s = clean(v);
     if (!s) return false;
@@ -979,7 +968,7 @@ async function mainLogic(ctx) {
     return output;
   }
 
-  // ---------- UI 构建 ----------
+  // ---------- UI 构建基础函数 ----------
   function merge(base, extra) {
     return scaleStyle(Object.assign({}, base || {}, extra || {}));
   }
@@ -1001,14 +990,6 @@ async function mainLogic(ctx) {
       width: width || 10,
       height: height || 10
     }, extra);
-  }
-
-  function rawImage(src, width, height, extra) {
-    return merge({ type: "image", src, width, height, resizable: true }, extra || {});
-  }
-
-  function svgImage(svg, width, height, extra) {
-    return rawImage(svgDataURI(svg), width, height, extra);
   }
 
   function row(children, extra) {
@@ -1050,19 +1031,6 @@ async function mainLogic(ctx) {
     ], merge({ padding: [2, 5], backgroundColor: fill, borderRadius: 8 }, extra));
   }
 
-  function proxyTagLine(value, tone, fill) {
-    return row([
-      text(value, 4.7, "semibold", tone, { maxLines: 1, minScale: 0.42, textAlign: "center" })
-    ], { width: 37, height: 7.2, padding: [0.7, 2.5], backgroundColor: fill, borderRadius: 4.8, alignItems: "center" });
-  }
-
-  function proxyTagRows(tagOne, tagTwo, toneOne, fillOne, toneTwo, fillTwo) {
-    return col([
-      proxyTagLine(tagOne, toneOne, fillOne),
-      proxyTagLine(tagTwo, toneTwo, fillTwo)
-    ], { width: 39, gap: 1, alignItems: "start" });
-  }
-
   function iconBox(symbol, tone, fill, side) {
     return row([
       image(symbol, tone, Math.round(side * 0.52), Math.round(side * 0.52))
@@ -1076,17 +1044,6 @@ async function mainLogic(ctx) {
     ];
     if (right) { children.push(spacer()); children.push(right); }
     return row(children, { gap: 3 });
-  }
-
-  function metricBox(symbol, label, value, tone, extra) {
-    const opts = extra || {};
-    return col([
-      row([
-        image(symbol, tone, 7, 7),
-        text(label, opts.labelSize || 5, "medium", C.muted, { maxLines: 1, minScale: opts.labelMinScale || 0.72, textAlign: "center" })
-      ], { gap: 1, alignItems: "center" }),
-      text(value, opts.valueSize || 6.1, "semibold", tone, { maxLines: 1, minScale: opts.valueMinScale || 0.35, textAlign: "center" })
-    ], { flex: 1, height: 24, padding: [0, 0], gap: 0, alignItems: "center" });
   }
 
   function header() {
@@ -1120,72 +1077,15 @@ async function mainLogic(ctx) {
     ], { height: 34, gap: 4 });
   }
 
-  function flagBox() {
-    return row([
-      text(flag(exit.countryCode) || "🌐", 22, "regular", C.text, { maxLines: 1, textAlign: "center" })
-    ], { width: 36, height: 36, padding: 2, backgroundColor: C.purpleSoft, borderRadius: 11 });
-  }
-
-  function scoreGauge() {
-    return svgImage(purityGaugeSVG(purity.score, {
-      track: uiColor(C.scoreTrack),
-      left: uiColor(C.scoreLeft),
-      right: uiColor(C.scoreRight),
-      glow: uiColor(C.scoreGlow),
-      text: uiColor(C.scoreLeft),
-      muted: uiColor(C.muted)
-    }), 68, 52, { borderRadius: 16 });
-  }
-
-  function purityGaugeSVG(score, colors) {
-    const value = Math.max(0, Math.min(100, Number(score) || 0));
-    const cx = 75, cy = 85, rx = 55, ry = 55;
-    const theta = Math.PI - Math.PI * value / 100;
-    const px = cx + rx * Math.cos(theta);
-    const py = cy - ry * Math.sin(theta);
-    const safeTrack = svgColor(colors.track, "#D8E1EA");
-    const safeLeft = svgColor(colors.left, "#22C96D");
-    const safeRight = svgColor(colors.right, "#E25769");
-    const safeGlow = svgColor(colors.glow, "#1AE27F");
-    const safeText = svgColor(colors.text, "#22C96D");
-    const safeMuted = svgColor(colors.muted, "#74839A");
-    const leftDash = value >= 99.9 ? "100 0" : Math.max(0.1, value).toFixed(1) + " 100";
-    return [
-      '<svg xmlns="http://www.w3.org/2000/svg" width="150" height="112" viewBox="0 0 150 112">',
-      "<defs>",
-      '<filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">',
-      '<feGaussianBlur stdDeviation="2.1" result="blur"/>',
-      "<feMerge>", '<feMergeNode in="blur"/>', '<feMergeNode in="SourceGraphic"/>', "</feMerge>",
-      "</filter>", "</defs>",
-      '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeTrack + '" stroke-width="9" stroke-linecap="round" opacity="0.75"/>',
-      '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeRight + '" stroke-width="8.2" stroke-linecap="round" opacity="0.95"/>',
-      '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeGlow + '" stroke-width="13" stroke-linecap="round" pathLength="100" stroke-dasharray="' + leftDash + '" opacity="0.16"/>',
-      '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeLeft + '" stroke-width="8.4" stroke-linecap="round" pathLength="100" stroke-dasharray="' + leftDash + '" opacity="1"/>',
-      '<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="6.5" fill="' + safeGlow + '" opacity="0.20"/>',
-      '<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="4.2" fill="' + safeLeft + '" filter="url(#softGlow)" opacity="1"/>',
-      '<text x="75" y="61" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="30" font-weight="850" fill="' + safeText + '">' + Math.round(value) + "</text>",
-      '<text x="75" y="75" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="10" font-weight="760" fill="' + safeMuted + '">/100</text>',
-      '<text x="75" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="10" font-weight="760" fill="' + safeMuted + '">纯净评分</text>',
-      "</svg>"
-    ].join("");
-  }
-
-  function svgDataURI(svg) {
-    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg).replace(/'/g, "%27").replace(/"/g, "%22");
-  }
-
-  function svgColor(value, fallback) {
-    const color = clean(value);
-    if (/^#[0-9a-fA-F]{6}$/.test(color) || /^#[0-9a-fA-F]{3}$/.test(color)) return color;
-    return fallback;
-  }
-
-  // ---------- 链路图卡片组件 ----------
-  function proxyCard() {
+  // ---------- 核心模块组件（修改：显式接收依赖参数） ----------
+  function proxyCard(exitData, latencyData, dnsMs) {
+    const safeExit = exitData || {};
+    const safeLatency = latencyData || { ok: false, ms: 0 };
+    
     const ingressLocation = extractLocation(CURRENT_PROXY.name);
     const egressLocation = {
-      flag: flag(exit.countryCode) || "🌐",
-      name: exit.city || exit.country || "未知地区"
+      flag: flag(safeExit.countryCode) || "🌐",
+      name: safeExit.city || safeExit.country || "未知地区"
     };
     const dnsLocation = {
       icon: "cloud.fill",
@@ -1193,9 +1093,9 @@ async function mainLogic(ctx) {
       tag: "智能DNS"
     };
 
-    const ingressLatency = proxyLatency.ok ? proxyLatency.ms + "ms" : "失败";
-    const egressLatency = proxyLatency.ok ? proxyLatency.ms + "ms" : "失败";
-    const dnsLatencyText = dnsLatency > 0 ? dnsLatency + "ms" : "失败";
+    const ingressLatency = safeLatency.ok ? safeLatency.ms + "ms" : "失败";
+    const egressLatency = safeLatency.ok ? safeLatency.ms + "ms" : "失败";
+    const dnsLatencyText = dnsMs > 0 ? dnsMs + "ms" : "失败";
 
     function linkCard(iconContent, title, subtitle, latencyText, latencyColor) {
       return col([
@@ -1213,7 +1113,7 @@ async function mainLogic(ctx) {
       sectionTitle(
         "arrow.triangle.2.circlepath",
         "当前代理",
-        pill(proxyLatency.ok ? "连接正常" : "检测失败", proxyLatency.ok ? C.green : C.red, proxyLatency.ok ? C.greenSoft : C.redSoft),
+        pill(safeLatency.ok ? "连接正常" : "检测失败", safeLatency.ok ? C.green : C.red, safeLatency.ok ? C.greenSoft : C.redSoft),
         C.purple
       ),
       row([
@@ -1222,16 +1122,16 @@ async function mainLogic(ctx) {
         text("DNS策略", 5.5, "medium", C.muted, { flex: 1, textAlign: "center", maxLines: 1 })
       ], { height: 10, gap: 4 }),
       row([
-        linkCard(text(ingressLocation.flag, 22, "regular", C.text), ingressLocation.name, "当前节点", ingressLatency, proxyLatency.ok ? C.green : C.red),
+        linkCard(text(ingressLocation.flag, 22, "regular", C.text), ingressLocation.name, "当前节点", ingressLatency, safeLatency.ok ? C.green : C.red),
         text("→", 14, "medium", C.muted, { width: 8, textAlign: "center" }),
-        linkCard(text(egressLocation.flag, 22, "regular", C.text), egressLocation.name, "落地出口", egressLatency, proxyLatency.ok ? C.green : C.red),
+        linkCard(text(egressLocation.flag, 22, "regular", C.text), egressLocation.name, "落地出口", egressLatency, safeLatency.ok ? C.green : C.red),
         text("→", 14, "medium", C.muted, { width: 8, textAlign: "center" }),
-        linkCard(image(dnsLocation.icon, C.blue, 18, 18), dnsLocation.name, dnsLocation.tag, dnsLatencyText, dnsLatency > 0 ? C.green : C.red)
+        linkCard(image(dnsLocation.icon, C.blue, 18, 18), dnsLocation.name, dnsLocation.tag, dnsLatencyText, dnsMs > 0 ? C.green : C.red)
       ], { height: 72, gap: 1, alignItems: "stretch" })
     ], { flex: 1, padding: [5, 6], gap: 3 });
   }
 
-  // ---------- 服务图标 ----------
+  // ---------- 服务列表组件 ----------
   function serviceLogoLarge(item) {
     const base = { width: 23, height: 23, padding: 2, backgroundColor: C.tileIconBg, borderRadius: 7 };
     if (item.kind === "spotify") return row([image("dot.radiowaves.left.and.right", item.color, 15, 15)], base);
@@ -1248,8 +1148,9 @@ async function mainLogic(ctx) {
   }
 
   function compactServiceTile(item) {
+    if (!item) return row([], { flex: 1, height: 31 });
     const statusColor = item.ok ? C.green : C.red;
-    const serviceCountryCode = countryCode(item.countryCode) || countryCode(exit.countryCode);
+    const serviceCountryCode = countryCode(item.countryCode);
     const serviceRegionLabel = serviceCountryCode ? flag(serviceCountryCode) + " " + serviceCountryCode : "NET";
     return row([
       serviceLogoLarge(item),
@@ -1264,22 +1165,24 @@ async function mainLogic(ctx) {
   }
 
   function serviceGrid(items) {
+    const safeItems = items || [];
     return col([
-      row([compactServiceTile(items[0]), compactServiceTile(items[1])], { height: 31, gap: 5 }),
-      row([compactServiceTile(items[2]), compactServiceTile(items[3])], { height: 31, gap: 5 }),
-      row([compactServiceTile(items[4]), compactServiceTile(items[5])], { height: 31, gap: 5 })
+      row([compactServiceTile(safeItems[0]), compactServiceTile(safeItems[1])], { height: 31, gap: 5 }),
+      row([compactServiceTile(safeItems[2]), compactServiceTile(safeItems[3])], { height: 31, gap: 5 }),
+      row([compactServiceTile(safeItems[4]), compactServiceTile(safeItems[5])], { height: 31, gap: 5 })
     ], { flex: 1, height: 101, gap: 4 });
   }
 
   function serviceCard(title, symbol, items, tone) {
-    const passed = items.filter(item => item.ok).length;
+    const list = items || [];
+    const passed = list.filter(item => item && item.ok).length;
     return card([
-      sectionTitle(symbol, title, pill(passed + "/" + items.length, passed === items.length ? C.green : C.amber, passed === items.length ? C.greenSoft : C.amberSoft), tone),
-      serviceGrid(items)
+      sectionTitle(symbol, title, pill(passed + "/" + list.length, passed === list.length ? C.green : C.amber, passed === list.length ? C.greenSoft : C.amberSoft), tone),
+      serviceGrid(list)
     ], { flex: 1, height: 133, padding: [5, 6], gap: 5 });
   }
 
-  // ---------- 底部 ----------
+  // ---------- 底部组件（修改：显式接收依赖参数） ----------
   function footerCell(symbol, label, value, tone) {
     return col([
       row([
@@ -1292,13 +1195,19 @@ async function mainLogic(ctx) {
     ], { flex: 1, padding: [1, 3] });
   }
 
-  function footer() {
+  function footer(exitData, purityData, riskLevelText) {
+    const safeExit = exitData || {};
+    const safePurity = purityData || { score: 0 };
+
+    const purityColor = safePurity.score >= 75 ? C.green : safePurity.score >= 45 ? C.amber : C.red;
+    const riskColor = riskLevelText === "低风险" ? C.green : riskLevelText === "中风险" ? C.amber : C.red;
+
     return card([
       row([
-        footerCell("server.rack", "ISP / 厂商", shortISP(exit.isp), C.blue),
-        footerCell("house.fill", "属性类型", exit.kind, exit.kind === "商业机房" ? C.amber : C.green),
-        footerCell("checkmark.shield.fill", "纯净评分", purity.score + "分", purityColor),
-        footerCell("shield.lefthalf.filled", "风险等级", risk, riskColor),
+        footerCell("server.rack", "ISP / 厂商", shortISP(safeExit.isp), C.blue),
+        footerCell("house.fill", "属性类型", safeExit.kind || "未知", safeExit.kind === "商业机房" ? C.amber : C.green),
+        footerCell("checkmark.shield.fill", "纯净评分", safePurity.score + "分", purityColor),
+        footerCell("shield.lefthalf.filled", "风险等级", riskLevelText, riskColor),
         footerCell("arrow.clockwise", "更新时间", timeLabel(now), C.purple)
       ], { height: 30, padding: [0, 0], gap: 0, alignItems: "center" })
     ], { height: 40, padding: [4, 5], gap: 0 });
@@ -1313,7 +1222,7 @@ async function mainLogic(ctx) {
     ["chatgpt", "claude", "gemini", "deepseek", "grok", "perplexity"], "ai"
   );
 
-  // 2. 并发执行核心检测 (增加 DNS 延迟检测)
+  // 2. 并发执行核心检测
   const [
     exit,
     proxyLatency,
@@ -1344,29 +1253,22 @@ async function mainLogic(ctx) {
     ])
   ]);
 
-  // 3. 计算相关指标
-  const nat = detectNAT(localIP, exit.ip);
+  // 3. 计算网络及安全状态指标
   const purity = purityScore(exit);
   const risk = riskLevel(exit, purity);
 
-  const proxyLatencyColor = proxyLatency.ok ? (proxyLatency.ms <= 220 ? C.green : C.amber) : C.red;
-  const natColor = toneColor(nat.tone, C);
-  const quicColor = toneColor(quic.tone, C);
-  const purityColor = purity.score >= 75 ? C.green : purity.score >= 45 ? C.amber : C.red;
-  const riskColor = risk === "低风险" ? C.green : risk === "中风险" ? C.amber : C.red;
-
-  // 4. 构建面板
+  // 4. 构建面板 UI（正确注入数据）
   const dashboard = col([
     header(),
-    proxyCard(),
+    proxyCard(exit, proxyLatency, dnsLatency),
     row([
       serviceCard("流媒体解锁", "play.rectangle.fill", media, C.blue),
       serviceCard("AI 解锁检测", "sparkles", ai, C.purple)
     ], { height: 133, gap: 6, alignItems: "start" }),
-    footer()
+    footer(exit, purity, risk)
   ], { padding: [8, 8], gap: 6 });
 
-  // 5. 返回 widget
+  // 5. 返回小组件
   return {
     type: "widget",
     padding: S(8),
@@ -1393,11 +1295,6 @@ function palette() {
     tileBg: adaptive("#EDF3FC", "#162238"),
     tileIconBg: adaptive("#DFE9F8", "#1D3154"),
     tileBorder: adaptive("#B7C8E6", "#2E4876"),
-    scoreTrack: adaptive("#D8E1EA", "#273045"),
-    scoreGlow: adaptive("#1AE27F", "#1AE27F"),
-    scoreLeft: adaptive("#22C96D", "#3BE28A"),
-    scoreRight: adaptive("#E25769", "#FF627A"),
-    footerDivider: adaptive("#C7D2E6", "#32486D"),
     text: adaptive("#18253F", "#F1F5FF"),
     subtext: adaptive("#4E617F", "#BBC8E0"),
     muted: adaptive("#74839A", "#8694AE"),
