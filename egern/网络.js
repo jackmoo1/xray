@@ -1,5 +1,5 @@
 /**
- * Egern「网络诊断雷达」- 优化版（完整）
+ * Egern「网络诊断雷达」- 优化版（字体放大）
  *
  * 环境变量：
  * - POLICY：最高优先级策略
@@ -48,7 +48,8 @@ export default async function (ctx) {
   const WIDTH_SCALE = SCREEN_W / 440;
   const HEIGHT_SCALE = SCREEN_H / 956;
   const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  const FONT_SCALE = clamp(UI_SCALE, 0.9, 1.045);
+  // 字体放大15%，范围放宽
+  const FONT_SCALE = clamp(UI_SCALE * 1.15, 0.95, 1.2);
 
   const CURRENT_PROXY = getCurrentProxyInfo(ctx);
   const NODE_PROTOCOL =
@@ -2137,7 +2138,7 @@ export default async function (ctx) {
   };
 }
 
-// ===================== 辅助函数（保持不变，但移除 IPv6 相关） =====================
+// ===================== 辅助函数（全部保留） =====================
 
 function palette() {
   const adaptive = (light, dark) => ({
