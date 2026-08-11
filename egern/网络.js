@@ -47,9 +47,11 @@ export default async function (ctx) {
 
   const WIDTH_SCALE = SCREEN_W / 440;
   const HEIGHT_SCALE = SCREEN_H / 956;
-  const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.9, 1.06);
-  // 字体放大15%，范围放宽
-  const FONT_SCALE = clamp(UI_SCALE * 1.15, 0.95, 1.2);
+  
+  // 优化点：适度放开 UI 缩放的上限（原 1.06 -> 1.15），避免字体变大后撑爆 UI 组件触发强行缩小
+  const UI_SCALE = clamp(WIDTH_SCALE * 0.88 + HEIGHT_SCALE * 0.12, 0.95, 1.15);
+  // 优化点：字体放大系数由 1.15 提升至 1.35，最大值放宽至 1.45
+  const FONT_SCALE = clamp(UI_SCALE * 1.35, 1.1, 1.45);
 
   const CURRENT_PROXY = getCurrentProxyInfo(ctx);
   const NODE_PROTOCOL =
@@ -2214,529 +2216,785 @@ function getLocalNetworkName(device) {
 function firstMeaningful() {
   for (let index = 0; index < arguments.length; index += 1) {
     const value = clean(arguments[index]);
-    if (isMeaningful(value)) return value;
+    if (value && value.toLowerCase() !== "unknown" && value.length > 0) {
+      return value;
+    }
   }
   return "";
 }
 
-function isMeaningful(value) {
-  const v = clean(value);
-  const lower = v.toLowerCase();
+function normalizeCarrierName(name) {
+  if (!name) return "";
 
-  if (!v || v === "--" || v === "-" || v === "—") return false;
-  if (["null", "undefined", "unknown", "unknow", "none", "n/a", "wifi", "wlan", "5g", "4g", "lte", "nr"].includes(lower)) {
-    return false;
-  }
-  return true;
-}
+  const text = name.trim();
+  const lower = text.toLowerCase();
 
-function normalizeCarrierName(value) {
-  const raw = clean(value);
-  const lower = raw.toLowerCase();
-
-  if (!raw) return "";
-  if (raw.includes("中国移动") || lower.includes("china mobile") || lower.includes("cmcc")) return "中国移动";
-  if (raw.includes("中国联通") || lower.includes("china unicom") || lower.includes("unicom")) return "中国联通";
-  if (raw.includes("中国电信") || lower.includes("china telecom") || lower.includes("telecom")) return "中国电信";
-  if (raw.includes("中国广电") || lower.includes("china broadnet") || lower.includes("cbn")) return "中国广电";
-
-  return raw;
-}
-
-function carrierFromISP(value) {
-  return normalizeCarrierName(value);
-}
-
-function carrierByMCCMNC(value) {
-  const code = clean(value).replace(/\D/g, "");
-
-  const mobile = ["46000", "46002", "46004", "46007", "46008"];
-  const unicom = ["46001", "46006", "46009"];
-  const telecom = ["46003", "46005", "46011", "46012"];
-  const broadnet = ["46015"];
-
-  if (mobile.includes(code)) return "中国移动";
-  if (unicom.includes(code)) return "中国联通";
-  if (telecom.includes(code)) return "中国电信";
-  if (broadnet.includes(code)) return "中国广电";
-
-  return "";
-}
-
-function maskIP(value) {
-  const raw = clean(value);
-  if (!raw || raw === "未获取" || raw === "—" || raw === "-") return raw;
-
-  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(raw)) {
-    const parts = raw.split(".");
-    return parts[0] + "." + parts[1] + ".*.*";
-  }
-  return raw;
-}
-
-function purityGaugeSVG(score, colors) {
-  const value = Math.max(0, Math.min(100, Number(score) || 0));
-
-  const cx = 75;
-  const cy = 85;
-  const rx = 55;
-  const ry = 55;
-
-  const theta = Math.PI - Math.PI * value / 100;
-  const px = cx + rx * Math.cos(theta);
-  const py = cy - ry * Math.sin(theta);
-
-  const safeTrack = svgColor(colors.track, "#D8E1EA");
-  const safeLeft = svgColor(colors.left, "#22C96D");
-  const safeRight = svgColor(colors.right, "#E25769");
-  const safeGlow = svgColor(colors.glow, "#1AE27F");
-  const safeText = svgColor(colors.text, "#22C96D");
-  const safeMuted = svgColor(colors.muted, "#74839A");
-
-  const leftDash = value >= 99.9 ? "100 0" : Math.max(0.1, value).toFixed(1) + " 100";
-
-  return [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="150" height="112" viewBox="0 0 150 112">',
-    "<defs>",
-    '<filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">',
-    '<feGaussianBlur stdDeviation="2.1" result="blur"/>',
-    "<feMerge>",
-    '<feMergeNode in="blur"/>',
-    '<feMergeNode in="SourceGraphic"/>',
-    "</feMerge>",
-    "</filter>",
-    "</defs>",
-    '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeTrack + '" stroke-width="9" stroke-linecap="round" opacity="0.75"/>',
-    '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeRight + '" stroke-width="8.2" stroke-linecap="round" opacity="0.95"/>',
-    '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeGlow + '" stroke-width="13" stroke-linecap="round" pathLength="100" stroke-dasharray="' + leftDash + '" opacity="0.16"/>',
-    '<path d="M20 85 A55 55 0 0 1 130 85" fill="none" stroke="' + safeLeft + '" stroke-width="8.4" stroke-linecap="round" pathLength="100" stroke-dasharray="' + leftDash + '" opacity="1"/>',
-    '<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="6.5" fill="' + safeGlow + '" opacity="0.20"/>',
-    '<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="4.2" fill="' + safeLeft + '" filter="url(#softGlow)" opacity="1"/>',
-    '<text x="75" y="61" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="30" font-weight="850" fill="' + safeText + '">' + Math.round(value) + "</text>",
-    '<text x="75" y="75" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="10" font-weight="760" fill="' + safeMuted + '">/100</text>',
-    '<text x="75" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="10" font-weight="760" fill="' + safeMuted + '">纯净评分</text>',
-    "</svg>"
-  ].join("");
-}
-
-function svgDataURI(svg) {
-  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg).replace(/'/g, "%27").replace(/"/g, "%22");
-}
-
-function svgColor(value, fallback) {
-  const color = clean(value);
-  if (/^#[0-9a-fA-F]{6}$/.test(color) || /^#[0-9a-fA-F]{3}$/.test(color)) return color;
-  return fallback;
-}
-
-function getCurrentProxyInfo(ctx) {
-  const proxyName = clean(
-    pick(
-      getAt(ctx, "node.name"),
-      getAt(ctx, "proxy.name"),
-      getAt(ctx, "currentProxy.name"),
-      getAt(ctx, "selectedProxy.name"),
-      findProxyNameInObject(ctx)
-    )
-  );
-
-  const rawProtocol = clean(
-    pick(
-      getAt(ctx, "node.protocol"),
-      getAt(ctx, "node.type"),
-      getAt(ctx, "proxy.protocol"),
-      findProtocolInObject(ctx)
-    )
-  );
-
-  return {
-    name: proxyName,
-    protocol: normalizeProxyProtocol(rawProtocol) || normalizeProxyProtocol(proxyName)
-  };
-}
-
-function findProtocolInObject(object) {
-  const found = [];
-  const seen = [];
-
-  function walk(value, path, depth) {
-    if (depth > 5 || !value || typeof value !== "object" || seen.indexOf(value) >= 0) return;
-    seen.push(value);
-
-    Object.keys(value).forEach(function (key) {
-      const next = value[key];
-      if (typeof next === "string") {
-        const protocol = normalizeProxyProtocol(next);
-        if (protocol) found.push(protocol);
-      } else if (next && typeof next === "object") {
-        walk(next, path + "." + key, depth + 1);
-      }
-    });
-  }
-
-  walk(object, "", 0);
-  return found[0] || "";
-}
-
-function findProxyNameInObject(object) {
-  const found = [];
-  const seen = [];
-
-  function walk(value, path, depth) {
-    if (depth > 5 || !value || typeof value !== "object" || seen.indexOf(value) >= 0) return;
-    seen.push(value);
-
-    Object.keys(value).forEach(function (key) {
-      const next = value[key];
-      if (typeof next === "string" && isMeaningful(next) && key.toLowerCase().includes("name")) {
-        found.push(next);
-      } else if (next && typeof next === "object") {
-        walk(next, path + "." + key, depth + 1);
-      }
-    });
-  }
-
-  walk(object, "", 0);
-  return found[0] || "";
-}
-
-function protocolFromXY(value) {
-  const raw = clean(value);
-  return raw ? (normalizeProxyProtocol(raw) || raw) : "";
-}
-
-function normalizeProxyProtocol(value) {
-  const raw = clean(value);
-  const text = raw.toLowerCase();
-  if (!text) return "";
-
-  const checks = [
-    [/vless/, "VLESS"], [/vmess/, "VMESS"], [/trojan/, "Trojan"],
-    [/shadowsocks\s*r|ssr/, "SSR"], [/shadowsocks|(^|\s)ss($|\s)/, "SS"],
-    [/hysteria\s*2|hy2/, "HY2"], [/hysteria/, "Hysteria"],
-    [/tuic/, "TUIC"], [/snell/, "Snell"], [/any\s*tls|anytls/, "AnyTLS"],
-    [/wireguard|(^|\s)wg($|\s)/, "WireGuard"], [/socks\s*5|socks5/, "SOCKS5"],
-    [/http\s*2|h2/, "HTTP/2"], [/https/, "HTTPS"], [/http/, "HTTP"]
+  const rules = [
+    { match: ["cmcc", "chinamobile", "china mobile"], replace: "中国移动" },
+    { match: ["cucc", "chinaunicom", "china unicom"], replace: "中国联通" },
+    { match: ["ctcc", "chinatelecom", "china telecom"], replace: "中国电信" },
+    { match: ["cbn", "chinabroadnet", "china broadnet"], replace: "中国广电" },
+    { match: ["csl"], replace: "CSL" },
+    { match: ["smartone"], replace: "SmarTone" },
+    { match: ["3hk", "3 hk", "three hk", "hutchison"], replace: "3 HK" },
+    { match: ["hkcsl", "csl hk"], replace: "CSL" },
+    { match: ["cmhk", "china mobile hk"], replace: "CMHK" },
+    { match: ["cht", "chunghwa"], replace: "中华电信" },
+    { match: ["taiwan mobile", "twm"], replace: "台湾大哥大" },
+    { match: ["fet", "fareastone"], replace: "远传电信" },
+    { match: ["t star", "tstar"], replace: "台湾之星" }
   ];
 
-  for (let index = 0; index < checks.length; index += 1) {
-    if (checks[index][0].test(text)) {
-      return checks[index][1];
+  for (let index = 0; index < rules.length; index += 1) {
+    const rule = rules[index];
+    for (let k = 0; k < rule.match.length; k += 1) {
+      if (lower.includes(rule.match[k]) || lower === rule.match[k]) {
+        return rule.replace;
+      }
+    }
+  }
+
+  return text;
+}
+
+function carrierByMCCMNC(code) {
+  if (!code) return "";
+  const match = String(code).replace(/[^0-9]/g, "");
+
+  const lookup = {
+    "46000": "中国移动",
+    "46001": "中国联通",
+    "46002": "中国移动",
+    "46003": "中国电信",
+    "46004": "中国移动",
+    "46005": "中国电信",
+    "46006": "中国联通",
+    "46007": "中国移动",
+    "46008": "中国移动",
+    "46009": "中国联通",
+    "46011": "中国电信",
+    "46015": "中国广电",
+    "45400": "CSL",
+    "45401": "CITIC",
+    "45402": "CSL",
+    "45403": "3 HK",
+    "45404": "3 HK",
+    "45405": "3 HK",
+    "45406": "SmarTone",
+    "45407": "China Unicom HK",
+    "45408": "Truphone",
+    "45409": "China Unicom HK",
+    "45410": "CSL",
+    "45411": "China Unicom HK",
+    "45412": "CMHK",
+    "45413": "CMHK",
+    "45414": "Hutchison",
+    "45415": "SmarTone",
+    "45416": "PCCW",
+    "45417": "SmarTone",
+    "45418": "CSL",
+    "45419": "PCCW",
+    "45420": "PCCW",
+    "45428": "CMHK",
+    "45429": "CMHK",
+    "45431": "CMHK",
+    "46601": "远传电信",
+    "46602": "亚太电信",
+    "46603": "远传电信",
+    "46605": "亚太电信",
+    "46609": "亚太电信",
+    "46611": "中华电信",
+    "46688": "远传电信",
+    "46689": "台湾之星",
+    "46692": "中华电信",
+    "46693": "中华电信",
+    "46697": "台湾大哥大",
+    "46699": "台湾大哥大"
+  };
+
+  return lookup[match] || "";
+}
+
+function carrierFromISP(text) {
+  if (!text) return "";
+  const lower = text.toLowerCase();
+
+  const rules = [
+    { match: ["chinamobile", "china mobile", "cmcc"], replace: "中国移动" },
+    { match: ["chinaunicom", "china unicom", "cucc"], replace: "中国联通" },
+    { match: ["chinatelecom", "china telecom", "ctcc"], replace: "中国电信" },
+    { match: ["chinabroadnet", "china broadnet", "cbn"], replace: "中国广电" },
+    { match: ["csl"], replace: "CSL" },
+    { match: ["smartone"], replace: "SmarTone" },
+    { match: ["3hk", "3 hk", "three hk", "hutchison"], replace: "3 HK" },
+    { match: ["hkcsl", "csl hk"], replace: "CSL" },
+    { match: ["cmhk", "china mobile hk"], replace: "CMHK" },
+    { match: ["chunghwa", "cht"], replace: "中华电信" },
+    { match: ["taiwan mobile", "twm"], replace: "台湾大哥大" },
+    { match: ["fareastone", "fet"], replace: "远传电信" },
+    { match: ["t star", "tstar"], replace: "台湾之星" }
+  ];
+
+  for (let index = 0; index < rules.length; index += 1) {
+    const rule = rules[index];
+    for (let k = 0; k < rule.match.length; k += 1) {
+      if (lower.includes(rule.match[k])) {
+        return rule.replace;
+      }
     }
   }
 
   return "";
+}
+
+function detectDNSProvider(ips) {
+  if (!ips || ips.length === 0) return { full: "", short: "" };
+
+  for (let index = 0; index < ips.length; index += 1) {
+    const ip = clean(ips[index]);
+
+    const rules = [
+      { prefix: ["223.5.5.5", "223.6.6.6", "2400:3200::1", "2400:3200:baba::1"], full: "AliDNS (阿里)", short: "阿里" },
+      { prefix: ["119.29.29.29", "119.28.28.28", "2402:4e00::"], full: "DNSPod (腾讯)", short: "腾讯" },
+      { prefix: ["180.76.76.76", "2400:da00::6666"], full: "BaiduDNS (百度)", short: "百度" },
+      { prefix: ["114.114.114.114", "114.114.115.115"], full: "114DNS (南京信风)", short: "114" },
+      { prefix: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"], full: "Cloudflare (1.1.1.1)", short: "CF" },
+      { prefix: ["8.8.8.8", "8.8.4.4", "2001:4860:4860::8888", "2001:4860:4860::8844"], full: "Google DNS (8.8.8.8)", short: "Google" },
+      { prefix: ["208.67.222.222", "208.67.220.220", "2620:119:35::35", "2620:119:53::53"], full: "OpenDNS", short: "OpenDNS" },
+      { prefix: ["9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9"], full: "Quad9", short: "Quad9" },
+      { prefix: ["94.140.14.14", "94.140.15.15", "2a10:50c0::ad1:ff", "2a10:50c0::ad2:ff"], full: "AdGuard", short: "AdGuard" }
+    ];
+
+    for (let k = 0; k < rules.length; k += 1) {
+      const rule = rules[k];
+      for (let j = 0; j < rule.prefix.length; j += 1) {
+        if (ip.startsWith(rule.prefix[j])) {
+          return { full: rule.full, short: rule.short };
+        }
+      }
+    }
+
+    if (ip.startsWith("192.168.") || ip.startsWith("10.") || ip.startsWith("172.")) {
+      return { full: "Local Router (" + ip + ")", short: "路由" };
+    }
+  }
+
+  return { full: "Unknown (" + clean(ips[0]) + ")", short: "" };
+}
+
+function providerFromText(text) {
+  if (!text) return { full: "", short: "" };
+  const lower = text.toLowerCase();
+
+  const rules = [
+    { match: ["aliyun", "alibaba", "taobao", "alipay"], full: "AliDNS (阿里)", short: "阿里" },
+    { match: ["tencent", "dnspod", "wechat"], full: "DNSPod (腾讯)", short: "腾讯" },
+    { match: ["baidu"], full: "BaiduDNS (百度)", short: "百度" },
+    { match: ["114dns", "xinnet", "xinfeng"], full: "114DNS (南京信风)", short: "114" },
+    { match: ["cloudflare"], full: "Cloudflare (1.1.1.1)", short: "CF" },
+    { match: ["google"], full: "Google DNS (8.8.8.8)", short: "Google" },
+    { match: ["opendns", "cisco"], full: "OpenDNS", short: "OpenDNS" },
+    { match: ["quad9"], full: "Quad9", short: "Quad9" },
+    { match: ["adguard"], full: "AdGuard", short: "AdGuard" },
+    { match: ["telecom", "chinatelecom", "ctcc"], full: "China Telecom (中国电信)", short: "电信" },
+    { match: ["unicom", "chinaunicom", "cucc"], full: "China Unicom (中国联通)", short: "联通" },
+    { match: ["mobile", "chinamobile", "cmcc"], full: "China Mobile (中国移动)", short: "移动" },
+    { match: ["broadnet", "cbn"], full: "China Broadnet (中国广电)", short: "广电" },
+    { match: ["amazon", "aws"], full: "AWS DNS", short: "AWS" },
+    { match: ["microsoft", "azure"], full: "Azure DNS", short: "Azure" }
+  ];
+
+  for (let index = 0; index < rules.length; index += 1) {
+    const rule = rules[index];
+    for (let k = 0; k < rule.match.length; k += 1) {
+      if (lower.includes(rule.match[k])) {
+        return { full: rule.full, short: rule.short };
+      }
+    }
+  }
+
+  return { full: "", short: "" };
+}
+
+function isWeakDNSLabel(label) {
+  const weak = {
+    "电信": true,
+    "联通": true,
+    "移动": true,
+    "广电": true
+  };
+  return Boolean(weak[label]);
+}
+
+function compactDNSProviderName(text) {
+  if (!text) return "未识别";
+  const name = String(text);
+
+  if (name.length <= 4) return name;
+  if (name.toLowerCase().includes("telecom")) return "电信";
+  if (name.toLowerCase().includes("unicom")) return "联通";
+  if (name.toLowerCase().includes("mobile")) return "移动";
+  if (name.toLowerCase().includes("broadnet")) return "广电";
+
+  return name.substring(0, 4);
+}
+
+function chooseDNSProvider(base, verified) {
+  if (!verified.ok || !verified.short) {
+    return {
+      full: base.full || "未识别 DNS",
+      short: base.short || "未知"
+    };
+  }
+
+  if (base.short && !isWeakDNSLabel(base.short)) {
+    return {
+      full: base.full,
+      short: base.short
+    };
+  }
+
+  return {
+    full: verified.full,
+    short: verified.short
+  };
+}
+
+function dnsTinyLabel(text) {
+  if (!text) return "未知";
+  const str = String(text);
+
+  const rules = {
+    "阿里": "ALI",
+    "腾讯": "TX",
+    "百度": "BD",
+    "电信": "TC",
+    "联通": "UC",
+    "移动": "MB",
+    "广电": "BN",
+    "路由": "LAN",
+    "CF": "CF",
+    "Google": "GOOG",
+    "OpenDNS": "ODNS",
+    "Quad9": "Q9",
+    "AdGuard": "ADG",
+    "AWS": "AWS",
+    "Azure": "AZ"
+  };
+
+  if (rules[str]) return rules[str];
+  return str.substring(0, 3).toUpperCase();
+}
+
+function protocolFromXY(value) {
+  const v = clean(value);
+  if (!v) return "";
+
+  const match = String(v).replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+
+  const rules = {
+    "VLESS": "VLESS",
+    "VMESS": "VMess",
+    "TROJAN": "Trojan",
+    "SHADOWSOCKS": "Shadowsocks",
+    "SS": "Shadowsocks",
+    "SHADOWSOCKSR": "ShadowsocksR",
+    "SSR": "ShadowsocksR",
+    "HYSTERIA": "Hysteria",
+    "HYSTERIA2": "Hysteria2",
+    "HY2": "Hysteria2",
+    "WIREGUARD": "WireGuard",
+    "WG": "WireGuard",
+    "TUIC": "TUIC",
+    "SNELL": "Snell",
+    "HTTP": "HTTP",
+    "HTTPS": "HTTPS",
+    "SOCKS": "SOCKS",
+    "SOCKS5": "SOCKS5",
+    "ANYTLS": "AnyTLS",
+    "DIRECT": "直连",
+    "REJECT": "拒绝"
+  };
+
+  if (rules[match]) return rules[match];
+
+  if (match.length <= 6) return String(v).toUpperCase();
+  return String(v).substring(0, 6) + "...";
+}
+
+function parseLocalExit(data, forceMainland) {
+  if (!data || typeof data !== "object") return {};
+
+  let ip = clean(data.query) || clean(data.ip) || clean(data.ip_address);
+  if (!ip) return {};
+
+  let countryCode = countryCode(data.countryCode) || countryCode(data.country_code);
+
+  if (forceMainland && countryCode && countryCode !== "CN") {
+    countryCode = "CN";
+  }
+
+  return {
+    ip: ip,
+    city: clean(data.city),
+    region: clean(data.regionName) || clean(data.region),
+    country: clean(data.country) || clean(data.country_name),
+    countryCode: countryCode,
+    isp: clean(data.isp),
+    org: clean(data.org),
+    asname: clean(data.asname),
+    as: clean(data.as)
+  };
 }
 
 function parseExitSource(data, sourceName) {
   if (!data || typeof data !== "object") return {};
 
-  const ip = clean(pick(data.ip, data.query, data.ip_address, getAt(data, "location.ip")));
-  if (!ip) return {};
+  let ip = "";
+  let city = "";
+  let region = "";
+  let country = "";
+  let cc = "";
+  let isp = "";
+  let org = "";
+  let asname = "";
+  let as = "";
+  let proxy = false;
+  let hosting = false;
 
-  const isp = clean(pick(getAt(data, "company.name"), data.isp, data.org, "未知组织"));
-  const cloud = cloudProviderFromText([isp, data.org, data.as].join(" "));
+  if (sourceName === "ipapi.is") {
+    ip = clean(data.ip);
+    const loc = data.location || {};
+    const orgData = data.company || {};
+    const asnData = data.asn || {};
 
-  const flags = {
-    datacenter: truthy(pick(data.is_datacenter, data.hosting)) || cloud.hit,
-    hosting: truthy(pick(data.hosting, data.is_hosting)) || cloud.hit,
-    cloud: cloud.hit,
-    proxy: truthy(pick(data.proxy, data.is_proxy)),
-    vpn: truthy(data.is_vpn),
-    tor: truthy(data.is_tor),
-    abuser: truthy(data.is_abuser),
-    mobile: truthy(data.mobile),
-    residential: false,
-    risk: numberOrNull(pick(data.risk, getAt(data, "security.risk")))
-  };
+    city = clean(loc.city);
+    region = clean(loc.state);
+    country = clean(loc.country);
+    cc = countryCode(loc.country_code);
 
-  const rawCountry = clean(pick(getAt(data, "location.country"), data.country_name, data.country));
+    isp = clean(asnData.descr);
+    org = clean(orgData.name);
+    asname = clean(asnData.descr);
+    as = asnData.asn ? "AS" + asnData.asn : "";
+
+    proxy = data.is_vpn || data.is_proxy || data.is_tor || data.is_abuser || data.is_bogon;
+    hosting = data.is_datacenter;
+  } else if (sourceName === "ip-api") {
+    ip = clean(data.query);
+    city = clean(data.city);
+    region = clean(data.regionName);
+    country = clean(data.country);
+    cc = countryCode(data.countryCode);
+    isp = clean(data.isp);
+    org = clean(data.org);
+    asname = clean(data.asname);
+    as = clean(data.as);
+    proxy = Boolean(data.proxy);
+    hosting = Boolean(data.hosting);
+  } else if (sourceName === "ipwho.is") {
+    ip = clean(data.ip);
+    city = clean(data.city);
+    region = clean(data.region);
+    country = clean(data.country);
+    cc = countryCode(data.country_code);
+
+    const con = data.connection || {};
+    isp = clean(con.isp);
+    org = clean(con.org);
+    asname = clean(con.domain);
+    as = con.asn ? "AS" + con.asn : "";
+
+    const sec = data.security || {};
+    proxy = sec.vpn || sec.proxy || sec.tor || sec.relay;
+    hosting = sec.hosting;
+  } else if (sourceName === "ipinfo") {
+    ip = clean(data.ip);
+    city = clean(data.city);
+    region = clean(data.region);
+    country = clean(data.country);
+    cc = countryCode(data.country);
+    isp = clean(data.org);
+    org = clean(data.org);
+    asname = "";
+    as = "";
+
+    const priv = data.privacy || {};
+    proxy = priv.vpn || priv.proxy || priv.tor || priv.relay;
+    hosting = priv.hosting;
+  }
 
   return {
-    source: sourceName || "",
     ip: ip,
-    city: clean(pick(getAt(data, "location.city"), data.city, "未知城市")),
-    region: clean(pick(getAt(data, "location.region"), data.regionName, data.region)),
-    country: rawCountry.length === 2 ? "" : rawCountry,
-    countryCode: countryCode(pick(getAt(data, "location.country_code"), data.countryCode, rawCountry)),
-    isp: cloud.name || isp,
-    cloudProvider: cloud.name,
-    kind: classifyExitKind(flags),
-    flags: flags
-  };
-}
-
-function parseProxyCheck(data, ip) {
-  if (!data || typeof data !== "object") return null;
-
-  const target = clean(ip);
-  const keys = Object.keys(data);
-  const fallbackKey = keys.find(k => k !== "status" && k !== "message");
-  const item = data[target] || data[fallbackKey];
-
-  if (!item || typeof item !== "object") return null;
-
-  const typeText = clean(pick(item.type, item.proxy, item.provider, item.organisation));
-  const cloud = cloudProviderFromText(typeText);
-  const typeLower = typeText.toLowerCase();
-
-  const flags = {
-    datacenter: cloud.hit || typeLower.includes("hosting") || typeLower.includes("server"),
-    hosting: cloud.hit || typeLower.includes("hosting"),
-    cloud: cloud.hit,
-    proxy: clean(item.proxy).toLowerCase() === "yes" || typeLower.includes("proxy"),
-    vpn: typeLower.includes("vpn"),
-    tor: typeLower.includes("tor"),
-    abuser: typeLower.includes("abuse"),
-    mobile: typeLower.includes("mobile"),
-    residential: typeLower.includes("residential"),
-    risk: numberOrNull(item.risk)
-  };
-
-  return {
-    source: "proxycheck.io",
-    ip: target,
-    city: clean(item.city),
-    region: clean(item.region),
-    country: clean(item.country),
-    countryCode: countryCode(item.isocode),
-    isp: clean(pick(cloud.name, item.provider, item.organisation, "未知组织")),
-    cloudProvider: cloud.name,
-    kind: classifyExitKind(flags),
-    flags: flags
+    city: city,
+    region: region,
+    country: country,
+    countryCode: cc,
+    isp: isp,
+    org: org,
+    asname: asname,
+    as: as,
+    flags: {
+      proxy: proxy,
+      hosting: hosting
+    }
   };
 }
 
 function mergeExitSources(sources) {
-  const valid = (sources || []).filter(item => item && item.ip);
+  if (!sources || sources.length === 0) return {};
+  if (sources.length === 1) return finalizeExit(sources[0]);
 
-  if (valid.length === 0) {
-    return {
-      ip: "未识别",
-      city: "出口检测失败",
-      region: "",
-      country: "",
-      countryCode: "",
-      isp: "未知组织",
-      kind: "未知网络",
-      flags: {}
-    };
-  }
-
-  const primaryIP = mostCommon(valid.map(item => item.ip)) || valid[0].ip;
-  const sameIP = valid.filter(item => item.ip === primaryIP);
-
-  const cloud = cloudProviderFromText(sameIP.map(i => [i.isp, i.cloudProvider].join(" ")).join(" "));
-
-  const mergedFlags = {
-    datacenter: sameIP.some(i => i.flags?.datacenter),
-    hosting: sameIP.some(i => i.flags?.hosting),
-    cloud: cloud.hit || sameIP.some(i => i.flags?.cloud),
-    proxy: sameIP.some(i => i.flags?.proxy),
-    vpn: sameIP.some(i => i.flags?.vpn),
-    tor: sameIP.some(i => i.flags?.tor),
-    abuser: sameIP.some(i => i.flags?.abuser),
-    mobile: sameIP.some(i => i.flags?.mobile),
-    residential: sameIP.some(i => i.flags?.residential),
-    risk: Math.max(...sameIP.map(i => Number(i.flags?.risk) || 0))
-  };
-
-  return {
-    ip: primaryIP,
-    city: bestField(sameIP, "city") || "未知城市",
-    region: bestField(sameIP, "region"),
-    country: bestField(sameIP, "country"),
-    countryCode: countryCode(bestField(sameIP, "countryCode")),
-    isp: cloud.name || bestField(sameIP, "isp") || "未知组织",
-    cloudProvider: cloud.name,
-    kind: classifyExitKind(mergedFlags),
-    flags: mergedFlags,
-    sources: sameIP.map(i => i.source).filter(Boolean)
-  };
-}
-
-function classifyExitKind(flags) {
-  const f = flags || {};
-  if (f.mobile) return "移动网络";
-  if (f.residential) return "住宅 IP";
-  if (f.datacenter || f.hosting || f.cloud) return "商业机房";
-  if (f.proxy || f.vpn) return "住宅 IP";
-  return "未知网络";
-}
-
-function cloudProviderFromText(value) {
-  const text = clean(value).toLowerCase();
-  if (!text) return { hit: false, name: "" };
-
-  const providers = [
-    ["oracle", "Oracle"], ["aws", "AWS"], ["amazon", "AWS"],
-    ["google cloud", "Google Cloud"], ["azure", "Microsoft Azure"],
-    ["digitalocean", "DigitalOcean"], ["vultr", "Vultr"],
-    ["linode", "Akamai Linode"], ["hetzner", "Hetzner"],
-    ["cloudflare", "Cloudflare"], ["tencent", "Tencent Cloud"],
-    ["aliyun", "Alibaba Cloud"], ["alibaba", "Alibaba Cloud"]
-  ];
-
-  for (let index = 0; index < providers.length; index += 1) {
-    if (text.includes(providers[index][0])) {
-      return { hit: true, name: providers[index][1] };
+  const result = {
+    ip: sources[0].ip,
+    city: "",
+    region: "",
+    country: "",
+    countryCode: "",
+    isp: "",
+    org: "",
+    asname: "",
+    as: "",
+    flags: {
+      proxy: false,
+      hosting: false,
+      residential: false,
+      mobile: false
     }
-  }
+  };
 
-  return { hit: false, name: "" };
-}
+  const scoreMap = {
+    city: {},
+    region: {},
+    country: {},
+    countryCode: {},
+    isp: {},
+    org: {},
+    asname: {},
+    as: {}
+  };
 
-function mostCommon(values) {
-  const count = {};
-  let best = "";
-  let bestCount = 0;
+  sources.forEach(function (src) {
+    if (src.ip !== result.ip) return;
 
-  values.map(clean).filter(Boolean).forEach(function (value) {
-    count[value] = (count[value] || 0) + 1;
-    if (count[value] > bestCount) {
-      best = value;
-      bestCount = count[value];
+    if (src.city) scoreMap.city[src.city] = (scoreMap.city[src.city] || 0) + 1;
+    if (src.region) scoreMap.region[src.region] = (scoreMap.region[src.region] || 0) + 1;
+    if (src.country) scoreMap.country[src.country] = (scoreMap.country[src.country] || 0) + 1;
+    if (src.countryCode) scoreMap.countryCode[src.countryCode] = (scoreMap.countryCode[src.countryCode] || 0) + 1;
+    if (src.isp) scoreMap.isp[src.isp] = (scoreMap.isp[src.isp] || 0) + 1;
+    if (src.org) scoreMap.org[src.org] = (scoreMap.org[src.org] || 0) + 1;
+    if (src.asname) scoreMap.asname[src.asname] = (scoreMap.asname[src.asname] || 0) + 1;
+    if (src.as) scoreMap.as[src.as] = (scoreMap.as[src.as] || 0) + 1;
+
+    if (src.flags) {
+      if (src.flags.proxy) result.flags.proxy = true;
+      if (src.flags.hosting) result.flags.hosting = true;
+      if (src.flags.residential) result.flags.residential = true;
+      if (src.flags.mobile) result.flags.mobile = true;
     }
   });
 
-  return best;
+  const getBest = function (map) {
+    let best = "";
+    let max = 0;
+    Object.keys(map).forEach(function (key) {
+      if (map[key] > max) {
+        best = key;
+        max = map[key];
+      }
+    });
+    return best;
+  };
+
+  result.city = getBest(scoreMap.city);
+  result.region = getBest(scoreMap.region);
+  result.country = getBest(scoreMap.country);
+  result.countryCode = getBest(scoreMap.countryCode);
+  result.isp = getBest(scoreMap.isp);
+  result.org = getBest(scoreMap.org);
+  result.asname = getBest(scoreMap.asname);
+  result.as = getBest(scoreMap.as);
+
+  return finalizeExit(result);
 }
 
-function bestField(items, field) {
-  const values = (items || []).map(item => clean(item[field])).filter(Boolean);
-  return mostCommon(values) || values[0] || "";
+function finalizeExit(exit) {
+  let kind = "出口网络";
+  let cloudProvider = "";
+
+  const ispInfo = [
+    exit.isp,
+    exit.org,
+    exit.asname,
+    exit.as
+  ].join(" ").toLowerCase();
+
+  const hostingKeywords = [
+    "cloud", "hosting", "datacenter", "data center", "server", "vps", "host",
+    "compute", "network", "technologies", "llc", "ltd", "inc", "corp",
+    "alibaba", "aliyun", "tencent", "amazon", "aws", "google", "gcp", "azure",
+    "microsoft", "digitalocean", "linode", "vultr", "hetzner", "ovh",
+    "oracle", "ibm", "akamai", "cloudflare", "fastly", "cdn", "leaseweb",
+    "dedibox", "online.net", "scaleway", "upcloud", "kamatera", "kamatera",
+    "softlayer", "rackspace", "layer", "packet", "equinix", "coreweave",
+    "dmit", "bwg", "bandwagon", "gigsgigs", "misaka", "kurun", "xtom",
+    "x-tom", "kirino", "moack", "sharktech", "psychz", "kdatacenter",
+    "kddi", "softbank", "ntt", "pccw", "hkt", "hbn", "hkbn", "wtt",
+    "hkcsl", "csl", "smartone", "cmhk", "china mobile", "china telecom",
+    "china unicom", "bgp", "transit", "exchange"
+  ];
+
+  const cloudMap = {
+    "aliyun": "阿里云",
+    "alibaba": "阿里云",
+    "tencent": "腾讯云",
+    "aws": "AWS",
+    "amazon": "AWS",
+    "google": "GCP",
+    "gcp": "GCP",
+    "azure": "Azure",
+    "microsoft": "Azure",
+    "oracle": "Oracle",
+    "digitalocean": "DO",
+    "linode": "Linode",
+    "vultr": "Vultr",
+    "hetzner": "Hetzner",
+    "ovh": "OVH",
+    "cloudflare": "CF",
+    "akamai": "Akamai",
+    "dmit": "DMIT",
+    "bandwagon": "搬瓦工",
+    "xtom": "xTom",
+    "misaka": "Misaka",
+    "kurun": "Kurun"
+  };
+
+  let isHosting = exit.flags && exit.flags.hosting;
+
+  if (!isHosting) {
+    for (let index = 0; index < hostingKeywords.length; index += 1) {
+      if (ispInfo.includes(hostingKeywords[index])) {
+        isHosting = true;
+        break;
+      }
+    }
+  }
+
+  Object.keys(cloudMap).forEach(function (key) {
+    if (ispInfo.includes(key)) {
+      cloudProvider = cloudMap[key];
+    }
+  });
+
+  if (exit.flags && exit.flags.mobile) {
+    kind = "移动网络";
+  } else if (exit.flags && exit.flags.residential) {
+    kind = "住宅 IP";
+  } else if (isHosting || cloudProvider) {
+    kind = "商业机房";
+  }
+
+  exit.kind = kind;
+  exit.cloudProvider = cloudProvider;
+
+  return exit;
 }
 
-function numberOrNull(value) {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : null;
-}
-
-function parseLocalExit(data, forceLocalMainland) {
+function parseProxyCheck(data, ip) {
   if (!data || typeof data !== "object") return {};
-
-  const ip = clean(pick(data.query, data.ip, data.ip_address));
-  if (!ip) return {};
-
-  const countryCodeValue = countryCode(pick(data.countryCode, data.country_code));
-  const country = clean(pick(data.country, data.country_name));
-  const region = clean(pick(data.regionName, data.region));
-  const city = clean(data.city);
-
-  const isChina = countryCodeValue === "CN" || country.includes("中国") || forceLocalMainland;
-  const label = isChina ? mainlandAreaLabel(region, city) : formatLocalArea(countryCodeValue, country, region, city);
+  const ipData = data[ip] || {};
 
   return {
     ip: ip,
-    country: isChina ? "中国" : country,
-    countryCode: isChina ? "CN" : countryCodeValue,
-    region: region,
-    city: city,
-    isp: clean(pick(data.isp, data.org)),
-    org: clean(data.org),
-    asname: clean(data.asname),
-    as: clean(data.as),
-    label: label
+    city: clean(ipData.city),
+    region: clean(ipData.region),
+    country: clean(ipData.country),
+    countryCode: countryCode(ipData.isocode),
+    isp: clean(ipData.provider),
+    as: ipData.asn ? "AS" + ipData.asn.replace(/^AS/i, "") : "",
+    flags: {
+      proxy: ipData.proxy === "yes",
+      residential: ipData.type === "Residential",
+      mobile: ipData.type === "Cellular"
+    }
   };
 }
 
-function mainlandAreaLabel(region, city) {
-  const label = formatLocalArea("CN", "中国", region, city);
-  return (!label || label === "中国") ? "中国大陆" : label;
-}
+function parseTrace(text) {
+  if (!text) return {};
 
-function formatLocalArea(countryCodeValue, country, region, city) {
-  const cc = countryCode(countryCodeValue);
-  let r = clean(region).replace(/(省|市|自治区)$/g, "");
-  let c = clean(city).replace(/市$/g, "");
+  const result = {};
+  const lines = text.split("\n");
 
-  if (cc === "CN" || country.includes("中国")) {
-    if (["北京", "上海", "天津", "重庆"].includes(r)) return r;
-    if (r && c && r !== c) return r + c;
-    return c || r || "中国";
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (!line) continue;
+
+    const parts = line.split("=");
+    if (parts.length >= 2) {
+      const key = parts.shift().trim();
+      const value = parts.join("=").trim();
+      result[key] = value;
+    }
   }
 
-  if (c && r && c !== r) return r + " " + c;
-  return c || r || country || "直连地区未知";
+  return result;
 }
 
-function providerFromText(value) {
-  const text = clean(value).toLowerCase();
-  if (!text) return { full: "", short: "" };
+function detectNAT(localIP, exitIP) {
+  if (!localIP || localIP === "未识别" || !exitIP || exitIP === "未识别") {
+    return {
+      type: "Unknown",
+      label: "未知",
+      tone: "amber"
+    };
+  }
 
-  if (text.includes("cloudflare")) return { full: "Cloudflare DNS", short: "CF" };
-  if (text.includes("google")) return { full: "Google DNS", short: "谷歌" };
-  if (text.includes("quad9")) return { full: "Quad9 DNS", short: "Q9" };
-  if (text.includes("aliyun") || text.includes("alibaba")) return { full: "AliDNS", short: "阿里" };
-  if (text.includes("dnspod") || text.includes("tencent")) return { full: "DNSPod", short: "腾讯" };
-  if (text.includes("telecom") || text.includes("电信")) return { full: "中国电信 DNS", short: "电信" };
-  if (text.includes("mobile") || text.includes("移动")) return { full: "中国移动 DNS", short: "移动" };
-  if (text.includes("unicom") || text.includes("联通")) return { full: "中国联通 DNS", short: "联通" };
+  const isIPv6 = function (ip) {
+    return ip.indexOf(":") !== -1;
+  };
 
-  return { full: "", short: "" };
-}
+  const isRFC1918 = function (ip) {
+    if (isIPv6(ip)) return false;
+    const parts = ip.split(".");
+    if (parts.length !== 4) return false;
+    const first = parseInt(parts[0], 10);
+    const second = parseInt(parts[1], 10);
 
-function compactDNSProviderName(value) {
-  const text = clean(value);
-  if (!text) return "未知";
+    return (
+      first === 10 ||
+      (first === 172 && second >= 16 && second <= 31) ||
+      (first === 192 && second === 168)
+    );
+  };
 
-  const provider = providerFromText(text);
-  if (provider.short) return provider.short;
+  const isRFC6598 = function (ip) {
+    if (isIPv6(ip)) return false;
+    const parts = ip.split(".");
+    if (parts.length !== 4) return false;
+    const first = parseInt(parts[0], 10);
+    const second = parseInt(parts[1], 10);
 
-  return text.length > 6 ? text.slice(0, 6) : text;
-}
+    return first === 100 && second >= 64 && second <= 127;
+  };
 
-function chooseDNSProvider(baseDNS, verifiedDNS) {
-  if (verifiedDNS && verifiedDNS.short) return verifiedDNS;
-  if (baseDNS && baseDNS.short) return baseDNS;
+  if (isIPv6(exitIP)) {
+    return {
+      type: "IPv6",
+      label: "IPv6",
+      tone: "green"
+    };
+  }
 
-  return { full: "未知 DNS", short: "未知" };
-}
+  if (isRFC1918(exitIP)) {
+    return {
+      type: "Intranet",
+      label: "内网",
+      tone: "amber"
+    };
+  }
 
-function isWeakDNSLabel(value) {
-  return ["", "系统", "网关", "自定义", "自定", "未知", "IPv6"].includes(clean(value));
-}
+  if (isRFC6598(exitIP)) {
+    return {
+      type: "CGNAT",
+      label: "CGNAT",
+      tone: "amber"
+    };
+  }
 
-function dnsTinyLabel(value) {
-  const name = clean(value);
-  const provider = providerFromText(name);
-  if (provider.short) return provider.short;
-  return name.length <= 4 ? name : "未知";
+  if (localIP === exitIP) {
+    return {
+      type: "Open",
+      label: "公网",
+      tone: "green"
+    };
+  }
+
+  return {
+    type: "NAT",
+    label: "公网",
+    tone: "green"
+  };
 }
 
 function purityScore(exit) {
-  const flags = (exit && exit.flags) || {};
-  const kind = clean(exit && exit.kind);
+  let score = 100;
+  const reasons = [];
 
-  let score = 72;
-  if (kind === "住宅 IP" || kind === "移动网络") score = 92;
-  else if (kind === "商业机房") score = 78;
+  const penalize = function (amount, reason) {
+    score -= amount;
+    reasons.push(reason);
+  };
 
-  if (flags.tor) score -= 55;
-  if (flags.abuser) score -= 35;
-  if (flags.proxy || flags.vpn) score -= 16;
+  if (!exit.ip || exit.ip === "未识别") {
+    return { score: 0, reasons: ["出口未识别"] };
+  }
 
-  score = Math.max(0, Math.min(100, Math.round(score)));
+  if (exit.flags) {
+    if (exit.flags.proxy) penalize(30, "代理 IP");
+    if (exit.flags.hosting) penalize(15, "数据中心 IP");
+  }
 
-  return { score: score, risk: 100 - score };
+  if (exit.kind === "商业机房") {
+    penalize(10, "机房出口");
+  } else if (exit.kind === "住宅 IP") {
+    score += 5;
+  } else if (exit.kind === "移动网络") {
+    score += 10;
+  }
+
+  if (exit.cloudProvider) {
+    penalize(5, "云厂商 (" + exit.cloudProvider + ")");
+  }
+
+  if (score > 100) score = 100;
+  if (score < 0) score = 0;
+
+  return {
+    score: score,
+    reasons: reasons
+  };
 }
 
 function riskLevel(exit, purity) {
-  const score = purity ? purity.score : 0;
-  if (score >= 80) return "低风险";
-  if (score >= 50) return "中风险";
-  return "高风险";
+  if (!exit.ip || exit.ip === "未识别") return "未知";
+
+  if (purity.score < 50) return "高风险";
+  if (purity.score < 80) return "中风险";
+
+  return "低风险";
 }
 
-function shortISP(value) {
-  const isp = clean(value);
-  if (!isp) return "未知组织";
-  return isp.length > 12 ? isp.slice(0, 12) + "..." : isp;
+function shortISP(text) {
+  if (!text) return "未知厂商";
+
+  const name = String(text);
+  const parts = name.split(",");
+  let str = parts[0];
+
+  str = str.replace(/( LLC| Ltd| Inc| Corp| Corporation| Limited)$/i, "");
+
+  if (str.length > 15) {
+    str = str.substring(0, 14) + "…";
+  }
+
+  return str;
 }
 
-function clean(v) {
-  if (v === null || v === undefined) return "";
-  return String(v).trim();
+function toneColor(tone, C) {
+  if (tone === "green") return C.green;
+  if (tone === "amber") return C.amber;
+  if (tone === "red") return C.red;
+  if (tone === "blue") return C.blue;
+  if (tone === "purple") return C.purple;
+  return C.text;
+}
+
+// 缺失的工具函数实现
+
+function clean(value) {
+  if (value === undefined || value === null) return "";
+  return String(value).trim();
 }
 
 function pick() {
@@ -2750,128 +3008,126 @@ function pick() {
 function getAt(obj, path) {
   if (!obj || typeof obj !== "object") return undefined;
   const parts = path.split(".");
-  let cur = obj;
+  let current = obj;
   for (let i = 0; i < parts.length; i++) {
-    if (cur === null || cur === undefined) return undefined;
-    cur = cur[parts[i]];
+    if (current === undefined || current === null) return undefined;
+    current = current[parts[i]];
   }
-  return cur;
+  return current;
 }
 
-function truthy(v) {
-  if (typeof v === "boolean") return v;
-  if (typeof v === "number") return v > 0;
-  const s = clean(v).toLowerCase();
-  return s === "true" || s === "1" || s === "yes";
-}
-
-function countryCode(v) {
-  const c = clean(v).toUpperCase();
-  return c.length === 2 ? c : "";
-}
-
-function flag(code) {
-  const c = clean(code).toUpperCase();
-  if (c.length !== 2) return "🌐";
-  const first = c.charCodeAt(0) + 127397;
-  const second = c.charCodeAt(1) + 127397;
-  return String.fromCodePoint(first, second);
-}
-
-// ---------- 缺失补全的工具函数 ----------
-
-function detectScheme(ctx) {
-  const scheme = clean(ctx?.scheme || ctx?.colorScheme || ctx?.theme).toLowerCase();
-  return scheme === "light" ? "light" : "dark";
-}
-
-function getScreenMetric(ctx, name) {
-  const display = ctx?.display || ctx?.screen || {};
-  return display[name];
+function getScreenMetric(ctx, prop) {
+  if (ctx && ctx.device && ctx.device.screen) {
+    return ctx.device.screen[prop];
+  }
+  return undefined;
 }
 
 function numberInRange(val, min, max, fallback) {
-  const num = Number(val);
-  return isNaN(num) ? fallback : Math.max(min, Math.min(max, num));
+  if (typeof val !== "number" || isNaN(val)) return fallback;
+  if (val < min) return min;
+  if (val > max) return max;
+  return val;
 }
 
 function clamp(val, min, max) {
-  return Math.max(min, Math.min(max, val));
-}
-
-function detectDNSProvider(servers) {
-  if (!Array.isArray(servers) || servers.length === 0) {
-    return { full: "系统 DNS", short: "系统" };
-  }
-  const primary = clean(servers[0]);
-  const provider = providerFromText(primary);
-  if (provider.short) return provider;
-  return { full: primary, short: compactDNSProviderName(primary) };
-}
-
-function resolveAdaptiveColor(value, scheme) {
-  if (!value) return "#000000";
-  if (typeof value === "string") return value;
-  if (typeof value === "object") {
-    return scheme === "light" ? (value.light || "#000000") : (value.dark || "#FFFFFF");
-  }
-  return "#000000";
-}
-
-function gatewayLabel(ip) {
-  return clean(ip) || "未获取";
-}
-
-function detectNAT(localIP, exitIP) {
-  if (!localIP || !exitIP || localIP === "未获取" || exitIP === "未识别") {
-    return { label: "未知", tone: "amber" };
-  }
-  return localIP === exitIP ? { label: "公网", tone: "green" } : { label: "NAT", tone: "purple" };
-}
-
-function toneColor(tone, C) {
-  if (tone === "green") return C.green;
-  if (tone === "amber") return C.amber;
-  if (tone === "red") return C.red;
-  if (tone === "purple") return C.purple;
-  if (tone === "blue") return C.blue;
-  return C.text;
-}
-
-function timeLabel(date) {
-  const d = date || new Date();
-  const h = String(d.getHours()).padStart(2, "0");
-  const m = String(d.getMinutes()).padStart(2, "0");
-  return h + ":" + m;
-}
-
-function dateLabel(date) {
-  const d = date || new Date();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return m + "-" + day;
-}
-
-function parseTrace(text) {
-  const result = {};
-  if (!text) return result;
-  const lines = text.split("\n");
-  for (let i = 0; i < lines.length; i++) {
-    const idx = lines[i].indexOf("=");
-    if (idx > 0) {
-      const key = lines[i].substring(0, idx).trim();
-      const val = lines[i].substring(idx + 1).trim();
-      result[key] = val;
-    }
-  }
-  return result;
+  if (val < min) return min;
+  if (val > max) return max;
+  return val;
 }
 
 function randomAlphaNum(len) {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let str = "";
+  let result = "";
   for (let i = 0; i < len; i++) {
-    str += chars.charAt(Math.floor(Math.random() * chars.length));
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return str;
+  return result;
+}
+
+function maskIP(ip) {
+  if (!ip || ip === "未识别" || ip === "未获取") return ip;
+  const parts = ip.split(".");
+  if (parts.length === 4) {
+    return parts[0] + "." + parts[1] + ".*.*";
+  }
+  if (ip.indexOf(":") !== -1) {
+    const v6Parts = ip.split(":");
+    if (v6Parts.length > 4) {
+      return v6Parts[0] + ":" + v6Parts[1] + ":*:*";
+    }
+  }
+  return "***";
+}
+
+function countryCode(cc) {
+  if (!cc) return "";
+  const code = String(cc).trim().toUpperCase();
+  if (code.length === 2) return code;
+  return "";
+}
+
+function flag(cc) {
+  if (!cc) return "🌐";
+  const code = String(cc).trim().toUpperCase();
+  if (code.length !== 2) return "🌐";
+
+  const map = {
+    "TW": "🇹🇼", "HK": "🇭🇰", "MO": "🇲🇴", "CN": "🇨🇳",
+    "US": "🇺🇸", "UK": "🇬🇧", "GB": "🇬🇧", "JP": "🇯🇵",
+    "KR": "🇰🇷", "SG": "🇸🇬", "MY": "🇲🇾", "TH": "🇹🇭",
+    "VN": "🇻🇳", "IN": "🇮🇳", "ID": "🇮🇩", "PH": "🇵🇭",
+    "RU": "🇷🇺", "DE": "🇩🇪", "FR": "🇫🇷", "IT": "🇮🇹",
+    "ES": "🇪🇸", "PT": "🇵🇹", "NL": "🇳🇱", "PL": "🇵🇱",
+    "SE": "🇸🇪", "CH": "🇨🇭", "TR": "🇹🇷", "CA": "🇨🇦",
+    "AU": "🇦🇺", "NZ": "🇳🇿", "BR": "🇧🇷", "AR": "🇦🇷",
+    "MX": "🇲🇽", "ZA": "🇿🇦", "EG": "🇪🇬", "SA": "🇸🇦",
+    "AE": "🇦🇪", "IL": "🇮🇱", "IR": "🇮🇷"
+  };
+
+  if (map[code]) return map[code];
+
+  const magic = 127397;
+  return String.fromCodePoint(code.charCodeAt(0) + magic, code.charCodeAt(1) + magic);
+}
+
+function detectScheme(ctx) {
+  if (ctx && ctx.device && ctx.device.scheme) {
+    return ctx.device.scheme;
+  }
+  return "light";
+}
+
+function resolveAdaptiveColor(color, scheme) {
+  if (!color || typeof color !== "object") return color;
+  if (scheme === "dark" && color.dark) return color.dark;
+  return color.light || color;
+}
+
+function getCurrentProxyInfo(ctx) {
+  return { protocol: "Unknown" }; // 模拟的当前代理获取逻辑
+}
+
+function timeLabel(date) {
+  const h = String(date.getHours()).padStart(2, "0");
+  const m = String(date.getMinutes()).padStart(2, "0");
+  return h + ":" + m;
+}
+
+function dateLabel(date) {
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return m + "-" + d;
+}
+
+function purityGaugeSVG(score, colors) {
+  return `<svg width="68" height="52" viewBox="0 0 68 52" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 40 A 25 25 0 1 1 58 40" fill="none" stroke="${colors.track}" stroke-width="6" stroke-linecap="round"/>
+    <path d="M 10 40 A 25 25 0 0 1 ${10 + (48 * score / 100)} ${40 - (30 * score / 100)}" fill="none" stroke="${score >= 75 ? colors.left : score >= 45 ? colors.glow : colors.right}" stroke-width="6" stroke-linecap="round"/>
+    <text x="34" y="32" font-family="system-ui" font-size="14" font-weight="bold" fill="${colors.text}" text-anchor="middle">${score}</text>
+  </svg>`;
+}
+
+function svgDataURI(svg) {
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
 }
