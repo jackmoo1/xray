@@ -271,7 +271,7 @@ domain_set:
   - wrds-www.wharton.upenn.edu
   - youtubei.googleapis.com
   - yt3.ggpht.com
-  -api-glb-sea.smoot.apple.com
+  - api-glb-sea.smoot.apple.com
 domain_suffix_set:
   - 000webDOMAIN.com
   - 000webhost.com
@@ -441,7 +441,7 @@ domain_suffix_set:
   - 1watchmygf.com
   - 1xbet.cm
   - 1xbet.co.ke
-  - 1xyz
+  - 1xyz.com
   - 2000fun.com
   - 2008xianzhang.info
   - 2013beatshdcybermonday.com
