@@ -1,26 +1,4 @@
 domain_set:
-  - api.smoot.apple.com
-  - assets1.xboxlive.com
-  - assets2.xboxlive.com
-  - captive.apple.com
-  - configuration.apple.com
-  - gs-loc.apple.com
-  - k128-mzstatic.gslb.ksyuncdn.com
-  - lcdn-registration.apple.com
-  - login.microsoftonline.com
-  - reserve-prime.apple.com
-  - seed-sequoia.siri.apple.com
-  - sequoia.apple.com
-  - smp-device-content.apple.com
-  - sq-device.apple.com
-  - suconfig.apple.com
-  - weather-analytics-events.apple.com
-  - weather-data.apple.com
-  - xp-cdn.apple.com
-  - api.smoot.apple.cn
-  - appleintelligencefeedback.care.apple.com
-  - gs-loc-cn.apple.com
-domain_suffix_set:
   - 00cdn.com
   - 01058511989.com
   - 0123456789.com
@@ -424,6 +402,11 @@ domain_suffix_set:
   - 9xu.com
   - a.live.hnradio.com
   - a.xttv.top
+  - a1.mzstatic.com
+  - a2.mzstatic.com
+  - a3.mzstatic.com
+  - a4.mzstatic.com
+  - a5.mzstatic.com
   - a5b.cc
   - a9vg.com
   - aa5d.com
@@ -458,6 +441,8 @@ domain_suffix_set:
   - acs.org
   - acwing.com
   - ad.10010.com
+  - adcdownload.apple.com
+  - adcdownload.apple.com.akadns.net
   - ad-diamond.com
   - adigifactory.com
   - adimages.sina.com.hk
@@ -603,6 +588,7 @@ domain_suffix_set:
   - amc.com
   - amd.com
   - amemv.com
+  - amp-api.media.apple.com
   - amp-api-edge.apps.apple.com
   - ams.org
   - analytics.strava.com
@@ -640,6 +626,8 @@ domain_suffix_set:
   - api.apps.apple.com
   - api.crisp.chat
   - api.goodnotescloud.com
+  - api.smoot.apple.cn
+  - api.smoot.apple.com
   - api-edge.apps.apple.com
   - apifox.com
   - apigwtencent.com
@@ -676,10 +664,13 @@ domain_suffix_set:
   - apple-cloudkit.com
   - apple-dns.cn
   - appleid.apple.com
+  - appleid.cdn-apple.com
+  - appleintelligencefeedback.care.apple.com
   - apple-mapkit.com
   - applysquare.com
   - applysquare.net
   - apps.apple.com
+  - apps.mzstatic.com
   - appshike.com
   - appsimg.com
   - app-site-association.cdn-apple.com
@@ -702,6 +693,8 @@ domain_suffix_set:
   - assets.analog.com
   - assets.msn.cn
   - assets.uxengine.net
+  - assets1.xboxlive.com
+  - assets2.xboxlive.com
   - assets-global.viveport.com
   - assets-yammer.com
   - astm.org
@@ -1051,6 +1044,7 @@ domain_suffix_set:
   - cang.com
   - cankaoxiaoxi.com
   - capitalonline.net
+  - captive.apple.com
   - cardbaobao.com
   - carnoc.com
   - carry6.net
@@ -1077,17 +1071,26 @@ domain_suffix_set:
   - cctvpic.com
   - cczq.com
   - cczq.net
+  - cdn.apple-mapkit.com
   - cdn.bootcdn.net
   - cdn.bootcss.com
   - cdn.hkdtmb.com
   - cdn.jsdelivr.net
   - cdn.ubionline.com.cn
   - cdn.zampdsp.com
+  - cdn1.apple-mapkit.com
+  - cdn2.apple-mapkit.com
   - cdn20.com
+  - cdn3.apple-mapkit.com
   - cdn30.org
+  - cdn4.apple-mapkit.com
   - cdn-apple-mapkit.com
   - cdnc.org
   - cdncl.net
+  - cdn-cn1.apple-mapkit.com
+  - cdn-cn2.apple-mapkit.com
+  - cdn-cn3.apple-mapkit.com
+  - cdn-cn4.apple-mapkit.com
   - cdndo.com
   - cdndoctor.com
   - cdngot.com
@@ -1097,6 +1100,10 @@ domain_suffix_set:
   - cdntip.com
   - cdntips.com
   - cdntips.net
+  - cds.apple.com
+  - cds.apple.com.akadns.net
+  - cdsassets.apple.com
+  - cds-cdn.v.aaplimg.com
   - ceair.com
   - cebbank.com
   - ceblease.com
@@ -1106,6 +1113,7 @@ domain_suffix_set:
   - ceeunion.com
   - centanet.com
   - cerambath.org
+  - certs.apple.com
   - cf-ns.com
   - cf-ns.net
   - cf-ns.site
@@ -1195,7 +1203,19 @@ domain_suffix_set:
   - cjol.com
   - cjsc.com
   - ckjryy.com
+  - cl1.apple.com
+  - cl1-cdn.origin-apple.com.akadns.net
+  - cl2.apple.com
+  - cl2.apple.com.edgekey.net.globalredir.akadns.net
   - cl2009.com
+  - cl2-cn.apple.com
+  - cl3.apple.com
+  - cl3-cdn.origin-apple.com.akadns.net
+  - cl4.apple.com
+  - cl4-cdn.origin-apple.com.akadns.net
+  - cl4-cn.apple.com
+  - cl5.apple.com
+  - cl5-cdn.origin-apple.com.akadns.net
   - clarivate.com
   - clashroyaleapp.com
   - classix-unlimited.co.uk
@@ -1203,6 +1223,8 @@ domain_suffix_set:
   - clhimalayanxx.com
   - click.qianqian.com
   - client.amplifi.com
+  - clientflow.apple.com
+  - clientflow.apple.com.akadns.net
   - clientservices.googleapis.com
   - clk1.top
   - clouda.com
@@ -1331,7 +1353,9 @@ domain_suffix_set:
   - cmpassport.com
   - cmvideo.cn
   - cn
+  - cn.apple.com
   - cn.download.nvidia.com
+  - cn.ls.apple.com
   - cn163.net
   - cn88.net
   - cnanzhi.com
@@ -1360,6 +1384,8 @@ domain_suffix_set:
   - cnnic.net
   - cnpull.sccnfb.com
   - cnsciedu.com
+  - cn-smp-paymentservices.apple.com
+  - cn-ssl.ls.apple.com
   - cnstock.com
   - cnsuning.com
   - cnthinkers.com
@@ -1385,6 +1411,8 @@ domain_suffix_set:
   - computeinit.com
   - comsenz.com
   - concertos.live
+  - configuration.apple.com
+  - configuration.apple.com.akadns.net
   - content4ads.com
   - contentchina.com
   - coolapk.com
@@ -1423,6 +1451,7 @@ domain_suffix_set:
   - crisydney.com
   - critokyo.com
   - criwashington.com
+  - crl.apple.com
   - crsky.com
   - cryuantafund.com
   - csair.com
@@ -1437,6 +1466,8 @@ domain_suffix_set:
   - csmjzs.com
   - cspro.org
   - csslcloud.net
+  - cstat.apple.com
+  - cstat.cdn-apple.com
   - csto.com
   - csxbank.com
   - c-t.work
@@ -1531,6 +1562,7 @@ domain_suffix_set:
   - dcdkjx.com
   - dct-cloud.com
   - dd373.com
+  - dd-cdn.origin-apple.com.akadns.net
   - ddchong.com
   - ddiqbh.com
   - ddmogo.com
@@ -1542,10 +1574,13 @@ domain_suffix_set:
   - deepin.io
   - deepin.org
   - deepinos.org
+  - dejavu.apple.com
   - dengguobi.com
   - deo.shopeemobile.com
   - develenv.com
+  - devimages-cdn.apple.com
   - devpgclive.cmc.dyrmt.com
+  - devstreaming-cdn.apple.com
   - devui.design
   - dewu.com
   - dfcfw.com
@@ -1818,6 +1853,7 @@ domain_suffix_set:
   - excelhome.net
   - exmailgz.com
   - exoticaz.to
+  - experiments.apple.com
   - expressair.com
   - expreview.com
   - extfans.com
@@ -2073,7 +2109,24 @@ domain_suffix_set:
   - grzq.com
   - gsa.apple.com
   - gsadds.com
+  - gs-loc.apple.com
+  - gs-loc-cn.apple.com
+  - gsp10-ssl-cn.ls.apple.com
+  - gsp11-cn.ls.apple.com
+  - gsp12-cn.ls.apple.com
+  - gsp13-cn.ls.apple.com
+  - gsp4-cn.ls.apple.com
+  - gsp4-cn.ls.apple.com.edgekey.net.globalredir.akadns.net
+  - gsp5-cn.ls.apple.com
+  - gsp85-cn-ssl.ls.apple.com
+  - gspe19-2-cn-ssl.ls.apple.com
+  - gspe19-2-cn-ssl.ls-apple.com.akadns.net
+  - gspe19-cn.ls.apple.com
+  - gspe19-cn.ls-apple.com.akadns.net
   - gspe19-cn-ssl.ls.apple.com
+  - gspe21-ssl.ls.apple.com
+  - gspe35-ssl.ls.apple.com
+  - gspe79-cn-ssl.ls.apple.com
   - gszq.com
   - gtags.net
   - gtarsc.com
@@ -2100,6 +2153,8 @@ domain_suffix_set:
   - gushiwen.org
   - guzhangting.com
   - guzzoni.apple.com
+  - guzzoni.smoot.apple.com
+  - guzzoni-apple-com.v.aaplimg.com
   - gwdang.com
   - gxairlines.com
   - gxb.io
@@ -2331,6 +2386,7 @@ domain_suffix_set:
   - i.snssdk.com
   - i360mall.com
   - i3839.com
+  - iadsdk.apple.com
   - ianvisa.com
   - iask.com
   - ibaotu.com
@@ -2437,6 +2493,7 @@ domain_suffix_set:
   - im2maker.com
   - im9.com
   - image.maimn.com
+  - images.apple.com.edgekey.net.globalredir.akadns.net
   - images-amazon.com
   - images-cn.ssl-images-amazon.com
   - imcapptest.com
@@ -2469,6 +2526,11 @@ domain_suffix_set:
   - inftab.com
   - infzm.com
   - init.ess.apple.com
+  - init-kt.apple.com
+  - init-p01md.apple.com
+  - init-p01md-lb.push-apple.com.akadns.net
+  - init-p01st-lb.push-apple.com.akadns.net
+  - init-s01st-lb.push-apple.com.akadns.net
   - injections.adguard.org
   - inluckcalendar.com
   - intel-cache.m.iqiyi.com
@@ -2486,6 +2548,7 @@ domain_suffix_set:
   - iop.org
   - iopiopl.com
   - iosapps.itunes.apple.com
+  - iosapps.itunes.g.aaplimg.com
   - iosHOST.qtlcdn.com
   - iosHOST.qtlcdn.com.cdnmg.com
   - ip.istatmenus.app
@@ -2494,7 +2557,10 @@ domain_suffix_set:
   - ipanda.com
   - ipanda.com.cn
   - ipanda.net
+  - ipcdn.apple.com
   - ip-cdn.com
+  - iphone-ld.apple.com
+  - iphone-ld.origin-apple.com.akadns.net
   - ipinyou.com
   - ipip.net
   - ipplus360.com
@@ -2507,6 +2573,16 @@ domain_suffix_set:
   - iqiyipic.com
   - iqtianshanmw.com
   - iranshao.com
+  - is1.mzstatic.com
+  - is1-ssl.mzstatic.com
+  - is2.mzstatic.com
+  - is2-ssl.mzstatic.com
+  - is3.mzstatic.com
+  - is3-ssl.mzstatic.com
+  - is4.mzstatic.com
+  - is4-ssl.mzstatic.com
+  - is5.mzstatic.com
+  - is5-ssl.mzstatic.com
   - isd.com
   - ishumei.com
   - ispqcloud.com
@@ -2528,6 +2604,7 @@ domain_suffix_set:
   - itunes.apple.com
   - itunes.com
   - itunes-apple.com.akadns.net
+  - itunesconnect.apple.com
   - iujkm.com
   - iuktb.com
   - iuynfg.com
@@ -2703,6 +2780,7 @@ domain_suffix_set:
   - jzfz.net
   - jzsec.com
   - jztvnews.com
+  - k128-mzstatic.gslb.ksyuncdn.com
   - k366.com
   - kaifayun.com
   - kaifu1.com
@@ -2832,6 +2910,7 @@ domain_suffix_set:
   - lb-apple.com.akadns.net
   - lbzb.yd-data.com
   - lcdn-locator.apple.com
+  - lcdn-registration.apple.com
   - lczq.com
   - ld246.com
   - ldmnq.com
@@ -2948,6 +3027,7 @@ domain_suffix_set:
   - log.aliyuncs.com
   - log.mmstat.com
   - login.live.com
+  - login.microsoftonline.com
   - logiseasy.com
   - loli.net
   - longhoo.net
@@ -3084,10 +3164,12 @@ domain_suffix_set:
   - meizu.cn
   - meizu.com
   - mengtuoshi.wang
+  - mensura.cdn-apple.com
   - mesu.apple.com
   - mesu.g.aaplimg.com
   - mesu-cdn.apple.com.akadns.net
   - mesu-cdn.origin-apple.com.akadns.net
+  - mesu-china.apple.com.akadns.net
   - metalrevolution.com
   - metatrader4.com
   - metatrader5.com
@@ -3144,6 +3226,7 @@ domain_suffix_set:
   - miwifi.com
   - miyoushe.com
   - mjia.cc
+  - ml.cdn-apple.com
   - mlhimalayanxt.com
   - mlmtz.com
   - mlsbmw.com
@@ -3373,6 +3456,7 @@ domain_suffix_set:
   - oceanengine.com
   - ocsp.apple.com
   - ocsp.g.aaplimg.com
+  - ocsp2.apple.com
   - ocsp-lb.apple.com.akadns.net
   - ocwms.com
   - oecd-ilibrary.org
@@ -3453,9 +3537,11 @@ domain_suffix_set:
   - orpheus.network
   - osapublishing.org
   - oscdn.apple.com
+  - oscdn.origin-apple.com.akadns.net
   - oschina.net
   - os-lb.com
   - osxapps.itunes.apple.com
+  - osxapps.itunes.g.aaplimg.com
   - ottcn.com
   - ott-live.olympicchannel.com
   - oup.com
@@ -3485,6 +3571,7 @@ domain_suffix_set:
   - paipai.com
   - paipaibang.com
   - palive.patv123.com
+  - pancake.apple.com
   - pangolin-sdk-toutiao1.com
   - pangolin-sdk-toutiao-b.com
   - paopaoche.net
@@ -3492,6 +3579,7 @@ domain_suffix_set:
   - paragon.com
   - passthepopcorn.me
   - pay.com
+  - pba0.apple.com
   - pc6.com
   - pcauto.com.cn
   - pcbeta.com
@@ -3573,6 +3661,8 @@ domain_suffix_set:
   - pptv.com
   - prestodb-china.com
   - privatehd.to
+  - probe.siri.apple.com
+  - prod-support.apple-support.akadns.net
   - proquest.com
   - proximabeta.com
   - psbc.com
@@ -3584,6 +3674,7 @@ domain_suffix_set:
   - pubbcsapp.com
   - pubghelper.com
   - pubgtool.com
+  - publicassets.cdn-apple.com
   - public-trust.com
   - pubmed.net
   - pubyun.com
@@ -3752,6 +3843,7 @@ domain_suffix_set:
   - repaik.com
   - rergdfh.com
   - researchgate.net
+  - reserve-prime.apple.com
   - resset.com
   - rewards.hypixel.net
   - rfchost.com
@@ -3785,6 +3877,7 @@ domain_suffix_set:
   - runoob.com
   - runsheng.com
   - rzrc114.com
+  - s.mzstatic.com
   - s.zampdsp.com
   - saasops.tech
   - saayaa.com
@@ -3826,13 +3919,17 @@ domain_suffix_set:
   - secec.com
   - securityinsight.com
   - sec-wiki.com
+  - seed.siri.apple.com
   - se-edge.itunes.apple.com
+  - seed-sequoia.siri.apple.com
+  - seed-swallow.siri.apple.com
   - segmentfault.com
   - sehimalayanqj.com
   - sellfox.com
   - sencdn.com
   - seniverse.com
   - senlinjimore.com
+  - sequoia.apple.com
   - service.ess.apple.com
   - service.gc.apple.com
   - servicewechat.com
@@ -3867,6 +3964,7 @@ domain_suffix_set:
   - sharepoint.cn
   - sharepoint.com
   - sharepointonline.com
+  - shazam-insights.cdn-apple.com
   - shebiaotm.com
   - shelter-china.com
   - shelterdome.net
@@ -3886,6 +3984,7 @@ domain_suffix_set:
   - shoujihuifu.com
   - shouqianba.com
   - shouyoubus.com
+  - sh-pod2-smp-device.apple.com
   - shrbank.com
   - shssp.org
   - shuangkou.net
@@ -3948,6 +4047,7 @@ domain_suffix_set:
   - smartmidea.net
   - s-microsoft.com
   - smogfly.cloud
+  - smp-device-content.apple.com
   - sms.imagetasks.com
   - smtcdns.com
   - smtcdns.net
@@ -4009,6 +4109,7 @@ domain_suffix_set:
   - springsunday.net
   - springtour.com
   - sq.cc
+  - sq-device.apple.com
   - sqqnh.org
   - s-reader.com
   - sseinfo.com
@@ -4029,6 +4130,7 @@ domain_suffix_set:
   - starsshine2.com
   - startssl.com
   - static.ess.apple.com
+  - static.gc.apple.com
   - static.jssp.tv
   - staticdn.net
   - staticfile.org
@@ -4045,8 +4147,14 @@ domain_suffix_set:
   - steamstatic.com.8686c.com
   - steamusercontent.com
   - stmjsociety.com
+  - stocks-sparkline.apple.com
+  - stocks-sparkline-lb.apple.com.akadns.net
   - stockstar.com
   - store.apple.com
+  - store.apple.com.edgekey.net
+  - store.apple.com.edgekey.net.globalredir.akadns.net
+  - store.storeimages.apple.com.akadns.net
+  - store.storeimages.cdn-apple.com
   - stream0.tv41.ru
   - stream01.dqtv123.com
   - stream1.shopch.jp
@@ -4058,6 +4166,7 @@ domain_suffix_set:
   - su.itunes.apple.com
   - suanya.com
   - subhd.tv
+  - suconfig.apple.com
   - sui.com
   - sumkoo.com
   - sumkoo.net
@@ -4077,24 +4186,35 @@ domain_suffix_set:
   - supermap.com
   - supermapcloud.com
   - supet.com
+  - support.apple.com
+  - support-china.apple-support.akadns.net
   - supportdownload.apple.com
   - suzuki-china.com
   - svc.ms
   - svfrrg.com
+  - swallow.apple.com
+  - swallow-apple-com.v.aaplimg.com
   - swan366.com
   - sway.com
   - sway-cdn.com
   - sway-extensions.com
+  - swcatalog.apple.com
+  - swcatalog-cdn.apple.com.akadns.net
   - swcdn.apple.com
+  - swcdn.g.aaplimg.com
+  - swdist.apple.com
+  - swdist.apple.com.akadns.net
   - sweetystory.com
   - swhysc.com
   - swq5t.com
   - swquery.apple.com
   - swscan.apple.com
+  - swscan-cdn.apple.com.akadns.net
   - swsmu.com
   - sxhimalayanqd.com
   - sxyckjr.com
   - sycm.mmstat.com
+  - sylvan.apple.com
   - synology.com
   - sys321.com
   - syscan360.com
@@ -4250,6 +4370,7 @@ domain_suffix_set:
   - tivitv.com
   - tjckjr.com
   - tjjt360.com
+  - tj-pod1-smp-device.apple.com
   - tjstats.com
   - tjupt.org
   - tkckjr.com
@@ -4444,6 +4565,7 @@ domain_suffix_set:
   - update.microsoft.com
   - updates.cdn-apple.com
   - updates-http.cdn-apple.com
+  - updates-http.cdn-apple.com.akadns.net
   - upe.net
   - upos-hz-mirrorakam.akamaized.net
   - upp.itunes.apple.com
@@ -4469,6 +4591,8 @@ domain_suffix_set:
   - v5875.com
   - v5-dy-o-abtest.zjcdn.com
   - v5fox.com
+  - valid.apple.com
+  - valid.origin-apple.com.akadns.net
   - value500.com
   - vancl.com
   - vanclimg.com
@@ -4572,7 +4696,13 @@ domain_suffix_set:
   - weand.com
   - weather.com
   - weather.com.cn
+  - weather-analytics-events.apple.com
   - weathercn.com
+  - weather-data.apple.com
+  - weather-data.apple.com.akadns.net
+  - weatherkit.apple.com
+  - weather-map.apple.com
+  - weather-map2.apple.com
   - webank.com
   - webankcdn.net
   - webgame163.com
@@ -4716,6 +4846,8 @@ domain_suffix_set:
   - wuxizazhi.net
   - wuyou189.com
   - wuyoudagong.com
+  - www.apple.com
+  - www.apple.com.edgekey.net.globalredir.akadns.net
   - www.cbsnews.com
   - www.filmon.com
   - www.guzhenm.com
@@ -4832,6 +4964,7 @@ domain_suffix_set:
   - xn--r70as2s.xn--fiqs8s
   - xoyo.com
   - xp.apple.com
+  - xp-cdn.apple.com
   - xpgod.com
   - xppgsx.com
   - xqfunds.com
@@ -5203,140 +5336,6 @@ domain_suffix_set:
   - zzlive.zzc-media.com
   - zzq12345.gearhostpreview.com
   - zzxca.com
-  - a1.mzstatic.com
-  - a2.mzstatic.com
-  - a3.mzstatic.com
-  - a4.mzstatic.com
-  - a5.mzstatic.com
-  - adcdownload.apple.com
-  - adcdownload.apple.com.akadns.net
-  - amp-api.media.apple.com
-  - appleid.cdn-apple.com
-  - apps.mzstatic.com
-  - cdn-cn1.apple-mapkit.com
-  - cdn-cn2.apple-mapkit.com
-  - cdn-cn3.apple-mapkit.com
-  - cdn-cn4.apple-mapkit.com
-  - cdn.apple-mapkit.com
-  - cdn1.apple-mapkit.com
-  - cdn2.apple-mapkit.com
-  - cdn3.apple-mapkit.com
-  - cdn4.apple-mapkit.com
-  - cds-cdn.v.aaplimg.com
-  - cds.apple.com
-  - cds.apple.com.akadns.net
-  - cdsassets.apple.com
-  - certs.apple.com
-  - cl1-cdn.origin-apple.com.akadns.net
-  - cl1.apple.com
-  - cl2-cn.apple.com
-  - cl2.apple.com
-  - cl2.apple.com.edgekey.net.globalredir.akadns.net
-  - cl3-cdn.origin-apple.com.akadns.net
-  - cl3.apple.com
-  - cl4-cdn.origin-apple.com.akadns.net
-  - cl4-cn.apple.com
-  - cl4.apple.com
-  - cl5-cdn.origin-apple.com.akadns.net
-  - cl5.apple.com
-  - clientflow.apple.com
-  - clientflow.apple.com.akadns.net
-  - cn-smp-paymentservices.apple.com
-  - cn-ssl.ls.apple.com
-  - cn.apple.com
-  - cn.ls.apple.com
-  - configuration.apple.com.akadns.net
-  - crl.apple.com
-  - cstat.apple.com
-  - cstat.cdn-apple.com
-  - dd-cdn.origin-apple.com.akadns.net
-  - dejavu.apple.com
-  - devimages-cdn.apple.com
-  - devstreaming-cdn.apple.com
-  - experiments.apple.com
-  - gsp10-ssl-cn.ls.apple.com
-  - gsp11-cn.ls.apple.com
-  - gsp12-cn.ls.apple.com
-  - gsp13-cn.ls.apple.com
-  - gsp4-cn.ls.apple.com
-  - gsp4-cn.ls.apple.com.edgekey.net.globalredir.akadns.net
-  - gsp5-cn.ls.apple.com
-  - gsp85-cn-ssl.ls.apple.com
-  - gspe19-2-cn-ssl.ls-apple.com.akadns.net
-  - gspe19-2-cn-ssl.ls.apple.com
-  - gspe19-cn.ls-apple.com.akadns.net
-  - gspe19-cn.ls.apple.com
-  - gspe21-ssl.ls.apple.com
-  - gspe35-ssl.ls.apple.com
-  - gspe79-cn-ssl.ls.apple.com
-  - guzzoni-apple-com.v.aaplimg.com
-  - guzzoni.smoot.apple.com
-  - iadsdk.apple.com
-  - images.apple.com.edgekey.net.globalredir.akadns.net
-  - init-kt.apple.com
-  - init-p01md-lb.push-apple.com.akadns.net
-  - init-p01md.apple.com
-  - init-p01st-lb.push-apple.com.akadns.net
-  - init-s01st-lb.push-apple.com.akadns.net
-  - iosapps.itunes.g.aaplimg.com
-  - ipcdn.apple.com
-  - iphone-ld.apple.com
-  - iphone-ld.origin-apple.com.akadns.net
-  - is1-ssl.mzstatic.com
-  - is1.mzstatic.com
-  - is2-ssl.mzstatic.com
-  - is2.mzstatic.com
-  - is3-ssl.mzstatic.com
-  - is3.mzstatic.com
-  - is4-ssl.mzstatic.com
-  - is4.mzstatic.com
-  - is5-ssl.mzstatic.com
-  - is5.mzstatic.com
-  - itunesconnect.apple.com
-  - mensura.cdn-apple.com
-  - mesu-china.apple.com.akadns.net
-  - ml.cdn-apple.com
-  - ocsp2.apple.com
-  - oscdn.origin-apple.com.akadns.net
-  - osxapps.itunes.g.aaplimg.com
-  - pancake.apple.com
-  - pba0.apple.com
-  - probe.siri.apple.com
-  - prod-support.apple-support.akadns.net
-  - publicassets.cdn-apple.com
-  - s.mzstatic.com
-  - seed-swallow.siri.apple.com
-  - seed.siri.apple.com
-  - sh-pod2-smp-device.apple.com
-  - shazam-insights.cdn-apple.com
-  - static.gc.apple.com
-  - stocks-sparkline-lb.apple.com.akadns.net
-  - stocks-sparkline.apple.com
-  - store.apple.com.edgekey.net
-  - store.apple.com.edgekey.net.globalredir.akadns.net
-  - store.storeimages.apple.com.akadns.net
-  - store.storeimages.cdn-apple.com
-  - support-china.apple-support.akadns.net
-  - support.apple.com
-  - swallow-apple-com.v.aaplimg.com
-  - swallow.apple.com
-  - swcatalog-cdn.apple.com.akadns.net
-  - swcatalog.apple.com
-  - swcdn.g.aaplimg.com
-  - swdist.apple.com
-  - swdist.apple.com.akadns.net
-  - swscan-cdn.apple.com.akadns.net
-  - sylvan.apple.com
-  - tj-pod1-smp-device.apple.com
-  - updates-http.cdn-apple.com.akadns.net
-  - valid.apple.com
-  - valid.origin-apple.com.akadns.net
-  - weather-data.apple.com.akadns.net
-  - weather-map.apple.com
-  - weather-map2.apple.com
-  - weatherkit.apple.com
-  - www.apple.com
-  - www.apple.com.edgekey.net.globalredir.akadns.net
 domain_keyword_set:
   - 1drv
   - 360buy
