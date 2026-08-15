@@ -223,7 +223,3 @@ domain_keyword_set:
   - vip.ffzy-play
   - vip.kuaikan-cdn
   - vip.lz-cdn
-ip_cidr_set:
-  - 17.253.116.125/32
-  - 192.168.0.1/24
-  - 192.168.1.1/24
