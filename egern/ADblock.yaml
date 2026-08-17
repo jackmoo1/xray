@@ -1473,6 +1473,7 @@ domain_suffix_set:
   - b1.b2b168.net
   - b1sync.zemanta.com
   - b8b4ix7bj.com
+  - badges.instagram.com
   - baichuan.baidu.com
   - baidu1.cardbaobao.com
   - baidustatic.com
@@ -2272,6 +2273,8 @@ domain_suffix_set:
   - gpxxbyf.cn
   - gqdfgyz.cn
   - grand.ele.me
+  - graph-fallback.instagram.com
+  - graph.instagram.com
   - gridsum.com
   - gromore.pangolin-sdk-toutiao.com.230b2a2545cfa773.queniuck.com
   - gromore.pangolin-sdk-toutiao.com.bytedns1.com
@@ -2289,6 +2292,7 @@ domain_suffix_set:
   - gtags.net
   - gtcqbnu.cn
   - gtlpaj.com
+  - gtm.instagramautomation.com
   - gtreus.aliexpress.com
   - guance.com
   - guangzhuiyuan.com
@@ -2565,6 +2569,8 @@ domain_suffix_set:
   - insight.mintel.com
   - insight.oceancus.com
   - insight.ucweb.com
+  - instagram.astv.ru
+  - instagram.xx.fbcdn.net.iberostar.com
   - int.dpool.sina.com.cn
   - intely.cn
   - interface.bilibili.com
