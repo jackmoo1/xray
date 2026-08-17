@@ -193,6 +193,7 @@ domain_set:
   - an.facebook.com
   - analysis.chatglm.cn
   - analysis.yozocloud.cn
+  - analytics.facebook.com
   - analytics.oceanengine.com
   - analytics.pinterest.com
   - analytics.pointdrive.linkedin.com
@@ -215,6 +216,7 @@ domain_set:
   - api-access.pangolin-sdk-toutiao4.com
   - api-access.pangolin-sdk-toutiao5.com
   - api-ad-product.huxiu.com
+  - api.facebook.com
   - api-gd.hiaiabc.com
   - api.fu.xcultur.com
   - api.hzsanjiaomao.com
@@ -238,6 +240,7 @@ domain_set:
   - asimgs.pplive.cn
   - atrace.chelaile.net.cn
   - audid-api.taobao.com
+  - b-api.facebook.com
   - badjs.weixinbridge.com
   - baichuan-sdk.alicdn.com
   - baichuan-sdk.taobao.com
@@ -284,6 +287,7 @@ domain_set:
   - commdata.v.qq.com
   - config.chsmarttv.com
   - config.inmobi.com
+  - connect.facebook.net
   - counter.kingsoft.com
   - counter.ksosoft.com
   - crash2.zhihu.com
@@ -334,6 +338,9 @@ domain_set:
   - events-drru.op.hicloud.com
   - events.reddit.com
   - events.redditmedia.com
+  - facebook.com/tr
+  - facebook.com/events
+  - ads.facebook.com
   - fancyapi.com
   - fclog.baidu.com
   - feed-image.baidu.com
@@ -557,6 +564,7 @@ domain_set:
   - pgdt.gtimg.com
   - pglstatp-toutiao.com
   - pig.pupuapi.com
+  - pixel.facebook.com
   - pixon.ads-pixiv.net
   - pkoplink.com
   - pl.cp31.ott.cibntv.net
