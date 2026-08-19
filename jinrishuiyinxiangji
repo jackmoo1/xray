@@ -1,3 +1,0 @@
-# > 今日水印相机
-hostname = api.sogaha.cn
-^https?:\/\/api\.sogaha\.cn\/ssp\/ad\/get\?ip url reject-dict
