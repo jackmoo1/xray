@@ -1928,8 +1928,6 @@ domain_suffix_set:
   - dnlog.cmpassport.com
   - dns.jd.com
   - dns.weibo.cn
-  - dns.weixin.qq.com
-  - dns.weixin.qq.com.cn
   - dnyzbp.cn
   - do-global.com
   - doglobal.net
