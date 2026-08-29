@@ -1,12 +1,17 @@
-name: "X/Twitter 评论区垃圾与黄推过滤"
-scriptings:
-  - http_response:
-      # 匹配 X GraphQL 评论区主接口与下滑加载接口
-      match: "^https?://api\\.(x|twitter)\\.com/graphql/.+/(TweetDetail|ConversationTimeline)"
-      script_url: "https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/Xcleaner.js" 
-      body_required: true
-      max_size: 3145728 
+name: X/Twitter 评论区垃圾与机器人过滤
+description: 自动过滤 X (Twitter) 评论区的黄推、赌博、TG引流以及批量同质化控评机器人。
+author: Egern Module
+category: Privacy
+
 mitm:
   hostnames:
     - "api.x.com"
     - "api.twitter.com"
+
+scriptings:
+  - http_response:
+      name: X/Twitter 评论区清理脚本
+      match: "^https?://api\\.(x|twitter)\\.com/graphql/.+/(TweetDetail|ConversationTimeline)"
+      script_url: "https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/Xcleaner.js"
+      body_required: true
+      max_size: 3145728
