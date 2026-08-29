@@ -1,17 +1,10 @@
-name: X/Twitter 评论区垃圾与机器人过滤
-description: 自动过滤 X (Twitter) 评论区的黄推、赌博、TG引流以及批量同质化控评机器人。
-author: Egern Module
-category: Privacy
+#!name=X/Twitter 评论区垃圾与机器人过滤
+#!desc=自动过滤 X (Twitter) 评论区的黄推、赌博、TG引流以及批量同质化控评机器人。
+#!category=Privacy
+#!author=Surge Module
 
-mitm:
-  hostnames:
-    - "api.x.com"
-    - "api.twitter.com"
+[MITM]
+hostname = %APPEND% api.x.com, api.twitter.com
 
-scriptings:
-  - http_response:
-      name: X/Twitter 评论区清理脚本
-      match: "^https?://api\\.(x|twitter)\\.com/graphql/.+/(TweetDetail|ConversationTimeline)"
-      script_url: "https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/Xcleaner.js"
-      body_required: true
-      max_size: 3145728
+[Script]
+X评论区清理脚本 = type=http-response,pattern=^https?://api\.(x|twitter)\.com/graphql/.+/(TweetDetail|ConversationTimeline),script-path=https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/Xcleaner.js,requires-body=true,max-size=3145728
