@@ -1,0 +1,10 @@
+#!name=X/Twitter 评论区垃圾与机器人过滤
+#!desc=自动过滤 X (Twitter) 评论区的黄推、赌博、TG引流以及批量同质化控评机器人。
+#!category=Privacy
+#!author=Surge Module
+
+[MITM]
+hostname = %APPEND% api.x.com, api.twitter.com
+
+[Script]
+X评论区清理脚本 = type=http-response,pattern=^https?://api\.(x|twitter)\.com/graphql/.+/(TweetDetail|ConversationTimeline),script-path=https://raw.githubusercontent.com/jackmoo1/xray/refs/heads/main/egern/Xcleaner.js,requires-body=true,max-size=3145728
