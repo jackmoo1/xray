@@ -87,6 +87,7 @@ domain_set:
   - ads-api-o.api.leiniao.com
   - ads-api.tiktok.com
   - ads-api.twitter.com
+  - ads-twitter.com
   - ads-d.viber.com
   - ads-img-al.xhscdn.com
   - ads-img-qc.xhscdn.com
@@ -549,6 +550,7 @@ domain_set:
   - oth.str.mdt.qq.com
   - otheve.play.aiseet.atianqi.com
   - outlookads.live.com
+  - p.twitter.com
   - p1-lm.adkwai.com
   - p2-lm.adkwai.com
   - p3-lm.adkwai.com
@@ -595,6 +597,7 @@ domain_set:
   - saxn.sina.com.cn
   - saxs.sina.com.cn
   - saxysec.com
+  - scribe.twitter.com
   - scs.openspeech.cn
   - sdapprecv.app.cntvwb.cn
   - sdk-cache.video.ptqy.gitv.tv
@@ -637,6 +640,8 @@ domain_set:
   - sv-video.play.aiseet.atianqi.com
   - syh-imp.cdnjtzy.com
   - syh.zybang.com
+  - syndication.twitter.com
+  - syndication-o.twitter.com
   - szbdyd.com
   - t-ads.xiaohongshu.com
   - t-adx.52qumao.com
@@ -702,6 +707,7 @@ domain_set:
   - union.baidu.com
   - ups.ksmobile.net
   - uranus.jd.com
+  - urls.api.twitter.com
   - v.110route.cn
   - v1-ad.video.yximgs.com
   - v1.log.moji.com
