@@ -15,34 +15,9 @@ use-local-host-item-for-proxy = true
 encrypted-dns-follow-outbound-mode = false
 
 [Host]
-
-# > Modify Contents
-talk.google.com = 108.177.125.188 
-mtalk.google.com = 108.177.125.188, 2404:6800:4008:c07::bc, 142.250.31.188 
-alt1-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:c0b::bc, 64.233.171.188 
-alt2-mtalk.google.com = 3.3.3.3, 142.250.115.188 
-alt3-mtalk.google.com = 74.125.200.188, 173.194.77.188 
-alt4-mtalk.google.com = 74.125.200.188, 173.194.219.188 
-alt5-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:1::bc, 142.250.112.188 
-alt6-mtalk.google.com = 3.3.3.3, 172.217.197.188 
-alt7-mtalk.google.com = 74.125.200.188, 2607:f8b0:4002:c03::bc, 108.177.12.188 
-alt8-mtalk.google.com = 3.3.3.3 
-
-# --- CUSTOM DNS ---
-# > Modify Contents
-blog.google = server:119.29.29.29 
-googletraveladservices.com = server:119.29.29.29 
-dl.google.com = server:119.29.29.29 
-dl.l.google.com = server:119.29.29.29 
-clientservices.googleapis.com = server:119.29.29.29
-update.googleapis.com = server:119.29.29.29 
-translate.googleapis.com = server:119.29.29.29 
-fonts.googleapis.com = server:119.29.29.29 
-fonts.gstatic.com = server:119.29.29.29 
 stun.l.google.com = server:syslib 
 stun?.l.google.com = server:syslib
 # > Apple
-networking.apple = server:https://doh.dns.apple.com/dns-query 
 *.icloud.com = server:https://doh.dns.apple.com/dns-query
 
 # > 阿里巴巴
@@ -136,26 +111,6 @@ url.cn = server:https://doh.pub/dns-query
 *.bcehosts.com = server:quic://dns.alidns.com 
 dwz.cn = server:quic://dns.alidns.com  
 
-# > 360
-*.360.cn = server:https://doh.360.cn/dns-query 
-*.360safe.com = server:https://doh.360.cn/dns-query
-*.360kuai.com = server:https://doh.360.cn/dns-query 
-*.so.com = server:https://doh.360.cn/dns-query
-*.360webcache.com = server:https://doh.360.cn/dns-query 
-*.qihuapi.com = server:https://doh.360.cn/dns-query
-*.qhimg.com = server:https://doh.360.cn/dns-query
-*.qhimgs.com = server:https://doh.360.cn/dns-query 
-*.qhimgs?.com = server:https://doh.360.cn/dns-query 
-*.qhmsg.com = server:https://doh.360.cn/dns-query
-*.qhres.com = server:https://doh.360.cn/dns-query
-*.qhres?.com = server:https://doh.360.cn/dns-query 
-*.dhrest.com = server:https://doh.360.cn/dns-query 
-*.qhupdate.com = server:https://doh.360.cn/dns-query 
-*.yunpan.cn = server:https://doh.360.cn/dns-query
-*.yunpan.com.cn = server:https://doh.360.cn/dns-query 
-*.yunpan.com = server:https://doh.360.cn/dns-query 
-urlqh.cn = server:https://doh.360.cn/dns-query 
-
 # > Bytedance
 *.amemv.com = server:180.184.1.1 
 *.bdxiguaimg.com = server:180.184.1.1 
@@ -195,13 +150,3 @@ urlqh.cn = server:https://doh.360.cn/dns-query
 *.zijieimg.com = server:180.184.1.1 
 *.zjbyte.com = server:180.184.1.1 
 *.zjcdn.com = server:180.184.1.1 
-# > BiliBili
-upos-sz-mirrorali.bilivideo.com = server:quic://dns.alidns.com 
-upos-sz-mirrorali?.bilivideo.com = server:quic://dns.alidns.com 
-upos-sz-mirrorali??.bilivideo.com = server:quic://dns.alidns.com 
-upos-sz-mirrorbos.bilivideo.com = server:quic://dns.alidns.com  
-upos-sz-mirrorcos.bilivideo.com = server:https://doh.pub/dns-query 
-upos-sz-mirrorcos?.bilivideo.com = server:https://doh.pub/dns-query 
-upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query
-upos-sz-upcdnbd??.bilivideo.com = server:quic://dns.alidns.com 
-upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query 
