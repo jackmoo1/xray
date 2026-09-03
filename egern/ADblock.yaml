@@ -1759,6 +1759,7 @@ domain_suffix_set:
   - applog.snssdk.com
   - applog.ucdns.uc.cn
   - applog.yiche.com
+  - applog.zijieapi.com
   - applogios.uc.cn
   - app-log-lab.immomo.com
   - app-log-oversea.immomo.com
@@ -2879,13 +2880,16 @@ domain_suffix_set:
   - l.qq.com
   - links.services.disqus.com
   - log.hunantv.com
+  - log.zijieapi.com
   - magsrv.com
   - maphuahin.com
   - maxwellsery.com
   - mc7clurd09pla4nrtat7ion.com
+  - mcs.zijieapi.com
   - media.aso1.net
   - media.dalysv.com
   - mm9842.com
+  - mon.zijieapi.com
   - mnaspm.com
   - my.rtmark.net
   - nby360.com
