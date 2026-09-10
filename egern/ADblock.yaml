@@ -1,5 +1,4 @@
 domain_set:
-  - 118.89.204.198
   - 1500020991.vodplayer.wxamedia.com
   - 1500022744.vodplayer.wxamedia.com
   - 1500026601.vodplayer.wxamedia.com
@@ -1092,8 +1091,6 @@ domain_set:
   - zjres-ad.kajicam.com
   - zxid-m.mobileservice.cn
 domain_suffix_set:
-  - 107iwh.cn
-  - 1rtb.com
   - 0001-metrics1-drcn-dt-dbankcloud-cn.geac.dbankedge.cn
   - 0002-metrics1-drcn-dt-dbankcloud-cn.geac.dbankedge.cn
   - 027dir.com
@@ -1126,6 +1123,7 @@ domain_suffix_set:
   - 1.zhev.com.cn
   - 1.zuowenjun.com
   - 100.pncdn.cn
+  - 107iwh.cn
   - 11.96131.com.cn
   - 11.yiqig.cn
   - 114la.com
@@ -1142,6 +1140,7 @@ domain_suffix_set:
   - 1mpi.com
   - 1nevsf92q.com
   - 1qingdao.com
+  - 1rtb.com
   - 1rtb.net
   - 1s8pj.cn
   - 1wkg.cn
@@ -1348,6 +1347,7 @@ domain_suffix_set:
   - ad.cnr.cn
   - ad.dev.360.cn
   - ad.docer.wps.cn
+  - ad.duoduo.link
   - ad.exyws.org
   - ad.fx168api.com
   - ad.gameley.com
@@ -1356,12 +1356,14 @@ domain_suffix_set:
   - ad.hunyuan.tencent.com
   - ad.iwhop.cn
   - ad.jxnews.com.cn
+  - ad.maoyan.com
   - ad.mh.163.com
   - ad.mi.com
   - ad.moonton.cn
   - ad.nvdvr.cn
   - ad.open.api.jihuoniao.com
   - ad.ourgame.com
+  - ad.player.baidu.com
   - ad.pornimg.xyz
   - ad.qyer.com
   - ad.sina.com.cn
@@ -1379,6 +1381,7 @@ domain_suffix_set:
   - ad4.sina.com.cn
   - ada.baidu.com
   - adadmin.house365.com
+  - ad-api.4pyun.com
   - ad-api.cnblogs.com
   - adash.m.taobao.com
   - adashbc.m.taobao.com
@@ -1400,12 +1403,14 @@ domain_suffix_set:
   - adbd.liuxue86.com
   - adblock.sina.cn
   - adbox.sina.com.cn
+  - adcanvas.com
   - ad-cdn.qtfm.cn
   - adcome.cn
   - adcs.myappsget.com
   - adcs-ap.myappsget.com
   - adcs-ue.myappsget.com
   - addthis.com
+  - ad-files.4pyun.com
   - adfunlink.com
   - adfuture.cn
   - adgame.waimai.meituan.com
@@ -1458,6 +1463,7 @@ domain_suffix_set:
   - ads.facebook.com
   - ads.house365.com
   - ads.internal.unity3d.com
+  - ads.ishansong.com
   - ads.jianchiapp.com
   - ads.linkedin.cn
   - ads.msn.com
@@ -1503,6 +1509,9 @@ domain_suffix_set:
   - ads-drru.platform.hihonorcloud.com
   - adserve.work
   - adserver.yahoo.com
+  - adservice.google.com
+  - adservice.sigmob.cn
+  - adserviceretry.kugou.com
   - adseye.com
   - ads-gdl.imovideo.ru
   - adsgroup.qq.com
@@ -1525,11 +1534,13 @@ domain_suffix_set:
   - adsmind.ugdtimg.com.tcdn.qq.com
   - adsmis.duxiaoman.com
   - adsmogo.com
+  - adsmoloco.com
   - ads-monitoring.shziyi.com
   - adsoss.uqualities.com
   - adspecs.yahoo.com
   - adsqqclick.qq.com
   - adsrich.qq.com
+  - ads-shopping.shouqianba.com
   - adstatic.zhihu.com
   - adstatistics.av380.net
   - adstextview.qq.com
@@ -1574,11 +1585,14 @@ domain_suffix_set:
   - adx-dra-op-dbankcloud-com-dra.edge.dbankedge.cn
   - adx-drru.op.dbankcloud.ru
   - adxmi.com
+  - adx-os.bridgeoos.com
+  - adxstatic.vivo.com.cn
   - adxvip.com
   - adyun.com
   - adzp.cn
   - ae.bdstatic.com
   - ae-alimelog.taobao.com
+  - aegis.qq.com
   - aemetrics.aliexpress.ru
   - af1tsjdta.com
   - affiliate.klook.com
@@ -1609,6 +1623,7 @@ domain_suffix_set:
   - alitui.weibo.com
   - ali-web-player-tracker.biliapi.net
   - all.cnzz.com.danuoyi.tbcache.com
+  - alltbcsp2p.baidu.com
   - allyes.cn
   - am.szhome.com
   - amap-aos-info-nogw.amap.com
@@ -1704,6 +1719,7 @@ domain_suffix_set:
   - api-ad-adapter.wps.com
   - api-ad-adapter-mb.wps.com
   - api-ad-callback.falconnet.app
+  - api-adservices.apple.com
   - api-analytics.zepp.com
   - api-analytics-cn3.zepp.com
   - api-analytics-de.zepp.com
@@ -1759,7 +1775,6 @@ domain_suffix_set:
   - applog.snssdk.com
   - applog.ucdns.uc.cn
   - applog.yiche.com
-  - applog.zijieapi.com
   - applogios.uc.cn
   - app-log-lab.immomo.com
   - app-log-oversea.immomo.com
@@ -1911,6 +1926,7 @@ domain_suffix_set:
   - bnti.cn
   - boardx.huanqiu.com
   - bpuvuun0xg.com
+  - brandadsstatic.vivo.com.cn
   - brandshow.58.com
   - bravikzen-ai.com
   - brc.aigrammar.net
@@ -1991,6 +2007,7 @@ domain_suffix_set:
   - cdn.xianchengyou.com
   - cdn.xianliao.me
   - cdn2.moji002.com
+  - cdn-ad.wtzw.com
   - cdnlog.zhenai.com
   - cdnmaster.cn
   - cdnmaster.com
@@ -2075,6 +2092,7 @@ domain_suffix_set:
   - collector.dcdn.baidu.com
   - collector.szlcsc.com
   - collector2c.zhihuishu.com
+  - commercial.shouji.360.cn
   - config.ad.falconnet.app
   - config.cmpassport.com
   - config1.cmpassport.com
@@ -2319,6 +2337,7 @@ domain_suffix_set:
   - dsp.ali213.net
   - dsp.youdao.com
   - dsp-impr2.youdao.com
+  - dsplog-adnet.vivo.com.cn
   - dspmnt.autohome.com.cn
   - dspsdk.pinduoduo.com
   - dspunion.com
@@ -2432,6 +2451,7 @@ domain_suffix_set:
   - events.baicizhan.com
   - events-drru.op.dbankcloud.ru
   - event-tracking-project.log-global.aliyuncs.com.w.cdngslb.com
+  - eventv1.leidong.rayenergytech.com
   - evtubescms.phncdn.com
   - ewrrpuquc1.com
   - excsyrv.cn
@@ -2612,6 +2632,8 @@ domain_suffix_set:
   - gonaoko.shop
   - gongxifc.com
   - googleadapis.l.google.com
+  - googleadservices.com
+  - googleadservices-cn.com
   - googleadsserving.cn
   - googleanalytics.com
   - google-analytics-cn.com
@@ -2658,6 +2680,8 @@ domain_suffix_set:
   - gujkj.cn
   - guomob.com
   - guzsjdl.cn
+  - gw5.push.mcp.weibo.cn
+  - gw6.push.mcp.weibo.cn
   - gw7jpuouik.com
   - gwrtdp-tn690bfadt.tclclouds.com
   - gxgbvmg.cn
@@ -2797,7 +2821,9 @@ domain_suffix_set:
   - hubcloud.com.cn
   - huishenghuiying.com.cn
   - huoche.com.cn
+  - huodong.ios.shouji.360.cn
   - huodong.m.taobao.com
+  - huodong.weibo.cn
   - huohuo.huamuwo.com
   - huoying666.com
   - hwa.his.huawei.com
@@ -2830,6 +2856,7 @@ domain_suffix_set:
   - iadcontent.apple.com
   - iadcontent-lb.apple.com.akadns.net
   - iadmatvideo.nosdn.127.net
+  - iadmoo.apple.com
   - iadsdk.apple.com.akadns.net
   - ib.snssdk.com
   - ibozys.cn
@@ -2852,12 +2879,15 @@ domain_suffix_set:
   - ifsau-eu.coloros.com
   - ig66.vip
   - ig67.vip
+  - image-ad.sm.cn
   - img.ad-nex.com
   - img.hylmxing.com
   - imgxxx.shunxincar.cn
   - impactserving.com
   - impolo.com
   - ingest.sentry
+  - init.supersonicads.com
+  - inner-hw.huazirc.com
   - insight.oceancus.com
   - ioacfu.com
   - itnuzleafan.com
@@ -2877,10 +2907,14 @@ domain_suffix_set:
   - kk.braincf.com
   - kkjhgfds.top
   - knlk2md.cn
+  - kwpush.kuwo.cn
   - l.qq.com
   - links.services.disqus.com
   - log.hunantv.com
-  - log.zijieapi.com
+  - logs-bigdata.yeehaw.com.cn
+  - logv2.ireader.com
+  - lookup.api.bsb.baidu.com
+  - m1.ad.10010.com
   - magsrv.com
   - maphuahin.com
   - maxwellsery.com
@@ -2889,8 +2923,8 @@ domain_suffix_set:
   - media.aso1.net
   - media.dalysv.com
   - mm9842.com
-  - mon.zijieapi.com
   - mnaspm.com
+  - mon.zijieapi.com
   - my.rtmark.net
   - nby360.com
   - netdjs.net
@@ -2898,7 +2932,14 @@ domain_suffix_set:
   - oawhaursaith.com
   - ohjluvpunaxg.com
   - onerousethelpictures.com
+  - p1-be-pack-sign.pglstatp-toutiao.com
   - p242.plainwrk.name
+  - p2-be-pack-sign.pglstatp-toutiao.com
+  - p3-be-pack-sign.pglstatp-toutiao.com
+  - p4-be-pack-sign.pglstatp-toutiao.com
+  - p5-be-pack-sign.pglstatp-toutiao.com
+  - p6-be-pack-sign.pglstatp-toutiao.com
+  - pagead2.googleadservices.com
   - pangolin-sdk-toutiao.com
   - pc.stgowan.com
   - phloxsub73ulata.com
@@ -2906,6 +2947,7 @@ domain_suffix_set:
   - playersb.com
   - popin.cc
   - prd.jwpltx.com
+  - prom-sdkv2.jysper.net
   - ptelastaxo.com
   - pu0glv.cn
   - purpleads.io
@@ -2919,6 +2961,8 @@ domain_suffix_set:
   - realsrv.com
   - referrer.disqus.com
   - regulationprivilegescan.top
+  - report.dxunion.cn
+  - report.tencentmusic.com
   - rmhfrtnd.com
   - run.haireig.com
   - s.csyfe.com
@@ -2935,6 +2979,8 @@ domain_suffix_set:
   - thumb.fvs.io
   - tj.orlandowaggons.com
   - towableunto.cfd
+  - tracker-prd.aldi.com.cn
+  - tracking-adnet.vivo.com.cn
   - trackwilltrk.com
   - trafficforce.com
   - trafforsrv.com
@@ -2944,13 +2990,18 @@ domain_suffix_set:
   - tyrantdb.com
   - ubixioe.com
   - union.youdao.com
+  - union-record.oss-cn-zhangjiakou.aliyuncs.com
   - unityads.unity3d.com
   - unreshiramor.com
   - uus52.com
   - uus58.com
+  - v1-ad.video.yximgs.com
   - v2.hunantv.com
+  - v2-ad.video.yximgs.com
   - v3.fstats.xyz
+  - v3-ad.video.yximgs.com
   - video.ktkjmp.com
+  - video-ad.sm.cn
   - vjugz.com
   - vlion.cn
   - vntsm.com
@@ -2960,6 +3011,7 @@ domain_suffix_set:
   - wine-api.net
   - wpadmngr.com
   - wpncdn.com
+  - ws.tapjoyads.com
   - wss.haoyundmn.com
   - wuzbhjpvsf.com
   - www.govshenzhen.cn
@@ -2976,6 +3028,7 @@ domain_suffix_set:
   - xxxjmp.com
   - yfanads.com
   - youradexchange.com
+  - yumao.puata.info
   - zhangyuyidong.cn
   - zprofuqkssny.com
 domain_keyword_set:
