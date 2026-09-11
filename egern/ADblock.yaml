@@ -724,7 +724,6 @@ domain_set:
   - ms4.applvn.com
   - msdk.voiceads.cn
   - mssdk.volces.com
-  - mssdk.zijieapi.com
   - mtj.baidu.com
   - n.3g.163.com
   - n.mark.letv.com
@@ -2924,7 +2923,6 @@ domain_suffix_set:
   - media.dalysv.com
   - mm9842.com
   - mnaspm.com
-  - mon.zijieapi.com
   - my.rtmark.net
   - nby360.com
   - netdjs.net
