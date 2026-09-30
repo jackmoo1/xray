@@ -18875,6 +18875,12 @@ domain_keyword_set:
   - yandex
   - youtube
   - tube
+asn_set:
+  - "AS211157"
+  - "AS44907"
+  - "AS59930"
+  - "AS62014"
+  - "AS62041"
 ip_cidr_set:
   - 1.201.0.0/24
   - 100.43.64.0/19
