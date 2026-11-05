@@ -457,6 +457,19 @@ domain_set:
   - iadmoo.apple.com
   - iadmusicmat.music.126.net
   - iadsdk.apple.com
+  - if-normal-gr-sourcecdn.bytegecko.com
+  - if-webcast-gr-sourcecdn.bytegecko.com
+  - p3-developer.bytemaimg.com
+  - webcast-open.douyin.com
+  - p11-webcast-sign.douyinpic.com
+  - p3-webcast-sign.douyinpic.com
+  - log3-applog.fqnovel.com
+  - log5-applog.fqnovel.com
+  - mon11-misc-lp.fqnovel.com
+  - mon11-misc.fqnovel.com
+  - mon3-misc.fqnovel.com
+  - rtlog3-applog.fqnovel.com
+  - rtlog5-applog.fqnovel.com
   - ifacelog.iqiyi.com
   - ifs.tanx.com
   - ii.gdt.qq.com
@@ -596,6 +609,7 @@ domain_set:
   - monitor.music.qq.com
   - monitor.uu.qq.com
   - monsetting.toutiao.com
+  - mon.toutiaocloud.net
   - mores.toponad.com
   - mpcfg.fancydsp.com
   - ms.applovin.com
@@ -947,6 +961,7 @@ domain_set:
   - zeus.ad.xiaomi.com
   - zhihu-web-analytics.zhihu.com
   - zjres-ad.kajicam.com
+  - zlink.ugsdk.cn
   - zxid-m.mobileservice.cn
 domain_suffix_set:
   - 1rtb.com
