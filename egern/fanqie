@@ -1,74 +1,44 @@
-#!name=sgmodule
-#!desc=常用软件去广告
+# > 番茄小说
+hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, i-lq.snssdk.com, i-lq.snssdk.com.*, *default.ixigua.com
+host, i-lq.snssdk.com, reject
+host, is-lq.snssdk.com, reject
+host, ug-sinfonlinea.bytedance.com, reject
+host, dig.bdurl.net, reject
+host, activity-ag.awemeughun.com, reject
+host, mcs.snssdk.com, reject
+host, tnc3-alisc1.snssdk.com, reject
+host, security-lq.snssdk.com, reject
+host, tnc3-aliec2.snssdk.com, reject
+#host, is.snssdk.com, reject
+#host, i.snssdk.com, reject
+host, v6-novelapp.ixigua.com, reject
+host-suffix, novelapp.ixigua.com, reject
+host-suffix, default.ixigua.com, reject
+host, msync-im1-vip6-std.easemob.com, reject
+host, apd-pcdnwxlogin.teg.tencent-cloud.net, reject
+host, api.iegadp.qq.com, reject
+host-suffix, byteorge.com, reject
+# 下面两条误杀严重导致懂车帝无法正常使用
+#host-suffix, bytegoofy.com, reject
+#host-suffix, bytedance.com, reject
+IP-CIDR, 49.71.37.101/32, reject
+IP-CIDR, 117.71.105.23/32, reject
+IP-CIDR, 218.94.207.205/32, reject
+IP-CIDR, 117.92.229.188/32, reject
+IP-CIDR, 101.36.166.16/32, reject
+IP-CIDR, 180.96.2.114/32, reject
 
-Rule
-# 字节跳动广告
-AND,((DOMAIN-KEYWORD,-ad-), (DOMAIN-SUFFIX,byteimg.com)),REJECT
-AND,((DOMAIN-KEYWORD,ads), (DOMAIN-KEYWORD,normal), (DOMAIN-SUFFIX,zijieapi.com)),REJECT-DROP
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-access-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-dual-event-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,api), (DOMAIN-KEYWORD,-log-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,if), (DOMAIN-KEYWORD,-analytics.bytescm.com)),REJECT
-AND,((DOMAIN-KEYWORD,lf), (DOMAIN-KEYWORD,-short.bytetos.com)),REJECT
-AND,((DOMAIN-KEYWORD,minigame), (DOMAIN-SUFFIX,zijieapi.com)),REJECT
-AND,((DOMAIN-KEYWORD,pangolin), (DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
-AND,((DOMAIN-KEYWORD,s), (DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT
-AND,((DOMAIN-KEYWORD,sf), (DOMAIN-KEYWORD,-ttcdn-tos.pstatp.com)),REJECT
-AND,((DOMAIN-KEYWORD,ssdk-), (DOMAIN-SUFFIX,pangle.io)),REJECT
-AND,((DOMAIN-KEYWORD,-ttam-), (DOMAIN-SUFFIX,ibyteimg.com)),REJECT-DROP
-AND,((DOMAIN-KEYWORD,v), (DOMAIN-KEYWORD,-be-pack.pglstatp-toutiao.com)),REJECT
-DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT
-DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
-DOMAIN-KEYWORD,-analytics.bytescm.com,REJECT
-DOMAIN-KEYWORD,asiad.byteactivity,REJECT
-DOMAIN-KEYWORD,-be-pack-sign.pglstatp-toutiao.com,REJECT
-DOMAIN-KEYWORD,-fe-tos.pglstatp-toutiao.com,REJECT
-DOMAIN-KEYWORD,log-api.pangolin-sdk-toutiao,REJECT
-DOMAIN-KEYWORD,-short.bytetos.com,REJECT
-DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
-DOMAIN-SUFFIX,bds.snssdk.com,REJECT
-DOMAIN-SUFFIX,dm.bytedance.com,REJECT
-DOMAIN-SUFFIX,dm.pstatp.com,REJECT
-DOMAIN-SUFFIX,dm.toutiao.com,REJECT
-DOMAIN-SUFFIX,extlog.snssdk.com,REJECT
-DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com,REJECT
-DOMAIN-SUFFIX,is.snssdk.com,REJECT
-DOMAIN-SUFFIX,log.snssdk.com,REJECT
-DOMAIN-SUFFIX,mon.zijieapi.com,REJECT
-DOMAIN-SUFFIX,mssdk.volces.com,REJECT
-DOMAIN-SUFFIX,mssdk-bu.bytedance.com,REJECT
-DOMAIN-SUFFIX,pangolin.snssdk.com,REJECT
-DOMAIN-SUFFIX,s3a.pstatp.com,REJECT
-DOMAIN-SUFFIX,sdfp.snssdk.com,REJECT
-DOMAIN-SUFFIX,ssdk-sg.pangle.io,REJECT
-DOMAIN-SUFFIX,toblog.ctobsnssdk.com,REJECT
-DOMAIN-SUFFIX,tosv.boe.byted.org,REJECT
-DOMAIN-SUFFIX,tosv.byted.org,REJECT
-URL-REGEX, ^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/,REJECT
-
-#其它
-DOMAIN-KEYWORD,safebrowsing,REJECT
-DOMAIN-SUFFIX,ios.prod.cloud.netflix.com,REJECT
-DOMAIN-SUFFIX,appboot.netflix.com,REJECT
-DOMAIN-SUFFIX,ios.ngp.prod.cloud.netflix.com,REJECT
-AND,((DOMAIN-KEYWORD,f-log), (DOMAIN-SUFFIX,grammarly.io)),REJECT
-AND,((DOMAIN-KEYWORD,genuine), (DOMAIN-KEYWORD,autodesk)),REJECT
-AND,((DOMAIN-SUFFIX,msa.cdn.mediaset.net), (DOMAIN-KEYWORD,adv0)),REJECT
-AND,((DOMAIN-SUFFIX,prod.hosts.ooklaserver.net), (DOMAIN-KEYWORD,.ad.)),REJECT
-AND,((NOT,((OR,((DOMAIN-SUFFIX,bilibili.com),(DOMAIN-SUFFIX,hdslb.com),(DOMAIN-SUFFIX,wo.cn),(DOMAIN-SUFFIX,biligame.com),(DOMAIN-SUFFIX,bilivideo.com),(DOMAIN-SUFFIX,biliapi.com),(DOMAIN-SUFFIX,biliapi.net),(DOMAIN-SUFFIX,biliintl.com),(DOMAIN-SUFFIX,bstarstatic.com),(DOMAIN-SUFFIX,akamaized.net))))),(USER-AGENT,bili*)),REJECT
-AND,((OR,((DOMAIN-SUFFIX,gvt3.com), (DOMAIN-SUFFIX,gvt2.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,gvt0.com))), (DOMAIN-KEYWORD,beacon)),REJECT
-URL-REGEX,^https:\/\/spclient\.wg\.spotify\.com\/ad-logic\/prefetch)),REJECT
-AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com,extended-matching)),REJECT
-# 阻止电报频繁请求
-AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
-
-# > Reddit 行为指纹与事件上报服务
-DOMAIN-SUFFIX,events.redditmedia.com,REJECT # Reddit 媒体内容统计与事件上报服务（广告行为追踪）
-
-Script
-# Reddit
-#移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js, requires-body=true
-[MITM]
-hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.co
+# 去章末广告
+^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/ url reject
+^https?:\/\/.+\.pglstatp-toutiao\.com\/.+\/toutiao\.mp4 url reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+ url reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+ url reject
+^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer url reject
+^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package url reject
+^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg url reject
+^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad url reject
+^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track_log\/src\/.+ url reject
+^https?:\/\/.+\.snssdk\.com\/video\/play\/1\/toutiao\/.+\/mp4 url reject
+^https?:\/\/.+\.snssdk.com\/api\/ad\/.+ url reject
+^https?:\/\/.+\.byteimg\.com\/ad-app-package url reject
+^https?:\/\/.+\.byteimg\.com\/web\.business\.image url reject
