@@ -18,6 +18,8 @@ DOMAIN,msync-im1-vip6-std.easemob.com,REJECT
 DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,REJECT
 DOMAIN,api.iegadp.qq.com,REJECT
 DOMAIN-SUFFIX,byteorge.com,REJECT
+DOMAIN-SUFFIX,novelapp.ixigua.com,REJECT
+DOMAIN-SUFFIX,default.ixigua.com,REJECT
 IP-CIDR,49.71.37.101/32,REJECT
 IP-CIDR,117.71.105.23/32,REJECT
 IP-CIDR,218.94.207.205/32,REJECT
