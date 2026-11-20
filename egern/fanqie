@@ -31,7 +31,8 @@ DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
 DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
 DOMAIN-SUFFIX,ao.com,REJECT
 DOMAIN-SUFFIX,byteorge.com,REJECT
-DOMAIN-SUFFIX,bytegoofy.com,REJECT
+#DOMAIN-SUFFIX,bytegoofy.com,REJECT
+DOMAIN-SUFFIX,cdn-tos-cn.bytedance.net,REJECT
 IP-CIDR,49.71.37.101/32,REJECT,no-resolve
 IP-CIDR,117.71.105.23/32,REJECT,no-resolve
 IP-CIDR,218.94.207.205/32,REJECT,no-resolve
@@ -57,4 +58,4 @@ IP-CIDR,180.96.2.114/32,REJECT,no-resolve
 ^https?://adim.pinduoduo.com/.+/toutiao?.+ - reject
 ^https?://v(\d)+-novelapp.fqnovelvod.com/.+/video/.+ - reject
 [Mitm]
-hostname = %APPEND%,.pangolin-sdk-toutiao,.pangolin-sdk-toutiao.,.pstatp.com,.pstatp.com.,.pglstatp-toutiao.com.,.pglstatp-toutiao.com,gurd.snssdk.com,gurd.snssdk.com.,*default.ixigua.com,adim.pinduoduo.com,v6-novelapp.fanovelvod.com
+hostname = %APPEND%,.pangolin-sdk-toutiao,.pstatp.com,.pglstatp-toutiao.com,gurd.snssdk.com,*default.ixigua.com,adim.pinduoduo.com,v6-novelapp.fanovelvod.com
