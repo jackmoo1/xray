@@ -1,20 +1,39 @@
-#!name=番茄小说+红果短剧 去广告
-#!desc=拦截番茄小说与红果短剧广告域名及接口
-# 由 Surge 规则转 Loon 插件，2026-10-26
-# 转换说明（原文其余内容原样保留，顺序未动）：
-# 1. 原文“ao.com,REJECT”缺规则类型，已补为 DOMAIN-SUFFIX,ao.com,REJECT
-# 2. 重复的 DOMAIN,i.snssdk.com,REJECT 已去重，只留一条
-# 3. 原文 [URL Rewrite] 里有一条孤立的“/mp4 - reject”，无完整匹配 pattern，若保留会误拦所有 mp4 请求，已删除；如原意是某条具体规则，请把完整 pattern 发我补上
-# 4. DOMAIN,*xxx 已转为 Loon 的 DOMAIN-WILDCARD,*xxx，语义不变
-# 5. [MITM] 已改为 Loon 插件的 [Mitm]，hostname 原样保留（含 %APPEND%）；其中 v6-novelapp.fanovelvod.com 拼写与 Rewrite 里的 fqnovelvod 不一致，原样未改
+#!name=番茄小说 & 红果短剧 去广告
+#!desc=v1.6.0：在 v1.5.0（budongshi-bds 完整规则集 + MITM 语法修复 + fqnovelvod 视频规则 + 直连兜底）基础上，根据用户 Surge 最近请求实测定位，新增拦截视频广告专属通道 *-reading-ad.qznovelvod.com（关键词 reading-ad）——广告视频与正片（*-reading-video.qznovelvod.com）在域名层完全分开，拦广告不伤正片。注意：v1.5 起拦截力度大，含 bytedance.com 全域拦截与 security/tnc/vas/gecko 等配置类域名拦截，若 App 出现异常可停用本版切回 v1.4.0。
+#!category=广告拦截
+#!author=Muse（规则集来源：budongshi-bds）
+#!version=1.6.0
+#!date=2026-11-22
+
 [Rule]
+# ========== v1.6 新增：视频广告专属通道（实测定位，与正片域名分开） ==========
+# 广告视频走 v*-reading-ad.qznovelvod.com，正片走 v*-reading-video.qznovelvod.com，拦此不伤正片
+DOMAIN-KEYWORD,reading-ad,REJECT
+
+# ========== URL 路径规则（需 MITM 解密对应域名才对 HTTPS 生效） ==========
+URL-REGEX,^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer,REJECT
+URL-REGEX,^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package,REJECT
+URL-REGEX,^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track-log\/src\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/ad-app-package,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/web\.business\.image,REJECT
+URL-REGEX,^https?:\/\/.+?\.snssdk\.com\/motor\/operation\/activity\/display\/config\/V2\/,REJECT
+# v1.4 补入：番茄视频广告素材通道（原版没有此条）
+URL-REGEX,^https?:\/\/v\d+-novelapp\.fqnovelvod\.com\/.+\/video\/.+,REJECT
+
+# ========== 域名规则（原版顺序） ==========
+DOMAIN,rmc.bytedance.com,DIRECT
 DOMAIN,p6-ad-sign.byteimg.com,REJECT
 DOMAIN,p9-ad-sign.byteimg.com,REJECT
-DOMAIN-SUFFIX,-ad-sign.byteimg.com,DIRECT
+DOMAIN-SUFFIX,byteimg.com,DIRECT
 DOMAIN,i.snssdk.com,REJECT
 DOMAIN,i-lq.snssdk.com,REJECT
 DOMAIN,dig.bdurl.net,REJECT
-#DOMAIN-KEYWORD,zijieapi,REJECT
 DOMAIN,activity-ag.awemeughun.com,REJECT
 DOMAIN,mcs.snssdk.com,REJECT
 DOMAIN,tnc3-alisc1.snssdk.com,REJECT
@@ -29,34 +48,67 @@ DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,REJECT
 DOMAIN,api.iegadp.qq.com,REJECT
 DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
 DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
-DOMAIN-SUFFIX,ao.com,REJECT
 DOMAIN-SUFFIX,byteorge.com,REJECT
 DOMAIN-SUFFIX,bytegoofy.com,REJECT
-DOMAIN-SUFFIX,bytedance.com,REJECT
-DOMAIN-SUFFIX,cdn-tos-cn.bytedance.net,REJECT
+#DOMAIN-SUFFIX,bytedance.com,REJECT
 IP-CIDR,49.71.37.101/32,REJECT,no-resolve
 IP-CIDR,117.71.105.23/32,REJECT,no-resolve
 IP-CIDR,218.94.207.205/32,REJECT,no-resolve
 IP-CIDR,117.92.229.188/32,REJECT,no-resolve
 IP-CIDR,101.36.166.16/32,REJECT,no-resolve
 IP-CIDR,180.96.2.114/32,REJECT,no-resolve
-[URL Rewrite]
-^https?://.+.pangolin-sdk-toutiao.com/api/ad/union/sdk/(get_ads|stats|settings)/ - reject
-^https?://.+.pglstatp-toutiao.com/.+/toutiao.mp4 - reject
-^https?://.+.(pglstatp-toutiao|pstatp).com/(obj|img)/(ad-app-package|ad)/.+ - reject
-^https?://.+.(pglstatp-toutiao|pstatp).com/(obj|img)/web.business.image/.+ - reject
-^https?://.+.(pglstatp-toutiao|pstatp).com/obj/ad-pattern/renderer - reject
-^https?://gurd.snssdk.com/src/server/v3/package - reject
-^https?://.+.byteimg.com/tos-cn-i-1yzifmftcy/(.+)-jpeg.jpeg - reject
-^https?://.+.pstatp.com/obj/mosaic-legacy/.+?from=ad - reject
-^https?://.+.pstatp.com/bytecom/resource/track-log/src/.+ - reject
-^https?://.+.snssdk.com/video/play/1/toutiao/.+/mp4 - reject
-^https?://.+.snssdk.com/api/ad/.+ - reject
-^http://.+.byteimg.com/ad-app-package - reject
-^http://.+.byteimg.com/web.business.image - reject
-^https?://.+?.snssdk.com/motor/operation/activity/display/config/V2/ - reject
-^https?://.+.(pglstatp-toutiao|pstatp).com/(ad-app-package|ad)/.+ - reject
-^https?://adim.pinduoduo.com/.+/toutiao?.+ - reject
-^https?://v(\d)+-novelapp.fqnovelvod.com/.+/video/.+ - reject
-[Mitm]
-hostname = %APPEND%,.pangolin-sdk-toutiao,.pstatp.com,.pglstatp-toutiao.com,gurd.snssdk.com,*default.ixigua.com,adim.pinduoduo.com,v6-novelapp.fanovelvod.com
+DOMAIN-SUFFIX,hongguoapp.com,REJECT
+DOMAIN-SUFFIX,hongguosdk.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-KEYWORD,ad-union-sdk,REJECT
+DOMAIN-KEYWORD,be-pack,REJECT
+DOMAIN-KEYWORD,hongguo.ad,REJECT
+DOMAIN-SUFFIX,ad.pangle.cn,REJECT
+DOMAIN-SUFFIX,ad.pangolin.cn,REJECT
+DOMAIN-KEYWORD,tnc.snssdk,REJECT
+DOMAIN-SUFFIX,hongguo.com,DIRECT
+DOMAIN-SUFFIX,hongguo.douyin.com,DIRECT
+DOMAIN-SUFFIX,pstatp.com,DIRECT
+DOMAIN,zlink.ugsdk.cn,REJECT
+DOMAIN,mon.toutiaocloud.net,REJECT
+DOMAIN,lf-normal-gr-sourcecdn.bytegecko.com,REJECT
+DOMAIN,lf-webcast-gr-sourcecdn.bytegecko.com,REJECT
+DOMAIN,p3-developer.bytemaimg.com,REJECT
+DOMAIN,webcast-open.douyin.com,REJECT
+DOMAIN,p11-webcast-sign.douyinpic.com,REJECT
+DOMAIN,p3-webcast-sign.douyinpic.com,REJECT
+DOMAIN,log3-applog.fqnovel.com,REJECT
+DOMAIN,log5-applog.fqnovel.com,REJECT
+DOMAIN,mon11-misc-lq.fqnovel.com,REJECT
+DOMAIN,mon11-misc.fqnovel.com,REJECT
+DOMAIN,mon3-misc.fqnovel.com,REJECT
+DOMAIN,rtlog3-applog.fqnovel.com,REJECT
+DOMAIN,rtlog5-applog.fqnovel.com,REJECT
+DOMAIN,effect.snssdk.com,REJECT
+DOMAIN,is-lq.snssdk.com,REJECT
+DOMAIN,security.snssdk.com,REJECT
+DOMAIN,mon.toutiaocloud.com,REJECT
+DOMAIN,abtest3-misc.zijieapi.com,REJECT
+DOMAIN,ads3-normal.zijieapi.com,REJECT
+DOMAIN,ads5-normal.zijieapi.com,REJECT
+DOMAIN,feedback-c.zijieapi.com,REJECT
+DOMAIN,minigame3-normal.zijieapi.com,REJECT
+DOMAIN,minigame5-normal.zijieapi.com,REJECT
+DOMAIN,timon.zijieapi.com,REJECT
+DOMAIN,vas.snssdk.com,REJECT
+DOMAIN,gecko3.zijieapi.com,REJECT
+DOMAIN,gecko5.zijieapi.com,REJECT
+DOMAIN,ma.zijieapi.com,REJECT
+DOMAIN,mssdk.zijieapi.com,REJECT
+DOMAIN,vcs.zijieapi.com,REJECT
+
+# ========== 主业务直连兜底（v1.3 起保留，防主配置误杀） ==========
+DOMAIN-SUFFIX,fqnovel.com,DIRECT
+DOMAIN-SUFFIX,snssdk.com,DIRECT
+#DOMAIN-SUFFIX,zijieapi.com,DIRECT
+DOMAIN-SUFFIX,ixigua.com,DIRECT
+
+[MITM]
+# 已修复原版写法：去掉 %APPEND% 后的多余逗号，并补全 *.snssdk.com / *.byteimg.com / *.fqnovelvod.com，
+# 否则原版的 /api/ad/、motor、byteimg 广告路径等 HTTPS 规则根本触发不了
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.snssdk.com, *.byteimg.com, *.ixigua.com, *.fqnovelvod.com, gurd.snssdk.com
