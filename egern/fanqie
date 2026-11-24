@@ -94,6 +94,7 @@ URL-REGEX,^https?://ad\.zijieapi\.com/api/ad/v2/ack/splash,REJECT
 URL-REGEX,^https?://ad\.zijieapi\.com/api/ad/union/sdk/get_ads,REJECT
 URL-REGEX,^https?://ad\.zijieapi\.com/api/incentive/,REJECT
 URL-REGEX,^https?://ib\.snssdk\.com/api/ad/,REJECT
+URL-REGEX,^https?:\/\/.+\.zijieapi\.com\/get_domains\/,reject
 
 # ── 3. 番茄商业化接口（精确路径，不碰正文）──────────────────
 URL-REGEX,^https?://reading\.snssdk\.com/reading/commerceapi/ad/,REJECT
@@ -121,4 +122,4 @@ URL-REGEX,^https?:\/\/v\d+-novelapp\.fqnovelvod\.com\/.+\/video\/.+,REJECT
 URL-REGEX,^https?://[^/]*fqnovelpic\.com/obj/(tomato|novel-ad|ad)/,REJECT
 
 [MITM]
-hostname = %APPEND% ad.zijieapi.com, reading.snssdk.com, ib.snssdk.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.byteimg.com, *.ixigua.com, *.fqnovelvod.com, gurd.snssdk.com
+hostname = %APPEND% ad.zijieapi.com, reading.snssdk.com, ib.snssdk.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.byteimg.com, *.ixigua.com, gurd.snssdk.com, *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao.*, *.pstatp.com, *.pstatp.com.*, *.pglstatp-toutiao.com.*, *.pglstatp-toutiao.com, gurd.snssdk.com, gurd.snssdk.com.*, *default.ixigua.com, lf?-cdn-tos.bytescm.com, lf?-analytics.bytescm.com
