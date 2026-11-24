@@ -8,10 +8,85 @@ skip-proxy = %APPEND% 127.0.0.1
 
 [Rule]
 # ── 1. 纯广告联盟域名 ─────────────────────────────────────
-DOMAIN-SUFFIX,pglstatp.com,REJECT
-DOMAIN-SUFFIX,pangle.io,REJECT
-DOMAIN-SUFFIX,oceanengine.com,REJECT
-DOMAIN-SUFFIX,toutiaoapi.com,REJECT
+DOMAIN-SUFFIX, activity-ag.awemeughun.com, REJECT
+DOMAIN-SUFFIX, ad.toutiao.com, REJECT
+DOMAIN-SUFFIX, ads3-normal-hl.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads3-normal-lf.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads3-normal-lq.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads5-normal-hl.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads5-normal-lf.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads5-normal-lq.zijieapi.com, REJECT
+DOMAIN-SUFFIX, ads-vp5.xhscdn.com, REJECT
+DOMAIN-SUFFIX, aeventlog.beacon.qq.com, REJECT
+DOMAIN-SUFFIX, apd-pcdnwxlogin.teg.tencent-cloud.net, REJECT
+DOMAIN-SUFFIX, api.iegadp.qq.com, REJECT
+DOMAIN-SUFFIX, api-access.pangolin-sdk-toutiao.com, REJECT
+DOMAIN-SUFFIX, api-access.pangolin-sdk-toutiao1.com, REJECT
+DOMAIN-SUFFIX, apm-native.xiaohongshu.com, REJECT
+DOMAIN-SUFFIX, cnlogs.umeng.com, REJECT
+DOMAIN-SUFFIX, comfylink.com, REJECT
+DOMAIN-SUFFIX, dig.bdurl.net, REJECT
+DOMAIN-SUFFIX, dns.alidns.com, REJECT
+DOMAIN-SUFFIX, doh.pub, REJECT
+DOMAIN-SUFFIX, errnewlog.umeng.com, REJECT
+DOMAIN-SUFFIX, jomoxc.com, REJECT
+DOMAIN-SUFFIX, l2-toutiao-quic-ipv6-ml.gslb.ksyuncdn.com, REJECT
+DOMAIN-SUFFIX, lng.xiaohongshu.com, REJECT
+DOMAIN-SUFFIX, log3-applog-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, log5-applog-hl.fqnovel.com, REJECT
+DOMAIN-SUFFIX, log5-applog-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, log-api.pangolin-sdk-toutiao.com, REJECT
+DOMAIN-SUFFIX, minigame3-normal-hl.zijieapi.com, REJECT
+DOMAIN-SUFFIX, minigame3-normal-lf.zijieapi.com, REJECT
+DOMAIN-SUFFIX, minigame3-normal-lq.zijieapi.com, REJECT
+DOMAIN-SUFFIX, minigame5-normal-hl.zijieapi.com, REJECT
+DOMAIN-SUFFIX, minigame5-normal-lf.zijieapi.com, REJECT
+DOMAIN-SUFFIX, minigame5-normal-lq.zijieapi.com, REJECT
+DOMAIN-SUFFIX, mon11-misc-hl.fqnovel.com, REJECT
+DOMAIN-SUFFIX, mon11-misc-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, mon3-misc-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, msync-im1-vip6-std.easemob.com, REJECT
+DOMAIN-SUFFIX, ndcpp.com, REJECT
+DOMAIN-SUFFIX, oceanengine.com,REJECT
+DOMAIN-SUFFIX, ossnt-errlog.umeng.com, REJECT
+DOMAIN-SUFFIX, p3-ad-sign.byteimg.com, REJECT
+DOMAIN-SUFFIX, p6-ad-sign.byteimg.com, REJECT
+DOMAIN-SUFFIX, p9-ad-sign.byteimg.com, REJECT
+DOMAIN-SUFFIX, pangle.io, REJECT
+DOMAIN-SUFFIX, pangle.io,REJECT
+DOMAIN-SUFFIX, pangolin-sdk-toutiao.com, REJECT
+DOMAIN-SUFFIX, pglstatp.com,REJECT
+DOMAIN-SUFFIX, pglstatp-toutiao.com, REJECT
+DOMAIN-SUFFIX, praisewindow.ugsdk.cn, REJECT
+DOMAIN-SUFFIX, qrstuvwxyzab.com, REJECT
+DOMAIN-SUFFIX, rtlog3-applog-hl.fqnovel.com, REJECT
+DOMAIN-SUFFIX, rtlog3-applog-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, rtlog5-applog-hl.fqnovel.com, REJECT
+DOMAIN-SUFFIX, rtlog5-applog-lf.fqnovel.com, REJECT
+DOMAIN-SUFFIX, sf3-ttcdn-tos.pstatp.com, REJECT
+DOMAIN-SUFFIX, spider-tracker.xiaohongshu.com, REJECT
+DOMAIN-SUFFIX, tnc0-aliec2.zijieapi.com, REJECT
+DOMAIN-SUFFIX, tnc0-alisc1.zijieapi.com, REJECT
+DOMAIN-SUFFIX, tnc3-aliec2.zijieapi.com, REJECT
+DOMAIN-SUFFIX, tnc3-alisc1.zijieapi.com, REJECT
+DOMAIN-SUFFIX, toutiaoapi.com,REJECT
+DOMAIN-SUFFIX, tracker.xiaomixiaoai.com, REJECT
+DOMAIN-SUFFIX, ulogs.umeng.com, REJECT
+DOMAIN-SUFFIX, v11-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v13-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v26-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v5-bd-daily-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v5-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v5-se-sjy-daily-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v6-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v96-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, v9-reading-ad.qznovelvod.com, REJECT
+DOMAIN-SUFFIX, webcast5-open-hl.douyin.com, REJECT
+DOMAIN-SUFFIX, webcast5-open-hl.douyin.com.c.dsa.cdnbuild.net, REJECT
+DOMAIN-SUFFIX, wmzfylgdsz.com, REJECT
+DOMAIN-SUFFIX, wuchuyun.com, REJECT
+DOMAIN-SUFFIX, xinqiucc.com, REJECT
+DOMAIN-SUFFIX, ydycdn.com, REJECT
 
 # ── 2. 穿山甲广告接口 ─────────────────────────────────────
 URL-REGEX,^https?://ad\.zijieapi\.com/api/ad/v1/(banner|patch|inspire|inspire_preload|inspire_send|aggregate|recall_ads|byte_union|live_cmm),REJECT
