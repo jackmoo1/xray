@@ -25,7 +25,7 @@ DOMAIN-SUFFIX, api-access.pangolin-sdk-toutiao1.com, REJECT
 DOMAIN-SUFFIX, apm-native.xiaohongshu.com, REJECT
 DOMAIN-SUFFIX, cnlogs.umeng.com, REJECT
 DOMAIN-SUFFIX, comfylink.com, REJECT
-#DOMAIN-SUFFIX, dig.bdurl.net, REJECT
+DOMAIN-SUFFIX, dig.bdurl.net, REJECT
 DOMAIN-SUFFIX, dns.alidns.com, REJECT
 DOMAIN-SUFFIX, doh.pub, REJECT
 DOMAIN-SUFFIX, errnewlog.umeng.com, REJECT
@@ -47,7 +47,6 @@ DOMAIN-SUFFIX, mon11-misc-lf.fqnovel.com, REJECT
 DOMAIN-SUFFIX, mon3-misc-lf.fqnovel.com, REJECT
 DOMAIN-SUFFIX, msync-im1-vip6-std.easemob.com, REJECT
 DOMAIN-SUFFIX, ndcpp.com, REJECT
-DOMAIN-SUFFIX, oceanengine.com,REJECT
 DOMAIN-SUFFIX, ossnt-errlog.umeng.com, REJECT
 DOMAIN-SUFFIX, p3-ad-sign.byteimg.com, REJECT
 DOMAIN-SUFFIX, p6-ad-sign.byteimg.com, REJECT
@@ -104,9 +103,22 @@ URL-REGEX,^https?://reading\.snssdk\.com/reading/reader/banner/mget,REJECT
 URL-REGEX,^https?://reading\.snssdk\.com/reading/reader/recommend/(item|book|lost_item),REJECT
 URL-REGEX,^https?://reading\.snssdk\.com/reading/reader/book/lastpage/recommend,REJECT
 URL-REGEX,^https?://reading\.snssdk\.com/reading/reader/bonus/,REJECT
+URL-REGEX,^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer,REJECT
+URL-REGEX,^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package,REJECT
+URL-REGEX,^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track-log\/src\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/ad-app-package,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/web\.business\.image,REJECT
+URL-REGEX,^https?:\/\/.+?\.snssdk\.com\/motor\/operation\/activity\/display\/config\/V2\/,REJECT
+URL-REGEX,^https?:\/\/v\d+-novelapp\.fqnovelvod\.com\/.+\/video\/.+,REJECT
 
 # ── 4. 广告物料 CDN ───────────────────────────────────────
 URL-REGEX,^https?://[^/]*fqnovelpic\.com/obj/(tomato|novel-ad|ad)/,REJECT
 
 [MITM]
-hostname = %APPEND% ad.zijieapi.com, reading.snssdk.com, ib.snssdk.com
+hostname = %APPEND% ad.zijieapi.com, reading.snssdk.com, ib.snssdk.com, *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.byteimg.com, *.ixigua.com, *.fqnovelvod.com, gurd.snssdk.com
