@@ -68,7 +68,7 @@ DOMAIN-SUFFIX, tnc0-aliec2.zijieapi.com, REJECT
 DOMAIN-SUFFIX, tnc0-alisc1.zijieapi.com, REJECT
 DOMAIN-SUFFIX, tnc3-aliec2.zijieapi.com, REJECT
 DOMAIN-SUFFIX, tnc3-alisc1.zijieapi.com, REJECT
-DOMAIN-SUFFIX, toutiaoapi.com,REJECT
+#DOMAIN-SUFFIX, toutiaoapi.com,REJECT
 DOMAIN-SUFFIX, tracker.xiaomixiaoai.com, REJECT
 DOMAIN-SUFFIX, ulogs.umeng.com, REJECT
 DOMAIN-SUFFIX, v11-reading-ad.qznovelvod.com, REJECT
