@@ -25,7 +25,7 @@ DOMAIN-SUFFIX, api-access.pangolin-sdk-toutiao1.com, REJECT
 DOMAIN-SUFFIX, apm-native.xiaohongshu.com, REJECT
 DOMAIN-SUFFIX, cnlogs.umeng.com, REJECT
 DOMAIN-SUFFIX, comfylink.com, REJECT
-DOMAIN-SUFFIX, dig.bdurl.net, REJECT
+#DOMAIN-SUFFIX, dig.bdurl.net, REJECT
 DOMAIN-SUFFIX, dns.alidns.com, REJECT
 DOMAIN-SUFFIX, doh.pub, REJECT
 DOMAIN-SUFFIX, errnewlog.umeng.com, REJECT
@@ -110,4 +110,3 @@ URL-REGEX,^https?://[^/]*fqnovelpic\.com/obj/(tomato|novel-ad|ad)/,REJECT
 
 [MITM]
 hostname = %APPEND% ad.zijieapi.com, reading.snssdk.com, ib.snssdk.com
-skip-server-cert-verify = true
