@@ -1,0 +1,110 @@
+#!name=番茄小说 & 红果短剧 去广告
+#!desc=v1.6.2：在 v1.6.1 基础上修复漫剧视频加载失败——MITM 名单删掉 *.fqnovelvod.com 与 *.ixigua.com；v1.6.1 删掉的三条规则拦不到 v*-reading-video.fqnovelvod.com 这个正片域名，真正卡住它的是 MITM 解密触发证书绑定失败，导致 App 一秒重试几百次。视频广告仍由 reading-ad 关键词规则在域名层单独拦截。
+#!category=广告拦截
+#!author=Muse（规则集来源：budongshi-bds）
+#!version=1.6.2
+#!date=2026-11-27
+
+[Rule]
+# ========== v1.6 新增：视频广告专属通道（实测定位，与正片域名分开） ==========
+# 广告视频走 v*-reading-ad.qznovelvod.com，正片走 v*-reading-video.qznovelvod.com，拦此不伤正片
+DOMAIN-KEYWORD,reading-ad,REJECT
+
+# ========== URL 路径规则（需 MITM 解密对应域名才对 HTTPS 生效） ==========
+URL-REGEX,^https?:\/\/.+\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/(get_ads|stats|settings)\/,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/(ad-app-package|ad)\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/(obj|img)\/web\.business\.image\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.(pglstatp-toutiao|pstatp)\.com\/obj\/ad-pattern\/renderer,REJECT
+URL-REGEX,^https?:\/\/gurd\.snssdk\.com\/src\/server\/v3\/package,REJECT
+URL-REGEX,^https?:\/\/.+\.byteimg.com/tos-cn-i-1yzifmftcy\/(.+)-jpeg\.jpeg,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/obj\/mosaic-legacy\/.+\?from\=ad,REJECT
+URL-REGEX,^https?:\/\/.+\.pstatp\.com\/bytecom\/resource\/track-log\/src\/.+,REJECT
+URL-REGEX,^https?:\/\/.+\.snssdk\.com\/api\/ad\/.+,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/ad-app-package,REJECT
+URL-REGEX,^http:\/\/.+\.byteimg\.com\/web\.business\.image,REJECT
+URL-REGEX,^https?:\/\/.+?\.snssdk\.com\/motor\/operation\/activity\/display\/config\/V2\/,REJECT
+# v1.6.1：删除下方的 /video/ 路径拦截（漫剧正片也走 /video/ 路径，会被误杀；广告视频由 reading-ad 关键词规则拦）
+
+# ========== 主业务直连兜底（v1.3 起保留，防主配置误杀） ==========
+DOMAIN-SUFFIX,fqnovel.com,DIRECT
+DOMAIN-SUFFIX,snssdk.com,DIRECT
+DOMAIN-SUFFIX,zijieapi.com,DIRECT
+DOMAIN-SUFFIX,ixigua.com,DIRECT
+
+# ========== 域名规则（原版顺序） ==========
+DOMAIN,rmc.bytedance.com,DIRECT
+DOMAIN,p6-ad-sign.byteimg.com,REJECT
+DOMAIN,p9-ad-sign.byteimg.com,REJECT
+DOMAIN-SUFFIX,byteimg.com,DIRECT
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,dig.bdurl.net,REJECT
+DOMAIN,activity-ag.awemeughun.com,REJECT
+DOMAIN,mcs.snssdk.com,REJECT
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT
+DOMAIN,security-lq.snssdk.com,REJECT
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+DOMAIN,is.snssdk.com,REJECT
+DOMAIN,v6-novelapp.ixigua.com,REJECT
+DOMAIN-WILDCARD,*default.ixigua.com,REJECT
+DOMAIN,msync-im1-vip6-std.easemob.com,REJECT
+DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,REJECT
+DOMAIN,api.iegadp.qq.com,REJECT
+DOMAIN,sf3-ttcdn-tos.pstatp.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,byteorge.com,REJECT
+DOMAIN-SUFFIX,bytegoofy.com,REJECT
+IP-CIDR,49.71.37.101/32,REJECT,no-resolve
+IP-CIDR,117.71.105.23/32,REJECT,no-resolve
+IP-CIDR,218.94.207.205/32,REJECT,no-resolve
+IP-CIDR,117.92.229.188/32,REJECT,no-resolve
+IP-CIDR,101.36.166.16/32,REJECT,no-resolve
+IP-CIDR,180.96.2.114/32,REJECT,no-resolve
+DOMAIN-SUFFIX,hongguoapp.com,REJECT
+DOMAIN-SUFFIX,hongguosdk.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-KEYWORD,ad-union-sdk,REJECT
+DOMAIN-KEYWORD,be-pack,REJECT
+DOMAIN-KEYWORD,hongguo.ad,REJECT
+DOMAIN-SUFFIX,ad.pangle.cn,REJECT
+DOMAIN-SUFFIX,ad.pangolin.cn,REJECT
+DOMAIN-KEYWORD,tnc.snssdk,REJECT
+DOMAIN-SUFFIX,hongguo.com,DIRECT
+DOMAIN-SUFFIX,hongguo.douyin.com,DIRECT
+DOMAIN-SUFFIX,pstatp.com,DIRECT
+DOMAIN,zlink.ugsdk.cn,REJECT
+DOMAIN,mon.toutiaocloud.net,REJECT
+DOMAIN,lf-normal-gr-sourcecdn.bytegecko.com,REJECT
+DOMAIN,lf-webcast-gr-sourcecdn.bytegecko.com,REJECT
+DOMAIN,p3-developer.bytemaimg.com,REJECT
+DOMAIN,webcast-open.douyin.com,REJECT
+DOMAIN,p11-webcast-sign.douyinpic.com,REJECT
+DOMAIN,p3-webcast-sign.douyinpic.com,REJECT
+DOMAIN,log3-applog.fqnovel.com,REJECT
+DOMAIN,log5-applog.fqnovel.com,REJECT
+DOMAIN,mon11-misc-lq.fqnovel.com,REJECT
+DOMAIN,mon11-misc.fqnovel.com,REJECT
+DOMAIN,mon3-misc.fqnovel.com,REJECT
+DOMAIN,rtlog3-applog.fqnovel.com,REJECT
+DOMAIN,rtlog5-applog.fqnovel.com,REJECT
+DOMAIN,effect.snssdk.com,REJECT
+DOMAIN,is-lq.snssdk.com,REJECT
+DOMAIN,security.snssdk.com,REJECT
+DOMAIN,mon.toutiaocloud.com,REJECT
+DOMAIN,abtest3-misc.zijieapi.com,REJECT
+DOMAIN,ads3-normal.zijieapi.com,REJECT
+DOMAIN,ads5-normal.zijieapi.com,REJECT
+DOMAIN,feedback-c.zijieapi.com,REJECT
+DOMAIN,minigame3-normal.zijieapi.com,REJECT
+DOMAIN,minigame5-normal.zijieapi.com,REJECT
+DOMAIN,timon.zijieapi.com,REJECT
+DOMAIN,vas.snssdk.com,REJECT
+DOMAIN,gecko3.zijieapi.com,REJECT
+DOMAIN,gecko5.zijieapi.com,REJECT
+DOMAIN,ma.zijieapi.com,REJECT
+DOMAIN,mssdk.zijieapi.com,REJECT
+DOMAIN,vcs.zijieapi.com,REJECT
+[MITM]
+# v1.6.2：MITM 名单删掉 *.fqnovelvod.com 与 *.ixigua.com——v1.6.1 已删 /video/ 路径规则，不再需要解密视频域名；且 MITM 视频 CDN 会触发证书绑定失败，导致漫剧视频请求失败、App 疯狂重试
+# 其余广告路径规则（/api/ad/、motor、byteimg 素材等）仍需 MITM 对应域名，不受影响
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pstatp.com, *.pglstatp-toutiao.com, *.snssdk.com, *.byteimg.com, gurd.snssdk.com
