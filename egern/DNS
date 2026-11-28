@@ -116,7 +116,6 @@ dwz.cn = server:quic://dns.alidns.com
 *.bdxiguaimg.com = server:180.184.1.1 
 *.bdxiguastatic.com = server:180.184.1.1
 *.byted-static.com = server:180.184.1.1 
-*.bytedance.* = server:180.184.1.1 
 *.bytedns.net = server:180.184.1.1
 *.bytednsdoc.com = server:180.184.1.1 
 *.bytegoofy.com = server:180.184.1.1 
